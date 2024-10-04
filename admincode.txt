@@ -1,0 +1,29 @@
+new fields
+display_order
+template 
+
+C:\xampp\htdocs\newscms\backend\views\node-queue\_form.php
+<?= $form->field($model, 'display_order')->textInput() ?>
+<?= $form->field($model, 'template')->dropDownList(['premium' => 'Premium-Right', 'pic' => 'News In Pic -Right','video'=>'News In Video -Right'],['prompt'=>'Select Template']); ?>
+
+C:\xampp\htdocs\newscms\backend\models\NodeQueue.php
+[['display_order'], 'integer'],
+[['template'], 'string', 'max' => 255],
+
+C:\xampp\htdocs\newscms\backend\views\node-queue\index.php
+        [
+
+            'class' => '\kartik\grid\DataColumn',
+
+            'attribute' => 'display_order',
+
+        ],
+        [
+
+            'class' => '\kartik\grid\DataColumn',
+
+            'attribute' => 'template',
+
+        ],
+
+C:\xampp\htdocs\newscms\backend\views\node-queue\view.php
