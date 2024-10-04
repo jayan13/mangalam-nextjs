@@ -1,13 +1,18 @@
 import db from '../lib/db';
 import HomeList from './components/HomeList';
-
+import InfiniteScroll from './components/InfiniteScroll';
 export default async function HomePage() {
   // Fetch initial posts on the server
   const initialPosts = await getInitialPosts();
 
   return   <div className="home-news-container">
     <div className="home-news-section">
-  <HomeList initialPosts={initialPosts} />
+      <div className="home-news-section-left">
+        <HomeList initialPosts={initialPosts} />
+      </div>
+      
+        <InfiniteScroll />
+      
   </div>
   </div>;
 }
@@ -31,17 +36,6 @@ async function getInitialPosts() {
   //const posts=data;
   //console.log(data);
   return JSON.parse(JSON.stringify(data));
-} 
-/*
-// pages/index.js
-import InfiniteScroll from './components/InfiniteScroll';
-
-export default function Home() {
-  return (
-    <div>
-      <h1>Next.js Infinite Scrolling</h1>
-      <InfiniteScroll />
-    </div>
-  );
 }
-*/
+ 
+
