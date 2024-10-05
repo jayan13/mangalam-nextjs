@@ -14,28 +14,25 @@ function Newimgs(props) {
 }
 function Newsright(props) {
   const post= props.news;
-  const template='';
+  const template=post[0].template;
   let imgmark='';
   let topclass='news-in-pics';
-  let hed='BUSINESS';
+  let hed=post[0].heading;
   let hedcolr='section-heading-blue';
-  if (template=='MANGALAM PREMIUM')
+  if (template=='premium')
   {
     imgmark=<div className="premium-tag">PREMIUM</div>;    
-    topclass='mangalam-special';
-    hed='MANGALAM PREMIUM';
+    topclass='mangalam-special';   
     hedcolr='section-heading-red';
   }
-  if (template=='news-in-pics')
+  if (template=='pic')
     {
-      imgmark=<div className="pic-tag">5</div>;   
-      hed='NEWS IN PICS';
+      imgmark=<div className="pic-tag">5</div>;
       hedcolr='section-heading-red';
     }
-  if (template=='videos')
+  if (template=='video')
     {
-       imgmark=<div className="video-tag">Play</div>;  
-       hed='NEWS IN VIDEOS';
+       imgmark=<div className="video-tag">Play</div>; 
        hedcolr='section-heading-red';
     }
   return (
@@ -158,7 +155,7 @@ export default function InfiniteScroll(){
         </div>
       ))}
       <div id="end-of-list-right">
-        {hasMore ? <p>Loading more...</p> : <p>No more posts to load</p>}
+        {hasMore ? <p>Loading more...</p> : <p></p>}
       </div>
     </div>
   );
