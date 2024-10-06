@@ -1,5 +1,5 @@
 npm install --save mysql2
-npm install --save swiper
+
 npm install react-slick slick-carousel
 npm i --save-dev @types/react-slick
 
