@@ -876,50 +876,50 @@ overflow:hidden ;
                }
               }
 
-     :root { 
-      --black: #020202;
-      --border-gray: #bababa;
-      --boston-blue: #3d88ae;
-      --log-cabin: #212121;
-      --mangalamalto: #dbdbdb;
-      --mangalamblack: #000000;
-      --mangalamblack-90: #000000e6;
-      --mangalamboulder: #757575;
-      --mangalamcerulean: #0072bc;
-      --mangalamdaintree: #011e29;
-      --mangalamdusty-gray: #999999;
-      --mangalamgallery: #eeeeee;
-      --mangalammercury: #e5e5e5;
-      --mangalammine-shaft: #2f2f2f;
-      --mangalamnero: #ffffff;
-      --mangalampickled-bluewood: #304759;
-      --mangalampomegranate: #ee4228;
-      --mangalamsilver: #c2c2c2;
-      --mangalamsilver-sand: #bbbdbf;
-      --mangalamtundora: #424242;
-      --mangalamwild-sand: #f6f6f6;
-      --mangalamyellow: #f0fdff;
-      --sonic-silver: #777777;
-      --wwwtheguardiancomcod-gray: #121212;
-     
-      --font-size-l: 16px;
-      --font-size-m: 14px;
-      --font-size-s: 13px;
-      --font-size-xl: 18px;
-      --font-size-xs: 11px;
-      --font-size-xxl: 20px;
-      --font-size-xxxl: 23px;
-    
-      --font-line-height-l:120%;
-    
-      --font-weight-n:400;
-      --font-weight-sb: 500;
-      --font-weight-b: 700;
-     
-      --inter: "Inter", Helvetica;
-      --lato: "Lato", Helvetica;
-      --malayalam: "Noto Sans Malayalam", Helvetica;
-    }
+              :root { 
+                --black: #020202;
+                --border-gray: #bababa;
+                --boston-blue: #3d88ae;
+                --log-cabin: #212121;
+                --mangalamalto: #dbdbdb;
+                --mangalamblack: #000000;
+                --mangalamblack-90: #000000e6;
+                --mangalamboulder: #757575;
+                --mangalamcerulean: #0072bc;
+                --mangalamdaintree: #011e29;
+                --mangalamdusty-gray: #999999;
+                --mangalamgallery: #eeeeee;
+                --mangalammercury: #e5e5e5;
+                --mangalammine-shaft: #2f2f2f;
+                --mangalamnero: #ffffff;
+                --mangalampickled-bluewood: #304759;
+                --mangalampomegranate: #ee4228;
+                --mangalamsilver: #c2c2c2;
+                --mangalamsilver-sand: #bbbdbf;
+                --mangalamtundora: #424242;
+                --mangalamwild-sand: #f6f6f6;
+                --mangalamyellow: #f0fdff;
+                --sonic-silver: #777777;
+                --wwwtheguardiancomcod-gray: #121212;
+               
+                --font-size-l: 16px;
+                --font-size-m: 14px;
+                --font-size-s: 13px;
+                --font-size-xl: 18px;
+                --font-size-xs: 11px;
+                --font-size-xxl: 20px;
+                --font-size-xxxl: 30px;
+              
+                --font-line-height-l:120%;
+                --font-line-height-xl: 150%;
+              
+                --font-weight-n:400;
+                --font-weight-sb: 500;
+                --font-weight-b: 700;
+               
+                --english:'Segoe UI',Tahoma,Arial,sans-serif;
+                --malayalam: "Noto Sans Malayalam", Helvetica;
+              }
 
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 /*@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"); */

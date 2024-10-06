@@ -146,7 +146,7 @@ export default function InfiniteScroll(){
   return (
     <div className="home-news-section-right">
       {posts.map((post, index) => (
-      <div key={index}>
+      <div key={index} className='rght-block'>
         <div className="advertisement no-margin">
           <div className="advertisement-text">Advertisement</div>
           <div className="ad"> <Image src="/img/ads/side-ad-small.jpg" alt='adds' width={300} height={250} loading="lazy" /> </div>
