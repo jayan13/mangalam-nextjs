@@ -2,6 +2,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from "next/image";
+//import Slider from "./Slider";
+import SlickSlider from "./Slickslider"
 
 function Newimg(props) {
     const newsimage= props.news;
@@ -223,14 +225,10 @@ function Homenew(props){
   if (template=='youtubeshorts')
     {
       return (
-        <div className="news-item">
-              
-                  <figure>
-                  <Newimg news={post[0]}  width='88' height='54'/>
-                  </figure>
-                  <Link href={`/news/${post[0].url}`}>
-                  <h3>  {post[0].title} </h3>
-                  </Link>
+        <div className='reel-news'>
+        
+        <SlickSlider slidedata={post} />         
+        
         </div>
       );
     }
@@ -308,12 +306,12 @@ function Homenew(props){
   return (
     <div className='home-news-section-left'>
       {posts.map((post, index) => (
-       <div key={index} >
+       <div key={index} className='mid-block'>
         <div className="section-heading section-heading-red">{post[0].heading}</div>
         <Homenew newslist={post} />
         <div className="advertisement">
-        <div className="advertisement-text">Advertisement</div>
-        <div className="ad"><Image src="/img/ads/728x90.jpeg" alt='adds' width={728} height={90} loading="lazy" /></div>
+          <div className="advertisement-text">Advertisement</div>
+          <div className="ad"><Image src="/img/ads/728x90.jpeg" alt='adds' width={728} height={90} loading="lazy" /></div>
         </div>
        </div>
       ))}

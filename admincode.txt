@@ -1,11 +1,15 @@
+npm install --save mysql2
+npm install --save swiper
+npm install react-slick slick-carousel
+npm i --save-dev @types/react-slick
+
 new fields
 display_order
 template 
 
 C:\xampp\htdocs\newscms\backend\views\node-queue\_form.php
 <?= $form->field($model, 'display_order')->textInput() ?>
-<?= $form->field($model, 'template')->dropDownList(['premium' => 'Premium-Right', 'pic' => 'News In Pic -Right','video'=>'News In Video -Right'],['prompt'=>'Select Template']); ?>
-
+<?= $form->field($model, 'template')->dropDownList(['home-top' => 'Home Top - 12','home-6' => 'Home - 6','home-7' => 'Home - 7','youtubeshorts'=>'Youtube Shorts','premium' => 'Premium-Right', 'pic' => 'News In Pic -Right','video'=>'News In Video -Right','general-right'=>'General -Right'],['prompt'=>'Select Template']); ?>
 C:\xampp\htdocs\newscms\backend\models\NodeQueue.php
 [['display_order'], 'integer'],
 [['template'], 'string', 'max' => 255],

@@ -24,7 +24,12 @@ export async function GET(req) {
                }else{
                 posts[nws]['url']=posts[nws]['id']+'-news-details'+'.html';
                }
-               posts[nws]['news_details']=SubstringWithoutBreakingWords(posts[nws]['news_details'],160);
+               if(posts[nws]['template']!='youtubeshorts'){ 
+                posts[nws]['news_details']=SubstringWithoutBreakingWords(posts[nws]['news_details'],160);
+               }else{
+                posts[nws]['news_details']=convertShortsToEmbed(posts[nws]['news_details']);
+                
+               }
            }
        }
     homenewslist[0]=posts;
@@ -55,4 +60,17 @@ function SubstringWithoutBreakingWords(str, limit) {
   }
 
   return substring;
+}
+
+function convertShortsToEmbed(url) {
+  // Check if the URL contains 'shorts'
+  if (url.includes('youtube.com/shorts/')) {
+    // Extract the video ID from the YouTube Shorts URL
+    const videoId = url.split('shorts/')[1].split('?')[0]; // Get the video ID before any query parameters
+    // Construct the embeddable URL
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    return embedUrl;
+  } else {
+    return url;
+  }
 }

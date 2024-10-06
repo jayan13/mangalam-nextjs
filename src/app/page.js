@@ -31,7 +31,11 @@ async function getInitialPosts() {
              }else{
                  data[nws]['url']=data[nws]['id']+'-news-details'+'.html';
              }
-             data[nws]['news_details']=SubstringWithoutBreakingWords(data[nws]['news_details'],160);
+             if(data[nws]['template']!='youtubeshorts'){
+              data[nws]['news_details']=SubstringWithoutBreakingWords(data[nws]['news_details'],160);
+             }else{
+              data[nws]['news_details']=convertShortsToEmbed(data[nws]['news_details']);
+             }
          }
 
      }
@@ -59,3 +63,15 @@ function SubstringWithoutBreakingWords(str, limit) {
   return substring;
 }
 
+function convertShortsToEmbed(url) {
+  // Check if the URL contains 'shorts'
+  if (url.includes('youtube.com/shorts/')) {
+    // Extract the video ID from the YouTube Shorts URL
+    const videoId = url.split('shorts/')[1].split('?')[0]; // Get the video ID before any query parameters
+    // Construct the embeddable URL
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    return embedUrl;
+  } else {
+    return url;
+  }
+}

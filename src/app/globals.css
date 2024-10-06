@@ -624,6 +624,7 @@ overflow:hidden ;
       .reel-news-container{
           margin-right: -12px;
           margin-left: -12px;
+          width: 900px;
         }
       .reel-slides { list-style:none; max-width:100%; margin:0px 0px; padding:0px 0px;}
       .reel-slides li .reel-continer{ padding:0px 12px; }
@@ -962,3 +963,4 @@ input, select{ background:var(--mangalamwild-sand); min-height: 32px; min-width:
     padding: 0.5rem;
     border-radius: 0;
 }
+
