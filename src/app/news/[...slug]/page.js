@@ -1,12 +1,12 @@
 
 import db from '../../../lib/db';
-import BackButton from '../../components/BackButton';
+import InfiniteScroll from '../../components/InfiniteScroll';
 import Image from "next/image";
 //import { Metadata } from 'next';
 import { unstable_cache } from "next/cache";
 
  export async function getDetails(news_id){
-    let [rows] = await db.query('SELECT id,title,eng_title, CONVERT(news_details USING utf8) as "news_details",meta_keywords,meta_description,author,author_photo,columnist_id FROM news where id=?',news_id);    
+    let [rows] = await db.query('SELECT news.id,news.title,news.eng_title,DATE_FORMAT(news.effective_date, "%d %b %Y, %l:%i %p") as posting_date,CONVERT(news.news_details USING utf8) as "news_details",news.meta_keywords,news.meta_description,news.author,news.author_photo,columnist.name as columnist FROM news left join columnist on columnist.id=news.columnist_id where news.id=?',news_id);    
     return rows;
 }
 
@@ -20,7 +20,7 @@ const getCachedImages = unstable_cache(async (id) => getImages(id), ['my-app-ima
 
   function Newd(props) {
     const newsdetails= props.det;
-    return ( (newsdetails.url)? <article key={'imgc'+newsdetails.id}> <Image src={'/'+newsdetails.url} key={'img'+newsdetails.id} alt={newsdetails.title} width={384} height={231}/>  <p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article> : <article key={'imgc'+newsdetails.id}><p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article>);
+    return ( (newsdetails.url)? <article key={'imgc'+newsdetails.id}> <Image src={'/'+newsdetails.url} key={'img'+newsdetails.id} alt={newsdetails.title} width={924} height={555}/>  <p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article> : <article key={'imgc'+newsdetails.id}><p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article>);
   }
 
   export async function generateMetadata({ params }) {
@@ -64,14 +64,20 @@ export default async function News({params}) {
         }
         //console.log(detarry);
     }
-    return ( (newses[0])?
-        <div class="content-area">
-            <h1>News details</h1>
-            <BackButton />
-            <h3> {newses[0].title}</h3>
-                <div key={newses[0].id}> 
-                {detarry.map((news) => <Newd det={news} />)}
-                </div>                    
-                     </div> : <div key='newsd1' class="content-area">News Details not found</div>
+    return ( 
+        <div class="home-news-container">
+          <div className='home-news-section'> 
+            <div className='singlenews-left'>                     
+              <h1>{newses[0].title}</h1> 
+                <p class="news-meta">Authored by <a href="#" title="title text">{(newses[0].author)?newses[0].author:newses[0].columnist} </a>| {newses[0].posting_date}</p>
+                  <div key={newses[0].id}> 
+                  {detarry.map((news) => <Newd det={news} />)}
+                  </div>                    
+            </div>
+            <div className='home-news-section-right'>
+            <InfiniteScroll />
+            </div> 
+          </div>
+        </div>
     );
 }

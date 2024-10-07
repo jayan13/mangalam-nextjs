@@ -15,7 +15,7 @@ export default function NavLinks() {
       <li><Link href="/category/2462-entertainment.html" className={`link ${pathname === '/category/2462-entertainment.html' ? 'active' : ''}`}>ENTERTAINMENT</Link></li>
       <li><Link href="/category/23-sports.html" className={`link ${pathname === '/category/23-sports.html' ? 'active' : ''}`}>SPORTS</Link></li>
       <li><Link href="/category/201-life-style.html" className={`link ${pathname === '/category/201-life-style.html' ? 'active' : ''}`}>LIFE</Link></li>
-      <li><Link href="/category186-health.html" className={`link ${pathname === '/category/186-health.html' ? 'active' : ''}`}>HEALTH</Link></li>
+      <li><Link href="/category/186-health.html" className={`link ${pathname === '/category/186-health.html' ? 'active' : ''}`}>HEALTH</Link></li>
       <li><Link href="/category/17-pravasi.html" className={`link ${pathname === '/category/17-pravasi.html' ? 'active' : ''}`}>PRAVASI</Link></li>
       <li><Link href="/category/98-sunday-mangalam.html" className={`link ${pathname === '/category/98-sunday-mangalam.html' ? 'active' : ''}`}>SUNDAY MANGALAM</Link></li>
       <li><Link href="/category/937-mangalam-premium.html" className={`link ${pathname === '/category/937-mangalam-premium.html' ? 'active' : ''}`}>MANGALAM PREMIUM</Link></li>
