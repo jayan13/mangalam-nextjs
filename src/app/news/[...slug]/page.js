@@ -132,9 +132,9 @@ export default async function News({params}) {
                   </div>
               </div>                     
             </div>
-            <div className='home-news-section-right'>
+            
             <InfiniteScroll />
-            </div> 
+            
           </div>
         </div>
     );
