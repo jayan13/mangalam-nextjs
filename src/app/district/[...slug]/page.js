@@ -41,7 +41,7 @@ export default async function Home({params}) {
             {catlink}
            </div>
            <div className='home-news-section' >
-                <Distnews initialPosts={initialPosts} />
+                <Distnews initialPosts={initialPosts} district_id={district_id} />
                 <InfiniteScroll />
            </div>
         </div> 

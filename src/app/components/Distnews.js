@@ -42,7 +42,7 @@ function Homenew(props){
   //}
 
 }
-  export default function Distnews({ initialPosts }) {
+  export default function Distnews({ initialPosts, district_id }) {
     const [posts, setPosts] = useState(initialPosts);  // Initial posts loaded via SSR
     const [page, setPage] = useState(2);               // Start from page 2
     const [hasMore, setHasMore] = useState(true);      // Determine if there's more data to load
@@ -59,7 +59,8 @@ function Homenew(props){
       //console.log('Fetching page:', district);  // Debugging to ensure correct page is passed
   
       try {
-        const distid=posts[0][0].district_id
+        //const distid=posts[0][0].district_id;
+        const distid=district_id;
         const res = await fetch(`/api/district?page=${page}&limit=8&district=${distid}`);  // Fetch next page
         const data = await res.json();
   
