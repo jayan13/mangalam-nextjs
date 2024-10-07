@@ -414,9 +414,9 @@ overflow:hidden ;
       text-overflow: ellipsis;
       white-space: wrap;
       font-family: var(--malayalam);
-      font-size: var(--font-size-l);
+      font-size: var(--font-size-m);
       font-style: normal;
-      font-weight: var(--font-weight-n);
+      font-weight: 500;
       line-height:var(--font-line-height-l);
     }
 
@@ -834,7 +834,7 @@ overflow:hidden ;
                       }
                     }
 
- .singlenews-left {
+ .single-news-content {
           display: flex;
           max-width: 924px;
           flex-direction: column;
@@ -845,14 +845,14 @@ overflow:hidden ;
           font-size: var(--font-size-m);
           line-height: var(--font-line-height-xl);
         }
-  .singlenews-left h1{ font-size:var(--font-size-xxxl); line-height: var(--font-line-height-l); font-family: var(--malayalam); font-weight:500;}
-  .singlenews-left h2 {
+  .single-news-content h1{ font-size:var(--font-size-xxxl); line-height: var(--font-line-height-l); font-family: var(--malayalam); font-weight:500;}
+  .single-news-content h2 {
        font-size: var(--font-size-xxl);
        line-height: var(--font-line-height-l);
        font-family: var(--malayalam);
       font-weight: 500;
      }
-    .singlenews-left h3 {
+    .single-news-content h3 {
       font-size: var(--font-size-xl);
       line-height: var(--font-line-height-l);
       font-family: var(--malayalam);
@@ -863,7 +863,7 @@ overflow:hidden ;
   .malayalam-text{ font-family: var(--malayalam)!important;}
   .highlight{ background-color:var(--mangalamyellow); padding:24px; font-size: var(--font-size-m);}
   .highlight ul{ list-style-type: disc; padding-left:20px; margin:0px 0px; }
-  .singlenews-left ol {
+  .single-news-content ol {
           list-style-type:decimal;
           padding-left: 20px;
           margin: 0px 0px;
@@ -872,10 +872,79 @@ overflow:hidden ;
 
   @media only screen and (max-width:980px) {
       
-      .singlenews-left {
+      .single-news-content {
                  flex-direction: column;
                }
               }
+
+.single-section-header{ margin-bottom:24px;}
+
+.o-inline-svg-icon {
+  stroke:var(--mangalamcerulean);
+}
+
+.o-inline-svg-icon--baseline {
+  position: relative;
+  top: 0.125em;
+  width: 1em;
+  height: 1em;
+}
+
+.c-navigation-breadcrumbs__directory {
+  display: flex;
+  list-style-type: none;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.c-navigation-breadcrumbs__link:link {
+  color:var(--mangalamcerulean);
+}
+
+.c-navigation-breadcrumbs__link:link:hover {
+  background-image: linear-gradient(#0072bc, #0072bc);
+  background-size: auto 1px;
+  background-repeat: repeat-x;
+  background-position: 0 calc(50% + 1ex);
+}
+
+@media (max-width: 500px) {
+  .c-navigation-breadcrumbs__item:not(:nth-last-child(2)) {
+    display: none;
+  }
+
+  .c-navigation-breadcrumbs__link:before {
+    display: inline-block;
+    content: "​";
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23007c89' stroke-width='2' stroke-linecap='round' stroke-linejoin='round%5C'%3E%3Cline x1='19' y1='12' x2='5' y2='12'%3E%3C/line%3E%3Cpolyline points='12 19 5 12 12 5'%3E%3C/polyline%3E%3C/svg%3E") center/16px 16px no-repeat;
+    width: 16px;
+  }
+}
+
+@media (min-width: 501px) {
+  .c-navigation-breadcrumbs__item:nth-last-child(n+2):after {
+    display: inline-block;
+    content: "​";
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23767676' stroke-width='2' stroke-linecap='round' stroke-linejoin='round%5C'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E") center/16px 16px no-repeat;
+    width: 16px;
+    margin: 0 4px;
+  }
+
+  .c-navigation-breadcrumbs__link {
+    display: block;
+    float: left;
+  }
+}
+
+.u-visually-hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
               :root { 
                 --black: #020202;

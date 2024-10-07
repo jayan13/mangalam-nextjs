@@ -1,5 +1,3 @@
-
-
 import db from '../../../lib/db';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import Image from "next/image";
