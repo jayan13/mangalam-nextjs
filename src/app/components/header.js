@@ -24,7 +24,7 @@ return <header className="main-header">
       <Weather />
     </div>
   </div>
-  <div className="mangalam-logo"><Image src="/img/mangalam-logo.svg" width={427} height={59} alt="Mangalam" /></div>
+  <div className="mangalam-logo"><Link href={`/`} alt='mangalam'><Image src="/img/mangalam-logo.svg" width={427} height={59} alt="Mangalam" /></Link></div>
 
   <div className="logo-right">
     <Link href="#" className="icon-link"><Image src="/img/newspaper.svg" width={17} height={17} alt="E-Paper" /><span>E-Paper</span></Link>
