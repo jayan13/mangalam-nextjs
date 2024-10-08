@@ -27,7 +27,7 @@ export default async function Home({params}) {
     let catlink='';
     if(dists.length){
         
-        catlink=<div class="category-sublinks">
+        catlink=<div className="category-sublinks">
             <ul>
             {dists.map((cat,index) => (
                 <li key={index}><Link href={`/district/${cat.links}.html`}>{cat.name}</Link></li>

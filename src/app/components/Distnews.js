@@ -13,8 +13,9 @@ function Newimg(props) {
 
   function Blocks(props){
     const ndata= props.ndt;
+    //const indx= props.ind;
     return (
-      <div className="news-item">
+      <div className="news-item" >
               <figure> <Newimg news={ndata} width='213' height='128'/></figure>
               <div className="news-item-text">
                 <h3>
@@ -26,20 +27,102 @@ function Newimg(props) {
     );
   }
 
+
+  function Blockstop(props){
+    const ndata= props.ndt;
+    let rcnt1='';
+    let rcnt2='';
+    let rcnt3='';
+    let rcnt4='';
+    let rcnt5='';
+    let rcnt6='';
+    let i=0;
+   // {post.map((news, index) => (
+    //  <Blockstop ndt={post} />
+    //   ))} 
+    for (let nws in Object.keys(ndata)) {
+        if(i==1)
+        {
+          rcnt1=<div className="news-item">
+            <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
+              <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+            </div>;
+        }
+        if(i==2)
+          {
+            rcnt2=<div className="news-item">
+              <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
+                <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+              </div>;
+          }
+          if(i==3)
+            {
+              rcnt3=<div className="news-item">
+                <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
+                  <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+                </div>;
+            }
+            if(i==4)
+              {
+                rcnt4=<div className="news-item">
+                  <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
+                    <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+                  </div>;
+              }
+              if(i==5)
+                {
+                  rcnt5=<div className="news-item">
+                    <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
+                      <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+                    </div>;
+                }
+                if(i==6)
+                  {
+                    rcnt6=<div className="news-item">
+                      <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
+                        <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+                      </div>;
+                  }           
+        i=i+1;
+      }
+    
+      return (
+        <div className='main-news category-main-news'>
+      <div className='category-news-left'>
+        <div className='main-one'>          
+          <div className="news-item">
+              <figure> <Newimg news={ndata[0]} width='500' height='300'/></figure>
+              <div className="news-item-text">
+                <h1>
+                    <Link href={`/news/${ndata[0].url}`}> {ndata[0].title}</Link>
+                </h1>
+                <p>{ndata[0].news_details}</p>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div className='category-news-right'> {rcnt1} {rcnt2} {rcnt3} {rcnt4}{rcnt5}{rcnt6}</div>
+      </div>
+      );
+    
+  }
+
 function Homenew(props){
   const post= props.newslist;
-  const pageno=props.pag;
-  console.log('page='+pageno);
-  //if (pageno==2)
- // {
+  const ix= props.ind;
+  if(ix==0){
+    return (
+            <Blockstop ndt={post} />
+    );
+  }else{
     return (
       <div className='category-bottom-list'>
         {post.map((news, index) => (
-            <Blocks ndt={news} ind={index}/>
+            <Blocks ndt={news} key={index} />
              ))} 
       </div>
     );
-  //}
+  }
 
 }
   export default function Distnews({ initialPosts, district_id }) {
@@ -112,7 +195,7 @@ function Homenew(props){
     <div className='home-news-section-left'>
       {posts.map((post, index) => (
        <div key={index} className='mid-block'>
-        <Homenew newslist={post} pag={page}/>
+        <Homenew newslist={post} ind={index}/>
         <div className="advertisement">
           <div className="advertisement-text">Advertisement</div>
           <div className="ad"><Image src="/img/ads/728x90.jpeg" alt='adds' width={728} height={90} loading="lazy" /></div>
