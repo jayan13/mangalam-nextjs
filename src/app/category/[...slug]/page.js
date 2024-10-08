@@ -35,8 +35,7 @@ export default async function Home({params}) {
             </ul>
             </div>;
     }
-    if(initialPosts.length)
-    {
+   
         return (
             <div className='home-news-container'>
                <div className="category-header"><h1>{rows[0].name}</h1>
@@ -48,18 +47,7 @@ export default async function Home({params}) {
                </div>
             </div>
         );
-    }else{
-        return (
-            <div className='home-news-container'>
-               <div className="category-header"><h1>{rows[0].name}</h1>
-                {catlink}
-               </div>
-               <div className='home-news-section' >
-                    
-               </div>
-            </div>
-        );
-    }
+   
     
 }
 

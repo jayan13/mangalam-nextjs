@@ -3,7 +3,6 @@ import db from '../../../lib/db';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import Image from "next/image";
 import Link from 'next/link';
-//import { Metadata } from 'next';
 import { unstable_cache } from "next/cache";
 
  export async function getDetails(news_id){
@@ -28,12 +27,16 @@ const getCachedImages = unstable_cache(async (id) => getImages(id), ['my-app-ima
     const urlid= params.slug[0];
     const news_id= urlid.split('-')[0];
     const rows =await getCachedNewsDet(news_id);
-    //const [rows] = await db.query('SELECT eng_title FROM news where id=? ',news_id);
+    //const [rows] = await db.query('SELECT COALESCE(eng_title,title) as title,meta_description FROM news where id=? ',news_id);
+    const tit=(rows[0]['eng_title']!='')? rows[0]['eng_title'] :'Mangalam-Latest Kerala News';
+    const des=(rows[0]['meta_description']!='')? rows[0].meta_description :'Mangalam-Latest Kerala News, Malayalam News,  Politics, Malayalam Cinema, Sports';
+    //console.log(news_id+'title'+tit);
     return {
-      title: rows[0].eng_title,
+      title: tit,
+      description: des
     }
   }
-
+  
 export default async function News({params}) {
     
     const urlid= params.slug[0];
@@ -71,8 +74,8 @@ export default async function News({params}) {
           let [cats] = await db.query('SELECT name,parent_id FROM category where id=?',newses[0].category_id);
           const catname=cats[0].name;
           const catlink=catname.replace(" ", "-");
-          br1=<li class="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
-                <Link class="c-navigation-breadcrumbs__link" href={`/category/${newses[0].category_id}-${catlink}.html`} property="item" typeof="WebPage">
+          br1=<li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
+                <Link className="c-navigation-breadcrumbs__link" href={`/category/${newses[0].category_id}-${catlink}.html`} property="item" typeof="WebPage">
                   <span property="name">{catname}</span>
                 </Link>
                 <meta property="position" content="2" />
@@ -83,8 +86,8 @@ export default async function News({params}) {
             let [cats2] = await db.query('SELECT name FROM category where id=?',cats[0].parent_id);
             const catname2=cats2[0].name;
             const catlink2=catname2.replace(" ", "-");
-            br2=<li class="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
-                  <Link class="c-navigation-breadcrumbs__link" href={`/category/${cats[0].parent_id}-${catlink2}.html`} property="item" typeof="WebPage">
+            br2=<li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
+                  <Link className="c-navigation-breadcrumbs__link" href={`/category/${cats[0].parent_id}-${catlink2}.html`} property="item" typeof="WebPage">
                     <span property="name">{catname2}</span>
                   </Link>
                   <meta property="position" content="3" />
@@ -93,8 +96,8 @@ export default async function News({params}) {
           
         }else if(newses[0].district_id)
         {
-          br1=<li class="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
-              <Link class="c-navigation-breadcrumbs__link" href={`/district/${newses[0].district_id}-${newses[0].district}.html`} property="item" typeof="WebPage">
+          br1=<li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
+              <Link className="c-navigation-breadcrumbs__link" href={`/district/${newses[0].district_id}-${newses[0].district}.html`} property="item" typeof="WebPage">
                 <span property="name">{newses[0].district}</span>
               </Link>
               <meta property="position" content="2" />
@@ -104,17 +107,17 @@ export default async function News({params}) {
     }
 
     return ( 
-        <div class="home-news-container">
+        <div className="home-news-container">
           <div className='home-news-section'> 
             <div className='singlenews-left'>
               <div className='single-section-header'>
 
-                      <nav class="c-navigation-breadcrumbs" aria-label="Breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
-                        <ol class="c-navigation-breadcrumbs__directory">
-                          <li class="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
-                            <Link class="c-navigation-breadcrumbs__link" href="/" property="item" typeof="WebPage">
+                      <nav className="c-navigation-breadcrumbs" aria-label="Breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
+                        <ol className="c-navigation-breadcrumbs__directory">
+                          <li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
+                            <Link className="c-navigation-breadcrumbs__link" href="/" property="item" typeof="WebPage">
                               <Image src="/img/icons/home.svg" width={20} height={20} alt="Home" />
-                              <span class="u-visually-hidden" property="name">Home</span>
+                              <span className="u-visually-hidden" property="name">Home</span>
                             </Link>
                             <meta property="position" content="1" />
                           </li>
@@ -126,9 +129,9 @@ export default async function News({params}) {
               </div>
               <div className='single-news-content'>                    
                 <h1>{newses[0].title}</h1> 
-                <p class="news-meta">Authored by <a href="#" title="title text">{(newses[0].author)?newses[0].author:newses[0].columnist} </a>| {newses[0].posting_date}</p>
+                <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].author)?newses[0].author:newses[0].columnist} </Link>| {newses[0].posting_date}</p>
                   <div key={newses[0].id}> 
-                  {detarry.map((news) => <Newd det={news} />)}
+                  {detarry.map((news,index) => <Newd det={news} key={index}  />)}
                   </div>
               </div>                     
             </div>
