@@ -30,6 +30,7 @@ function Newimg(props) {
 
   function Blockstop(props){
     const ndata= props.ndt;
+    let rcnt0='';
     let rcnt1='';
     let rcnt2='';
     let rcnt3='';
@@ -41,6 +42,18 @@ function Newimg(props) {
     //  <Blockstop ndt={post} />
     //   ))} 
     for (let nws in Object.keys(ndata)) {
+      if(i==0)
+        {
+          rcnt0=<div className="news-item">
+          <figure> <Newimg news={ndata[nws]} width='500' height='300'/></figure>
+          <div className="news-item-text">
+            <h1>
+                <Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>
+            </h1>
+            <p>{ndata[nws].news_details}</p>
+          </div>
+          </div>;
+        }
         if(i==1)
         {
           rcnt1=<div className="news-item">
@@ -90,15 +103,7 @@ function Newimg(props) {
         <div className='main-news category-main-news'>
       <div className='category-news-left'>
         <div className='main-one'>          
-          <div className="news-item">
-              <figure> <Newimg news={ndata[0]} width='500' height='300'/></figure>
-              <div className="news-item-text">
-                <h1>
-                    <Link href={`/news/${ndata[0].url}`}> {ndata[0].title}</Link>
-                </h1>
-                <p>{ndata[0].news_details}</p>
-              </div>
-          </div>
+        {rcnt0}
         </div>
       </div>
       <div className='category-news-right'> {rcnt1} {rcnt2} {rcnt3} {rcnt4}{rcnt5}{rcnt6}</div>
