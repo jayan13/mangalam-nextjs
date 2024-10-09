@@ -41,6 +41,7 @@ export default async function Home({params}) {
             <meta property="position" content="2" />
           </li>;
         }
+    }
         bred=<nav className="c-navigation-breadcrumbs" aria-label="Breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
           <ol className="c-navigation-breadcrumbs__directory">
             <li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
@@ -51,10 +52,14 @@ export default async function Home({params}) {
               <meta property="position" content="1" />
             </li>
             {br1}
+            <li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
+              <span property="name">{rows[0].name}</span>
+                <meta property="position" content="3" />
+            </li>
           </ol>
         </nav>  
         
-    }
+    
     if(cats.length){
         
         catlink=<div class="category-sublinks">

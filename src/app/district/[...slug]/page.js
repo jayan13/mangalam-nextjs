@@ -2,6 +2,7 @@ import db from '../../../lib/db';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import Distnews from '../../components/Distnews';
 import Link from 'next/link';
+import Image from "next/image";
 import { unstable_cache } from "next/cache";
 
 export async function getDist(dis_id){
@@ -25,6 +26,7 @@ export default async function Home({params}) {
     const dists=await getCachedDistricts();
     const initialPosts = await getInitialPosts(district_id);
     let catlink='';
+    let bred='';
     if(dists.length){
         
         catlink=<div className="category-sublinks">
@@ -35,8 +37,25 @@ export default async function Home({params}) {
             </ul>
             </div>;
     }
+    bred=<nav className="c-navigation-breadcrumbs" aria-label="Breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
+          <ol className="c-navigation-breadcrumbs__directory">
+            <li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
+              <Link className="c-navigation-breadcrumbs__link" href="/" property="item" typeof="WebPage">
+                <Image src="/img/icons/home.svg" width={20} height={20} alt="Home" />
+                <span className="u-visually-hidden" property="name">Home</span>
+              </Link>
+              <meta property="position" content="1" />
+            </li>
+            <li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
+              <span property="name">{rows[0].name}</span>
+                <meta property="position" content="3" />
+            </li>
+          </ol>
+        </nav>  
+
     return (
         <div className='home-news-container'>
+            {bred}
            <div className="category-header"><h1>{rows[0].name}</h1>
             {catlink}
            </div>
