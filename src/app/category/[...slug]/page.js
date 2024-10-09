@@ -3,6 +3,8 @@ import db from '../../../lib/db';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import Catnews from '../../components/Catnews';
 import Link from 'next/link';
+import Image from "next/image";
+//import SubcatLink from '../../components/SubcatLink';
 import { unstable_cache } from "next/cache";
 
 export async function getCategory(cat_id){
@@ -11,7 +13,7 @@ export async function getCategory(cat_id){
   }
 
   export async function getCategorys(cat_id){
-    let [rows] = await db.query('SELECT id,name,REPLACE(concat(id,"-",LOWER(name))," ","-") as links FROM category where status=1 and parent_id=? order by list_order',cat_id);    
+    let [rows] = await db.query('SELECT id,name,concat("/category/",id,"-",REPLACE(LOWER(name)," ","-"),".html") as links FROM category where status=1 and parent_id=? order by list_order',cat_id);    
     return rows;
   }
   
@@ -25,12 +27,40 @@ export default async function Home({params}) {
     let cats = await getCachedCategorys(category_id);
     const initialPosts = await getInitialPosts(category_id); 
     let catlink='';
+    let bred='';
+    let br1='';
+    if(rows[0].parent_id)
+    {
+        let [pcats] = await db.query('SELECT name,id,concat("/category/",id,"-",REPLACE(LOWER(name)," ","-"),".html") as links FROM category where id=?',rows[0].parent_id);
+        if(pcats.length)
+        {
+            br1=<li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
+            <Link className="c-navigation-breadcrumbs__link" href={`${pcats[0].links}`} property="item" typeof="WebPage">
+              <span property="name">{pcats[0].name}</span>
+            </Link>
+            <meta property="position" content="2" />
+          </li>;
+        }
+        bred=<nav className="c-navigation-breadcrumbs" aria-label="Breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
+          <ol className="c-navigation-breadcrumbs__directory">
+            <li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
+              <Link className="c-navigation-breadcrumbs__link" href="/" property="item" typeof="WebPage">
+                <Image src="/img/icons/home.svg" width={20} height={20} alt="Home" />
+                <span className="u-visually-hidden" property="name">Home</span>
+              </Link>
+              <meta property="position" content="1" />
+            </li>
+            {br1}
+          </ol>
+        </nav>  
+        
+    }
     if(cats.length){
         
         catlink=<div class="category-sublinks">
             <ul>
             {cats.map((cat,index) => (
-                <li key={index}><Link href={`/category/${cat.links}.html`}>{cat.name}</Link></li>
+                <li key={index}><Link href={`${cat.links}`}>{cat.name}</Link></li>
             ))}    
             </ul>
             </div>;
@@ -38,6 +68,7 @@ export default async function Home({params}) {
    
         return (
             <div className='home-news-container'>
+                {bred}
                <div className="category-header"><h1>{rows[0].name}</h1>
                 {catlink}
                </div>
