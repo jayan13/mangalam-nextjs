@@ -911,12 +911,12 @@ select {
     .main-news, .main-news-left, .main-one img{max-width: 100%;
       width: 100%;}
 
-        .main-one .news-item figure {
+        .main-one .news-item figure, .home-category-main-left .news-item figure, .home-category-main-right .news-item figure {
            max-width: 100%;
            width: 100%;
            height: auto;
          }
-    .main-one img {
+    .main-one img, .home-category-main-left .news-item figure img, .home-category-main-right .news-item figure img {
               max-width: 100%;
               width: 100%;
               height: auto;

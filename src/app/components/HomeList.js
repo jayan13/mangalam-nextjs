@@ -44,40 +44,40 @@ function Homenew(props){
         </div>
         <div className='main-news-right'>
           <div className="news-item">                
-            <figure> <Newimg news={post[3]} width='88' height='54'/></figure>
             <Link href={`/news/${post[3].url}`}> <h3>  {post[3].title} </h3> </Link>
+            <figure> <Newimg news={post[3]} width='88' height='54'/></figure>
           </div>
-          <div className="news-item">                
+          <div className="news-item">
+            <Link href={`/news/${post[4].url}`}> <h3>  {post[4].title} </h3> </Link>                            
             <figure> <Newimg news={post[4]} width='88' height='54'/></figure>
-            <Link href={`/news/${post[4].url}`}> <h3>  {post[4].title} </h3> </Link>
           </div>
-          <div className="news-item">                
+          <div className="news-item">
+            <Link href={`/news/${post[5].url}`}> <h3>  {post[5].title} </h3> </Link>                
             <figure> <Newimg news={post[5]} width='88' height='54'/></figure>
-            <Link href={`/news/${post[5].url}`}> <h3>  {post[5].title} </h3> </Link>
           </div>
-          <div className="news-item">                
+          <div className="news-item">
+            <Link href={`/news/${post[6].url}`}> <h3>  {post[6].title} </h3> </Link>                
             <figure> <Newimg news={post[6]} width='88' height='54'/></figure>
-            <Link href={`/news/${post[6].url}`}> <h3>  {post[6].title} </h3> </Link>
           </div>
-          <div className="news-item">                
+          <div className="news-item">
+            <Link href={`/news/${post[7].url}`}> <h3>  {post[7].title} </h3> </Link>                
             <figure> <Newimg news={post[7]} width='88' height='54'/></figure>
-            <Link href={`/news/${post[7].url}`}> <h3>  {post[7].title} </h3> </Link>
           </div>
-          <div className="news-item">                
+          <div className="news-item">
+            <Link href={`/news/${post[8].url}`}> <h3>  {post[8].title} </h3> </Link>                
             <figure> <Newimg news={post[8]} width='88' height='54'/></figure>
-            <Link href={`/news/${post[8].url}`}> <h3>  {post[8].title} </h3> </Link>
           </div>
-          <div className="news-item">                
+          <div className="news-item">
+            <Link href={`/news/${post[9].url}`}> <h3>  {post[9].title} </h3> </Link>                
             <figure> <Newimg news={post[9]} width='88' height='54'/></figure>
-            <Link href={`/news/${post[9].url}`}> <h3>  {post[9].title} </h3> </Link>
           </div>
-          <div className="news-item">                
+          <div className="news-item">
+            <Link href={`/news/${post[10].url}`}> <h3>  {post[10].title} </h3> </Link>                
             <figure> <Newimg news={post[10]} width='88' height='54'/></figure>
-            <Link href={`/news/${post[10].url}`}> <h3>  {post[10].title} </h3> </Link>
           </div>
-          <div className="news-item">                
+          <div className="news-item">
+            <Link href={`/news/${post[11].url}`}> <h3>  {post[11].title} </h3> </Link>                
             <figure> <Newimg news={post[11]} width='88' height='54' /></figure>
-            <Link href={`/news/${post[11].url}`}> <h3>  {post[11].title} </h3> </Link>
           </div>
         </div>
 
