@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from "next/image";
 //import Slider from "./Slider";
-import SlickSlider from "./Slickslider"
+//import SlickSlider from "./Slickslider";
+import YouTubeShortsSlider from "./YouTubeShortsSlider";
 
 function Newimg(props) {
     const newsimage= props.news;
@@ -227,7 +228,7 @@ function Homenew(props){
       return (
         <div className='reel-news'>
         
-        <SlickSlider slidedata={post} />         
+        <YouTubeShortsSlider slidedata={post} />         
         
         </div>
       );

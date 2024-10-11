@@ -12,6 +12,8 @@ export default function SlickSlider({ slidedata }) {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
+    pauseOnHover:false,
+    pauseOnFocus:false,
     responsive: [
         {
           breakpoint: 768,
@@ -38,8 +40,8 @@ export default function SlickSlider({ slidedata }) {
         {slidedata.map((url, index) => (
           <div key={index}>
             <iframe
-              width="292"
-              height="517"
+              width="330"
+              height="600"
               src={url.news_details}
               title={`YouTube video player ${url.title}`}
               frameBorder="0"
