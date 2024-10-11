@@ -1563,4 +1563,5 @@ select {
 
 .swiper {
   touch-action: pan-y;
+  z-index: 1;
 }

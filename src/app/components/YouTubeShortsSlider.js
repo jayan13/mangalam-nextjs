@@ -35,7 +35,7 @@ const YouTubeShortsSlider = ({ slidedata }) => {
         <SwiperSlide key={index}>
           <div className="video-container">
             <iframe
-              width="420"
+              width="410"
               height="720"
               src={video.news_details}
               title={video.title}

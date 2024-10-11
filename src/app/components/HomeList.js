@@ -225,6 +225,7 @@ function Homenew(props){
   //==================================================================
   if (template=='youtubeshorts')
     {
+      //const imgarrs=['/img/reel-1.webp','/img/reel-2.webp','/img/reel-3.webp','/img/reel-4.webp','/img/reel-5.webp']
       return (
         <div className='reel-news'>
         

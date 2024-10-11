@@ -7,6 +7,9 @@ new fields
 display_order
 template 
 
+width="420"
+              height="720"
+
 C:\xampp\htdocs\newscms\backend\views\node-queue\_form.php
 <?= $form->field($model, 'display_order')->textInput() ?>
 <?= $form->field($model, 'template')->dropDownList(['home-top' => 'Home Top - 12','home-6' => 'Home - 6','home-7' => 'Home - 7','youtubeshorts'=>'Youtube Shorts','premium' => 'Premium-Right', 'pic' => 'News In Pic -Right','video'=>'News In Video -Right','general-right'=>'General -Right'],['prompt'=>'Select Template']); ?>
