@@ -1591,3 +1591,15 @@ select {
     height: auto;
   }
 }
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .swiper-slide iframe {
+    width: 100% !important;
+  }
+}
