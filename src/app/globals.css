@@ -24,19 +24,19 @@
   --sonic-silver: #777777;
   --wwwtheguardiancomcod-gray: #121212;
 
-  --font-size-l: 16px;
-  --font-size-m: 14px;
+  --font-size-l: 18px;
+  --font-size-m: 15px;
   --font-size-s: 13px;
-  --font-size-xl: 18px;
+  --font-size-xl: 20px;
   --font-size-xs: 11px;
-  --font-size-xxl: 20px;
+  --font-size-xxl: 22px;
   --font-size-xxxl: 30px;
 
-  --font-line-height-l: 120%;
-  --font-line-height-xl: 150%;
+  --font-line-height-l: 135%;
+  --font-line-height-xl: 200%;
 
   --font-weight-n: 400;
-  --font-weight-sb: 500;
+  --font-weight-sb: 700;
   --font-weight-b: 700;
 
   --english: 'Segoe UI', Tahoma, Arial, sans-serif;
@@ -173,7 +173,6 @@ table {
   border-spacing: 0
 }
 
-/*@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"); */
 /*@import url("https://fonts.googleapis.com/css?family=Lato:400,900,700|Inter:700|Noto+Sans+Malayalam:500,400"); */
 
 @font-face {
@@ -580,19 +579,27 @@ select {
 }
 
 .footer-link-list {
-  display: flex;
   max-width: 1285px;
-  padding: 10px 0px;
-  align-items: flex-start;
-  align-content: flex-start;
-  justify-content: space-between;
-  gap: 40px;
-  align-self: stretch;
-  flex-wrap: wrap;
+  padding:0px 0px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap:0px;
   margin: 0px auto;
   font-size: var(--font-size-m);
   font-family: var(--english);
   font-weight: 400;
+}
+
+@media only screen and (max-width:980px) {
+  .footer-link-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width:480px) {
+  .footer-link-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .footer-link-list-frame {
@@ -675,7 +682,7 @@ select {
   }
 
   .footer-link-list-frame {
-    padding: 10px 10px;
+    padding:0px 10px;
   }
 
 }
@@ -765,7 +772,7 @@ select {
   font-family: var(--malayalam);
   font-size: var(--font-size-m);
   font-style: normal;
-  font-weight: 500;
+  font-weight: var(--font-weight-sb);
   line-height: var(--font-line-height-l);
 }
 
@@ -1085,8 +1092,7 @@ select {
     gap: 8px;
     width: 100%;
   }
-
-  .horizontal-news .news-item-text {
+  .news-item-text {
     min-width:184px;
   }
 .category-bottom-left {
@@ -1095,8 +1101,6 @@ select {
   gap: 16px;
   max-width: 438px;
 }
-
-.main-news-right .news-item a{ min-width:270px; display: block;}
 
 }
 
@@ -1427,21 +1431,21 @@ select {
   font-size: var(--font-size-xxxl);
   line-height: var(--font-line-height-l);
   font-family: var(--malayalam);
-  font-weight: 500;
+  font-weight:var(--font-weight-sb);
 }
 
 .single-news-content h2 {
   font-size: var(--font-size-xxl);
   line-height: var(--font-line-height-l);
   font-family: var(--malayalam);
-  font-weight: 500;
+  font-weight:var(--font-weight-sb);
 }
 
 .single-news-content h3 {
   font-size: var(--font-size-xl);
   line-height: var(--font-line-height-l);
   font-family: var(--malayalam);
-  font-weight: 500;
+  font-weight:var(--font-weight-sb);
 }
 
 .news-meta {
@@ -1564,4 +1568,26 @@ select {
 .swiper {
   touch-action: pan-y;
   z-index: 1;
+}
+
+@media (max-width: 501px) {
+.news-item{ padding:4px 8px!important; max-width:100%!important; width: 100%;}
+.main-news-right .news-item a {
+  min-width:70%;
+  display: block;
+}
+.news-item .news-item-text {
+  min-width:70%;
+  padding-right:4px;
+}
+.category-bottom-list figure{ width:100%; margin-bottom:8px;}
+.category-bottom-list figure img {
+  width: 100%;
+  height:auto;
+}
+.singlenews-left{ width:100%; padding:8px;}
+.singlenews-left article img {
+    width: 100%;
+    height: auto;
+  }
 }
