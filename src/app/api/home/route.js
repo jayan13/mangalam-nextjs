@@ -72,7 +72,10 @@ function convertShortsToEmbed(url) {
     // Extract the video ID from the YouTube Shorts URL
     const videoId = url.split('shorts/')[1].split('?')[0]; // Get the video ID before any query parameters
     // Construct the embeddable URL
-    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    //const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    const embedUrl = `${videoId}`;
+    //const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    //const thum ="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg"
     return embedUrl;
   } else {
     return url;

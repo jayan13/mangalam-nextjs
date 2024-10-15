@@ -41,7 +41,7 @@ function Newsright(props) {
       <div key={`lft-${post[0].id}`} id={`lft-${post[0].id}`} className="news-item right-main-news">
           <figure>
             {imgmark}
-          <Newimg news={post[0]}/>
+            <Link href={`/news/${post[0].url}`}><Newimg news={post[0]}/></Link>
           </figure>
           <div className="news-item-text">
             <h3><Link href={`/news/${post[0].url}`}>{post[0].title}</Link>
@@ -59,7 +59,7 @@ function Newsright(props) {
             </div>
             <figure>
             {imgmark}
-            <Newimgs news={post[1]}/>
+            <Link href={`/news/${post[1].url}`}><Newimgs news={post[1]}/></Link>
             </figure>
           </div>
           <div key={`lft-${post[2].id}`} id={`lft-${post[2].id}`} className="news-item">
@@ -70,7 +70,7 @@ function Newsright(props) {
             </div>
             <figure>
             {imgmark}
-            <Newimgs news={post[2]}/>
+            <Link href={`/news/${post[2].url}`}><Newimgs news={post[2]}/></Link>
             </figure>
           </div>
           <div key={`lft-${post[3].id}`} id={`lft-${post[3].id}`} className="news-item">
@@ -81,7 +81,7 @@ function Newsright(props) {
             </div>
             <figure>
             {imgmark}
-            <Newimgs news={post[3]}/>
+            <Link href={`/news/${post[3].url}`}><Newimgs news={post[3]}/></Link>
             </figure>
           </div>
           <div key={`lft-${post[4].id}`} id={`lft-${post[4].id}`} className="news-item">
@@ -92,7 +92,7 @@ function Newsright(props) {
             </div>
             <figure>
             {imgmark}
-            <Newimgs news={post[4]}/>
+            <Link href={`/news/${post[4].url}`}><Newimgs news={post[4]}/></Link>
             </figure>
           </div>
 

@@ -16,7 +16,7 @@ function Newimg(props) {
     //const indx= props.ind;
     return (
       <div className="news-item" >
-              <figure> <Newimg news={ndata} width='213' height='128'/></figure>
+              <figure> <Link href={`/news/${ndata.url}`}><Newimg news={ndata} width='213' height='128'/></Link></figure>
               <div className="news-item-text">
                 <h3>
                     <Link href={`/news/${ndata.url}`}> {ndata.title}</Link>
@@ -45,7 +45,7 @@ function Newimg(props) {
       if(i==0)
         {
           rcnt0=<div className="news-item">
-          <figure> <Newimg news={ndata[nws]} width='500' height='300'/></figure>
+          <figure> <Link href={`/news/${ndata[nws].url}`}><Newimg news={ndata[nws]} width='500' height='300'/></Link></figure>
           <div className="news-item-text">
             <h1>
                 <Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>
@@ -58,42 +58,42 @@ function Newimg(props) {
         {
           rcnt1=<div className="news-item">
             <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
-              <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+              <figure><Link href={`/news/${ndata[nws].url}`}><Newimg news={ndata[nws]} width='88' height='54'/></Link> </figure>
             </div>;
         }
         if(i==2)
           {
             rcnt2=<div className="news-item">
               <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
-                <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+                <figure><Link href={`/news/${ndata[nws].url}`}><Newimg news={ndata[nws]} width='88' height='54'/></Link> </figure>
               </div>;
           }
           if(i==3)
             {
               rcnt3=<div className="news-item">
                 <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
-                  <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+                  <figure><Link href={`/news/${ndata[nws].url}`}><Newimg news={ndata[nws]} width='88' height='54'/></Link>  </figure>
                 </div>;
             }
             if(i==4)
               {
                 rcnt4=<div className="news-item">
                   <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
-                    <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+                    <figure><Link href={`/news/${ndata[nws].url}`}><Newimg news={ndata[nws]} width='88' height='54'/></Link> </figure>
                   </div>;
               }
               if(i==5)
                 {
                   rcnt5=<div className="news-item">
                     <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
-                      <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+                      <figure><Link href={`/news/${ndata[nws].url}`}><Newimg news={ndata[nws]} width='88' height='54'/> </Link> </figure>
                     </div>;
                 }
                 if(i==6)
                   {
                     rcnt6=<div className="news-item">
                       <h3><Link href={`/news/${ndata[nws].url}`}> {ndata[nws].title}</Link>  </h3>
-                        <figure><Newimg news={ndata[nws]} width='88' height='54'/> </figure>
+                        <figure><Link href={`/news/${ndata[nws].url}`}><Newimg news={ndata[nws]} width='88' height='54'/></Link> </figure>
                       </div>;
                   }           
         i=i+1;

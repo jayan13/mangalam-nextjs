@@ -8,7 +8,8 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import Header from "./components/header";
 import Footer from "./components/footer";
-import TopAdv from "./components/topadv"
+import TopAdv from "./components/topadv";
+//import gaddcli from "./components/GoogleAddclient";
 
 // <AddBootstrap/>
 

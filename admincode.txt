@@ -1,11 +1,15 @@
 npm install --save mysql2
-
+npm install swiper react-youtube
 npm install react-slick slick-carousel
 npm i --save-dev @types/react-slick
+npm install react-youtube
 
 new fields
 display_order
 template 
+
+npm uninstall swiper react-youtube
+npm install swiper@10.3.1
 
 width="420"
               height="720"
@@ -34,3 +38,42 @@ C:\xampp\htdocs\newscms\backend\views\node-queue\index.php
         ],
 
 C:\xampp\htdocs\newscms\backend\views\node-queue\view.php
+
+===============
+/* styles/globals.css */
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .swiper {
+    height: auto;
+  }
+
+  .swiper-slide iframe {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+================ iframe fix ================
+.swiper {
+  padding-bottom:22px;
+}
+.swiper-wrapper{
+  padding-bottom: 30px;
+}
+.video-container iframe {
+  pointer-events: none;
+}
+
+youtube-videos
+
+https://swiperjs.com/types/interfaces/types_swiper_events.SwiperEvents#_swiper

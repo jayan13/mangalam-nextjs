@@ -8,6 +8,7 @@ import { Pagination, Navigation } from "swiper/modules";
 
 const YouTubeShortsSlider = ({ slidedata }) => {
   return (
+    <div className="reel-news-container">
     <Swiper
       spaceBetween={10}
       //slidesPerView={3}
@@ -47,6 +48,7 @@ const YouTubeShortsSlider = ({ slidedata }) => {
         </SwiperSlide>
       ))}
     </Swiper>
+    </div>
   );
 };
 

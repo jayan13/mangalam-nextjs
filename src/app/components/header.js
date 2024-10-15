@@ -5,6 +5,7 @@ import ShowDate from "./showdate";
 import NavLinks from "./navlinks";
 import NavLinksg from "./navlinksg";
 import Weather from "./weather";
+import GoogleAdd from "./GoogleAdd";
 
 function Header() {
 
@@ -12,7 +13,7 @@ function Header() {
 return <header className="main-header">
 <div className="header-advertisement">
   <div className="advertisement-text">Advertisement</div>
-  <div className="ad"><Image src="/img/ads/computing-iPad_970x250_set1_15aug24_89959731124244965.jpg" width={970} height={250} alt="add" /></div>
+  <GoogleAdd />
 </div>
 <div className="logo-header">
   <div className="logo-left">

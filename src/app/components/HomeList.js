@@ -4,7 +4,8 @@ import Link from 'next/link';
 import Image from "next/image";
 //import Slider from "./Slider";
 //import SlickSlider from "./Slickslider";
-import YouTubeShortsSlider from "./YouTubeShortsSlider";
+import YouTubeSlider from "./YouTubeSlider";
+//import SwipeSlider from "./SwipeSlider";
 
 function Newimg(props) {
     const newsimage= props.news;
@@ -24,19 +25,19 @@ function Homenew(props){
         <div className='main-news-left'>
           <div className='main-one'>
               <div className="news-item">                
-                <figure> <Newimg news={post[0]} width='608' height='365'/></figure>
+                <figure> <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} width='608' height='365'/></Link></figure>
                 <Link href={`/news/${post[0].url}`}> <h1>  {post[0].title} </h1> </Link>
                 <p>{post[0].news_details}</p>
               </div>
           </div>
               <div className='main-news-bottom'>
                 <div className="news-item">                
-                  <figure> <Newimg news={post[1]} width='292' height='174'/></figure>
+                  <figure> <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='292' height='174'/></Link></figure>
                   <p className="category-tag"> <Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link></p>
                   <Link href={`/news/${post[1].url}`}> <h3>  {post[1].title} </h3> </Link>
                 </div>
                 <div className="news-item">                
-                  <figure> <Newimg news={post[2]} width='292' height='174'/></figure>
+                  <figure> <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='292' height='174'/></Link></figure>
                   <p className="category-tag"> <Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link></p>
                   <Link href={`/news/${post[2].url}`}> <h3>  {post[2].title} </h3> </Link>
                 </div>
@@ -46,39 +47,39 @@ function Homenew(props){
         <div className='main-news-right'>
           <div className="news-item">                
             <Link href={`/news/${post[3].url}`}> <h3>  {post[3].title} </h3> </Link>
-            <figure> <Newimg news={post[3]} width='88' height='54'/></figure>
+            <figure> <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='88' height='54'/></Link></figure>
           </div>
           <div className="news-item">
             <Link href={`/news/${post[4].url}`}> <h3>  {post[4].title} </h3> </Link>                            
-            <figure> <Newimg news={post[4]} width='88' height='54'/></figure>
+            <figure> <Link href={`/news/${post[4].url}`}><Newimg news={post[4]} width='88' height='54'/></Link></figure>
           </div>
           <div className="news-item">
             <Link href={`/news/${post[5].url}`}> <h3>  {post[5].title} </h3> </Link>                
-            <figure> <Newimg news={post[5]} width='88' height='54'/></figure>
+            <figure> <Link href={`/news/${post[5].url}`}><Newimg news={post[5]} width='88' height='54'/></Link></figure>
           </div>
           <div className="news-item">
             <Link href={`/news/${post[6].url}`}> <h3>  {post[6].title} </h3> </Link>                
-            <figure> <Newimg news={post[6]} width='88' height='54'/></figure>
+            <figure> <Link href={`/news/${post[6].url}`}><Newimg news={post[6]} width='88' height='54'/></Link></figure>
           </div>
           <div className="news-item">
             <Link href={`/news/${post[7].url}`}> <h3>  {post[7].title} </h3> </Link>                
-            <figure> <Newimg news={post[7]} width='88' height='54'/></figure>
+            <figure> <Link href={`/news/${post[7].url}`}><Newimg news={post[7]} width='88' height='54'/></Link></figure>
           </div>
           <div className="news-item">
             <Link href={`/news/${post[8].url}`}> <h3>  {post[8].title} </h3> </Link>                
-            <figure> <Newimg news={post[8]} width='88' height='54'/></figure>
+            <figure> <Link href={`/news/${post[8].url}`}><Newimg news={post[8]} width='88' height='54'/></Link></figure>
           </div>
           <div className="news-item">
             <Link href={`/news/${post[9].url}`}> <h3>  {post[9].title} </h3> </Link>                
-            <figure> <Newimg news={post[9]} width='88' height='54'/></figure>
+            <figure> <Link href={`/news/${post[9].url}`}><Newimg news={post[9]} width='88' height='54'/></Link></figure>
           </div>
           <div className="news-item">
             <Link href={`/news/${post[10].url}`}> <h3>  {post[10].title} </h3> </Link>                
-            <figure> <Newimg news={post[10]} width='88' height='54'/></figure>
+            <figure> <Link href={`/news/${post[10].url}`}><Newimg news={post[10]} width='88' height='54'/></Link></figure>
           </div>
           <div className="news-item">
             <Link href={`/news/${post[11].url}`}> <h3>  {post[11].title} </h3> </Link>                
-            <figure> <Newimg news={post[11]} width='88' height='54' /></figure>
+            <figure> <Link href={`/news/${post[11].url}`}><Newimg news={post[11]} width='88' height='54' /></Link></figure>
           </div>
         </div>
 
@@ -100,13 +101,13 @@ function Homenew(props){
                     <h2> <Link href={`/news/${post[0].url}`}>   {post[0].title}  </Link> </h2>
                     <p>{post[0].news_details}</p>
                   </div>                
-                  <figure> <Newimg news={post[0]} width='453' height='271'/></figure>
+                  <figure> <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} width='453' height='271'/></Link></figure>
                 </div>
               </div>
             </div>
             <div className='home-category-main-right'>
               <div className="news-item">
-                <figure> <Newimg news={post[1]} width='211' height='127'/></figure>
+                <figure> <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='211' height='127'/></Link></figure>
                   <div className='news-item-text'>
                       <p className="category-tag"><Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link></p>
                       <h3> <Link href={`/news/${post[1].url}`}>   {post[1].title}  </Link> </h3>
@@ -117,14 +118,14 @@ function Homenew(props){
           <div className='category-bottom'>
             <div className='category-bottom-left'>
               <div className="news-item">
-                <figure> <Newimg news={post[2]} width='211' height='127'/></figure>
+                <figure> <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='211' height='127'/></Link></figure>
                   <div className='news-item-text'>
                       <p className="category-tag"><Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link></p>
                       <h3> <Link href={`/news/${post[2].url}`}>   {post[2].title}  </Link> </h3>
                   </div> 
               </div>
               <div className="news-item">
-                <figure> <Newimg news={post[3]} width='211' height='127'/></figure>
+                <figure> <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='211' height='127'/></Link></figure>
                   <div className='news-item-text'>
                       <p className="category-tag"><Link href={`${post[3].links}`} title="text">{post[3].link_title}</Link></p>
                       <h3> <Link href={`/news/${post[3].url}`}>   {post[3].title}  </Link> </h3>
@@ -137,21 +138,21 @@ function Homenew(props){
                       <p className="category-tag"><Link href={`${post[4].links}`} title="text">{post[4].link_title}</Link></p>
                       <h3> <Link href={`/news/${post[4].url}`}>   {post[4].title}  </Link> </h3>
                   </div> 
-                <figure> <Newimg news={post[4]} width='112' height='67'/></figure>
+                <figure> <Link href={`/news/${post[4].url}`}><Newimg news={post[4]} width='112' height='67'/></Link></figure>
               </div>
               <div className='news-item horizontal-news'>
                 <div className='news-item-text'>
                       <p className="category-tag"><Link href={`${post[5].links}`} title="text">{post[5].link_title}</Link></p>
                       <h3> <Link href={`/news/${post[5].url}`}>   {post[5].title}  </Link> </h3>
                   </div> 
-                <figure> <Newimg news={post[5]} width='112' height='67'/></figure>
+                <figure> <Link href={`/news/${post[5].url}`}><Newimg news={post[5]} width='112' height='67'/></Link></figure>
               </div>
               <div className='news-item horizontal-news'>
                 <div className='news-item-text'>
                       <p className="category-tag"><Link href={`${post[6].links}`} title="text">{post[6].link_title}</Link></p>
                       <h3> <Link href={`/news/${post[6].url}`}>   {post[6].title}  </Link> </h3>
                   </div> 
-                <figure> <Newimg news={post[6]} width='112' height='67'/></figure>
+                <figure> <Link href={`/news/${post[6].url}`}><Newimg news={post[6]} width='112' height='67'/></Link></figure>
               </div>
               
             </div>
@@ -173,12 +174,12 @@ function Homenew(props){
                     <h2> <Link href={`/news/${post[0].url}`}>   {post[0].title}  </Link> </h2>
                     <p>{post[0].news_details}</p>
                   </div>                
-                  <figure> <Newimg news={post[0]} width='453' height='271'/></figure>
+                  <figure> <Link href={`${post[0].links}`} title="text"><Newimg news={post[0]} width='453' height='271'/></Link></figure>
                 </div>
             </div>
             <div className='home-category-main-right'>
               <div className="news-item">
-                <figure> <Newimg news={post[1]} width='211' height='127'/></figure>
+                <figure> <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='211' height='127'/></Link></figure>
                   <div className='news-item-text'>
                       <p className="category-tag"><Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link></p>
                       <h3> <Link href={`/news/${post[1].url}`}>   {post[1].title}  </Link> </h3>
@@ -189,28 +190,28 @@ function Homenew(props){
           <div className='category-bottom'>
             <div className='category-bottom-left'>
               <div className="news-item">
-                <figure> <Newimg news={post[2]} width='211' height='127'/></figure>
+                <figure> <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='211' height='127'/></Link></figure>
                   <div className='news-item-text'>
                       <p className="category-tag"><Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link></p>
                       <h3> <Link href={`/news/${post[2].url}`}>   {post[2].title}  </Link> </h3>
                   </div> 
               </div>
               <div className="news-item">
-                <figure> <Newimg news={post[3]} width='211' height='127'/></figure>
+                <figure> <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='211' height='127'/></Link></figure>
                   <div className='news-item-text'>
                       <p className="category-tag"><Link href={`${post[3].links}`} title="text">{post[3].link_title}</Link></p>
                       <h3> <Link href={`/news/${post[3].url}`}>   {post[3].title}  </Link> </h3>
                   </div> 
               </div>
               <div className="news-item">
-                <figure> <Newimg news={post[4]} width='211' height='127'/></figure>
+                <figure> <Link href={`/news/${post[4].url}`}><Newimg news={post[4]} width='211' height='127'/></Link></figure>
                   <div className='news-item-text'>
                       <p className="category-tag"><Link href={`${post[4].links}`} title="text">{post[4].link_title}</Link></p>
                       <h3> <Link href={`/news/${post[4].url}`}>   {post[4].title}  </Link> </h3>
                   </div> 
               </div>
               <div className="news-item">
-                <figure> <Newimg news={post[5]} width='211' height='127'/></figure>
+                <figure> <Link href={`/news/${post[5].url}`}><Newimg news={post[5]} width='211' height='127'/></Link></figure>
                   <div className='news-item-text'>
                       <p className="category-tag"><Link href={`${post[5].links}`} title="text">{post[5].link_title}</Link></p>
                       <h3> <Link href={`/news/${post[5].url}`}>   {post[5].title}  </Link> </h3>
@@ -229,7 +230,7 @@ function Homenew(props){
       return (
         <div className='reel-news'>
         
-        <YouTubeShortsSlider slidedata={post} />         
+        <YouTubeSlider slidedata={post} />         
         
         </div>
       );
