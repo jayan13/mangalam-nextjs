@@ -77,3 +77,16 @@ C:\xampp\htdocs\newscms\backend\views\node-queue\view.php
 youtube-videos
 
 https://swiperjs.com/types/interfaces/types_swiper_events.SwiperEvents#_swiper
+
+=============== css for === Slider
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .swiper-slide iframe {
+    width: 100% !important;
+  }
+}

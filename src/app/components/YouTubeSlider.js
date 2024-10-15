@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import SwiperCore from 'swiper';
 import { Pagination, Navigation,Autoplay } from  "swiper/modules";
 import YouTube from 'react-youtube';
-import { useRef } from 'react';
+import { useRef,useEffect,useState} from 'react';
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
@@ -14,9 +14,10 @@ const YouTubeSlider = ({ slidedata }) => {
 
   const youtubeRefs = useRef([]);
   const swiperRef = useRef(null);
+  const [allVideosReady, setAllVideosReady] = useState(false);
 
   const onSlideChange = (swiper) => {
-    // Pause the currently playing video when changing slides
+    // Pause all videos except for the active slide
     youtubeRefs.current.forEach((player, index) => {
       if (player && index !== swiper.activeIndex) {
         player.pauseVideo();
@@ -24,42 +25,60 @@ const YouTubeSlider = ({ slidedata }) => {
     });
   };
 
-const onPlayerReady = (event, index) => {
-  // Store the YouTube player reference
-  youtubeRefs.current[index] = event.target;
-};
+  const onPlayerReady = (event, index) => {
+    // Store the YouTube player reference
+    youtubeRefs.current[index] = event.target;
 
-const onPlayerStateChange = (event, swiper) => {
-  // Check if the video is playing
-  if (event.data === 1) {
-    // Video is playing, stop Swiper autoplay
-    if (swiper.autoplay) swiper.autoplay.stop();
-  } else if (event.data === 2 || event.data === 0) {
-    // Video is paused or ended, resume Swiper autoplay
-    if (swiper.autoplay) swiper.autoplay.start();
-  }
-};
+    // Check if all videos are ready
+    if (youtubeRefs.current.filter(Boolean).length === slidedata.length) {
+      setAllVideosReady(true); // All videos are ready
+    }
+  };
+
+  const onPlayerStateChange = (event, swiper) => {
+    // Check if the video is playing
+    if (event.data === 1) {
+      // Video is playing, stop Swiper autoplay
+      if (swiper.autoplay) swiper.autoplay.stop();
+    } else if (event.data === 2 || event.data === 0) {
+      // Video is paused or ended, resume Swiper autoplay
+      if (swiper.autoplay) swiper.autoplay.start();
+    }
+  };
   
   const opts = {
-    height: '720',
-    width: '410',
+    height: '600',
+    width: '310',
     playerVars: {
       autoplay: 0,
     },
   };
 
+  useEffect(() => {
+    // Delay autoplay by 10 seconds after all slides are ready
+    if (allVideosReady && swiperRef.current) {
+      setTimeout(() => {
+        swiperRef.current.autoplay.start();
+      }, 3000); // 10 seconds delay
+    }
+  }, [allVideosReady]);
+
   return (
     <div className='reel-news-container'>
       <Swiper
-        spaceBetween={50}
+        spaceBetween={4}
         pagination={{ clickable: true }}
         //centeredSlides={true}
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+          swiper.autoplay.stop(); // Initially stop autoplay
+        }}
         autoplay={{
-          delay: 1200,
+          delay: 2000,
           disableOnInteraction: false,
           //pauseOnMouseEnter:true
-        }}        
+        }}
+        loop={true}        
         navigation
         touchStartPreventDefault={false}  // Ensures touch interactions are enabled
 
