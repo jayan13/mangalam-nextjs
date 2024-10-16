@@ -129,10 +129,50 @@ export default async function News({params}) {
               </div>
               <div className='single-news-content'>                    
                 <h1>{newses[0].title}</h1> 
-                <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].author)?newses[0].author:newses[0].columnist} </Link>| {newses[0].posting_date}</p>
+                <div class="news-single-meta">
+                <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].author)?newses[0].author:newses[0].columnist} </Link>| Last updated: {newses[0].posting_date} | 3 min read</p>
+                <div class="printshare">
+                <a href="#" title="Print News"><Image src="/img/icons/printer.svg" width={32} height={32} alt="Print" /></a>
+                <a href="#" title="Share News"><Image src="/img/icons/share.svg" width={32} height={32} alt="Share" /></a>
+                <a href="#" title="Listen News" class="listen-news"><Image src="/img/icons/play-icon-small.svg" width={9} height={12} alt="Share" /> Start Listen</a>
+                </div>
+                </div>
+                
                   <div key={newses[0].id}> 
                   {detarry.map((news,index) => <Newd det={news} key={index}  />)}
                   </div>
+                  {/* English Summary */}
+                  <div class="newsextra-container">
+                    <h3>English Summary</h3>
+                    <p>Gold prices are at an all-time high! Before you buy gold jewelry, understand the factors influencing price, from taxes and HUID to making charges, insurance, and smart savings schemes.</p>
+                  </div>
+                  {/* English Summary Closed */}
+
+                  {/*Tags*/}
+                  <div class="newsextra-container">
+                    <h3>Tags</h3>
+                  <ul class="tags">
+  <li><a href="#" class="tag">KERALAM</a></li>
+  <li><a href="#" class="tag">INDIA</a></li>
+  <li><a href="#" class="tag">POLITICS</a></li>
+  <li><a href="#" class="tag">MALAYALAM</a></li>
+</ul>
+</div>
+ {/*Tags Closed*/}
+
+{/* About the Author */}
+<div class="about-author">
+ <h3>About Author:</h3>
+<div class="author-profile">
+ <Image src="/img/icons/author.png" width={80} height={80} alt="Author photo" />
+ <div class="author-details">
+ <h4>പ്രണവ് മേലേതിൽ</h4>
+ <p>പതിനൊന്ന് വർഷമായി മാധ്യമപ്രവർത്തകൻ. ലൈഫ്‌സ്റ്റൈൽ, എന്റർടെയ്ൻമെന്റ്, ഗാഡ്ജറ്റ്സ്, ഓട്ടോമൊബൈൽ തുടങ്ങിയ മേഖലകളിൽ ലേഖനങ്ങളെഴുതുന്നു.</p>
+ </div>
+</div>
+</div>
+
+{/* About the Author Closed*/}
               </div>                     
             </div>
             
