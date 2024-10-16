@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+Malayalam:700,600,500,400");
+
+
 :root {
   --black: #020202;
   --border-gray: #bababa;
@@ -36,11 +39,11 @@
   --font-line-height-xl: 200%;
 
   --font-weight-n: 400;
-  --font-weight-sb: 700;
+  --font-weight-sb: 600;
   --font-weight-b: 700;
 
   --english: 'Segoe UI', Tahoma, Arial, sans-serif;
-  --malayalam: "Noto Sans Malayalam", Helvetica;
+  --malayalam:"Noto Sans Malayalam", Helvetica;
 }
 
 html,
@@ -171,13 +174,6 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0
-}
-
-/*@import url("https://fonts.googleapis.com/css?family=Lato:400,900,700|Inter:700|Noto+Sans+Malayalam:500,400"); */
-
-@font-face {
-  font-family: 'Noto Sans Malayalam';
-  src: url("./fonts/NotoSansMalayalam-Regular.ttf") format("truetype")
 }
 
 .screen a {
@@ -1232,6 +1228,7 @@ select {
 .right-main-news h3 {
   padding-bottom: 8px;
   margin-top: 4px;
+  font-weight: var(--font-weight-b);
 }
 
 .right-news-bottom .news-item {
@@ -1382,11 +1379,14 @@ select {
   align-items: flex-start;
   gap: 8px;
   max-width: 100%;
+  width: 100%;
   border-bottom: 0.796px solid var(--mangalamgallery);
 }
 
 .category-news-right .news-item h3 {
   font-size: var(--font-size-m);
+  width: 75%;
+    display: block;
 }
 
 .category-news-right .news-item figure {
