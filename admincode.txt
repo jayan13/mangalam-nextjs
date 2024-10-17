@@ -1,8 +1,10 @@
 npm install --save mysql2
-npm install swiper react-youtube
+npm install swiper
+npm install react-youtube
+npm install react-share
+
 npm install react-slick slick-carousel
 npm i --save-dev @types/react-slick
-npm install react-youtube
 
 new fields
 display_order
@@ -10,9 +12,6 @@ template
 
 npm uninstall swiper react-youtube
 npm install swiper@10.3.1
-
-width="420"
-              height="720"
 
 C:\xampp\htdocs\newscms\backend\views\node-queue\_form.php
 <?= $form->field($model, 'display_order')->textInput() ?>
@@ -39,40 +38,9 @@ C:\xampp\htdocs\newscms\backend\views\node-queue\index.php
 
 C:\xampp\htdocs\newscms\backend\views\node-queue\view.php
 
-===============
-/* styles/globals.css */
-.swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@media (max-width: 768px) {
-  .swiper {
-    height: auto;
-  }
-
-  .swiper-slide iframe {
-    width: 100% !important;
-    height: 100% !important;
-  }
-}
-
-================ iframe fix ================
-.swiper {
-  padding-bottom:22px;
-}
-.swiper-wrapper{
-  padding-bottom: 30px;
-}
-.video-container iframe {
-  pointer-events: none;
-}
+C:\xampp\htdocs\newscms\backend\views\news\_form.php
+C:\xampp\htdocs\newscms\backend\views\news\view.php
+C:\xampp\htdocs\newscms\backend\models\News.php
 
 youtube-videos
 
@@ -90,3 +58,28 @@ https://swiperjs.com/types/interfaces/types_swiper_events.SwiperEvents#_swiper
     width: 100% !important;
   }
 }
+
+article iframe{ width: 100%; height:520px;}
+.social-share button{
+  padding: 4px !important;
+}
+
+@media (max-width: 650px) {
+.social-share button{
+  padding: 10px !important;
+}
+article iframe{ width: 100%; height:320px;}
+}
+----------------------------------------
+
+ALTER TABLE `news` ADD `eng_summary` TEXT NOT NULL AFTER `summary`;
+ALTER TABLE `news` ADD `author_profile` TEXT NOT NULL AFTER `author`;
+ALTER TABLE `node_queue` ADD `display_order` int(3) NOT NULL AFTER `max_queue_size`;
+ALTER TABLE `node_queue` ADD `eng_summary` varchar(100) NOT NULL AFTER `display_order`;
+
+display_order
+template 
+eng_summary
+author_profile
+
+<SocialShare url={newses[0].url} title={newses[0].title}  />  

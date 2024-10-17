@@ -1,12 +1,13 @@
 
 import db from '../../../lib/db';
 import InfiniteScroll from '../../components/InfiniteScroll';
+import SocialShare from "../../components/SocialShare";
 import Image from "next/image";
 import Link from 'next/link';
 import { unstable_cache } from "next/cache";
 
  export async function getDetails(news_id){
-    let [rows] = await db.query('SELECT news.id,news.title,news.eng_title,DATE_FORMAT(news.effective_date, "%d %b %Y, %l:%i %p") as posting_date,CONVERT(news.news_details USING utf8) as news_details,news.meta_keywords,news.meta_description,news.author,news.author_photo,columnist.name as columnist,district.name AS district,news.district_id,c.category_id as category_id FROM news left join columnist on columnist.id=news.columnist_id LEFT JOIN (SELECT category_id,news_id FROM news_category) c ON c.news_id = news.id LEFT JOIN district ON district.id = news.district_id where news.id=? group by news.id',news_id);    
+    let [rows] = await db.query('SELECT news.id,news.title,news.eng_title,news.eng_summary,DATE_FORMAT(news.effective_date, "%d %b %Y, %l:%i %p") as posting_date,CONVERT(news.news_details USING utf8) as news_details,concat("/news/",news.id,"-",REPLACE(LOWER(news.eng_title)," ","-"),".html") as url,news.meta_keywords,news.meta_description,news.author,news.author_photo,news.author_profile,columnist.name as columnist,columnist.photo as columnist_photo,columnist.profile as columnist_profile,district.name AS district,news.district_id,c.category_id as category_id FROM news left join columnist on columnist.id=news.columnist_id LEFT JOIN (SELECT category_id,news_id FROM news_category) c ON c.news_id = news.id LEFT JOIN district ON district.id = news.district_id where news.id=? group by news.id',news_id);    
     return rows;
 }
 
@@ -15,12 +16,94 @@ export async function getImages(news_id){
   return rows;
 }
 
+export async function getTags(news_id){
+  let [rows] = await db.query('SELECT news_tags.tags_id,tags.name,concat("/tags/",news_tags.tags_id,"-",REPLACE(LOWER(tags.name)," ","-"),".html") as url FROM `news_tags` left join `tags` on tags.id=news_tags.tags_id where news_tags.news_id=?',news_id);    
+  return rows;
+}
+
 const getCachedNewsDet = unstable_cache(async (id) => getDetails(id), ['my-app-news']);
 const getCachedImages = unstable_cache(async (id) => getImages(id), ['my-app-images']);
+const getCachedTags = unstable_cache(async (id) => getTags(id), ['my-app-tags']);
 
   function Newd(props) {
     const newsdetails= props.det;
     return ( (newsdetails.url)? <article key={'imgc'+newsdetails.id}> <Image src={'/'+newsdetails.url} key={'img'+newsdetails.id} alt={newsdetails.title} width={924} height={555}/>  <p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article> : <article key={'imgc'+newsdetails.id}><p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article>);
+  }
+
+  function Tags(props)
+  {
+    const tgs= props.tgs;
+    if(tgs.length)
+    {
+      return (<div class="newsextra-container">
+        <h3>Tags</h3>
+        <ul class="tags">
+        {tgs.map((newst, index) => (
+            <li key={index}><Link href={`${newst.url}`} class="tag">{newst.name}</Link></li>
+             ))}   
+        </ul>
+        </div>
+      );
+    }else{
+      return ('');
+    }
+
+  }
+
+  function Summay(props)
+  {
+    const engsum= props.engsum;
+    if(engsum)
+    {
+      return (<div class="newsextra-container">
+        <h3>English Summary</h3>
+        <p>{engsum}</p>
+      </div>);
+    }else{
+      return ('');
+    }
+    
+  }
+
+  function Auther(props)
+  {
+    const nws= props.nws;
+    let author='';
+    let author_photo='';
+    let author_profile='';
+    if(nws.columnist)
+    {
+      author=nws.columnist;
+      author_photo=nws.columnist_photo;
+      author_profile=nws.columnist_profile;
+
+    }else{
+
+      author=nws.author;
+      author_photo=nws.author_photo;
+      author_profile=nws.author_profile;
+
+    }
+    
+    if(author)
+    {
+      return (
+        <div class="about-author">
+          <h3>About Author:</h3>
+          <div class="author-profile">
+            <Image src={'/'+author_photo} width={80} height={80} alt="Author photo" />
+            <div class="author-details">
+              <h4>{author}</h4>
+              <p>{author_profile}</p>
+            </div>
+          </div>
+        </div>
+      );
+    }else{
+      return ('');
+    }
+    
+
   }
 
   export async function generateMetadata({ params }) {
@@ -46,15 +129,22 @@ export default async function News({params}) {
     let detarry=[];
     let br1='';
     let br2='';
+    let newstags=[];
+    let rdtime=1;
     if (news_id){
         
         //const [rows] = await db.query('SELECT * FROM news where id=? ',news_id);
         const rows =await getCachedNewsDet(news_id);
-        newses=rows       
+        newses=rows;
+        newstags =await getCachedTags(news_id);
         detail=newses[0].news_details.toString().replaceAll("[BREAK]","").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
         //const [prows] = await db.query('SELECT file_name FROM news_image where news_id=? ',news_id);
+        const text = newses[0].news_details;
+        const wpm = 225;
+        const words = text.trim().split(/\s+/).length;
+        rdtime = Math.ceil(words / wpm);
         const prows =await getCachedImages(news_id);
-        
+      
         let imgar=[];
         for(let p of prows)
         { 
@@ -130,8 +220,9 @@ export default async function News({params}) {
               <div className='single-news-content'>                    
                 <h1>{newses[0].title}</h1> 
                 <div class="news-single-meta">
-                <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].author)?newses[0].author:newses[0].columnist} </Link>| Last updated: {newses[0].posting_date} | 3 min read</p>
+                <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].author)?newses[0].author:newses[0].columnist} </Link>| Last updated: {newses[0].posting_date} | {rdtime} min read</p>
                 <div class="printshare">
+                
                 <a href="#" title="Print News"><Image src="/img/icons/printer.svg" width={32} height={32} alt="Print" /></a>
                 <a href="#" title="Share News"><Image src="/img/icons/share.svg" width={32} height={32} alt="Share" /></a>
                 <a href="#" title="Listen News" class="listen-news"><Image src="/img/icons/play-icon-small.svg" width={9} height={12} alt="Share" /> Start Listen</a>
@@ -141,38 +232,9 @@ export default async function News({params}) {
                   <div key={newses[0].id}> 
                   {detarry.map((news,index) => <Newd det={news} key={index}  />)}
                   </div>
-                  {/* English Summary */}
-                  <div class="newsextra-container">
-                    <h3>English Summary</h3>
-                    <p>Gold prices are at an all-time high! Before you buy gold jewelry, understand the factors influencing price, from taxes and HUID to making charges, insurance, and smart savings schemes.</p>
-                  </div>
-                  {/* English Summary Closed */}
-
-                  {/*Tags*/}
-                  <div class="newsextra-container">
-                    <h3>Tags</h3>
-                  <ul class="tags">
-  <li><a href="#" class="tag">KERALAM</a></li>
-  <li><a href="#" class="tag">INDIA</a></li>
-  <li><a href="#" class="tag">POLITICS</a></li>
-  <li><a href="#" class="tag">MALAYALAM</a></li>
-</ul>
-</div>
- {/*Tags Closed*/}
-
-{/* About the Author */}
-<div class="about-author">
- <h3>About Author:</h3>
-<div class="author-profile">
- <Image src="/img/icons/author.png" width={80} height={80} alt="Author photo" />
- <div class="author-details">
- <h4>പ്രണവ് മേലേതിൽ</h4>
- <p>പതിനൊന്ന് വർഷമായി മാധ്യമപ്രവർത്തകൻ. ലൈഫ്‌സ്റ്റൈൽ, എന്റർടെയ്ൻമെന്റ്, ഗാഡ്ജറ്റ്സ്, ഓട്ടോമൊബൈൽ തുടങ്ങിയ മേഖലകളിൽ ലേഖനങ്ങളെഴുതുന്നു.</p>
- </div>
-</div>
-</div>
-
-{/* About the Author Closed*/}
+                  <Summay engsum={newses[0].eng_summary} />
+                  <Tags tgs={newstags} />
+                  <Auther nws={newses[0]} /> 
               </div>                     
             </div>
             
