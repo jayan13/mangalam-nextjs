@@ -1,7 +1,7 @@
 
 import db from '../../../lib/db';
 import InfiniteScroll from '../../components/InfiniteScroll';
-import SocialShare from "../../components/SocialShare";
+import SocialSharePopup from "../../components/SocialSharePopup";
 import Image from "next/image";
 import Link from 'next/link';
 import { unstable_cache } from "next/cache";
@@ -35,11 +35,11 @@ const getCachedTags = unstable_cache(async (id) => getTags(id), ['my-app-tags'])
     const tgs= props.tgs;
     if(tgs.length)
     {
-      return (<div class="newsextra-container">
+      return (<div className="newsextra-container">
         <h3>Tags</h3>
-        <ul class="tags">
+        <ul className="tags">
         {tgs.map((newst, index) => (
-            <li key={index}><Link href={`${newst.url}`} class="tag">{newst.name}</Link></li>
+            <li key={index}><Link href={`${newst.url}`} className="tag">{newst.name}</Link></li>
              ))}   
         </ul>
         </div>
@@ -55,7 +55,7 @@ const getCachedTags = unstable_cache(async (id) => getTags(id), ['my-app-tags'])
     const engsum= props.engsum;
     if(engsum)
     {
-      return (<div class="newsextra-container">
+      return (<div className="newsextra-container">
         <h3>English Summary</h3>
         <p>{engsum}</p>
       </div>);
@@ -88,11 +88,11 @@ const getCachedTags = unstable_cache(async (id) => getTags(id), ['my-app-tags'])
     if(author)
     {
       return (
-        <div class="about-author">
+        <div className="about-author">
           <h3>About Author:</h3>
-          <div class="author-profile">
+          <div className="author-profile">
             <Image src={'/'+author_photo} width={80} height={80} alt="Author photo" />
-            <div class="author-details">
+            <div className="author-details">
               <h4>{author}</h4>
               <p>{author_profile}</p>
             </div>
@@ -104,6 +104,11 @@ const getCachedTags = unstable_cache(async (id) => getTags(id), ['my-app-tags'])
     }
     
 
+  }
+
+  function printbutton()
+  {
+    console.log('clicked ');
   }
 
   export async function generateMetadata({ params }) {
@@ -219,13 +224,12 @@ export default async function News({params}) {
               </div>
               <div className='single-news-content'>                    
                 <h1>{newses[0].title}</h1> 
-                <div class="news-single-meta">
+                <div className="news-single-meta">
                 <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].author)?newses[0].author:newses[0].columnist} </Link>| Last updated: {newses[0].posting_date} | {rdtime} min read</p>
-                <div class="printshare">
-                
-                <a href="#" title="Print News"><Image src="/img/icons/printer.svg" width={32} height={32} alt="Print" /></a>
-                <a href="#" title="Share News"><Image src="/img/icons/share.svg" width={32} height={32} alt="Share" /></a>
-                <a href="#" title="Listen News" class="listen-news"><Image src="/img/icons/play-icon-small.svg" width={9} height={12} alt="Share" /> Start Listen</a>
+                <div className="printshare">
+                <button type="button" onClick={printbutton()} style={{ padding: "0px", backgroundColor: "white", color: "white", cursor: "pointer", border:"0px",marginTop: '-7px' }}><Image src="/img/icons/printer.svg" width={32} height={32} alt="Print" /></button>
+                <SocialSharePopup url={newses[0].url} title={newses[0].title} />  
+                <a href="#" title="Listen News" className="listen-news"><Image src="/img/icons/play-icon-small.svg" width={9} height={12} alt="Share" /> Start Listen</a>
                 </div>
                 </div>
                 

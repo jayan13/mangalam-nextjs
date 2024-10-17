@@ -83,3 +83,7 @@ eng_summary
 author_profile
 
 <SocialShare url={newses[0].url} title={newses[0].title}  />  
+
+<a href="#" title="Print News"><Image src="/img/icons/printer.svg" width={32} height={32} alt="Print" /></a>
+
+<button type="button" onClick={() => router.back()}>
