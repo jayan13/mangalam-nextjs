@@ -1714,3 +1714,15 @@ select {
     width: 100% !important;
   }
 }
+
+article iframe{ width: 100%; height:520px;}
+.social-share button{
+  padding: 4px !important;
+}
+
+@media (max-width: 650px) {
+.social-share button{
+  padding: 10px !important;
+}
+article iframe{ width: 100%; height:320px;}
+}
