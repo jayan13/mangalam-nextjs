@@ -62,7 +62,7 @@ const SocialSharePopup = ({ url, title }) => {
             }}
           >
             
-            <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+            <div style={{ display: "flex", gap: "22px", marginTop: "28px" }}>
               <FacebookShareButton url={url} quote={title}>
                 <FacebookIcon size={32} round />
               </FacebookShareButton>

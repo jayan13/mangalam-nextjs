@@ -84,6 +84,15 @@ author_profile
 
 BASEURL
 
+@media print {
+	.no-printme  {
+		display: none;
+	}
+	.printme  {
+		display: block;
+	}
+}
+
 <SocialShare url={newses[0].url} title={newses[0].title}  />  
 
 <a href="#" title="Print News"><Image src="/img/icons/printer.svg" width={32} height={32} alt="Print" /></a>
