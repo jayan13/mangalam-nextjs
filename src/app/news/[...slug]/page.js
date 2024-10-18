@@ -3,6 +3,7 @@ import db from '../../../lib/db';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import SocialSharePopup from "../../components/SocialSharePopup";
 import Printpage from "../../components/Printpage";
+import ListenToArticle from "../../components/ListenToArticle";
 import Image from "next/image";
 import Link from 'next/link';
 import { unstable_cache } from "next/cache";
@@ -231,7 +232,7 @@ export default async function News({params}) {
                 
                 <Printpage />
                 <SocialSharePopup url={pageUrl+newses[0].url} title={newses[0].title} />  
-                <a href="#" title="Listen News" className="listen-news"><Image src="/img/icons/play-icon-small.svg" width={9} height={12} alt="Share" /> Start Listen</a>
+                <ListenToArticle text={newses[0].eng_summary} />
                 </div>
                 </div>
                 

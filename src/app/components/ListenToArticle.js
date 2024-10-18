@@ -21,8 +21,8 @@ const ListenToArticle = ({ text }) => {
 
   return (
     <div>
-      <button onClick={handlePlayPause}>
-        {isPlaying ? 'Pause' : 'Listen to This Article'}
+      <button onClick={handlePlayPause} className='listen-news' style={{border:'0px;'}}>
+        {isPlaying ? 'Pause' : 'Start Listen'}
       </button>
     </div>
   );
