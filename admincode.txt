@@ -87,3 +87,9 @@ author_profile
 <a href="#" title="Print News"><Image src="/img/icons/printer.svg" width={32} height={32} alt="Print" /></a>
 
 <button type="button" onClick={() => router.back()}>
+
+<button type="button" onClick={printbutton()} style={{ padding: "0px", backgroundColor: "white", color: "white", cursor: "pointer", border:"0px",marginTop: '-7px' }}><Image src="/img/icons/printer.svg" width={32} height={32} alt="Print" /></button>
+                <SocialSharePopup url={newses[0].url} title={newses[0].title} /> 
+
+
+<button type="button" onClick={printbutton()} style={{ padding: "0px", backgroundColor: "white", color: "white", cursor: "pointer", border:"0px",marginTop: '-7px' }}><Image src="/img/icons/printer.svg" width={32} height={32} alt="Print" /></button>

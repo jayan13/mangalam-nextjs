@@ -10,7 +10,7 @@ import GoogleAdd from "./GoogleAdd";
 function Header() {
 
       
-return <header className="main-header">
+return <header className="main-header no-printme">
 <div className="header-advertisement">
   <div className="advertisement-text">Advertisement</div>
   <GoogleAdd />

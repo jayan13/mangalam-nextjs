@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function Footer() {
 
- return  <footer className="footer">  
+ return  <footer className="footer no-printme">  
  <div className="footer-top">
      <div className="footer-container">
            <div className="footer-logo">

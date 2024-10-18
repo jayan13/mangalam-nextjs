@@ -149,7 +149,7 @@ export default function InfiniteScroll(){
 
 
   return (
-    <div className="home-news-section-right">
+    <div className="home-news-section-right no-printme">
       {posts.map((post, index) => (
       <div key={index} className='rght-block'>
         <div className="advertisement no-margin">

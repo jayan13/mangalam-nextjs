@@ -2,6 +2,7 @@
 import db from '../../../lib/db';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import SocialSharePopup from "../../components/SocialSharePopup";
+import Printpage from "../../components/Printpage";
 import Image from "next/image";
 import Link from 'next/link';
 import { unstable_cache } from "next/cache";
@@ -35,7 +36,7 @@ const getCachedTags = unstable_cache(async (id) => getTags(id), ['my-app-tags'])
     const tgs= props.tgs;
     if(tgs.length)
     {
-      return (<div className="newsextra-container">
+      return (<div className="newsextra-container no-printme">
         <h3>Tags</h3>
         <ul className="tags">
         {tgs.map((newst, index) => (
@@ -55,7 +56,7 @@ const getCachedTags = unstable_cache(async (id) => getTags(id), ['my-app-tags'])
     const engsum= props.engsum;
     if(engsum)
     {
-      return (<div className="newsextra-container">
+      return (<div className="newsextra-container no-printme">
         <h3>English Summary</h3>
         <p>{engsum}</p>
       </div>);
@@ -88,7 +89,7 @@ const getCachedTags = unstable_cache(async (id) => getTags(id), ['my-app-tags'])
     if(author)
     {
       return (
-        <div className="about-author">
+        <div className="about-author no-printme">
           <h3>About Author:</h3>
           <div className="author-profile">
             <Image src={'/'+author_photo} width={80} height={80} alt="Author photo" />
@@ -106,10 +107,6 @@ const getCachedTags = unstable_cache(async (id) => getTags(id), ['my-app-tags'])
 
   }
 
-  function printbutton()
-  {
-    console.log('clicked ');
-  }
 
   export async function generateMetadata({ params }) {
     const urlid= params.slug[0];
@@ -136,6 +133,8 @@ export default async function News({params}) {
     let br2='';
     let newstags=[];
     let rdtime=1;
+    
+   
     if (news_id){
         
         //const [rows] = await db.query('SELECT * FROM news where id=? ',news_id);
@@ -205,7 +204,7 @@ export default async function News({params}) {
         <div className="home-news-container">
           <div className='home-news-section'> 
             <div className='singlenews-left'>
-              <div className='single-section-header'>
+              <div className='single-section-header no-printme'>
 
                       <nav className="c-navigation-breadcrumbs" aria-label="Breadcrumb" vocab="https://schema.org/" typeof="BreadcrumbList">
                         <ol className="c-navigation-breadcrumbs__directory">
@@ -222,12 +221,13 @@ export default async function News({params}) {
                       </nav>
                 
               </div>
-              <div className='single-news-content'>                    
+              <div className='single-news-content' id='news-content-print'>                    
                 <h1>{newses[0].title}</h1> 
                 <div className="news-single-meta">
                 <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].author)?newses[0].author:newses[0].columnist} </Link>| Last updated: {newses[0].posting_date} | {rdtime} min read</p>
-                <div className="printshare">
-                <button type="button" onClick={printbutton()} style={{ padding: "0px", backgroundColor: "white", color: "white", cursor: "pointer", border:"0px",marginTop: '-7px' }}><Image src="/img/icons/printer.svg" width={32} height={32} alt="Print" /></button>
+                <div className="printshare no-printme">
+                
+                <Printpage />
                 <SocialSharePopup url={newses[0].url} title={newses[0].title} />  
                 <a href="#" title="Listen News" className="listen-news"><Image src="/img/icons/play-icon-small.svg" width={9} height={12} alt="Share" /> Start Listen</a>
                 </div>
