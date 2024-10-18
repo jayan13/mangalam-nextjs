@@ -1735,3 +1735,19 @@ article iframe{ width: 100%; height:320px;}
 		display: block;
 	}
 }
+
+@media (max-width: 650px) {
+  .news-single-meta{
+    display: block !important;
+  }
+  .printshare {
+    justify-content: end !important;
+    gap: 14px;
+  }
+  .single-meta{
+    width: 100%;
+  }
+  .printshare{
+    width: 100%;
+  }
+}

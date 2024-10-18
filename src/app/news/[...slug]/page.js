@@ -227,13 +227,14 @@ export default async function News({params}) {
               <div className='single-news-content' id='news-content-print'>                    
                 <h1>{newses[0].title}</h1> 
                 <div className="news-single-meta">
-                <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].author)?newses[0].author:newses[0].columnist} </Link>| Last updated: {newses[0].posting_date} | {rdtime} min read</p>
-                <div className="printshare no-printme">
-                
-                <Printpage />
-                <SocialSharePopup url={pageUrl+newses[0].url} title={newses[0].title} />  
-                <ListenToArticle text={newses[0].eng_summary} />
-                </div>
+                  <div className="single-meta">
+                    <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].author)?newses[0].author:newses[0].columnist} </Link>| Last updated: {newses[0].posting_date} | {rdtime} min read</p>
+                  </div>
+                  <div className="printshare no-printme">
+                    <Printpage />
+                    <SocialSharePopup url={pageUrl+newses[0].url} title={newses[0].title} />  
+                    <ListenToArticle text={newses[0].eng_summary} />
+                  </div>
                 </div>
                 
                   <div key={newses[0].id}> 
