@@ -8,7 +8,7 @@ const ListenToArticle = ({ text }) => {
 
   const handlePlayPause = () => {
     if (speech && isPlaying) {
-      speech.cancel();
+      window.speechSynthesis.cancel();
       setIsPlaying(false);
     } else {
       const utterance = new SpeechSynthesisUtterance(text);
@@ -22,7 +22,7 @@ const ListenToArticle = ({ text }) => {
   return (
     <div>
       <button onClick={handlePlayPause} className='listen-news' style={{border:'0px;'}}>
-        {isPlaying ? 'Pause' : 'Start Listen'}
+        {isPlaying ? 'II Pause' : '▶ Start Listen'}
       </button>
     </div>
   );
