@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import Image from "next/image";
 import District from "./district";
-import ShowDate from "./showdate";
+//import ShowDate from "./showdate";
 import NavLinks from "./navlinks";
 import NavLinksg from "./navlinksg";
 import Weather from "./weather";
-import GoogleAdd from "./GoogleAdd";
+//import GoogleAd from "../adds/GoogleAd";
 
 function Header() {
 
@@ -13,7 +13,7 @@ function Header() {
 return <header className="main-header no-printme">
 <div className="header-advertisement">
   <div className="advertisement-text">Advertisement</div>
-  <GoogleAdd />
+  {/*<GoogleAd adSlot="8131115980" adStyle={{ width: '100%', height: '200px' }} />*/}
 </div>
 <div className="logo-header">
   <div className="logo-left">

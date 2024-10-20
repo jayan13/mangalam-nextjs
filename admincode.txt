@@ -104,3 +104,7 @@ BASEURL
 
 
 <button type="button" onClick={printbutton()} style={{ padding: "0px", backgroundColor: "white", color: "white", cursor: "pointer", border:"0px",marginTop: '-7px' }}><Image src="/img/icons/printer.svg" width={32} height={32} alt="Print" /></button>
+
+${process.env.GOOGLE_ADSENSE_CLIENT_ID}
+
+<GoogleAd adSlot="XXXXXXXXXX" adStyle={{ width: '100%', height: '200px' }} />

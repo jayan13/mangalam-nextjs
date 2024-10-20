@@ -18,14 +18,17 @@ const ListenToArticle = ({ text }) => {
       setIsPlaying(true);
     }
   };
-
-  return (
+  if(text){
+    return (
     <div>
       <button onClick={handlePlayPause} className='listen-news' style={{border:'0px;'}}>
         {isPlaying ? 'II Pause' : '▶ Start Listen'}
       </button>
     </div>
-  );
+      );
+    }else{
+      return ('');
+    }
 };
 
 export default ListenToArticle;

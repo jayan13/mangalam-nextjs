@@ -1456,7 +1456,7 @@ select {
     gap:8px;
   }
 .listen-news{ background: var(--mangalampomegranate); height:32px; display:flex; padding:6px 16px; color:var(--mangalamnero); align-content: center;
-  flex-wrap: wrap; border-radius:32px; line-height: 16px;
+  flex-wrap: wrap; border-radius:32px; line-height: 16px;border: none;
     font-size: 16px; gap:4px;}
 
 .news-meta {
