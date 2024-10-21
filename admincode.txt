@@ -3,73 +3,30 @@ npm install swiper
 npm install react-youtube
 npm install react-share
 
-npm install react-slick slick-carousel
-npm i --save-dev @types/react-slick
 
-new fields
-display_order
-template 
-
+npm uninstall react-slick slick-carousel
 npm uninstall swiper react-youtube
+
 npm install swiper@10.3.1
 
+
+
 C:\xampp\htdocs\newscms\backend\views\node-queue\_form.php
-<?= $form->field($model, 'display_order')->textInput() ?>
-<?= $form->field($model, 'template')->dropDownList(['home-top' => 'Home Top - 12','home-6' => 'Home - 6','home-7' => 'Home - 7','youtubeshorts'=>'Youtube Shorts','premium' => 'Premium-Right', 'pic' => 'News In Pic -Right','video'=>'News In Video -Right','general-right'=>'General -Right'],['prompt'=>'Select Template']); ?>
 C:\xampp\htdocs\newscms\backend\models\NodeQueue.php
-[['display_order'], 'integer'],
-[['template'], 'string', 'max' => 255],
-
 C:\xampp\htdocs\newscms\backend\views\node-queue\index.php
-        [
-
-            'class' => '\kartik\grid\DataColumn',
-
-            'attribute' => 'display_order',
-
-        ],
-        [
-
-            'class' => '\kartik\grid\DataColumn',
-
-            'attribute' => 'template',
-
-        ],
-
 C:\xampp\htdocs\newscms\backend\views\node-queue\view.php
 
 C:\xampp\htdocs\newscms\backend\views\news\_form.php
 C:\xampp\htdocs\newscms\backend\views\news\view.php
 C:\xampp\htdocs\newscms\backend\models\News.php
 
+
 youtube-videos
 
 https://swiperjs.com/types/interfaces/types_swiper_events.SwiperEvents#_swiper
 
 =============== css for === Slider
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-@media (max-width: 768px) {
-  .swiper-slide iframe {
-    width: 100% !important;
-  }
-}
-
-article iframe{ width: 100%; height:520px;}
-.social-share button{
-  padding: 4px !important;
-}
-
-@media (max-width: 650px) {
-.social-share button{
-  padding: 10px !important;
-}
-article iframe{ width: 100%; height:320px;}
-}
 ----------------------------------------
 
 ALTER TABLE `news` ADD `eng_summary` TEXT NOT NULL AFTER `summary`;
@@ -77,21 +34,10 @@ ALTER TABLE `news` ADD `author_profile` TEXT NOT NULL AFTER `author`;
 ALTER TABLE `node_queue` ADD `display_order` int(3) NOT NULL AFTER `max_queue_size`;
 ALTER TABLE `node_queue` ADD `eng_summary` varchar(100) NOT NULL AFTER `display_order`;
 
-display_order
-template 
-eng_summary
-author_profile
+
 
 BASEURL
 
-@media print {
-	.no-printme  {
-		display: none;
-	}
-	.printme  {
-		display: block;
-	}
-}
 
 <SocialShare url={newses[0].url} title={newses[0].title}  />  
 
@@ -108,3 +54,5 @@ BASEURL
 ${process.env.GOOGLE_ADSENSE_CLIENT_ID}
 
 <GoogleAd adSlot="XXXXXXXXXX" adStyle={{ width: '100%', height: '200px' }} />
+
+
