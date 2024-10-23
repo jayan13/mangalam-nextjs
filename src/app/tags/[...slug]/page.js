@@ -12,14 +12,14 @@ export async function getCategory(tag_id){
     return rows;
   }
 
-const getCachedTag = unstable_cache(async (id) => getCategory(id), ['my-app-tag']);
-
+const getCachedTag = unstable_cache(async (id) => getCategory(id),(id) => [`my-app-tag-${id}`],{ revalidate: 360});
+const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id),(id) => [`my-app-tag-posts-${id}`],{ revalidate: 360});
 
 export default async function Home({params}) {
     const urlid= params.slug[0];
     const tag_id= urlid.split('-')[0];
     const rows =await getCachedTag(tag_id);
-    const initialPosts = await getInitialPosts(tag_id); 
+    const initialPosts = await getCachedInitialPosts(tag_id); 
     let catlink='';
     let bred='';
     

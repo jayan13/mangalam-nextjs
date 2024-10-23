@@ -10,21 +10,21 @@ export async function getDist(dis_id){
     return rows;
   }
   
-const getCachedDistrict = unstable_cache(async (id) => getDist(id), ['my-app-district']);
+const getCachedDistrict = unstable_cache(async (id) => getDist(id),(id) => [`my-app-district-${id}`],{ revalidate: 360});
 
 export async function getDists(){
     let [rows] = await db.query('SELECT id,name,concat(id,"-",LOWER(name)) as links FROM district order by sort_order');    
     return rows;
   }
   
-const getCachedDistricts = unstable_cache(async () => getDists(), ['my-app-districts']);
-
+const getCachedDistricts = unstable_cache(async () => getDists(), (id) => [`my-app-districts-${id}`],{ revalidate: 360});
+const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id), (id) => [`my-app-district-posts-${id}`],{ revalidate: 360});
 export default async function Home({params}) {
     const urlid= params.slug[0];
     const district_id= urlid.split('-')[0];
     const rows =await getCachedDistrict(district_id);
     const dists=await getCachedDistricts();
-    const initialPosts = await getInitialPosts(district_id);
+    const initialPosts = await getCachedInitialPosts(district_id);
     let catlink='';
     let bred='';
     if(dists.length){

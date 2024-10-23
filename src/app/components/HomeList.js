@@ -259,7 +259,7 @@ function Homenew(props){
       //console.log('Fetching page:', page);  // Debugging to ensure correct page is passed
   
       try {
-        const res = await fetch(`/api/home?page=${page}&limit=1`);  // Fetch next page
+        const res = await fetch(`/api/home?page=${page}&limit=1`, { next: { revalidate: 360 } });  // Fetch next page
         const data = await res.json();
   
         // Append new posts to the existing list

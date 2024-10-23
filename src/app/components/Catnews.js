@@ -149,7 +149,7 @@ function Catgnews(props){
       try {
         //const distid=posts[0][0].district_id;
         const distid=category_id;
-        const res = await fetch(`/api/category?page=${page}&limit=8&category=${distid}`);  // Fetch next page
+        const res = await fetch(`/api/category?page=${page}&limit=8&category=${distid}`, { next: { revalidate: 360 } });  // Fetch next page
         const data = await res.json();
   
         // Append new posts to the existing list

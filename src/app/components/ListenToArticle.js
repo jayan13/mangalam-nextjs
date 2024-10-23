@@ -13,6 +13,7 @@ const ListenToArticle = ({ text }) => {
     } else {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.onend = () => setIsPlaying(false);
+      //utterance.lang = "en-US"; //ml-IN
       window.speechSynthesis.speak(utterance);
       setSpeech(utterance);
       setIsPlaying(true);

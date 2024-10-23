@@ -2,7 +2,10 @@
 //import Image from "next/image";
 import GoogleAd from "./GoogleAd";
 function TopAdv() {
-return '';
+return <div className="advertisement no-printme">
+  <div className="advertisement-text">Advertisement</div>
+  <div className="ad"></div>
+</div>;
 /*
 return <div className="advertisement no-printme">
   <div className="advertisement-text">Advertisement</div>

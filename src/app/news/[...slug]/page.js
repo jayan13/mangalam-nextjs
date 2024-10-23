@@ -25,9 +25,15 @@ export async function getTags(news_id){
   return rows;
 }
 
-const getCachedNewsDet = unstable_cache(async (id) => getDetails(id), ['my-app-news']);
-const getCachedImages = unstable_cache(async (id) => getImages(id), ['my-app-images']);
-const getCachedTags = unstable_cache(async (id) => getTags(id), ['my-app-tags']);
+export async function getCategory(cat_id){
+  let [rows] = await db.query('SELECT name,parent_id FROM category where id=?',cat_id);    
+  return rows;
+}
+
+const getCachedNewsDet = unstable_cache(async (id) => getDetails(id), (id) => [`my-app-news-${id}`],{ revalidate: 360});
+const getCachedImages = unstable_cache(async (id) => getImages(id), (id) => [`my-app-images-${id}`],{ revalidate: 360});
+const getCachedTags = unstable_cache(async (id) => getTags(id), (id) => [`my-app-tags-${id}`],{ revalidate: 360});
+const getCachedCat = unstable_cache(async (id) => getCategory(id), (id) => [`my-app-bcats-${id}`],{ revalidate: 360});
 
   function Newd(props) {
     const newsdetails= props.det;
@@ -168,7 +174,9 @@ export default async function News({params}) {
 
         if(newses[0].category_id)
         {
-          let [cats] = await db.query('SELECT name,parent_id FROM category where id=?',newses[0].category_id);
+          
+          //let [cats] = await db.query('SELECT name,parent_id FROM category where id=?',newses[0].category_id);
+          let cats = await getCachedCat(newses[0].category_id);
           const catname=cats[0].name;
           const catlink=catname.replace(" ", "-");
           br1=<li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">
@@ -180,7 +188,8 @@ export default async function News({params}) {
 
           if(cats[0].parent_id)
           {
-            let [cats2] = await db.query('SELECT name FROM category where id=?',cats[0].parent_id);
+            //let [cats2] = await db.query('SELECT name FROM category where id=?',cats[0].parent_id);
+            let cats2 = await getCachedCat(cats[0].parent_id);
             const catname2=cats2[0].name;
             const catlink2=catname2.replace(" ", "-");
             br2=<li className="c-navigation-breadcrumbs__item" property="itemListElement" typeof="ListItem">

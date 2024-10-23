@@ -112,7 +112,7 @@ export default function InfiniteScroll(){
     if (isFetchingrgt) return;  // Prevent multiple calls
 
     setIsFetchingrgt(true);
-    const res = await fetch(`/api/right?page=${page}&limit=5`);
+    const res = await fetch(`/api/right?page=${page}&limit=5`, { next: { revalidate: 360 } });
     const data = await res.json();
     //console.log(data);
     setPosts((prevPosts) => [...prevPosts, ...data.newslist]);
