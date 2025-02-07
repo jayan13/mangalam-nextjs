@@ -1,3 +1,9 @@
+https://medium.com/@mudasirhaji/deploying-a-next-js-app-manually-on-aws-ec2-a-step-by-step-guide-58b266ff1c52
+https://github.com/jayan13/mangalam-nextjs.git
+
+sudo apt install nodejs
+sudo apt install npm
+npm install next@latest react@latest react-dom@latest
 npm install --save mysql2
 npm install swiper
 npm install react-youtube
