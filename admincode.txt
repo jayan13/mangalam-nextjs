@@ -38,7 +38,9 @@ https://swiperjs.com/types/interfaces/types_swiper_events.SwiperEvents#_swiper
 ALTER TABLE `news` ADD `eng_summary` TEXT NOT NULL AFTER `summary`;
 ALTER TABLE `news` ADD `author_profile` TEXT NOT NULL AFTER `author`;
 ALTER TABLE `node_queue` ADD `display_order` int(3) NOT NULL AFTER `max_queue_size`;
-ALTER TABLE `node_queue` ADD `eng_summary` varchar(100) NOT NULL AFTER `display_order`;
+ALTER TABLE `node_queue` DROP `eng_summary`;
+ALTER TABLE `node_queue` ADD `template` varchar(100) NOT NULL AFTER `display_order`;
+
 
 
 
