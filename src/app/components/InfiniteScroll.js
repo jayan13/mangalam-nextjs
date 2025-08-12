@@ -3,14 +3,18 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from "next/image";
-
+import GoogleAdPcItem from "../adds/Addsright";
 function Newimg(props) {
   const newsimage= props.news;
-  return ( (newsimage.file_name!=null)? <Image src={'/'+newsimage.file_name} alt="A portrait of me" width="308" height="185" loading="lazy"  /> : <div>No Image</div>);
+  let src='/'+newsimage.file_name;
+  const [imageSrc, setImageSrc] = useState(src);
+  return ( (newsimage.file_name!=null)? <Image src={imageSrc} alt="news image" width="308" height="185" loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} /> : <Image src="/uploads/noimg.svg" alt="news image" width="308" height="185" loading="lazy"  />);
 }
 function Newimgs(props) {
   const newsimage= props.news;
-  return ( (newsimage.file_name!=null)? <Image src={'/'+newsimage.file_name} className='news-image' alt="A portrait of me" width="88" height="54" loading="lazy"  /> : <div>No Image</div>);
+  let src='/'+newsimage.file_name;
+  const [imageSrc, setImageSrc] = useState(src);
+  return ( (newsimage.file_name!=null)? <Image src={imageSrc} className='news-image' alt="news image" width="88" height="54" loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} /> : <Image src="/uploads/noimg.svg" className='news-image' alt="news image" width="88" height="54" loading="lazy"  />);
 }
 function Newsright(props) {
   const post= props.news;
@@ -115,9 +119,17 @@ export default function InfiniteScroll(){
     const res = await fetch(`/api/right?page=${page}&limit=5`, { next: { revalidate: 360 } });
     const data = await res.json();
     //console.log(data);
-    setPosts((prevPosts) => [...prevPosts, ...data.newslist]);
-    setHasMore(data.hasMore);
-    setPage((prev) => prev + 1);
+    if(data.newslist)
+    {
+      setPosts((prevPosts) => [...prevPosts, ...data.newslist]);
+      setHasMore(data.hasMore);
+      setPage((prev) => prev + 1);
+    }else{
+      setHasMore(0);
+    }
+    //setPosts((prevPosts) => [...prevPosts, ...data.newslist]);
+    //setHasMore(data.hasMore);
+    //setPage((prev) => prev + 1);
     setIsFetchingrgt(false);
   };
 
@@ -152,10 +164,7 @@ export default function InfiniteScroll(){
     <div className="home-news-section-right no-printme">
       {posts.map((post, index) => (
       <div key={index} className='rght-block'>
-        <div className="advertisement no-margin">
-          <div className="advertisement-text">Advertisement</div>
-          <div className="ad"> <Image src="/img/ads/side-ad-small.jpg" alt='adds' width={300} height={250} loading="lazy" /> </div>
-        </div>
+        <GoogleAdPcItem adId={index} />
         <Newsright news={post} />
         </div>
       ))}

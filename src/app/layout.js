@@ -1,42 +1,31 @@
-
-import Script from 'next/script';
 import "./globals.css";
 
 import Header from "./components/header";
 import Footer from "./components/footer";
-import TopAdv from "./adds/topadv";
-import Addheader from "./adds/Addheader";
 
+import Addheader from "./adds/Addheader";
+import GoogleAdSense from "./adds/GoogleAdSense";
+import GaddTop from "./adds/GaddTop";
+import AddDoubleClick from "./adds/AddDoubleClick";
 export const metadata = {
   title: "Mangalam-Latest Kerala News",
   description: "Mangalam-Latest Kerala News, Malayalam News,  Politics, Malayalam Cinema, Sports",
 };
 
 export default function RootLayout({ children }) {
-  /* 
-  <Script async  src={`https://www.googletagmanager.com/gtag/js?${process.env.GOOGLE_ANALYTICS}`} />
-      <Script
-          dangerouslySetInnerHTML={{
-            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${process.env.GOOGLE_ANALYTICS}', {
-              page_path: window.location.pathname,
-            });
-          `,
-          }}
-        />
-  */
+  
   return (
     <html lang="en">
       <head>
-      {/*<Addheader />*/}
+      <meta name="facebook-domain-verification" content="s1hoxh2eofwg6u6fy1z4k2evg27028"  />  
+      <Addheader />
       </head>
       <body >
+      <GoogleAdSense />
+      <AddDoubleClick divid='DWTag-DFPOld_RS00_Mangalam_Multi_1x1_03082020' slotid='/36888185/DWTag-DFPOld_RS00_Mangalam_Multi_1x1_03082020' w='300' h='250'/>    
       <div className="screen">
       <Header />
-      <TopAdv />
+      <GaddTop />
         {children}
       <Footer />
       </div>  

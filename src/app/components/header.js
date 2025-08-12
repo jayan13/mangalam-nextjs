@@ -11,10 +11,7 @@ function Header() {
 
       
 return <header className="main-header no-printme">
-<div className="header-advertisement">
-  <div className="advertisement-text">Advertisement</div>
-  {/*<GoogleAd adSlot="8131115980" adStyle={{ width: '100%', height: '200px' }} />*/}
-</div>
+
 <div className="logo-header">
   <div className="logo-left">
     <div className="logo-left-top">

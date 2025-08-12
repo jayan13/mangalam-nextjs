@@ -15,6 +15,76 @@ npm uninstall swiper react-youtube
 
 npm install swiper@10.3.1
 
+need to set up dev.mangalam.com for development, database should be accessible from this server (current db newscms). new development is using nextjs framework  https://nextjs.org/ .
+need ftp access to development server. need to setup nextjs application on dev server, developmet code is on git https://github.com/jayan13/mangalam-nextjs.git you can setup nextjs apps from git 
+
+Step 1: Launch an EC2 Instance
+Log in to your AWS Console.
+Navigate to EC2 and click Launch Instance.
+Choose an appropriate AMI (Amazon Linux 2, Ubuntu, etc.).
+Select an instance type (e.g., t2.micro for basic usage).
+Configure security group:
+Allow SSH (port 22) for your IP.
+Allow HTTP (port 80) and HTTPS (port 443).
+Allow custom TCP (port 3000) for Next.js development.
+Launch and connect to the instance using SSH.
+
+Step 2: Install Required Packages
+After connecting via SSH:
+
+sudo apt update && sudo apt upgrade -y  # For Ubuntu
+sudo yum update -y                      # For Amazon Linux
+
+# Install Node.js and npm (Recommended: Node.js 18+)
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt install -y nodejs
+
+# Install Git
+sudo apt install -y git
+Check installations:
+node -v
+npm -v
+git --version
+
+Step 3: Clone Your Next.js Repository
+git clone https://github.com/jayan13/mangalam-nextjs.git
+cd mangalam-nextjs
+
+Step 4: Install Dependencies
+npm install
+
+Step 5: Start the Development Server
+For development mode:
+npm run dev
+By default, the app runs on port 3000.
+
+Step 6: Configure PM2 (Optional, for Process Management)
+To keep the app running in the background:
+npm install -g pm2
+pm2 start npm --name "mangalam-nextjs" -- run dev
+pm2 save
+pm2 startup
+
+
+pm2 list
+
+pm2 start npm --name "mangalam-nextjs" -- run dev
+pm2 save
+pm2 restart mangalam-nextjs
+pm2 startup
+
+Step 7: Access the App in Browser
+Find the public IP of your EC2 instance from the AWS console and open:
+
+If the App is Not Running, Start It Again
+
+http://YOUR_EC2_PUBLIC_IP:3000
+If it's not accessible, check the firewall/security group settings.
+
+View running processes: pm2 list
+Stop the application: pm2 stop nextjs-app
+Restart the application: pm2 restart nextjs-app
+View application logs: pm2 logs nextjs-app
 
 
 C:\xampp\htdocs\newscms\backend\views\node-queue\_form.php
@@ -64,3 +134,55 @@ ${process.env.GOOGLE_ADSENSE_CLIENT_ID}
 <GoogleAd adSlot="XXXXXXXXXX" adStyle={{ width: '100%', height: '200px' }} />
 
 
+Step 1: Launch an EC2 Instance
+Log in to your AWS Console.
+Navigate to EC2 and click Launch Instance.
+Choose an appropriate AMI (Amazon Linux 2, Ubuntu, etc.).
+Select an instance type (e.g., t2.micro for basic usage).
+Configure security group:
+Allow SSH (port 22) for your IP.
+Allow HTTP (port 80) and HTTPS (port 443).
+Allow custom TCP (port 3000) for Next.js development.
+Launch and connect to the instance using SSH.
+
+Step 2: Install Required Packages
+After connecting via SSH:
+
+sudo apt update && sudo apt upgrade -y  # For Ubuntu
+sudo yum update -y                      # For Amazon Linux
+
+# Install Node.js and npm (Recommended: Node.js 18+)
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt install -y nodejs
+
+# Install Git
+sudo apt install -y git
+Check installations:
+node -v
+npm -v
+git --version
+
+Step 3: Clone Your Next.js Repository
+git clone https://github.com/jayan13/mangalam-nextjs.git
+cd mangalam-nextjs
+
+Step 4: Install Dependencies
+npm install
+
+Step 5: Start the Development Server
+For development mode:
+npm run dev
+By default, the app runs on port 3000.
+
+Step 6: Configure PM2 (Optional, for Process Management)
+To keep the app running in the background:
+npm install -g pm2
+pm2 start npm --name "mangalam-nextjs" -- run dev
+pm2 save
+pm2 startup
+
+Step 7: Access the App in Browser
+Find the public IP of your EC2 instance from the AWS console and open:
+
+http://YOUR_EC2_PUBLIC_IP:3000
+If it's not accessible, check the firewall/security group settings.

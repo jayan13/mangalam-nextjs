@@ -6,12 +6,15 @@ import Image from "next/image";
 //import SlickSlider from "./Slickslider";
 import YouTubeSlider from "./YouTubeSlider";
 //import SwipeSlider from "./SwipeSlider";
+import AdSenseAdc from "../adds/AddsCenter"
 
 function Newimg(props) {
     const newsimage= props.news;
     const w=props.width;
     const h=props.height;
-    return ( (newsimage.file_name!=null)? <Image src={'/'+newsimage.file_name} alt={newsimage.alt} width={w} height={h} loading="lazy"  /> : <div>No Image</div>);
+    let src='/'+newsimage.file_name;
+    const [imageSrc, setImageSrc] = useState(src);
+    return ( (newsimage.file_name!=null)? <Image src={imageSrc} alt={newsimage.alt} width={w} height={h} loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} /> : <Image src="/uploads/noimg.svg" alt={newsimage.alt} width={w} height={h} loading="lazy"  />);
   }
 
 function Homenew(props){
@@ -262,14 +265,19 @@ function Homenew(props){
         const res = await fetch(`/api/home?page=${page}&limit=1`, { next: { revalidate: 360 } });  // Fetch next page
         const data = await res.json();
   
-        // Append new posts to the existing list
-        setPosts((prevPosts) => [...prevPosts, ...data.homenewslist]);
-  
-        // Check if there are more posts to load
-        setHasMore(data.hasMore);
-  
-        // Increment the page number after successful fetch
-        setPage((prevPage) => prevPage + 1);
+        if(data.homenewslist)
+        {
+          setPosts((prevPosts) => [...prevPosts, ...data.homenewslist]);
+          setHasMore(data.hasMore);
+          setPage((prevPage) => prevPage + 1);  
+        }else{
+          
+          setHasMore(0);
+           
+        }
+        //setPosts((prevPosts) => [...prevPosts, ...data.homenewslist]);
+        //setHasMore(data.hasMore);
+        //setPage((prevPage) => prevPage + 1);
         setIsFetching(false);
       } catch (error) {
         console.error('Error fetching more posts:', error);
@@ -312,10 +320,7 @@ function Homenew(props){
        <div key={index} className='mid-block'>
         <div className="section-heading section-heading-red">{post[0].heading}</div>
         <Homenew newslist={post} />
-        <div className="advertisement">
-          <div className="advertisement-text">Advertisement</div>
-          <div className="ad"><Image src="/img/ads/728x90.jpeg" alt='adds' width={728} height={90} loading="lazy" /></div>
-        </div>
+        <AdSenseAdc adId={index} />
        </div>
       ))}
       

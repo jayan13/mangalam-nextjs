@@ -3,20 +3,24 @@ import Script from 'next/script';
 function Addheader() {
 
     return (<>
-    <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"  crossOrigin="anonymous"  />
-        <Script
+      <Script async  src={`https://www.googletagmanager.com/gtag/js?${process.env.GOOGLE_ANALYTICS}`} strategy="afterInteractive" crossOrigin="anonymous"/>
+      <Script id="gtag-init"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: '${process.env.GOOGLE_ADSENSE_CLIENT_ID}',
-                enable_page_level_ads: true
-              });
-            `,
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.GOOGLE_ANALYTICS}', {
+              page_path: window.location.pathname,
+            });
+          `,
           }}
         />
-      <Script type="text/javascript" async="async" src="https://adunit.datawrkz.com/tms/data/placement/placement_150.min.js"></Script>
-      <Script async="async" src="https://cdn.unibots.in/coronaWidget/coronaWidget38/script.js"></Script> 
-      <Script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></Script>
+      
+      <Script async="async"  src="https://cdn.unibots.in/coronaWidget/coronaWidget38/script.js" ></Script> 
+      <Script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" strategy="afterInteractive" crossOrigin="anonymous"></Script>
+      <Script async  src="https://cdn.unibotscdn.com/player/mvp/player.js" ></Script>
     </>)
     }
     

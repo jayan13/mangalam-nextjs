@@ -6,12 +6,14 @@ import Printpage from "../../components/Printpage";
 import ListenToArticle from "../../components/ListenToArticle";
 import Image from "next/image";
 import Link from 'next/link';
+import Script from 'next/script';
 import { unstable_cache } from "next/cache";
+import UnibotsAd from "../../adds/UnibotPlay";
 
 const pageUrl = process.env.BASEURL+'/';
 
  export async function getDetails(news_id){
-    let [rows] = await db.query('SELECT news.id,news.title,news.eng_title,news.eng_summary,DATE_FORMAT(news.effective_date, "%d %b %Y, %l:%i %p") as posting_date,CONVERT(news.news_details USING utf8) as news_details,concat("/news/",news.id,"-",REPLACE(LOWER(news.eng_title)," ","-"),".html") as url,news.meta_keywords,news.meta_description,news.author,news.author_photo,news.author_profile,columnist.name as columnist,columnist.photo as columnist_photo,columnist.profile as columnist_profile,district.name AS district,news.district_id,c.category_id as category_id FROM news left join columnist on columnist.id=news.columnist_id LEFT JOIN (SELECT category_id,news_id FROM news_category) c ON c.news_id = news.id LEFT JOIN district ON district.id = news.district_id where news.id=? group by news.id',news_id);    
+    let [rows] = await db.query('SELECT news.id,news.title,news.eng_title,news.eng_summary,DATE_FORMAT(news.effective_date, "%d %b %Y, %l:%i %p") as posting_date,news_details as row_news_details,CONVERT(news.news_details USING utf8) as news_details,concat("/news/",news.id,"-",REPLACE(LOWER(news.eng_title)," ","-"),".html") as url,news.meta_keywords,news.meta_description,news.author,news.author_photo,news.author_profile,columnist.name as columnist,columnist.photo as columnist_photo,columnist.profile as columnist_profile,district.name AS district,news.district_id,c.category_id as category_id FROM news left join columnist on columnist.id=news.columnist_id LEFT JOIN (SELECT category_id,news_id FROM news_category) c ON c.news_id = news.id LEFT JOIN district ON district.id = news.district_id where news.id=? group by news.id',news_id);    
     return rows;
 }
 
@@ -37,7 +39,38 @@ const getCachedCat = unstable_cache(async (id) => getCategory(id), (id) => [`my-
 
   function Newd(props) {
     const newsdetails= props.det;
-    return ( (newsdetails.url)? <article key={'imgc'+newsdetails.id}> <Image src={'/'+newsdetails.url} key={'img'+newsdetails.id} alt={newsdetails.title} width={924} height={555}/>  <p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article> : <article key={'imgc'+newsdetails.id}><p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article>);
+
+    const val=newsdetails.value;    
+    const parag=val.split('<br>');
+    const text = [];
+    for (let i = 0; i < parag.length; i++) {
+      text.push(<><div className='article' key={newsdetails.id+'-'+i} dangerouslySetInnerHTML={{ __html: parag[i] }} /> <br /></>);
+      
+      if(i==0)
+      {
+        text.push(<UnibotsAd />);
+      }
+      if(i==1)
+      {
+        text.push(<><div id="M830015ScriptRootC1358041"></div><Script async="async" src="https://jsc.mgid.com/m/a/mangalam.com.1358041.js"></Script></>);
+      }
+    }
+
+    if(newsdetails.url)
+    {
+      return(<article key={'imgc'+newsdetails.id}> 
+      <Image src={'/'+newsdetails.url} key={'img'+newsdetails.id} alt={newsdetails.title} width={924} height={555}/>  
+      {text}
+      </article>);
+    }else{
+      return(<article key={'imgc'+newsdetails.id}>
+      {text}
+      </article>);
+    }
+    
+
+    
+    //return ( (newsdetails.url)? <article key={'imgc'+newsdetails.id}> <Image src={'/'+newsdetails.url} key={'img'+newsdetails.id} alt={newsdetails.title} width={924} height={555}/>  <p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article> : <article key={'imgc'+newsdetails.id}><p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article>);
   }
 
   function Tags(props)
@@ -150,9 +183,9 @@ export default async function News({params}) {
         const rows =await getCachedNewsDet(news_id);
         newses=rows;
         newstags =await getCachedTags(news_id);
-        detail=newses[0].news_details.toString().replaceAll("[BREAK]","").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
-        //const [prows] = await db.query('SELECT file_name FROM news_image where news_id=? ',news_id);
-        const text = newses[0].news_details;
+        let ndet=(newses[0].news_details)? newses[0].news_details.toString():newses[0].row_news_details.toString();
+        detail=ndet.replaceAll("[BREAK]","").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
+        const text = ndet;
         const wpm = 225;
         const words = text.trim().split(/\s+/).length;
         rdtime = Math.ceil(words / wpm);
@@ -169,6 +202,7 @@ export default async function News({params}) {
             {
                 imgurl=imgar[i];
             }
+            
             detarry.push({ id: news_id+i, value: val,url:imgurl,title:newses[0].eng_title });
         }
 
