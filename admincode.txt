@@ -186,3 +186,6 @@ Find the public IP of your EC2 instance from the AWS console and open:
 
 http://YOUR_EC2_PUBLIC_IP:3000
 If it's not accessible, check the firewall/security group settings.
+ test
+
+8.1.25 xamp
