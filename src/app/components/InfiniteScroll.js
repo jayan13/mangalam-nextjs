@@ -6,15 +6,17 @@ import Image from "next/image";
 import GoogleAdPcItem from "../adds/Addsright";
 function Newimg(props) {
   const newsimage= props.news;
-  let src='/'+newsimage.file_name;
+  //let src='/'+newsimage.file_name;
+  let src=`${process.env.NEXT_PUBLIC_IMAGE_URL}/${newsimage.file_name}`;
   const [imageSrc, setImageSrc] = useState(src);
-  return ( (newsimage.file_name!=null)? <Image src={imageSrc} alt="news image" width="308" height="185" loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} /> : <Image src="/uploads/noimg.svg" alt="news image" width="308" height="185" loading="lazy"  />);
+  return ( (newsimage.file_name!=null)? <Image src={imageSrc} alt="news image" width="308" height="185" loading="lazy" unoptimized={true} onError={() => setImageSrc("/uploads/noimg.svg")} /> : <Image src="/uploads/noimg.svg" alt="news image" width="308" height="185" loading="lazy"  />);
 }
 function Newimgs(props) {
   const newsimage= props.news;
-  let src='/'+newsimage.file_name;
+  //let src='/'+newsimage.file_name;
+  let src=`${process.env.NEXT_PUBLIC_IMAGE_URL}/${newsimage.file_name}`;
   const [imageSrc, setImageSrc] = useState(src);
-  return ( (newsimage.file_name!=null)? <Image src={imageSrc} className='news-image' alt="news image" width="88" height="54" loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} /> : <Image src="/uploads/noimg.svg" className='news-image' alt="news image" width="88" height="54" loading="lazy"  />);
+  return ( (newsimage.file_name!=null)? <Image src={imageSrc} className='news-image' alt="news image" width="88" height="54" unoptimized={true} loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} /> : <Image src="/uploads/noimg.svg" className='news-image' alt="news image" width="88" height="54" loading="lazy"  />);
 }
 function Newsright(props) {
   const post= props.news;

@@ -23,7 +23,8 @@ const getCachedCategorys = unstable_cache(async (id) => getCategorys(id),(id) =>
 const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id), (id) => [`my-app-categorys-posts-${id}`],{ revalidate: 360});
 
 export default async function Home({params}) {
-    const urlid= params.slug[0];
+    const { slug } = await params;  
+    const urlid= slug[0];
     const category_id= urlid.split('-')[0];
     const rows =await getCachedCategory(category_id);
     let cats = await getCachedCategorys(category_id);

@@ -151,7 +151,8 @@ const getCachedCat = unstable_cache(async (id) => getCategory(id), (id) => [`my-
 
 
   export async function generateMetadata({ params }) {
-    const urlid= params.slug[0];
+    const { slug } = await params;  
+    const urlid= slug[0];
     const news_id= urlid.split('-')[0];
     const rows =await getCachedNewsDet(news_id);
     //const [rows] = await db.query('SELECT COALESCE(eng_title,title) as title,meta_description FROM news where id=? ',news_id);
@@ -166,7 +167,8 @@ const getCachedCat = unstable_cache(async (id) => getCategory(id), (id) => [`my-
   
 export default async function News({params}) {
     
-    const urlid= params.slug[0];
+    const { slug } = await params;  
+    const urlid= slug[0];
     const news_id= urlid.split('-')[0];
     let newses=[];
     let detail=[];

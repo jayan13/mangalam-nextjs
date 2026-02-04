@@ -8,7 +8,9 @@ function Newimg(props) {
     const newsimage= props.news;
     const w=props.width;
     const h=props.height;
-    return ( (newsimage.file_name!=null)? <Image src={'/'+newsimage.file_name} alt={newsimage.alt} width={w} height={h} loading="lazy"  /> : <div>No Image</div>);
+    let src=`${process.env.NEXT_PUBLIC_IMAGE_URL}/${newsimage.file_name}`;
+    const [imageSrc, setImageSrc] = useState(src);
+    return ( (newsimage.file_name!=null)? <Image src={imageSrc} alt={newsimage.alt} width={w} height={h} unoptimized={true} loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} /> : <div>No Image</div>);
   }
 
   function Blocks(props){

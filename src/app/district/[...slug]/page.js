@@ -20,7 +20,8 @@ export async function getDists(){
 const getCachedDistricts = unstable_cache(async () => getDists(), (id) => [`my-app-districts-${id}`],{ revalidate: 360});
 const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id), (id) => [`my-app-district-posts-${id}`],{ revalidate: 360});
 export default async function Home({params}) {
-    const urlid= params.slug[0];
+  const { slug } = await params;  
+    const urlid= slug[0];
     const district_id= urlid.split('-')[0];
     const rows =await getCachedDistrict(district_id);
     const dists=await getCachedDistricts();

@@ -10,7 +10,8 @@ const fetchData = unstable_cache(async () => {
 
   function Newimg(props) {
     const newsimage= props.news;
-    return ( (newsimage.file_name!=null)? <Image src={'/'+newsimage.file_name} alt="A portrait of me" width="600" height="362" loading="lazy"  /> : <div>No Image</div>);
+    let src=`${process.env.NEXT_PUBLIC_IMAGE_URL}/${newsimage.file_name}`;
+    return ( (newsimage.file_name!=null)? <Image src={src} alt="A portrait of me" width="600" height="362" loading="lazy" unoptimized={true} /> : <div>No Image</div>);
   }
 
 export default async function Users() {
