@@ -59,7 +59,7 @@ const getCachedCat = unstable_cache(async (id) => getCategory(id), (id) => [`my-
     if(newsdetails.url)
     {
       return(<article key={'imgc'+newsdetails.id}> 
-      <Image src={'/'+newsdetails.url} key={'img'+newsdetails.id} alt={newsdetails.title} width={924} height={555}/>  
+      <Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'/'+newsdetails.url} key={'img'+newsdetails.id} alt={newsdetails.title} width={924} height={555} unoptimized={true}/>  
       {text}
       </article>);
     }else{
@@ -134,7 +134,7 @@ const getCachedCat = unstable_cache(async (id) => getCategory(id), (id) => [`my-
         <div className="about-author no-printme">
           <h3>About Author:</h3>
           <div className="author-profile">
-            <Image src={'/'+author_photo} width={80} height={80} alt="Author photo" />
+            <Image src={process.env.NEXT_PUBLIC_IMAGE_URL+'/'+author_photo} width={80} height={80} alt="Author photo" unoptimized={true} />
             <div className="author-details">
               <h4>{author}</h4>
               <p>{author_profile}</p>
