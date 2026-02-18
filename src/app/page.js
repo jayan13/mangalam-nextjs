@@ -3,7 +3,7 @@ import HomeList from './components/HomeList';
 import InfiniteScroll from './components/InfiniteScroll';
 import { unstable_cache } from "next/cache";
 
-const getCachedInitialPosts = unstable_cache(async () => getInitialPosts(), ['my-app-home-posts'], { revalidate: 30 });
+const getCachedInitialPosts = unstable_cache(async () => getInitialPosts(), ['my-app-home-posts'], { revalidate: 360 });
 export default async function HomePage() {
   // Fetch initial posts on the server
   const initialPosts = await getCachedInitialPosts();
