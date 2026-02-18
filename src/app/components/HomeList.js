@@ -255,6 +255,7 @@ function Homenew(props){
     const observer = useRef(null);                     // Ref for IntersectionObserver
   
     // Function to fetch more posts
+    //console.log("initial="+initialPosts);
     const fetchMorePosts = async () => {
        
       if (isFetching) return;  // Prevent multiple calls
@@ -317,17 +318,28 @@ function Homenew(props){
   
 
   return (
-    <div className='home-news-section-left'>
-      {posts.map((post, index) => (
-       <div key={index} className='mid-block'>
-        <div className="section-heading section-heading-red">{post[0].heading}</div>
-        <Homenew newslist={post} />
-        <AdSenseAdc adId={index} />
-       </div>
-      ))}
-      
-      <div id="end-of-list">{hasMore ? 'Loading more...' : 'No more News'}</div>
+    <div className="home-news-section-left">
+
+    {!posts || posts.length === 0 ? (
+      <div className="no-news">No News</div>
+    ) : (
+      posts.map((post, index) => (
+        <div key={index} className="mid-block">
+          <div className="section-heading section-heading-red">
+            {post?.[0]?.heading}
+          </div>
+
+          <Homenew newslist={post} />
+          <AdSenseAdc adId={index} />
+        </div>
+      ))
+    )}
+
+    <div id="end-of-list">
+      {hasMore ? "Loading more..." : "No more News"}
     </div>
+
+  </div>
   );
 }
   
