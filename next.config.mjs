@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  allowedDevOrigins: ['dev.mangalam.com'],
+};
 /*
 const nextConfig = {
     async headers() {
