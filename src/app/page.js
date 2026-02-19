@@ -55,6 +55,7 @@ async function getInitialPosts() {
 
 function SubstringWithoutBreakingWords(str, limit) {
   // Check if string length is within the limit
+  if (!str) return ""; 
   if (str.length <= limit) {
     return str;
   }
