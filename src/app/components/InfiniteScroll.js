@@ -44,6 +44,7 @@ function Newsright(props) {
   return (
     <div className={`right-news-section ${topclass}`}>
       <div className={`section-heading ${hedcolr}`}>{hed}</div>
+      {post[0] && (
       <div key={`lft-${post[0].id}`} id={`lft-${post[0].id}`} className="news-item right-main-news">
           <figure>
             {imgmark}
@@ -55,8 +56,10 @@ function Newsright(props) {
           </div>
           
         </div>
-        <div className="right-news-bottom" id={`lftbtm-${post[0].id}`} key={`lftbtm-${post[0].id}`}>
-
+        )}
+        
+        <div className="right-news-bottom" >
+          {post[1] && (
           <div key={`lft-${post[1].id}`} id={`lft-${post[1].id}`} className="news-item">
             
             <div className="news-item-text">
@@ -68,6 +71,8 @@ function Newsright(props) {
             <Link href={`/news/${post[1].url}`}><Newimgs news={post[1]}/></Link>
             </figure>
           </div>
+          )}
+          {post[2] && (
           <div key={`lft-${post[2].id}`} id={`lft-${post[2].id}`} className="news-item">
             
             <div className="news-item-text">
@@ -79,6 +84,8 @@ function Newsright(props) {
             <Link href={`/news/${post[2].url}`}><Newimgs news={post[2]}/></Link>
             </figure>
           </div>
+          )}
+          {post[3] && (
           <div key={`lft-${post[3].id}`} id={`lft-${post[3].id}`} className="news-item">
             
             <div className="news-item-text">
@@ -90,6 +97,8 @@ function Newsright(props) {
             <Link href={`/news/${post[3].url}`}><Newimgs news={post[3]}/></Link>
             </figure>
           </div>
+          )}
+          {post[4] && (
           <div key={`lft-${post[4].id}`} id={`lft-${post[4].id}`} className="news-item">
             
             <div className="news-item-text">
@@ -101,7 +110,7 @@ function Newsright(props) {
             <Link href={`/news/${post[4].url}`}><Newimgs news={post[4]}/></Link>
             </figure>
           </div>
-
+          )}
         </div>
     </div>
   );
