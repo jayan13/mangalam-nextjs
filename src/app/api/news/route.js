@@ -23,7 +23,13 @@ export async function GET(request) {
     const startIndex = (page - 1) * limit;
 
     const rows = await getNews(startIndex, limit);
-    return new Response(JSON.stringify({ data: rows }), { status: 200 });
+    return new Response(JSON.stringify({ data: rows }), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=360, stale-while-revalidate=60',
+        'Content-Type': 'application/json',
+      },
+    });
 
   } catch (error) {
     console.error('Error fetching data:', error);

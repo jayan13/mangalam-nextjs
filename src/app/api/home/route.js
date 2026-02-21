@@ -58,7 +58,13 @@ export async function GET(req) {
   try {
     const { homenewslist, totalPosts } = await getHomeNews(limit, offset);
     const hasMore = offset + limit < totalPosts;
-    return new Response(JSON.stringify({ homenewslist, hasMore }), { status: 200 });
+    return new Response(JSON.stringify({ homenewslist, hasMore }), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=360, stale-while-revalidate=60',
+        'Content-Type': 'application/json',
+      },
+    });
   } catch (error) {
     console.error(error);
     return new Response(JSON.stringify({ message: 'Error fetching posts' }), { status: 500 });
