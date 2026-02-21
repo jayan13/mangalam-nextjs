@@ -6,15 +6,25 @@ import Image from "next/image";
 import { unstable_cache } from "next/cache";
 
 export async function getDist(dis_id) {
-  let [rows] = await db.query('SELECT name FROM district where id=?', dis_id);
-  return rows;
+  try {
+    let [rows] = await db.query('SELECT name FROM district where id=?', dis_id);
+    return rows;
+  } catch (error) {
+    console.error('Database error in getDist:', error);
+    return [];
+  }
 }
 
 const getCachedDistrict = unstable_cache(async (id) => getDist(id), (id) => [`my-app-district-${id}`], { revalidate: 360 });
 
 export async function getDists() {
-  let [rows] = await db.query('SELECT id,name,concat(id,"-",LOWER(name)) as links FROM district order by sort_order');
-  return rows;
+  try {
+    let [rows] = await db.query('SELECT id,name,concat(id,"-",LOWER(name)) as links FROM district order by sort_order');
+    return rows;
+  } catch (error) {
+    console.error('Database error in getDists:', error);
+    return [];
+  }
 }
 
 const getCachedDistricts = unstable_cache(async () => getDists(), (id) => [`my-app-districts-${id}`], { revalidate: 360 });
@@ -26,6 +36,10 @@ export default async function Home({ params }) {
   const rows = await getCachedDistrict(district_id);
   const dists = await getCachedDistricts();
   const initialPosts = await getCachedInitialPosts(district_id);
+
+  if (!rows || !rows.length) {
+    return <div className="home-news-container"><h1>District not found or database error.</h1></div>;
+  }
   let catlink = '';
   let bred = '';
   if (dists.length) {
@@ -69,30 +83,34 @@ export default async function Home({ params }) {
 }
 
 async function getInitialPosts(district_id) {
+  try {
+    let distnewslist = [];
+    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,news.district_id FROM news left join news_image on news_image.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date and news.district_id=?  group by news.id order by news.effective_date DESC limit 0,8', [district_id]);
 
-  let distnewslist = [];
-  let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,news.district_id FROM news left join news_image on news_image.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date and news.district_id=?  group by news.id order by news.effective_date DESC limit 0,8', [district_id]);
+    if (data.length) {
+      for (let nws in Object.keys(data)) {
+        if (data[nws]['eng_title']) {
+          let newstit = JSON.stringify(data[nws]['eng_title']);
+          let slug = newstit.toString().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
+          data[nws]['url'] = data[nws]['id'] + '-' + slug + '.html';
 
-  if (data.length) {
-    for (let nws in Object.keys(data)) {
-      if (data[nws]['eng_title']) {
-        let newstit = JSON.stringify(data[nws]['eng_title']);
-        let slug = newstit.toString().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
-        data[nws]['url'] = data[nws]['id'] + '-' + slug + '.html';
+        } else {
+          data[nws]['url'] = data[nws]['id'] + '-news-details' + '.html';
+        }
 
-      } else {
-        data[nws]['url'] = data[nws]['id'] + '-news-details' + '.html';
+        data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'], 160);
+
       }
 
-      data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'], 160);
-
     }
-
+    //const posts=data;
+    //console.log(data);
+    distnewslist[0] = data;
+    return JSON.parse(JSON.stringify(distnewslist));
+  } catch (error) {
+    console.error('Database error in getInitialPosts:', error);
+    return [[]];
   }
-  //const posts=data;
-  //console.log(data);
-  distnewslist[0] = data;
-  return JSON.parse(JSON.stringify(distnewslist));
 }
 
 function SubstringWithoutBreakingWords(str, limit) {

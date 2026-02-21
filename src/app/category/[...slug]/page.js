@@ -8,19 +8,40 @@ import Image from "next/image";
 import { unstable_cache } from "next/cache";
 
 export async function getCategory(cat_id) {
-  let [rows] = await db.query('SELECT name,parent_id FROM category where id=?', cat_id);
-  return rows;
+  try {
+    let [rows] = await db.query('SELECT name,parent_id FROM category where id=?', cat_id);
+    return rows;
+  } catch (error) {
+    console.error('Database error in getCategory:', error);
+    return [];
+  }
 }
 
 export async function getCategorys(cat_id) {
-  let [rows] = await db.query('SELECT id,name,concat("/category/",id,"-",REPLACE(LOWER(name)," ","-"),".html") as links FROM category where status=1 and parent_id=? order by list_order', cat_id);
-  return rows;
+  try {
+    let [rows] = await db.query('SELECT id,name,concat("/category/",id,"-",REPLACE(LOWER(name)," ","-"),".html") as links FROM category where status=1 and parent_id=? order by list_order', cat_id);
+    return rows;
+  } catch (error) {
+    console.error('Database error in getCategorys:', error);
+    return [];
+  }
+}
+
+export async function getCategoryDetail(cat_id) {
+  try {
+    let [rows] = await db.query('SELECT name,id,concat("/category/",id,"-",REPLACE(LOWER(name)," ","-"),".html") as links FROM category where id=?', cat_id);
+    return rows;
+  } catch (error) {
+    console.error('Database error in getCategoryDetail:', error);
+    return [];
+  }
 }
 
 
 const getCachedCategory = unstable_cache(async (id) => getCategory(id), (id) => [`my-app-category-${id}`], { revalidate: 360 });
 const getCachedCategorys = unstable_cache(async (id) => getCategorys(id), (id) => [`my-app-categorys-${id}`], { revalidate: 360 });
 const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id), (id) => [`my-app-categorys-posts-${id}`], { revalidate: 360 });
+const getCachedCategoryDetail = unstable_cache(async (id) => getCategoryDetail(id), (id) => [`my-app-category-detail-${id}`], { revalidate: 360 });
 
 export default async function Home({ params }) {
   const { slug } = await params;
@@ -29,12 +50,17 @@ export default async function Home({ params }) {
   const rows = await getCachedCategory(category_id);
   let cats = await getCachedCategorys(category_id);
   const initialPosts = await getCachedInitialPosts(category_id);
+
+  if (!rows || !rows.length) {
+    return <div className="home-news-container"><h1>Category not found or database error.</h1></div>;
+  }
+
   let catlink = '';
   let bred = '';
   let br1 = '';
   if (rows[0].parent_id) {
-    let [pcats] = await db.query('SELECT name,id,concat("/category/",id,"-",REPLACE(LOWER(name)," ","-"),".html") as links FROM category where id=?', rows[0].parent_id);
-    if (pcats.length) {
+    const pcats = await getCachedCategoryDetail(rows[0].parent_id);
+    if (pcats && pcats.length) {
       br1 = <li className="c-navigation-breadcrumbs__item" property="itemListElement">
         <Link className="c-navigation-breadcrumbs__link" href={`${pcats[0].links}`} property="item">
           <span property="name">{pcats[0].name}</span>
@@ -89,31 +115,35 @@ export default async function Home({ params }) {
 }
 
 async function getInitialPosts(category_id) {
+  try {
+    let distnewslist = [];
+    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,news_category.category_id FROM news_category inner join news on news.id=news_category.news_id left join news_image on news_image.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date and news_category.category_id=?  group by news.id order by news.effective_date DESC limit 0,8', [category_id]);
+    //let data=getCachedInitialPosts([category_id]);
+    //console.log(data);
+    if (data.length) {
+      for (let nws in Object.keys(data)) {
+        if (data[nws]['eng_title']) {
+          let newstit = JSON.stringify(data[nws]['eng_title']);
+          let slug = newstit.toString().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
+          data[nws]['url'] = data[nws]['id'] + '-' + slug + '.html';
 
-  let distnewslist = [];
-  let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,news_category.category_id FROM news_category inner join news on news.id=news_category.news_id left join news_image on news_image.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date and news_category.category_id=?  group by news.id order by news.effective_date DESC limit 0,8', [category_id]);
-  //let data=getCachedInitialPosts([category_id]);
-  //console.log(data);
-  if (data.length) {
-    for (let nws in Object.keys(data)) {
-      if (data[nws]['eng_title']) {
-        let newstit = JSON.stringify(data[nws]['eng_title']);
-        let slug = newstit.toString().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
-        data[nws]['url'] = data[nws]['id'] + '-' + slug + '.html';
+        } else {
+          data[nws]['url'] = data[nws]['id'] + '-news-details' + '.html';
+        }
 
-      } else {
-        data[nws]['url'] = data[nws]['id'] + '-news-details' + '.html';
+        data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'], 160);
+
       }
 
-      data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'], 160);
-
     }
-
+    //const posts=data;
+    //console.log(data);
+    distnewslist[0] = data;
+    return JSON.parse(JSON.stringify(distnewslist));
+  } catch (error) {
+    console.error('Database error in getInitialPosts:', error);
+    return [[]];
   }
-  //const posts=data;
-  //console.log(data);
-  distnewslist[0] = data;
-  return JSON.parse(JSON.stringify(distnewslist));
 }
 
 function SubstringWithoutBreakingWords(str, limit) {

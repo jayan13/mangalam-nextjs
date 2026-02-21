@@ -14,23 +14,43 @@ import UnibotsAd from "../../adds/UnibotPlay";
 const pageUrl = process.env.BASEURL + '/';
 
 export async function getDetails(news_id) {
-  let [rows] = await db.query('SELECT news.id,news.title,news.eng_title,news.eng_summary,DATE_FORMAT(news.effective_date, "%d %b %Y, %l:%i %p") as posting_date,news_details as row_news_details,CONVERT(news.news_details USING utf8) as news_details,concat("/news/",news.id,"-",REPLACE(LOWER(news.eng_title)," ","-"),".html") as url,news.meta_keywords,news.meta_description,news.author,news.author_photo,news.author_profile,columnist.name as columnist,columnist.photo as columnist_photo,columnist.profile as columnist_profile,district.name AS district,news.district_id,c.category_id as category_id FROM news left join columnist on columnist.id=news.columnist_id LEFT JOIN (SELECT category_id,news_id FROM news_category) c ON c.news_id = news.id LEFT JOIN district ON district.id = news.district_id where news.id=? group by news.id', news_id);
-  return rows;
+  try {
+    let [rows] = await db.query('SELECT news.id,news.title,news.eng_title,news.eng_summary,DATE_FORMAT(news.effective_date, "%d %b %Y, %l:%i %p") as posting_date,news_details as row_news_details,CONVERT(news.news_details USING utf8) as news_details,concat("/news/",news.id,"-",REPLACE(LOWER(news.eng_title)," ","-"),".html") as url,news.meta_keywords,news.meta_description,news.author,news.author_photo,news.author_profile,columnist.name as columnist,columnist.photo as columnist_photo,columnist.profile as columnist_profile,district.name AS district,news.district_id,c.category_id as category_id FROM news left join columnist on columnist.id=news.columnist_id LEFT JOIN (SELECT category_id,news_id FROM news_category) c ON c.news_id = news.id LEFT JOIN district ON district.id = news.district_id where news.id=? group by news.id', news_id);
+    return rows;
+  } catch (error) {
+    console.error('Database error in getDetails:', error);
+    return [];
+  }
 }
 
 export async function getImages(news_id) {
-  let [rows] = await db.query('SELECT file_name FROM news_image where news_id=?', news_id);
-  return rows;
+  try {
+    let [rows] = await db.query('SELECT file_name FROM news_image where news_id=?', news_id);
+    return rows;
+  } catch (error) {
+    console.error('Database error in getImages:', error);
+    return [];
+  }
 }
 
 export async function getTags(news_id) {
-  let [rows] = await db.query('SELECT news_tags.tags_id,tags.name,concat("/tags/",news_tags.tags_id,"-",REPLACE(LOWER(tags.name)," ","-"),".html") as url FROM `news_tags` left join `tags` on tags.id=news_tags.tags_id where news_tags.news_id=?', news_id);
-  return rows;
+  try {
+    let [rows] = await db.query('SELECT news_tags.tags_id,tags.name,concat("/tags/",news_tags.tags_id,"-",REPLACE(LOWER(tags.name)," ","-"),".html") as url FROM `news_tags` left join `tags` on tags.id=news_tags.tags_id where news_tags.news_id=?', news_id);
+    return rows;
+  } catch (error) {
+    console.error('Database error in getTags:', error);
+    return [];
+  }
 }
 
 export async function getCategory(cat_id) {
-  let [rows] = await db.query('SELECT name,parent_id FROM category where id=?', cat_id);
-  return rows;
+  try {
+    let [rows] = await db.query('SELECT name,parent_id FROM category where id=?', cat_id);
+    return rows;
+  } catch (error) {
+    console.error('Database error in getCategory:', error);
+    return [];
+  }
 }
 
 const getCachedNewsDet = unstable_cache(async (id) => getDetails(id), (id) => [`my-app-news-${id}`], { revalidate: 360 });
@@ -146,7 +166,12 @@ export async function generateMetadata({ params }) {
   const urlid = slug[0];
   const news_id = urlid.split('-')[0];
   const rows = await getCachedNewsDet(news_id);
-  //const [rows] = await db.query('SELECT COALESCE(eng_title,title) as title,meta_description FROM news where id=? ',news_id);
+  if (!rows || !rows.length) {
+    return {
+      title: 'Mangalam-Latest Kerala News',
+      description: 'Mangalam-Latest Kerala News, Malayalam News, Politics, Malayalam Cinema, Sports'
+    }
+  }
   const tit = (rows[0]['eng_title'] != '') ? rows[0]['eng_title'] : 'Mangalam-Latest Kerala News';
   const des = (rows[0]['meta_description'] != '') ? rows[0].meta_description : 'Mangalam-Latest Kerala News, Malayalam News,  Politics, Malayalam Cinema, Sports';
   //console.log(news_id+'title'+tit);
@@ -174,9 +199,12 @@ export default async function News({ params }) {
 
     //const [rows] = await db.query('SELECT * FROM news where id=? ',news_id);
     const rows = await getCachedNewsDet(news_id);
+    if (!rows || !rows.length) {
+      return <div className="home-news-container"><h1>News not found or database error.</h1></div>;
+    }
     newses = rows;
     newstags = await getCachedTags(news_id);
-    let ndet = (newses[0].news_details) ? newses[0].news_details.toString() : newses[0].row_news_details.toString();
+    let ndet = (newses[0].news_details) ? newses[0].news_details.toString() : (newses[0].row_news_details ? newses[0].row_news_details.toString() : '');
     detail = ndet.replaceAll("[BREAK]", "").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
     const text = ndet;
     const wpm = 225;

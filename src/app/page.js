@@ -47,16 +47,18 @@ async function getInitialPosts() {
         }
       }
 
+      //const posts=data;
+      //console.log("data="+data.length);
+      homenewslist[0] = data;
+      return JSON.parse(JSON.stringify(homenewslist));
+
     }
   }
   catch (error) {
     console.error("DB CONNECTION FAILED:", error);
     return []; // prevent SSR crash
   }
-  //const posts=data;
-  //console.log("data="+data.length);
-  homenewslist[0] = data;
-  return JSON.parse(JSON.stringify(homenewslist));
+  return [];
 }
 
 

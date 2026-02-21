@@ -8,8 +8,13 @@ import Image from "next/image";
 import { unstable_cache } from "next/cache";
 
 export async function getCategory(tag_id) {
-  let [rows] = await db.query('SELECT name FROM tags where id=?', tag_id);
-  return rows;
+  try {
+    let [rows] = await db.query('SELECT name FROM tags where id=?', tag_id);
+    return rows;
+  } catch (error) {
+    console.error('Database error in getCategory (tags):', error);
+    return [];
+  }
 }
 
 const getCachedTag = unstable_cache(async (id) => getCategory(id), (id) => [`my-app-tag-${id}`], { revalidate: 360 });
@@ -21,6 +26,10 @@ export default async function Home({ params }) {
   const tag_id = urlid.split('-')[0];
   const rows = await getCachedTag(tag_id);
   const initialPosts = await getCachedInitialPosts(tag_id);
+
+  if (!rows || !rows.length) {
+    return <div className="home-news-container"><h1>Tag not found or database error.</h1></div>;
+  }
   let catlink = '';
   let bred = '';
 
@@ -56,30 +65,34 @@ export default async function Home({ params }) {
 }
 
 async function getInitialPosts(tag_id) {
+  try {
+    let distnewslist = [];
+    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,news_tags.tags_id FROM news_tags inner join news on news.id=news_tags.news_id left join news_image on news_image.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date and  news_tags.tags_id=?  group by news.id order by news.effective_date DESC limit 0,8', [tag_id]);
 
-  let distnewslist = [];
-  let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,news_tags.tags_id FROM news_tags inner join news on news.id=news_tags.news_id left join news_image on news_image.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date and  news_tags.tags_id=?  group by news.id order by news.effective_date DESC limit 0,8', [tag_id]);
+    if (data.length) {
+      for (let nws in Object.keys(data)) {
+        if (data[nws]['eng_title']) {
+          let newstit = JSON.stringify(data[nws]['eng_title']);
+          let slug = newstit.toString().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
+          data[nws]['url'] = data[nws]['id'] + '-' + slug + '.html';
 
-  if (data.length) {
-    for (let nws in Object.keys(data)) {
-      if (data[nws]['eng_title']) {
-        let newstit = JSON.stringify(data[nws]['eng_title']);
-        let slug = newstit.toString().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
-        data[nws]['url'] = data[nws]['id'] + '-' + slug + '.html';
+        } else {
+          data[nws]['url'] = data[nws]['id'] + '-news-details' + '.html';
+        }
 
-      } else {
-        data[nws]['url'] = data[nws]['id'] + '-news-details' + '.html';
+        data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'], 160);
+
       }
 
-      data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'], 160);
-
     }
-
+    //const posts=data;
+    //console.log(data);
+    distnewslist[0] = data;
+    return JSON.parse(JSON.stringify(distnewslist));
+  } catch (error) {
+    console.error('Database error in getInitialPosts (tags):', error);
+    return [[]];
   }
-  //const posts=data;
-  //console.log(data);
-  distnewslist[0] = data;
-  return JSON.parse(JSON.stringify(distnewslist));
 }
 
 function SubstringWithoutBreakingWords(str, limit) {
