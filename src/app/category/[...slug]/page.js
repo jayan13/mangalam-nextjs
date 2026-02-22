@@ -62,6 +62,14 @@ const getCachedCategorys = unstable_cache(async (id) => getCategorys(id), (id) =
 const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id), (id) => [`my-app-categorys-posts-${id}`], { revalidate: 360 });
 const getCachedCategoryDetail = unstable_cache(async (id) => getCategoryDetail(id), (id) => [`my-app-category-detail-${id}`], { revalidate: 360 });
 
+import { Suspense } from 'react';
+import NewsListSkeleton from '../../components/skeletons/NewsListSkeleton';
+
+async function CatnewsWrapper({ category_id }) {
+  const initialPosts = await getCachedInitialPosts(category_id);
+  return <Catnews initialPosts={initialPosts} category_id={category_id} />;
+}
+
 export default async function Home({ params }) {
   const { slug } = await params;
   const urlid = slug[0];
@@ -91,11 +99,6 @@ export default async function Home({ params }) {
   }
 
   let cats = await getCachedCategorys(category_id);
-  const initialPosts = await getCachedInitialPosts(category_id);
-
-  if (!rows || !rows.length) {
-    return <div className="home-news-container"><h1>Category not found or database error.</h1></div>;
-  }
 
   let catlink = '';
   let bred = '';
@@ -128,10 +131,8 @@ export default async function Home({ params }) {
     </ol>
   </nav>
 
-
   if (cats.length) {
-
-    catlink = <div class="category-sublinks">
+    catlink = <div className="category-sublinks">
       <ul>
         {cats.map((cat, index) => (
           <li key={index}><Link href={`${cat.links}`}>{cat.name}</Link></li>
@@ -147,13 +148,13 @@ export default async function Home({ params }) {
         {catlink}
       </div>
       <div className='home-news-section' >
-        <Catnews initialPosts={initialPosts} category_id={category_id} />
+        <Suspense fallback={<NewsListSkeleton />}>
+          <CatnewsWrapper category_id={category_id} />
+        </Suspense>
         <InfiniteScroll />
       </div>
     </div>
   );
-
-
 }
 
 async function getInitialPosts(category_id) {

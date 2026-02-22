@@ -181,53 +181,74 @@ export async function generateMetadata({ params }) {
   }
 }
 
+import { Suspense } from 'react';
+import NewsDetailSkeleton from '../../components/skeletons/NewsDetailSkeleton';
+
+async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
+  const newstags = await getTags(news_id);
+  const detail = ((newses[0].news_details) ? newses[0].news_details.toString() : (newses[0].row_news_details ? newses[0].row_news_details.toString() : '')).replaceAll("[BREAK]", "").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
+  const prows = await getCachedImages(news_id);
+
+  let imgar = [];
+  for (let p of prows) {
+    imgar.push(p.file_name);
+  }
+
+  let detarry = [];
+  for (const [i, val] of detail.entries()) {
+    let imgurl = '';
+    if (imgar[i]) {
+      imgurl = imgar[i];
+    }
+    detarry.push({ id: news_id + i, value: val, url: imgurl, title: newses[0].eng_title });
+  }
+
+  return (
+    <>
+      <h1>{newses[0].title}</h1>
+      <div className="news-single-meta">
+        <div className="single-meta">
+          <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].author) ? newses[0].author : newses[0].columnist} </Link>| Last updated: {newses[0].posting_date} | {rdtime} min read</p>
+        </div>
+        <div className="printshare no-printme">
+          <Printpage />
+          <SocialSharePopup url={pageUrl + newses[0].url} title={newses[0].title} />
+          <ListenToArticle text={newses[0].eng_summary} />
+        </div>
+      </div>
+
+      <div key={newses[0].id}>
+        {detarry.map((news, index) => <Newd det={news} key={index} />)}
+      </div>
+      <Summay engsum={newses[0].eng_summary} />
+      <Tags tgs={newstags} />
+      <Auther nws={newses[0]} />
+    </>
+  );
+}
+
 export default async function News({ params }) {
 
   const { slug } = await params;
   const urlid = slug[0];
   const news_id = urlid.split('-')[0];
   let newses = [];
-  let detail = [];
-  let detarry = [];
   let br1 = '';
   let br2 = '';
-  let newstags = [];
   let rdtime = 1;
 
-
   if (news_id) {
-
-    //const [rows] = await db.query('SELECT * FROM news where id=? ',news_id);
     const rows = await getCachedNewsDet(news_id);
     if (!rows || !rows.length) {
       return <div className="home-news-container"><h1>News not found or database error.</h1></div>;
     }
     newses = rows;
-    newstags = await getCachedTags(news_id);
     let ndet = (newses[0].news_details) ? newses[0].news_details.toString() : (newses[0].row_news_details ? newses[0].row_news_details.toString() : '');
-    detail = ndet.replaceAll("[BREAK]", "").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
-    const text = ndet;
     const wpm = 225;
-    const words = text.trim().split(/\s+/).length;
+    const words = ndet.trim().split(/\s+/).length;
     rdtime = Math.ceil(words / wpm);
-    const prows = await getCachedImages(news_id);
-
-    let imgar = [];
-    for (let p of prows) {
-      imgar.push(p.file_name);
-    }
-    for (const [i, val] of detail.entries()) {
-      let imgurl = '';
-      if (imgar[i]) {
-        imgurl = imgar[i];
-      }
-
-      detarry.push({ id: news_id + i, value: val, url: imgurl, title: newses[0].eng_title });
-    }
 
     if (newses[0].category_id) {
-
-      //let [cats] = await db.query('SELECT name,parent_id FROM category where id=?',newses[0].category_id);
       let cats = await getCachedCat(newses[0].category_id);
       const catname = cats[0].name;
       const catlink = catname.replace(" ", "-");
@@ -239,7 +260,6 @@ export default async function News({ params }) {
       </li>;
 
       if (cats[0].parent_id) {
-        //let [cats2] = await db.query('SELECT name FROM category where id=?',cats[0].parent_id);
         let cats2 = await getCachedCat(cats[0].parent_id);
         const catname2 = cats2[0].name;
         const catlink2 = catname2.replace(" ", "-");
@@ -284,24 +304,9 @@ export default async function News({ params }) {
 
           </div>
           <div className='single-news-content' id='news-content-print'>
-            <h1>{newses[0].title}</h1>
-            <div className="news-single-meta">
-              <div className="single-meta">
-                <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].author) ? newses[0].author : newses[0].columnist} </Link>| Last updated: {newses[0].posting_date} | {rdtime} min read</p>
-              </div>
-              <div className="printshare no-printme">
-                <Printpage />
-                <SocialSharePopup url={pageUrl + newses[0].url} title={newses[0].title} />
-                <ListenToArticle text={newses[0].eng_summary} />
-              </div>
-            </div>
-
-            <div key={newses[0].id}>
-              {detarry.map((news, index) => <Newd det={news} key={index} />)}
-            </div>
-            <Summay engsum={newses[0].eng_summary} />
-            <Tags tgs={newstags} />
-            <Auther nws={newses[0]} />
+            <Suspense fallback={<NewsDetailSkeleton />}>
+              <NewsContent news_id={news_id} newses={newses} rdtime={rdtime} pageUrl={pageUrl} />
+            </Suspense>
           </div>
         </div>
 

@@ -29,13 +29,20 @@ export async function getDists() {
 
 const getCachedDistricts = unstable_cache(async () => getDists(), (id) => [`my-app-districts-${id}`], { revalidate: 360 });
 const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id), (id) => [`my-app-district-posts-${id}`], { revalidate: 360 });
+
+import { Suspense } from 'react';
+import NewsListSkeleton from '../../components/skeletons/NewsListSkeleton';
+
+async function DistnewsWrapper({ district_id }) {
+  const initialPosts = await getCachedInitialPosts(district_id);
+  return <Distnews initialPosts={initialPosts} district_id={district_id} />;
+}
 export default async function Home({ params }) {
   const { slug } = await params;
   const urlid = slug[0];
   const district_id = urlid.split('-')[0];
   const rows = await getCachedDistrict(district_id);
   const dists = await getCachedDistricts();
-  const initialPosts = await getCachedInitialPosts(district_id);
 
   if (!rows || !rows.length) {
     return <div className="home-news-container"><h1>District not found or database error.</h1></div>;
@@ -75,7 +82,9 @@ export default async function Home({ params }) {
         {catlink}
       </div>
       <div className='home-news-section' >
-        <Distnews initialPosts={initialPosts} district_id={district_id} />
+        <Suspense fallback={<NewsListSkeleton />}>
+          <DistnewsWrapper district_id={district_id} />
+        </Suspense>
         <InfiniteScroll />
       </div>
     </div>
