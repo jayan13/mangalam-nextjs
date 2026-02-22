@@ -39,16 +39,16 @@ function Homenew(props) {
           <div className='main-news-bottom'>
             {post[1] && (
               <div className="news-item">
-                <figure> <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='292' height='174' /></Link></figure>
-                <p className="category-tag"> <Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link></p>
-                <Link href={`/news/${post[1].url}`}> <h3>  {post[1].title} </h3> </Link>
+                <figure> {post[1].url ? <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='292' height='174' /></Link> : <Newimg news={post[1]} width='292' height='174' />} </figure>
+                <p className="category-tag"> {post[1].links ? <Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link> : post[1].link_title}</p>
+                {post[1].url ? <Link href={`/news/${post[1].url}`}> <h3>  {post[1].title} </h3> </Link> : <h3> {post[1].title} </h3>}
               </div>
             )}
             {post[2] && (
               <div className="news-item">
-                <figure> <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='292' height='174' /></Link></figure>
-                <p className="category-tag"> <Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link></p>
-                <Link href={`/news/${post[2].url}`}> <h3>  {post[2].title} </h3> </Link>
+                <figure> {post[2].url ? <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='292' height='174' /></Link> : <Newimg news={post[2]} width='292' height='174' />} </figure>
+                <p className="category-tag"> {post[2].links ? <Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link> : post[2].link_title}</p>
+                {post[2].url ? <Link href={`/news/${post[2].url}`}> <h3>  {post[2].title} </h3> </Link> : <h3> {post[2].title} </h3>}
               </div>
             )}
           </div>
@@ -125,11 +125,11 @@ function Homenew(props) {
               {post[0] && (
                 <div className="news-item">
                   <div className='news-item-text'>
-                    <p className="category-tag"><Link href={`${post[0].links}`} title="text">{post[0].link_title}</Link></p>
-                    <h2> <Link href={`/news/${post[0].url}`}>   {post[0].title}  </Link> </h2>
+                    <p className="category-tag">{post[0].links ? <Link href={`${post[0].links}`} title="text">{post[0].link_title}</Link> : post[0].link_title}</p>
+                    <h2> {post[0].url ? <Link href={`/news/${post[0].url}`}>   {post[0].title}  </Link> : post[0].title} </h2>
                     <p>{post[0].news_details}</p>
                   </div>
-                  <figure> <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} width='453' height='271' /></Link></figure>
+                  <figure> {post[0].url ? <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} width='453' height='271' /></Link> : <Newimg news={post[0]} width='453' height='271' />} </figure>
                 </div>
               )}
             </div>
@@ -137,10 +137,10 @@ function Homenew(props) {
           <div className='home-category-main-right'>
             {post[1] && (
               <div className="news-item">
-                <figure> <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='211' height='127' /></Link></figure>
+                <figure> {post[1].url ? <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='211' height='127' /></Link> : <Newimg news={post[1]} width='211' height='127' />} </figure>
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link></p>
-                  <h3> <Link href={`/news/${post[1].url}`}>   {post[1].title}  </Link> </h3>
+                  <p className="category-tag">{post[1].links ? <Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link> : post[1].link_title}</p>
+                  <h3> {post[1].url ? <Link href={`/news/${post[1].url}`}>   {post[1].title}  </Link> : post[1].title} </h3>
                 </div>
               </div>
             )}
@@ -150,19 +150,19 @@ function Homenew(props) {
           <div className='category-bottom-left'>
             {post[2] && (
               <div className="news-item">
-                <figure> <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='211' height='127' /></Link></figure>
+                <figure> {post[2].url ? <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='211' height='127' /></Link> : <Newimg news={post[2]} width='211' height='127' />} </figure>
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link></p>
-                  <h3> <Link href={`/news/${post[2].url}`}>   {post[2].title}  </Link> </h3>
+                  <p className="category-tag">{post[2].links ? <Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link> : post[2].link_title}</p>
+                  <h3> {post[2].url ? <Link href={`/news/${post[2].url}`}>   {post[2].title}  </Link> : post[2].title} </h3>
                 </div>
               </div>
             )}
             {post[3] && (
               <div className="news-item">
-                <figure> <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='211' height='127' /></Link></figure>
+                <figure> {post[3].url ? <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='211' height='127' /></Link> : <Newimg news={post[3]} width='211' height='127' />} </figure>
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[3].links}`} title="text">{post[3].link_title}</Link></p>
-                  <h3> <Link href={`/news/${post[3].url}`}>   {post[3].title}  </Link> </h3>
+                  <p className="category-tag">{post[3].links ? <Link href={`${post[3].links}`} title="text">{post[3].link_title}</Link> : post[3].link_title}</p>
+                  <h3> {post[3].url ? <Link href={`/news/${post[3].url}`}>   {post[3].title}  </Link> : post[3].title} </h3>
                 </div>
               </div>
             )}
@@ -171,28 +171,28 @@ function Homenew(props) {
             {post[4] && (
               <div className='news-item horizontal-news'>
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[4].links}`} title="text">{post[4].link_title}</Link></p>
-                  <h3> <Link href={`/news/${post[4].url}`}>   {post[4].title}  </Link> </h3>
+                  <p className="category-tag">{post[4].links ? <Link href={`${post[4].links}`} title="text">{post[4].link_title}</Link> : post[4].link_title}</p>
+                  <h3> {post[4].url ? <Link href={`/news/${post[4].url}`}>   {post[4].title}  </Link> : post[4].title} </h3>
                 </div>
-                <figure> <Link href={`/news/${post[4].url}`}><Newimg news={post[4]} width='112' height='67' /></Link></figure>
+                <figure> {post[4].url ? <Link href={`/news/${post[4].url}`}><Newimg news={post[4]} width='112' height='67' /></Link> : <Newimg news={post[4]} width='112' height='67' />} </figure>
               </div>
             )}
             {post[5] && (
               <div className='news-item horizontal-news'>
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[5].links}`} title="text">{post[5].link_title}</Link></p>
-                  <h3> <Link href={`/news/${post[5].url}`}>   {post[5].title}  </Link> </h3>
+                  <p className="category-tag">{post[5].links ? <Link href={`${post[5].links}`} title="text">{post[5].link_title}</Link> : post[5].link_title}</p>
+                  <h3> {post[5].url ? <Link href={`/news/${post[5].url}`}>   {post[5].title}  </Link> : post[5].title} </h3>
                 </div>
-                <figure> <Link href={`/news/${post[5].url}`}><Newimg news={post[5]} width='112' height='67' /></Link></figure>
+                <figure> {post[5].url ? <Link href={`/news/${post[5].url}`}><Newimg news={post[5]} width='112' height='67' /></Link> : <Newimg news={post[5]} width='112' height='67' />} </figure>
               </div>
             )}
             {post[6] && (
               <div className='news-item horizontal-news'>
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[6].links}`} title="text">{post[6].link_title}</Link></p>
-                  <h3> <Link href={`/news/${post[6].url}`}>   {post[6].title}  </Link> </h3>
+                  <p className="category-tag">{post[6].links ? <Link href={`${post[6].links}`} title="text">{post[6].link_title}</Link> : post[6].link_title}</p>
+                  <h3> {post[6].url ? <Link href={`/news/${post[6].url}`}>   {post[6].title}  </Link> : post[6].title} </h3>
                 </div>
-                <figure> <Link href={`/news/${post[6].url}`}><Newimg news={post[6]} width='112' height='67' /></Link></figure>
+                <figure> {post[6].url ? <Link href={`/news/${post[6].url}`}><Newimg news={post[6]} width='112' height='67' /></Link> : <Newimg news={post[6]} width='112' height='67' />} </figure>
 
               </div>)}
 
@@ -211,21 +211,21 @@ function Homenew(props) {
             {post[0] && (
               <div className="news-item">
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[0].links}`} title="text">{post[0].link_title}</Link></p>
-                  <h2> <Link href={`/news/${post[0].url}`}>   {post[0].title}  </Link> </h2>
+                  <p className="category-tag">{post[0].links ? <Link href={`${post[0].links}`} title="text">{post[0].link_title}</Link> : post[0].link_title}</p>
+                  <h2> {post[0].url ? <Link href={`/news/${post[0].url}`}>   {post[0].title}  </Link> : post[0].title} </h2>
                   <p>{post[0].news_details}</p>
                 </div>
-                <figure> <Link href={`${post[0].links}`} title="text"><Newimg news={post[0]} width='453' height='271' /></Link></figure>
+                <figure> {post[0].links ? <Link href={`${post[0].links}`} title="text"><Newimg news={post[0]} width='453' height='271' /></Link> : <Newimg news={post[0]} width='453' height='271' />} </figure>
               </div>
             )}
           </div>
           <div className='home-category-main-right'>
             {post[1] && (
               <div className="news-item">
-                <figure> <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='211' height='127' /></Link></figure>
+                <figure> {post[1].url ? <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='211' height='127' /></Link> : <Newimg news={post[1]} width='211' height='127' />} </figure>
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link></p>
-                  <h3> <Link href={`/news/${post[1].url}`}>   {post[1].title}  </Link> </h3>
+                  <p className="category-tag">{post[1].links ? <Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link> : post[1].link_title}</p>
+                  <h3> {post[1].url ? <Link href={`/news/${post[1].url}`}>   {post[1].title}  </Link> : post[1].title} </h3>
                 </div>
               </div>
             )}
@@ -235,37 +235,37 @@ function Homenew(props) {
           <div className='category-bottom-left'>
             {post[2] && (
               <div className="news-item">
-                <figure> <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='211' height='127' /></Link></figure>
+                <figure> {post[2].url ? <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='211' height='127' /></Link> : <Newimg news={post[2]} width='211' height='127' />} </figure>
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link></p>
-                  <h3> <Link href={`/news/${post[2].url}`}>   {post[2].title}  </Link> </h3>
+                  <p className="category-tag">{post[2].links ? <Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link> : post[2].link_title}</p>
+                  <h3> {post[2].url ? <Link href={`/news/${post[2].url}`}>   {post[2].title}  </Link> : post[2].title} </h3>
                 </div>
               </div>
             )}
             {post[3] && (
               <div className="news-item">
-                <figure> <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='211' height='127' /></Link></figure>
+                <figure> {post[3].url ? <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='211' height='127' /></Link> : <Newimg news={post[3]} width='211' height='127' />} </figure>
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[3].links}`} title="text">{post[3].link_title}</Link></p>
-                  <h3> <Link href={`/news/${post[3].url}`}>   {post[3].title}  </Link> </h3>
+                  <p className="category-tag">{post[3].links ? <Link href={`${post[3].links}`} title="text">{post[3].link_title}</Link> : post[3].link_title}</p>
+                  <h3> {post[3].url ? <Link href={`/news/${post[3].url}`}>   {post[3].title}  </Link> : post[3].title} </h3>
                 </div>
               </div>
             )}
             {post[4] && (
               <div className="news-item">
-                <figure> <Link href={`/news/${post[4].url}`}><Newimg news={post[4]} width='211' height='127' /></Link></figure>
+                <figure> {post[4].url ? <Link href={`/news/${post[4].url}`}><Newimg news={post[4]} width='211' height='127' /></Link> : <Newimg news={post[4]} width='211' height='127' />} </figure>
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[4].links}`} title="text">{post[4].link_title}</Link></p>
-                  <h3> <Link href={`/news/${post[4].url}`}>   {post[4].title}  </Link> </h3>
+                  <p className="category-tag">{post[4].links ? <Link href={`${post[4].links}`} title="text">{post[4].link_title}</Link> : post[4].link_title}</p>
+                  <h3> {post[4].url ? <Link href={`/news/${post[4].url}`}>   {post[4].title}  </Link> : post[4].title} </h3>
                 </div>
               </div>
             )}
             {post[5] && (
               <div className="news-item">
-                <figure> <Link href={`/news/${post[5].url}`}><Newimg news={post[5]} width='211' height='127' /></Link></figure>
+                <figure> {post[5].url ? <Link href={`/news/${post[5].url}`}><Newimg news={post[5]} width='211' height='127' /></Link> : <Newimg news={post[5]} width='211' height='127' />} </figure>
                 <div className='news-item-text'>
-                  <p className="category-tag"><Link href={`${post[5].links}`} title="text">{post[5].link_title}</Link></p>
-                  <h3> <Link href={`/news/${post[5].url}`}>   {post[5].title}  </Link> </h3>
+                  <p className="category-tag">{post[5].links ? <Link href={`${post[5].links}`} title="text">{post[5].link_title}</Link> : post[5].link_title}</p>
+                  <h3> {post[5].url ? <Link href={`/news/${post[5].url}`}>   {post[5].title}  </Link> : post[5].title} </h3>
                 </div>
               </div>
             )}

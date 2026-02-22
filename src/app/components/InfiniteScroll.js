@@ -45,10 +45,10 @@ function Newsright(props) {
         <div key={`lft-${post[0].id}`} id={`lft-${post[0].id}`} className="news-item right-main-news">
           <figure>
             {imgmark}
-            <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} /></Link>
+            {post[0].url ? <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} /></Link> : <Newimg news={post[0]} />}
           </figure>
           <div className="news-item-text">
-            <h3><Link href={`/news/${post[0].url}`}>{post[0].title}</Link>
+            <h3>{post[0].url ? <Link href={`/news/${post[0].url}`}>{post[0].title}</Link> : post[0].title}
             </h3>
           </div>
 
@@ -60,12 +60,12 @@ function Newsright(props) {
           <div key={`lft-${post[1].id}`} id={`lft-${post[1].id}`} className="news-item">
 
             <div className="news-item-text">
-              <h3><Link href={`/news/${post[1].url}`}>{post[1].title}</Link>
+              <h3>{post[1].url ? <Link href={`/news/${post[1].url}`}>{post[1].title}</Link> : post[1].title}
               </h3>
             </div>
             <figure>
               {imgmark}
-              <Link href={`/news/${post[1].url}`}><Newimgs news={post[1]} /></Link>
+              {post[1].url ? <Link href={`/news/${post[1].url}`}><Newimgs news={post[1]} /></Link> : <Newimgs news={post[1]} />}
             </figure>
           </div>
         )}
@@ -73,12 +73,12 @@ function Newsright(props) {
           <div key={`lft-${post[2].id}`} id={`lft-${post[2].id}`} className="news-item">
 
             <div className="news-item-text">
-              <h3><Link href={`/news/${post[2].url}`}>{post[2].title}</Link>
+              <h3>{post[2].url ? <Link href={`/news/${post[2].url}`}>{post[2].title}</Link> : post[2].title}
               </h3>
             </div>
             <figure>
               {imgmark}
-              <Link href={`/news/${post[2].url}`}><Newimgs news={post[2]} /></Link>
+              {post[2].url ? <Link href={`/news/${post[2].url}`}><Newimgs news={post[2]} /></Link> : <Newimgs news={post[2]} />}
             </figure>
           </div>
         )}
@@ -86,12 +86,12 @@ function Newsright(props) {
           <div key={`lft-${post[3].id}`} id={`lft-${post[3].id}`} className="news-item">
 
             <div className="news-item-text">
-              <h3><Link href={`/news/${post[3].url}`}>{post[3].title}</Link>
+              <h3>{post[3].url ? <Link href={`/news/${post[3].url}`}>{post[3].title}</Link> : post[3].title}
               </h3>
             </div>
             <figure>
               {imgmark}
-              <Link href={`/news/${post[3].url}`}><Newimgs news={post[3]} /></Link>
+              {post[3].url ? <Link href={`/news/${post[3].url}`}><Newimgs news={post[3]} /></Link> : <Newimgs news={post[3]} />}
             </figure>
           </div>
         )}
@@ -99,12 +99,12 @@ function Newsright(props) {
           <div key={`lft-${post[4].id}`} id={`lft-${post[4].id}`} className="news-item">
 
             <div className="news-item-text">
-              <h3><Link href={`/news/${post[4].url}`}>{post[4].title}</Link>
+              <h3>{post[4].url ? <Link href={`/news/${post[4].url}`}>{post[4].title}</Link> : post[4].title}
               </h3>
             </div>
             <figure>
               {imgmark}
-              <Link href={`/news/${post[4].url}`}><Newimgs news={post[4]} /></Link>
+              {post[4].url ? <Link href={`/news/${post[4].url}`}><Newimgs news={post[4]} /></Link> : <Newimgs news={post[4]} />}
             </figure>
           </div>
         )}
