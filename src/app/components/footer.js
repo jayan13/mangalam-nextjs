@@ -31,10 +31,10 @@ function Footer() {
 <div className="footer-link-list">
   <div className="footer-link-list-frame">
     <ul>
-        <li><a className="fhead-link" href="/category/">LATEST NEWS</a></li>
-        <li><a className="fhead-link" href="/category/">INDIA</a></li>
-        <li><a className="fhead-link" href="/category/">INTERNATIONAL</a></li>
-        <li><a className="fhead-link" href="/category/">LOCAL NEWS</a></li>
+        <li><a className="fhead-link" href="/category/16-latest-news.html">LATEST NEWS</a></li>
+        <li><a className="fhead-link" href="/category/62-india.html">INDIA</a></li>
+        <li><a className="fhead-link" href="/category/63-international.html">INTERNATIONAL</a></li>
+        <li><a className="fhead-link" href="/category/local-news.html">LOCAL NEWS</a></li>
         <li><a href="/district/12-Thiruvananthapuram-India.html">Thiruvananthapuram</a></li>
   
     <li><a href="/district/1-Alappuzha-India.html">Alappuzha</a></li>

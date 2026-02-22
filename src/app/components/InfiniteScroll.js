@@ -5,118 +5,115 @@ import Link from 'next/link';
 import Image from "next/image";
 import GoogleAdPcItem from "../adds/Addsright";
 function Newimg(props) {
-  const newsimage= props.news;
+  const newsimage = props.news;
   //let src='/'+newsimage.file_name;
-  let src=`${process.env.NEXT_PUBLIC_IMAGE_URL}/${newsimage.file_name}`;
+  let src = `${process.env.NEXT_PUBLIC_IMAGE_URL}/${newsimage.file_name}`;
   const [imageSrc, setImageSrc] = useState(src);
-  return ( (newsimage.file_name!=null)? <Image src={imageSrc} alt="news image" width="308" height="185" loading="lazy" unoptimized={true} onError={() => setImageSrc("/uploads/noimg.svg")} /> : <Image src="/uploads/noimg.svg" alt="news image" width="308" height="185" loading="lazy"  />);
+  return ((newsimage.file_name != null) ? <Image src={imageSrc} alt="news image" width="308" height="185" loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')} /> : <Image src="/uploads/noimg.svg" alt="news image" width="308" height="185" loading="lazy" />);
 }
 function Newimgs(props) {
-  const newsimage= props.news;
+  const newsimage = props.news;
   //let src='/'+newsimage.file_name;
-  let src=`${process.env.NEXT_PUBLIC_IMAGE_URL}/${newsimage.file_name}`;
+  let src = `${process.env.NEXT_PUBLIC_IMAGE_URL}/${newsimage.file_name}`;
   const [imageSrc, setImageSrc] = useState(src);
-  return ( (newsimage.file_name!=null)? <Image src={imageSrc} className='news-image' alt="news image" width="88" height="54" unoptimized={true} loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} /> : <Image src="/uploads/noimg.svg" className='news-image' alt="news image" width="88" height="54" loading="lazy"  />);
+  return ((newsimage.file_name != null) ? <Image src={imageSrc} className='news-image' alt="news image" width="88" height="54" loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')} /> : <Image src="/uploads/noimg.svg" className='news-image' alt="news image" width="88" height="54" loading="lazy" />);
 }
 function Newsright(props) {
-  const post= props.news;
-  const template=post[0].template;
-  let imgmark='';
-  let topclass='news-in-pics';
-  let hed=post[0].heading;
-  let hedcolr='section-heading-blue';
-  if (template=='premium')
-  {
-    imgmark=<div className="premium-tag">PREMIUM</div>;    
-    topclass='mangalam-special';   
-    hedcolr='section-heading-red';
+  const post = props.news;
+  const template = post[0].template;
+  let imgmark = '';
+  let topclass = 'news-in-pics';
+  let hed = post[0].heading;
+  let hedcolr = 'section-heading-blue';
+  if (template == 'premium') {
+    imgmark = <div className="premium-tag">PREMIUM</div>;
+    topclass = 'mangalam-special';
+    hedcolr = 'section-heading-red';
   }
-  if (template=='pic')
-    {
-      imgmark=<div className="pic-tag">5</div>;
-      hedcolr='section-heading-red';
-    }
-  if (template=='video')
-    {
-       imgmark=<div className="video-tag">Play</div>; 
-       hedcolr='section-heading-red';
-    }
+  if (template == 'pic') {
+    imgmark = <div className="pic-tag">5</div>;
+    hedcolr = 'section-heading-red';
+  }
+  if (template == 'video') {
+    imgmark = <div className="video-tag">Play</div>;
+    hedcolr = 'section-heading-red';
+  }
   return (
     <div className={`right-news-section ${topclass}`}>
       <div className={`section-heading ${hedcolr}`}>{hed}</div>
       {post[0] && (
-      <div key={`lft-${post[0].id}`} id={`lft-${post[0].id}`} className="news-item right-main-news">
+        <div key={`lft-${post[0].id}`} id={`lft-${post[0].id}`} className="news-item right-main-news">
           <figure>
             {imgmark}
-            <Link href={`/news/${post[0].url}`}><Newimg news={post[0]}/></Link>
+            <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} /></Link>
           </figure>
           <div className="news-item-text">
             <h3><Link href={`/news/${post[0].url}`}>{post[0].title}</Link>
             </h3>
           </div>
-          
+
         </div>
-        )}
-        
-        <div className="right-news-bottom" >
-          {post[1] && (
+      )}
+
+      <div className="right-news-bottom" >
+        {post[1] && (
           <div key={`lft-${post[1].id}`} id={`lft-${post[1].id}`} className="news-item">
-            
+
             <div className="news-item-text">
               <h3><Link href={`/news/${post[1].url}`}>{post[1].title}</Link>
               </h3>
             </div>
             <figure>
-            {imgmark}
-            <Link href={`/news/${post[1].url}`}><Newimgs news={post[1]}/></Link>
+              {imgmark}
+              <Link href={`/news/${post[1].url}`}><Newimgs news={post[1]} /></Link>
             </figure>
           </div>
-          )}
-          {post[2] && (
+        )}
+        {post[2] && (
           <div key={`lft-${post[2].id}`} id={`lft-${post[2].id}`} className="news-item">
-            
+
             <div className="news-item-text">
               <h3><Link href={`/news/${post[2].url}`}>{post[2].title}</Link>
               </h3>
             </div>
             <figure>
-            {imgmark}
-            <Link href={`/news/${post[2].url}`}><Newimgs news={post[2]}/></Link>
+              {imgmark}
+              <Link href={`/news/${post[2].url}`}><Newimgs news={post[2]} /></Link>
             </figure>
           </div>
-          )}
-          {post[3] && (
+        )}
+        {post[3] && (
           <div key={`lft-${post[3].id}`} id={`lft-${post[3].id}`} className="news-item">
-            
+
             <div className="news-item-text">
               <h3><Link href={`/news/${post[3].url}`}>{post[3].title}</Link>
               </h3>
             </div>
             <figure>
-            {imgmark}
-            <Link href={`/news/${post[3].url}`}><Newimgs news={post[3]}/></Link>
+              {imgmark}
+              <Link href={`/news/${post[3].url}`}><Newimgs news={post[3]} /></Link>
             </figure>
           </div>
-          )}
-          {post[4] && (
+        )}
+        {post[4] && (
           <div key={`lft-${post[4].id}`} id={`lft-${post[4].id}`} className="news-item">
-            
+
             <div className="news-item-text">
               <h3><Link href={`/news/${post[4].url}`}>{post[4].title}</Link>
               </h3>
             </div>
             <figure>
-            {imgmark}
-            <Link href={`/news/${post[4].url}`}><Newimgs news={post[4]}/></Link>
+              {imgmark}
+              <Link href={`/news/${post[4].url}`}><Newimgs news={post[4]} /></Link>
             </figure>
           </div>
-          )}
-        </div>
+        )}
+      </div>
     </div>
   );
 }
 
-export default function InfiniteScroll(){
+export default function InfiniteScroll() {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -130,12 +127,11 @@ export default function InfiniteScroll(){
     const res = await fetch(`/api/right?page=${page}&limit=5`, { next: { revalidate: 360 } });
     const data = await res.json();
     //console.log(data);
-    if(data.newslist)
-    {
+    if (data.newslist) {
       setPosts((prevPosts) => [...prevPosts, ...data.newslist]);
       setHasMore(data.hasMore);
       setPage((prev) => prev + 1);
-    }else{
+    } else {
       setHasMore(0);
     }
     //setPosts((prevPosts) => [...prevPosts, ...data.newslist]);
@@ -174,9 +170,9 @@ export default function InfiniteScroll(){
   return (
     <div className="home-news-section-right no-printme">
       {posts.map((post, index) => (
-      <div key={index} className='rght-block'>
-        <GoogleAdPcItem adId={index} />
-        <Newsright news={post} />
+        <div key={index} className='rght-block'>
+          <GoogleAdPcItem adId={index} />
+          <Newsright news={post} />
         </div>
       ))}
       <div id="end-of-list-right">

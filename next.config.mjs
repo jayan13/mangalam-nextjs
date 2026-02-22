@@ -1,5 +1,21 @@
 const nextConfig = {
-  allowedDevOrigins: ['dev.mangalam.com'],
+  allowedDevOrigins: ['dev.mangalam.com', 'mangalam.com', 'images.mangalam.com', 'mangalam.cms'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.mangalam.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mangalam.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'mangalam.cms',
+      },
+    ],
+  },
   async headers() {
     return [
       {

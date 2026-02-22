@@ -9,10 +9,28 @@ import { unstable_cache } from "next/cache";
 
 export async function getCategory(cat_id) {
   try {
-    let [rows] = await db.query('SELECT name,parent_id FROM category where id=?', cat_id);
+    let [rows] = await db.query('SELECT name,parent_id,id FROM category where id=?', cat_id);
     return rows;
   } catch (error) {
     console.error('Database error in getCategory:', error);
+    return [];
+  }
+}
+
+export async function getCategoryByName(cat_name) {
+  try {
+    // Clean cat_name from .html if present
+    const cleanName = cat_name.replace('.html', '');
+    // Try to match the slugified name in the database
+    // This assumes the name stored in DB can be converted to match the slug
+    // We'll use a more flexible approach like searching by name with dashes
+    const [rows] = await db.query(
+      'SELECT name, parent_id, id FROM category WHERE status=1 AND (REPLACE(LOWER(name), " ", "-") = ? OR REPLACE(REPLACE(LOWER(name), " ", "-"), "(", "") = ?)',
+      [cleanName, cleanName]
+    );
+    return rows;
+  } catch (error) {
+    console.error('Database error in getCategoryByName:', error);
     return [];
   }
 }
@@ -39,6 +57,7 @@ export async function getCategoryDetail(cat_id) {
 
 
 const getCachedCategory = unstable_cache(async (id) => getCategory(id), (id) => [`my-app-category-${id}`], { revalidate: 360 });
+const getCachedCategoryByName = unstable_cache(async (name) => getCategoryByName(name), (name) => [`my-app-category-name-${name}`], { revalidate: 360 });
 const getCachedCategorys = unstable_cache(async (id) => getCategorys(id), (id) => [`my-app-categorys-${id}`], { revalidate: 360 });
 const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id), (id) => [`my-app-categorys-posts-${id}`], { revalidate: 360 });
 const getCachedCategoryDetail = unstable_cache(async (id) => getCategoryDetail(id), (id) => [`my-app-category-detail-${id}`], { revalidate: 360 });
@@ -46,8 +65,31 @@ const getCachedCategoryDetail = unstable_cache(async (id) => getCategoryDetail(i
 export default async function Home({ params }) {
   const { slug } = await params;
   const urlid = slug[0];
-  const category_id = urlid.split('-')[0];
-  const rows = await getCachedCategory(category_id);
+
+  // Try to extract numeric ID
+  const parts = urlid.split('-');
+  const idValue = parseInt(parts[0]);
+
+  let rows = [];
+  let category_id = null;
+
+  if (!isNaN(idValue)) {
+    category_id = idValue;
+    rows = await getCachedCategory(category_id);
+  }
+
+  // Fallback if ID is invalid or not found
+  if ((!rows || !rows.length) && urlid) {
+    rows = await getCachedCategoryByName(urlid);
+    if (rows && rows.length) {
+      category_id = rows[0].id;
+    }
+  }
+
+  if (!rows || !rows.length || !category_id) {
+    return <div className="home-news-container"><h1>Category not found or database error.</h1></div>;
+  }
+
   let cats = await getCachedCategorys(category_id);
   const initialPosts = await getCachedInitialPosts(category_id);
 

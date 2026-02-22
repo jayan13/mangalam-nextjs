@@ -77,7 +77,7 @@ function Newd(props) {
 
   if (newsdetails.url) {
     return (<article key={'imgc' + newsdetails.id}>
-      <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/' + newsdetails.url} key={'img' + newsdetails.id} alt={newsdetails.title} width={924} height={555} unoptimized={true} />
+      <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/' + newsdetails.url} key={'img' + newsdetails.id} alt={newsdetails.title} width={924} height={555} unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')} />
       {text}
     </article>);
   } else {
@@ -145,7 +145,7 @@ function Auther(props) {
       <div className="about-author no-printme">
         <h3>About Author:</h3>
         <div className="author-profile">
-          <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/' + author_photo} width={80} height={80} alt="Author photo" unoptimized={true} />
+          <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/' + author_photo} width={80} height={80} alt="Author photo" unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')} />
           <div className="author-details">
             <h4>{author}</h4>
             <p>{author_profile}</p>
