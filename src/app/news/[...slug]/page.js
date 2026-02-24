@@ -173,16 +173,21 @@ export async function generateMetadata({ params }) {
     }
   }
   const tit = (rows[0]['eng_title'] != '') ? rows[0]['eng_title'] : 'Mangalam-Latest Kerala News';
-  const des = (rows[0]['meta_description'] != '') ? rows[0].meta_description : 'Mangalam-Latest Kerala News, Malayalam News,  Politics, Malayalam Cinema, Sports';
+  const des = (rows[0]['meta_description'] != '') ? rows[0].meta_description : 'Mangalam-Latest Kerala News in malayalam';
+  const keyword = (rows[0]['meta_keywords'] != '') ? rows[0].meta_keywords : 'Mangalam-Latest Kerala News, Malayalam News,  Politics, Malayalam Cinema, Sports';
+
   //console.log(news_id+'title'+tit);
   return {
     title: tit,
-    description: des
+    description: des,
+    keywords: keyword,
   }
 }
 
 import { Suspense } from 'react';
 import NewsDetailSkeleton from '../../components/skeletons/NewsDetailSkeleton';
+
+import RelatedNews from "../../components/RelatedNews";
 
 async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
   const newstags = await getTags(news_id);
@@ -223,6 +228,12 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
       <Summay engsum={newses[0].eng_summary} />
       <Tags tgs={newstags} />
       <Auther nws={newses[0]} />
+
+      <RelatedNews
+        news_id={news_id}
+        category_id={newses[0].category_id}
+        district_id={newses[0].district_id}
+      />
     </>
   );
 }

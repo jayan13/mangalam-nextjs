@@ -29,11 +29,8 @@ export default async function HomePage() {
 async function getInitialPosts() {
   let homenewslist = [];
   try {
-    const [ques] = await db.query('SELECT id FROM node_queue where template is not null and template<>"" and template not in("premium","pic","video","general-right") order by display_order LIMIT 1 OFFSET 0');
-    const qid = ques[0]?.id ? ques[0].id : 0;
-
-
-    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,node_queue.template,node_queue.title as heading,node_queue.id as nodeqid FROM news left join news_image on news_image.news_id=news.id inner join sub_queue on sub_queue.news_id=news.id inner join node_queue on node_queue.id=sub_queue.node_queue_id where news.published=1 and node_queue.id=? order by sub_queue.position ', [qid]);
+    
+    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,node_queue.template,node_queue.title as heading,node_queue.id as nodeqid FROM news left join news_image on news_image.news_id=news.id inner join sub_queue on sub_queue.news_id=news.id inner join node_queue on node_queue.id=sub_queue.node_queue_id where news.published=1 and node_queue.id in(2,4) order by node_queue.id,sub_queue.position ');
 
     if (!data || data.length === 0) {
       return [];
@@ -49,15 +46,13 @@ async function getInitialPosts() {
         } else {
           data[nws]['url'] = data[nws]['id'] + '-news-details' + '.html';
         }
-        if (data[nws]['template'] != 'youtubeshorts') {
-          data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'], 160);
-        } else {
-          data[nws]['news_details'] = convertShortsToEmbed(data[nws]['news_details']);
-        }
+        data[nws]['template'] = 'top';
+        
+        data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'], 160);
       }
 
       //const posts=data;
-      //console.log("data="+data.length);
+      //console.log("data="+JSON.stringify(data));
       homenewslist[0] = data;
       return JSON.parse(JSON.stringify(homenewslist));
 
@@ -90,15 +85,3 @@ function SubstringWithoutBreakingWords(str, limit) {
   return substring;
 }
 
-function convertShortsToEmbed(url) {
-  // Check if the URL contains 'shorts'
-  if (url.includes('youtube.com/shorts/')) {
-    // Extract the video ID from the YouTube Shorts URL
-    const videoId = url.split('shorts/')[1].split('?')[0]; // Get the video ID before any query parameters
-    // Construct the embeddable URL
-    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-    return embedUrl;
-  } else {
-    return url;
-  }
-}

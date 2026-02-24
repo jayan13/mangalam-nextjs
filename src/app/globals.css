@@ -43,6 +43,10 @@
   --malayalam: var(--font-noto-sans-malayalam), Helvetica;
 }
 
+.en-font {
+  font-family: var(--font-roboto-condensed), sans-serif !important;
+}
+
 html,
 body,
 div,
@@ -204,6 +208,7 @@ select {
 .select {
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
+  appearance: none !important;
   height: 32px;
   min-width: 160;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAdVBMVEUAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhMdQaAAAAJ3RSTlMAAAECAwQGBwsOFBwkJTg5RUZ4eYCHkJefpaytrsXGy8zW3+Do8vNn0bsyAAAAYElEQVR42tXROwJDQAAA0Ymw1p9kiT+L5P5HVEi3qJn2lcPjtIuzUIJ/rhIGy762N3XaThqMN1ZPALsZPEzG1x8LrFL77DHBnEMxBewz0fJ6LyFHTPL7xhwzWYrJ9z22AqmQBV757MHfAAAAAElFTkSuQmCC);
@@ -294,6 +299,13 @@ select {
   align-items: flex-end;
   gap: 10px;
   flex: 1 0 0;
+}
+
+.logo-right-top-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
 }
 
 .blue-menu {
@@ -542,7 +554,6 @@ select {
   align-self: stretch;
 }
 
-.footer-top {}
 
 .footer-header-top {
   display: flex;
@@ -1618,6 +1629,7 @@ select {
   margin: 0 10px 10px 0;
   text-decoration: none;
   -webkit-transition: color 0.2s;
+  transition: color 0.2s;
   line-height: 200%;
 }
 
@@ -1861,4 +1873,65 @@ article iframe {
 
 .rounded {
   border-radius: 0.25rem;
+}
+
+/* Visual Stories Styles */
+.reel-news {
+  padding: 20px 0;
+  background-color: #f8f8f8;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.reel-news-container {
+  padding: 10px 16px;
+}
+
+.reel-continer {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  height: 450px;
+  width: 100%;
+}
+
+.reel-items {
+  width: 100%;
+  height: 100%;
+}
+
+.reel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.reel-continer:hover .reel-image {
+  transform: scale(1.05);
+}
+
+.reel-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 10px 10px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+  font-family: var(--malayalam);
+  text-align: left;
+}
+
+.reel-slides .swiper-button-next,
+.reel-slides .swiper-button-prev {
+  color: var(--mangalamcerulean);
+}
+
+.reel-link {
+  text-decoration: none;
+  display: block;
+  width: 100%;
 }
