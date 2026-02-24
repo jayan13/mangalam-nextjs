@@ -6,7 +6,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import SwiperCore from 'swiper';
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import Image from 'next/image';
 import { use } from 'react';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
@@ -53,13 +52,17 @@ export default function GalleryPage({ params }) {
               <SwiperSlide key={index}>
                 <div className="gallery-slide-content">
                   <div className="gallery-image-wrapper">
-                    <Image
+                    <img
                       src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${img.image}`}
                       alt={img.album_name || galleryName}
-                      width={1200}
-                      height={800}
                       className="gallery-full-image"
-                      unoptimized={true}
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                        width: 'auto',
+                        height: 'auto',
+                        objectFit: 'contain'
+                      }}
                     />
                   </div>
                   {img.description && (
@@ -102,16 +105,19 @@ export default function GalleryPage({ params }) {
         }
         .gallery-image-wrapper {
           width: 100%;
-          max-height: 75vh;
+          height: 60vh;
           display: flex;
           justify-content: center;
-          overflow: hidden;
+          align-items: center;
+          background: #000;
+        }
+        @media (min-width: 768px) {
+          .gallery-image-wrapper {
+            height: 80vh;
+          }
         }
         .gallery-full-image {
-          max-width: 100%;
-          height: auto;
-          max-height: 75vh;
-          object-fit: contain;
+          display: block;
         }
         .gallery-image-description {
           padding: 20px;
