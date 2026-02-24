@@ -25,7 +25,7 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
                 AND news.id != ?
                 GROUP BY news.id 
                 ORDER BY news.effective_date DESC 
-                LIMIT 5
+                LIMIT 6
             `;
             params = [category_id, news_id];
         } else if (district_id) {
@@ -44,7 +44,7 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
                 AND news.id != ?
                 GROUP BY news.id 
                 ORDER BY news.effective_date DESC 
-                LIMIT 5
+                LIMIT 6
             `;
             params = [district_id, news_id];
         } else {
@@ -85,17 +85,17 @@ export default async function RelatedNews({ news_id, category_id, district_id, i
             <h3 style={{ marginBottom: '15px', fontSize: '20px', fontWeight: '700' }}>
                 {isEn ? 'Related News' : 'ബന്ധപ്പെട്ട വാർത്തകൾ'}
             </h3>
-            <div className="related-news-list" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+            <div className="related-news-list">
                 {relatedPosts.map((post) => (
-                    <div key={post.id} className="related-news-item" style={{ display: 'flex', gap: '15px' }}>
+                    <div key={post.id} className="related-news-item" style={{ display: 'flex', gap: '15px', alignItems: 'flex-start' }}>
                         <div style={{ flexShrink: 0 }}>
                             <Link href={post.url}>
                                 <Newimg news={post} width="120" height="72" />
                             </Link>
                         </div>
                         <div className="related-news-text">
-                            <h4 style={{ fontSize: '16px', margin: 0, lineHeight: '1.4' }}>
-                                <Link href={post.url} style={{ color: '#000', textDecoration: 'none' }}>
+                            <h4 style={{ fontSize: '15px', margin: 0, lineHeight: '1.4', fontWeight: '500' }}>
+                                <Link href={post.url} style={{ color: '#333', textDecoration: 'none' }}>
                                     {post.title}
                                 </Link>
                             </h4>
