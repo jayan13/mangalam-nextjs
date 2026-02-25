@@ -203,7 +203,7 @@ export default function Distnews({ initialPosts, category_id }) {
         </div>
       ))}
 
-      <div id="end-of-list">{hasMore ? 'Loading more...' : 'No more News'}</div>
+      <div id="end-of-list">{hasMore ? 'Loading more...' : ''}</div>
     </div>
   );
 }

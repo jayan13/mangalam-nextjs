@@ -22,7 +22,7 @@ function Newimg(props) {
 function Homenew(props) {
   const post = props.newslist;
   const template = post[0].template;
-  
+
   if (template == 'top') {
     return (
       <div className='main-news'>
@@ -474,31 +474,34 @@ export default function HomeList({ initialPosts }) {
 
 
   return (
-   
-      <div className="home-news-section-left">
 
-        {!posts || posts.length === 0 ? (
-          <div className="no-news">No News</div>
-        ) : (
-          posts.map((post, index) => (
-            <div key={index} className="mid-block">
-              <Homenew newslist={post} />
-              <AdSenseAdc adId={index} />
-            </div>
-          ))
-        )}
+    <div className="home-news-section-left">
+
+      {!posts || posts.length === 0 ? (
+        <div className="no-news">No News</div>
+      ) : (
+        posts.map((post, index) => (
+          <div key={index} className="mid-block">
+            <Homenew newslist={post} />
+            <AdSenseAdc adId={index} />
+          </div>
+        ))
+      )}
 
 
-        <div id="end-of-list">
-          {hasMore ? "Loading more..." : "No more News"}
-        </div>
-
-        <div key={`vis`} className="mid-block">
-        <VisualStories />
-        </div>
-
+      <div id="end-of-list">
+        {hasMore ? "Loading more..." : ""}
       </div>
-      
-   
+
+      {!hasMore && (
+        <div key={`vis`} className="mid-block">
+          <VisualStories />
+          <AdSenseAdc adId={100} />
+        </div>
+      )}
+
+    </div>
+
+
   );
 }
