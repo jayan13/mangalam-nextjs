@@ -207,6 +207,7 @@ function Footer() {
           <li> <a href="/about-mangalam">ABOUT MANGALAM</a></li>
           <li> <a href="/terms-and-conditions">TERMS &amp; CONDITIONS</a></li>
           <li> <a href="/contact-us">CONTACT US</a></li>
+          <li> <a href="/feedback-and-complaints">FEEDBACK & COMPLAINTS</a></li>
           <li> <a href="/disclaimer">DISCLAIMER</a></li>
           <li> <a href="/api/rss">RSS</a></li>
         </ul>
@@ -217,4 +218,4 @@ function Footer() {
 
 }
 
-export default Footer;
+export default Footer; 

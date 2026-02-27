@@ -1,4 +1,4 @@
-import db from '../../../lib/db';
+import db from '@/lib/db';
 import { unstable_cache } from 'next/cache';
 
 const getVisualStories = unstable_cache(
@@ -25,8 +25,6 @@ const getVisualStories = unstable_cache(
                 return {
                     ...row,
                     url: `/gallery/${row.gallery_id}-${slug}.html`,
-                    // Update image path based on user info: mangalam.cms/uplods/ablum/id/images.jpg
-                    // Actually, let's stick to the SQL's image field and use it appropriately in the component.
                 };
             });
 
@@ -37,7 +35,7 @@ const getVisualStories = unstable_cache(
         }
     },
     ['visual-stories'],
-    { revalidate: 360, tags: ['visual-stories'] }
+    { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360'), tags: ['visual-stories'] }
 );
 
 export async function GET() {
@@ -46,12 +44,12 @@ export async function GET() {
         return new Response(JSON.stringify(data), {
             status: 200,
             headers: {
-                'Cache-Control': 'public, s-maxage=360, stale-while-revalidate=60',
+                'Cache-Control': `public, s-maxage=${process.env.API_REVALIDATE || '360'}, stale-while-revalidate=60`,
                 'Content-Type': 'application/json',
             },
         });
     } catch (error) {
-        console.error(error);
+        console.error('API GET Error:', error);
         return new Response(JSON.stringify({ message: 'Error fetching visual stories' }), { status: 500 });
     }
 }

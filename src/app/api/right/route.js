@@ -1,35 +1,69 @@
-import db from '../../../lib/db';
+import db from '@/lib/db';
 import { unstable_cache } from 'next/cache';
 
 const getRightNews = unstable_cache(
   async (limit, offset) => {
     try {
-      // Fetch posts from the database
-      let [posts] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,if(news_image.title,news_image.title,news.title) as alt,"" as url,node_queue.template,node_queue.title as heading FROM news left join news_image on news_image.news_id=news.id inner join sub_queue on sub_queue.news_id=news.id inner join node_queue on node_queue.id=sub_queue.node_queue_id where news.published=1 and node_queue.template is not null and node_queue.template<>"" and node_queue.template in("premium","pic","video","general-right") group by concat(node_queue.id,"-",sub_queue.news_id) order by node_queue.display_order,sub_queue.position LIMIT ? OFFSET ?', [limit, offset]);
+      const query = `
+        SELECT 
+          news.id, 
+          news.title, 
+          news.eng_title, 
+          news_image.file_name, 
+          IF(news_image.title, news_image.title, news.title) as alt, 
+          "" as url, 
+          node_queue.template, 
+          node_queue.title as heading 
+        FROM news 
+        LEFT JOIN news_image ON news_image.news_id = news.id 
+        INNER JOIN sub_queue ON sub_queue.news_id = news.id 
+        INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id 
+        WHERE news.published = 1 
+          AND node_queue.template IS NOT NULL 
+          AND node_queue.template <> "" 
+          AND node_queue.template IN ("premium", "pic", "video", "general-right") 
+        GROUP BY CONCAT(node_queue.id, "-", sub_queue.news_id) 
+        ORDER BY node_queue.display_order, sub_queue.position 
+        LIMIT ? OFFSET ?`;
 
-      if (posts.length) {
-        for (let nws in Object.keys(posts)) {
-          if (posts[nws]['eng_title']) {
-            let newstit = JSON.stringify(posts[nws]['eng_title']);
-            let slug = newstit.toString().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
-            posts[nws]['url'] = posts[nws]['id'] + '-' + slug + '.html';
-          } else {
-            posts[nws]['url'] = posts[nws]['id'] + '-news-details' + '.html';
-          }
+      const [posts] = await db.query(query, [limit, offset]);
+
+      const processedPosts = posts.map(post => {
+        let url = post.id + '-news-details.html';
+        if (post.eng_title) {
+          const slug = post.eng_title
+            .toString()
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/[\s_]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+          url = post.id + '-' + slug + '.html';
         }
-      }
+        return { ...post, url };
+      });
 
-      const [countResult] = await db.query('SELECT  COUNT(DISTINCT(concat(node_queue.id,"-",sub_queue.news_id))) as total FROM news left join news_image on news_image.news_id=news.id inner join sub_queue on sub_queue.news_id=news.id inner join node_queue on node_queue.id=sub_queue.node_queue_id where news.published=1 and node_queue.template is not null and node_queue.template<>"" and node_queue.template in("premium","pic","video","general-right")');
+      const countQuery = `
+        SELECT COUNT(DISTINCT(CONCAT(node_queue.id, "-", sub_queue.news_id))) as total 
+        FROM news 
+        LEFT JOIN news_image ON news_image.news_id = news.id 
+        INNER JOIN sub_queue ON sub_queue.news_id = news.id 
+        INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id 
+        WHERE news.published = 1 
+          AND node_queue.template IS NOT NULL 
+          AND node_queue.template <> "" 
+          AND node_queue.template IN ("premium", "pic", "video", "general-right")`;
+
+      const [countResult] = await db.query(countQuery);
       const totalPosts = countResult[0].total;
 
-      return { posts, totalPosts };
+      return { posts: [processedPosts], totalPosts };
     } catch (error) {
       console.error('Database error in getRightNews:', error);
       return { posts: [], totalPosts: 0 };
     }
   },
   ['right-news'],
-  { revalidate: 360, tags: ['right-news'] }
+  { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360'), tags: ['right-news'] }
 );
 
 export async function GET(req) {
@@ -41,15 +75,16 @@ export async function GET(req) {
   try {
     const { posts, totalPosts } = await getRightNews(limit, offset);
     const hasMore = offset + limit < totalPosts;
-    return new Response(JSON.stringify({ newslist: [posts], hasMore }), {
+
+    return new Response(JSON.stringify({ newslist: posts, hasMore }), {
       status: 200,
       headers: {
-        'Cache-Control': 'public, s-maxage=360, stale-while-revalidate=60',
+        'Cache-Control': `public, s-maxage=${process.env.API_REVALIDATE || '360'}, stale-while-revalidate=60`,
         'Content-Type': 'application/json',
       },
     });
   } catch (error) {
-    console.error(error);
+    console.error('API GET Error:', error);
     return new Response(JSON.stringify({ message: 'Error fetching posts' }), { status: 500 });
   }
 }
