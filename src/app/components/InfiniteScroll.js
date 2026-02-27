@@ -148,7 +148,7 @@ export default function InfiniteScroll() {
           <NewsSection posts={postGroup} />
         </div>
       ))}
-      <div id="end-of-list-right" style={{ minHeight: '1px' }}>
+      <div id="end-of-list-right" >
         {hasMore && <p>Loading more...</p>}
       </div>
     </div>

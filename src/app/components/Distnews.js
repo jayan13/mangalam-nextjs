@@ -144,7 +144,7 @@ export default function Distnews({ initialPosts, district_id }) {
     try {
       //const distid=posts[0][0].district_id;
       const distid = district_id;
-      const res = await fetch(`/api/district?page=${page}&limit=8&district=${distid}`, { next: { revalidate: 360 } });  // Fetch next page
+      const res = await fetch(`/api/district?page=${page}&limit=8&district=${distid}`, { next: { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') } });  // Fetch next page
       const data = await res.json();
 
       // Append new posts to the existing list

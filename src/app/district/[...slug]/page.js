@@ -15,7 +15,7 @@ export async function getDist(dis_id) {
   }
 }
 
-const getCachedDistrict = unstable_cache(async (id) => getDist(id), (id) => [`my-app-district-${id}`], { revalidate: 360 });
+const getCachedDistrict = unstable_cache(async (id) => getDist(id), (id) => [`my-app-district-${id}`], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') });
 
 export async function getDists() {
   try {
@@ -27,8 +27,8 @@ export async function getDists() {
   }
 }
 
-const getCachedDistricts = unstable_cache(async () => getDists(), (id) => [`my-app-districts-${id}`], { revalidate: 360 });
-const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id), (id) => [`my-app-district-posts-${id}`], { revalidate: 360 });
+const getCachedDistricts = unstable_cache(async () => getDists(), (id) => [`my-app-districts-${id}`], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') });
+const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id), (id) => [`my-app-district-posts-${id}`], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') });
 
 import { Suspense } from 'react';
 import NewsListSkeleton from '../../components/skeletons/NewsListSkeleton';

@@ -23,7 +23,7 @@ const getGalleryDetails = unstable_cache(
         }
     },
     ['gallery-details'],
-    { revalidate: 360, tags: ['gallery-details'] }
+    { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360'), tags: ['gallery-details'] }
 );
 
 export async function GET(req, { params }) {

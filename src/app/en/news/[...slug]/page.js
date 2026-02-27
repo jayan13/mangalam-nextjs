@@ -10,7 +10,7 @@ import Link from 'next/link';
 import Script from 'next/script';
 import { unstable_cache } from "next/cache";
 // import UnibotsAd from "../../../adds/UnibotPlay";
-
+export const revalidate = 3600;
 const pageUrl = process.env.BASEURL + '/en/';
 
 async function getDetails(news_id) {
@@ -53,10 +53,10 @@ async function getCategory(cat_id) {
     }
 }
 
-const getCachedNewsDet = unstable_cache(async (id) => getDetails(id), (id) => [`en-news-${id}`], { revalidate: 360 });
-const getCachedImages = unstable_cache(async (id) => getImages(id), (id) => [`en-images-${id}`], { revalidate: 360 });
-const getCachedTags = unstable_cache(async (id) => getTags(id), (id) => [`en-tags-${id}`], { revalidate: 360 });
-const getCachedCat = unstable_cache(async (id) => getCategory(id), (id) => [`en-bcats-${id}`], { revalidate: 360 });
+const getCachedNewsDet = unstable_cache(async (id) => getDetails(id), (id) => [`en-news-${id}`], { revalidate: 3600 });
+const getCachedImages = unstable_cache(async (id) => getImages(id), (id) => [`en-images-${id}`], { revalidate: 3600 });
+const getCachedTags = unstable_cache(async (id) => getTags(id), (id) => [`en-tags-${id}`], { revalidate: 3600 });
+const getCachedCat = unstable_cache(async (id) => getCategory(id), (id) => [`en-bcats-${id}`], { revalidate: 3600 });
 
 function Newd(props) {
     const newsdetails = props.det;

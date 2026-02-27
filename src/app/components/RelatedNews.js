@@ -72,7 +72,7 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
 const getCachedRelatedNews = unstable_cache(
     async (news_id, category_id, district_id, isEn) => fetchRelatedNews(news_id, category_id, district_id, isEn),
     (news_id, category_id, district_id, isEn) => [`related-news-${news_id}-${category_id}-${district_id}-${isEn}`],
-    { revalidate: 360 }
+    { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') }
 );
 
 export default async function RelatedNews({ news_id, category_id, district_id, isEn = false }) {

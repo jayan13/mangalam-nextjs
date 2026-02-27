@@ -17,8 +17,8 @@ export async function getCategory(tag_id) {
   }
 }
 
-const getCachedTag = unstable_cache(async (id) => getCategory(id), (id) => [`my-app-tag-${id}`], { revalidate: 360 });
-const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id), (id) => [`my-app-tag-posts-${id}`], { revalidate: 360 });
+const getCachedTag = unstable_cache(async (id) => getCategory(id), (id) => [`my-app-tag-${id}`], { revalidate: 3600 });
+const getCachedInitialPosts = unstable_cache(async (id) => getInitialPosts(id), (id) => [`my-app-tag-posts-${id}`], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') });
 
 export default async function Home({ params }) {
   const { slug } = await params;

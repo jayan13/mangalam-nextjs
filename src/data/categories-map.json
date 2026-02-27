@@ -1,0 +1,2357 @@
+{
+  "1": {
+    "id": 1,
+    "name": "Main Home",
+    "slug": "main-home",
+    "parent_id": null,
+    "link": "/category/1-main-home.html",
+    "children": []
+  },
+  "15": {
+    "id": 15,
+    "name": "Cinema",
+    "slug": "cinema",
+    "parent_id": null,
+    "link": "/category/15-cinema.html",
+    "children": [
+      {
+        "id": 4173,
+        "name": "GANADARPANAM",
+        "slug": "ganadarpanam",
+        "parent_id": 15,
+        "link": "/category/4173-ganadarpanam.html",
+        "children": []
+      },
+      {
+        "id": 39,
+        "name": "Latest News",
+        "slug": "latest-news",
+        "parent_id": 15,
+        "link": "/category/39-latest-news.html",
+        "children": []
+      },
+      {
+        "id": 852,
+        "name": "NISASALABHANGAL",
+        "slug": "nisasalabhangal",
+        "parent_id": 15,
+        "link": "/category/852-nisasalabhangal.html",
+        "children": []
+      },
+      {
+        "id": 45,
+        "name": "Chit Chat",
+        "slug": "chit-chat",
+        "parent_id": 15,
+        "link": "/category/45-chit-chat.html",
+        "children": []
+      },
+      {
+        "id": 40,
+        "name": "Movie Reviews",
+        "slug": "movie-reviews",
+        "parent_id": 15,
+        "link": "/category/40-movie-reviews.html",
+        "children": []
+      },
+      {
+        "id": 44,
+        "name": "Location",
+        "slug": "location",
+        "parent_id": 15,
+        "link": "/category/44-location.html",
+        "children": []
+      },
+      {
+        "id": 47,
+        "name": "Interviews",
+        "slug": "interviews",
+        "parent_id": 15,
+        "link": "/category/47-interviews.html",
+        "children": []
+      },
+      {
+        "id": 824,
+        "name": "Abhralokam",
+        "slug": "abhralokam",
+        "parent_id": 15,
+        "link": "/category/824-abhralokam.html",
+        "children": []
+      },
+      {
+        "id": 825,
+        "name": "Erotic Classics",
+        "slug": "erotic-classics",
+        "parent_id": 15,
+        "link": "/category/825-erotic-classics.html",
+        "children": []
+      },
+      {
+        "id": 46,
+        "name": "Re- recording",
+        "slug": "re--recording",
+        "parent_id": 15,
+        "link": "/category/46-re--recording.html",
+        "children": []
+      },
+      {
+        "id": 826,
+        "name": "Backlight",
+        "slug": "backlight",
+        "parent_id": 15,
+        "link": "/category/826-backlight.html",
+        "children": []
+      },
+      {
+        "id": 839,
+        "name": "Mini vision",
+        "slug": "mini-vision",
+        "parent_id": 15,
+        "link": "/category/839-mini-vision.html",
+        "children": []
+      },
+      {
+        "id": 48,
+        "name": "Mini Screen",
+        "slug": "mini-screen",
+        "parent_id": 15,
+        "link": "/category/48-mini-screen.html",
+        "children": []
+      },
+      {
+        "id": 42,
+        "name": "Movie Of The week",
+        "slug": "movie-of-the-week",
+        "parent_id": 15,
+        "link": "/category/42-movie-of-the-week.html",
+        "children": []
+      },
+      {
+        "id": 43,
+        "name": "Now In Theater",
+        "slug": "now-in-theater",
+        "parent_id": 15,
+        "link": "/category/43-now-in-theater.html",
+        "children": []
+      },
+      {
+        "id": 41,
+        "name": "Promotional Movie",
+        "slug": "promotional-movie",
+        "parent_id": 15,
+        "link": "/category/41-promotional-movie.html",
+        "children": []
+      },
+      {
+        "id": 61,
+        "name": "Tamil",
+        "slug": "tamil",
+        "parent_id": 15,
+        "link": "/category/61-tamil.html",
+        "children": []
+      },
+      {
+        "id": 62,
+        "name": "Hindi",
+        "slug": "hindi",
+        "parent_id": 15,
+        "link": "/category/62-hindi.html",
+        "children": []
+      },
+      {
+        "id": 63,
+        "name": "Telugu",
+        "slug": "telugu",
+        "parent_id": 15,
+        "link": "/category/63-telugu.html",
+        "children": []
+      },
+      {
+        "id": 64,
+        "name": "Hollywood",
+        "slug": "hollywood",
+        "parent_id": 15,
+        "link": "/category/64-hollywood.html",
+        "children": []
+      },
+      {
+        "id": 7500,
+        "name": "Malayalam Classics",
+        "slug": "malayalam-classics",
+        "parent_id": 15,
+        "link": "/category/7500-malayalam-classics.html",
+        "children": []
+      }
+    ]
+  },
+  "16": {
+    "id": 16,
+    "name": "Latest News",
+    "slug": "latest-news",
+    "parent_id": null,
+    "link": "/category/16-latest-news.html",
+    "children": []
+  },
+  "17": {
+    "id": 17,
+    "name": "Pravasi",
+    "slug": "pravasi",
+    "parent_id": null,
+    "link": "/category/17-pravasi.html",
+    "children": [
+      {
+        "id": 107,
+        "name": "News",
+        "slug": "news",
+        "parent_id": 17,
+        "link": "/category/107-news.html",
+        "children": []
+      },
+      {
+        "id": 101,
+        "name": "Gulf",
+        "slug": "gulf",
+        "parent_id": 17,
+        "link": "/category/101-gulf.html",
+        "children": []
+      },
+      {
+        "id": 102,
+        "name": "Europe",
+        "slug": "europe",
+        "parent_id": 17,
+        "link": "/category/102-europe.html",
+        "children": []
+      },
+      {
+        "id": 103,
+        "name": "America",
+        "slug": "america",
+        "parent_id": 17,
+        "link": "/category/103-america.html",
+        "children": []
+      },
+      {
+        "id": 104,
+        "name": "Australia",
+        "slug": "australia",
+        "parent_id": 17,
+        "link": "/category/104-australia.html",
+        "children": []
+      },
+      {
+        "id": 106,
+        "name": "Pravasi Special",
+        "slug": "pravasi-special",
+        "parent_id": 17,
+        "link": "/category/106-pravasi-special.html",
+        "children": []
+      },
+      {
+        "id": 105,
+        "name": "Others",
+        "slug": "others",
+        "parent_id": 17,
+        "link": "/category/105-others.html",
+        "children": []
+      },
+      {
+        "id": 411,
+        "name": "Pravasi Rachana",
+        "slug": "pravasi-rachana",
+        "parent_id": 17,
+        "link": "/category/411-pravasi-rachana.html",
+        "children": [
+          {
+            "id": 412,
+            "name": "NOVAL",
+            "slug": "noval",
+            "parent_id": 411,
+            "link": "/category/412-noval.html",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "18": {
+    "id": 18,
+    "name": "Print Edition",
+    "slug": "print-edition",
+    "parent_id": null,
+    "link": "/category/18-print-edition.html",
+    "children": [
+      {
+        "id": 19,
+        "name": "Keralam",
+        "slug": "keralam",
+        "parent_id": 18,
+        "link": "/category/19-keralam.html",
+        "children": []
+      },
+      {
+        "id": 20,
+        "name": "India",
+        "slug": "india",
+        "parent_id": 18,
+        "link": "/category/20-india.html",
+        "children": []
+      },
+      {
+        "id": 21,
+        "name": "International",
+        "slug": "international",
+        "parent_id": 18,
+        "link": "/category/21-international.html",
+        "children": []
+      },
+      {
+        "id": 100,
+        "name": "Crime",
+        "slug": "crime",
+        "parent_id": 18,
+        "link": "/category/100-crime.html",
+        "children": []
+      },
+      {
+        "id": 552,
+        "name": "Daily Prediction",
+        "slug": "daily-prediction",
+        "parent_id": 18,
+        "link": "/category/552-daily-prediction.html",
+        "children": []
+      },
+      {
+        "id": 98,
+        "name": "Sunday Mangalam",
+        "slug": "sunday-mangalam",
+        "parent_id": 18,
+        "link": "/category/98-sunday-mangalam.html",
+        "children": []
+      },
+      {
+        "id": 185,
+        "name": "University news",
+        "slug": "university-news",
+        "parent_id": 18,
+        "link": "/category/185-university-news.html",
+        "children": []
+      },
+      {
+        "id": 96,
+        "name": "Editorial",
+        "slug": "editorial",
+        "parent_id": 18,
+        "link": "/category/96-editorial.html",
+        "children": []
+      },
+      {
+        "id": 627,
+        "name": "Classifieds",
+        "slug": "classifieds",
+        "parent_id": 18,
+        "link": "/category/627-classifieds.html",
+        "children": []
+      },
+      {
+        "id": 936,
+        "name": "Onam Special",
+        "slug": "onam-special",
+        "parent_id": 18,
+        "link": "/category/936-onam-special.html",
+        "children": []
+      },
+      {
+        "id": 99,
+        "name": "Charity",
+        "slug": "charity",
+        "parent_id": 18,
+        "link": "/category/99-charity.html",
+        "children": []
+      },
+      {
+        "id": 202,
+        "name": "Agriculture",
+        "slug": "agriculture",
+        "parent_id": 18,
+        "link": "/category/202-agriculture.html",
+        "children": []
+      },
+      {
+        "id": 6882,
+        "name": "straight cut",
+        "slug": "straight-cut",
+        "parent_id": 18,
+        "link": "/category/6882-straight-cut.html",
+        "children": []
+      }
+    ]
+  },
+  "19": {
+    "id": 19,
+    "name": "Keralam",
+    "slug": "keralam",
+    "parent_id": 18,
+    "link": "/category/19-keralam.html",
+    "children": []
+  },
+  "20": {
+    "id": 20,
+    "name": "India",
+    "slug": "india",
+    "parent_id": 18,
+    "link": "/category/20-india.html",
+    "children": []
+  },
+  "21": {
+    "id": 21,
+    "name": "International",
+    "slug": "international",
+    "parent_id": 18,
+    "link": "/category/21-international.html",
+    "children": []
+  },
+  "23": {
+    "id": 23,
+    "name": "Sports",
+    "slug": "sports",
+    "parent_id": null,
+    "link": "/category/23-sports.html",
+    "children": [
+      {
+        "id": 67,
+        "name": "News",
+        "slug": "news",
+        "parent_id": 23,
+        "link": "/category/67-news.html",
+        "children": []
+      },
+      {
+        "id": 68,
+        "name": "Exclusive",
+        "slug": "exclusive",
+        "parent_id": 23,
+        "link": "/category/68-exclusive.html",
+        "children": []
+      },
+      {
+        "id": 69,
+        "name": "Specials",
+        "slug": "specials",
+        "parent_id": 23,
+        "link": "/category/69-specials.html",
+        "children": []
+      }
+    ]
+  },
+  "39": {
+    "id": 39,
+    "name": "Latest News",
+    "slug": "latest-news",
+    "parent_id": 15,
+    "link": "/category/39-latest-news.html",
+    "children": []
+  },
+  "40": {
+    "id": 40,
+    "name": "Movie Reviews",
+    "slug": "movie-reviews",
+    "parent_id": 15,
+    "link": "/category/40-movie-reviews.html",
+    "children": []
+  },
+  "41": {
+    "id": 41,
+    "name": "Promotional Movie",
+    "slug": "promotional-movie",
+    "parent_id": 15,
+    "link": "/category/41-promotional-movie.html",
+    "children": []
+  },
+  "42": {
+    "id": 42,
+    "name": "Movie Of The week",
+    "slug": "movie-of-the-week",
+    "parent_id": 15,
+    "link": "/category/42-movie-of-the-week.html",
+    "children": []
+  },
+  "43": {
+    "id": 43,
+    "name": "Now In Theater",
+    "slug": "now-in-theater",
+    "parent_id": 15,
+    "link": "/category/43-now-in-theater.html",
+    "children": []
+  },
+  "44": {
+    "id": 44,
+    "name": "Location",
+    "slug": "location",
+    "parent_id": 15,
+    "link": "/category/44-location.html",
+    "children": []
+  },
+  "45": {
+    "id": 45,
+    "name": "Chit Chat",
+    "slug": "chit-chat",
+    "parent_id": 15,
+    "link": "/category/45-chit-chat.html",
+    "children": []
+  },
+  "46": {
+    "id": 46,
+    "name": "Re- recording",
+    "slug": "re--recording",
+    "parent_id": 15,
+    "link": "/category/46-re--recording.html",
+    "children": []
+  },
+  "47": {
+    "id": 47,
+    "name": "Interviews",
+    "slug": "interviews",
+    "parent_id": 15,
+    "link": "/category/47-interviews.html",
+    "children": []
+  },
+  "48": {
+    "id": 48,
+    "name": "Mini Screen",
+    "slug": "mini-screen",
+    "parent_id": 15,
+    "link": "/category/48-mini-screen.html",
+    "children": []
+  },
+  "61": {
+    "id": 61,
+    "name": "Tamil",
+    "slug": "tamil",
+    "parent_id": 15,
+    "link": "/category/61-tamil.html",
+    "children": []
+  },
+  "62": {
+    "id": 62,
+    "name": "Hindi",
+    "slug": "hindi",
+    "parent_id": 15,
+    "link": "/category/62-hindi.html",
+    "children": []
+  },
+  "63": {
+    "id": 63,
+    "name": "Telugu",
+    "slug": "telugu",
+    "parent_id": 15,
+    "link": "/category/63-telugu.html",
+    "children": []
+  },
+  "64": {
+    "id": 64,
+    "name": "Hollywood",
+    "slug": "hollywood",
+    "parent_id": 15,
+    "link": "/category/64-hollywood.html",
+    "children": []
+  },
+  "67": {
+    "id": 67,
+    "name": "News",
+    "slug": "news",
+    "parent_id": 23,
+    "link": "/category/67-news.html",
+    "children": []
+  },
+  "68": {
+    "id": 68,
+    "name": "Exclusive",
+    "slug": "exclusive",
+    "parent_id": 23,
+    "link": "/category/68-exclusive.html",
+    "children": []
+  },
+  "69": {
+    "id": 69,
+    "name": "Specials",
+    "slug": "specials",
+    "parent_id": 23,
+    "link": "/category/69-specials.html",
+    "children": []
+  },
+  "89": {
+    "id": 89,
+    "name": "Business",
+    "slug": "business",
+    "parent_id": null,
+    "link": "/category/89-business.html",
+    "children": [
+      {
+        "id": 91,
+        "name": "News",
+        "slug": "news",
+        "parent_id": 89,
+        "link": "/category/91-news.html",
+        "children": []
+      },
+      {
+        "id": 90,
+        "name": "Stock",
+        "slug": "stock",
+        "parent_id": 89,
+        "link": "/category/90-stock.html",
+        "children": []
+      },
+      {
+        "id": 93,
+        "name": "Auto",
+        "slug": "auto",
+        "parent_id": 89,
+        "link": "/category/93-auto.html",
+        "children": []
+      },
+      {
+        "id": 94,
+        "name": "Banking",
+        "slug": "banking",
+        "parent_id": 89,
+        "link": "/category/94-banking.html",
+        "children": []
+      }
+    ]
+  },
+  "90": {
+    "id": 90,
+    "name": "Stock",
+    "slug": "stock",
+    "parent_id": 89,
+    "link": "/category/90-stock.html",
+    "children": []
+  },
+  "91": {
+    "id": 91,
+    "name": "News",
+    "slug": "news",
+    "parent_id": 89,
+    "link": "/category/91-news.html",
+    "children": []
+  },
+  "93": {
+    "id": 93,
+    "name": "Auto",
+    "slug": "auto",
+    "parent_id": 89,
+    "link": "/category/93-auto.html",
+    "children": []
+  },
+  "94": {
+    "id": 94,
+    "name": "Banking",
+    "slug": "banking",
+    "parent_id": 89,
+    "link": "/category/94-banking.html",
+    "children": []
+  },
+  "96": {
+    "id": 96,
+    "name": "Editorial",
+    "slug": "editorial",
+    "parent_id": 18,
+    "link": "/category/96-editorial.html",
+    "children": []
+  },
+  "98": {
+    "id": 98,
+    "name": "Sunday Mangalam",
+    "slug": "sunday-mangalam",
+    "parent_id": 18,
+    "link": "/category/98-sunday-mangalam.html",
+    "children": []
+  },
+  "99": {
+    "id": 99,
+    "name": "Charity",
+    "slug": "charity",
+    "parent_id": 18,
+    "link": "/category/99-charity.html",
+    "children": []
+  },
+  "100": {
+    "id": 100,
+    "name": "Crime",
+    "slug": "crime",
+    "parent_id": 18,
+    "link": "/category/100-crime.html",
+    "children": []
+  },
+  "101": {
+    "id": 101,
+    "name": "Gulf",
+    "slug": "gulf",
+    "parent_id": 17,
+    "link": "/category/101-gulf.html",
+    "children": []
+  },
+  "102": {
+    "id": 102,
+    "name": "Europe",
+    "slug": "europe",
+    "parent_id": 17,
+    "link": "/category/102-europe.html",
+    "children": []
+  },
+  "103": {
+    "id": 103,
+    "name": "America",
+    "slug": "america",
+    "parent_id": 17,
+    "link": "/category/103-america.html",
+    "children": []
+  },
+  "104": {
+    "id": 104,
+    "name": "Australia",
+    "slug": "australia",
+    "parent_id": 17,
+    "link": "/category/104-australia.html",
+    "children": []
+  },
+  "105": {
+    "id": 105,
+    "name": "Others",
+    "slug": "others",
+    "parent_id": 17,
+    "link": "/category/105-others.html",
+    "children": []
+  },
+  "106": {
+    "id": 106,
+    "name": "Pravasi Special",
+    "slug": "pravasi-special",
+    "parent_id": 17,
+    "link": "/category/106-pravasi-special.html",
+    "children": []
+  },
+  "107": {
+    "id": 107,
+    "name": "News",
+    "slug": "news",
+    "parent_id": 17,
+    "link": "/category/107-news.html",
+    "children": []
+  },
+  "108": {
+    "id": 108,
+    "name": "Women",
+    "slug": "women",
+    "parent_id": null,
+    "link": "/category/108-women.html",
+    "children": [
+      {
+        "id": 5503,
+        "name": "LITERATURE",
+        "slug": "literature",
+        "parent_id": 108,
+        "link": "/category/5503-literature.html",
+        "children": []
+      },
+      {
+        "id": 182,
+        "name": "WOMEN'S WORLD",
+        "slug": "womens-world",
+        "parent_id": 108,
+        "link": "/category/182-womens-world.html",
+        "children": []
+      },
+      {
+        "id": 1322,
+        "name": "FASHION NEWS",
+        "slug": "fashion-news",
+        "parent_id": 108,
+        "link": "/category/1322-fashion-news.html",
+        "children": []
+      },
+      {
+        "id": 1323,
+        "name": "CELEBRITY FASHION TIPS",
+        "slug": "celebrity-fashion-tips",
+        "parent_id": 108,
+        "link": "/category/1323-celebrity-fashion-tips.html",
+        "children": []
+      },
+      {
+        "id": 1324,
+        "name": "NEW TRENDS IN FASHION",
+        "slug": "new-trends-in-fashion",
+        "parent_id": 108,
+        "link": "/category/1324-new-trends-in-fashion.html",
+        "children": []
+      },
+      {
+        "id": 1325,
+        "name": "ACCESSORIES",
+        "slug": "accessories",
+        "parent_id": 108,
+        "link": "/category/1325-accessories.html",
+        "children": []
+      },
+      {
+        "id": 1326,
+        "name": "LIFESTYLE",
+        "slug": "lifestyle",
+        "parent_id": 108,
+        "link": "/category/1326-lifestyle.html",
+        "children": []
+      },
+      {
+        "id": 1327,
+        "name": "MAKEUP",
+        "slug": "makeup",
+        "parent_id": 108,
+        "link": "/category/1327-makeup.html",
+        "children": []
+      },
+      {
+        "id": 116,
+        "name": "COOKERY",
+        "slug": "cookery",
+        "parent_id": 108,
+        "link": "/category/116-cookery.html",
+        "children": []
+      },
+      {
+        "id": 1328,
+        "name": "READER'S COOKERY",
+        "slug": "readers-cookery",
+        "parent_id": 108,
+        "link": "/category/1328-readers-cookery.html",
+        "children": []
+      },
+      {
+        "id": 1329,
+        "name": "COOKERY CONTEST",
+        "slug": "cookery-contest",
+        "parent_id": 108,
+        "link": "/category/1329-cookery-contest.html",
+        "children": []
+      },
+      {
+        "id": 1330,
+        "name": "DIET",
+        "slug": "diet",
+        "parent_id": 108,
+        "link": "/category/1330-diet.html",
+        "children": []
+      },
+      {
+        "id": 115,
+        "name": "HEALTH MATTER",
+        "slug": "health-matter",
+        "parent_id": 108,
+        "link": "/category/115-health-matter.html",
+        "children": []
+      },
+      {
+        "id": 1331,
+        "name": "HEALTH TIPS",
+        "slug": "health-tips",
+        "parent_id": 108,
+        "link": "/category/1331-health-tips.html",
+        "children": []
+      },
+      {
+        "id": 1332,
+        "name": "DOCTOR'S INTERVIEW",
+        "slug": "doctors-interview",
+        "parent_id": 108,
+        "link": "/category/1332-doctors-interview.html",
+        "children": []
+      },
+      {
+        "id": 5504,
+        "name": "literature",
+        "slug": "literature",
+        "parent_id": 108,
+        "link": "/category/5504-literature.html",
+        "children": []
+      },
+      {
+        "id": 1333,
+        "name": "NEW WEDDING TRENDS",
+        "slug": "new-wedding-trends",
+        "parent_id": 108,
+        "link": "/category/1333-new-wedding-trends.html",
+        "children": []
+      },
+      {
+        "id": 1334,
+        "name": "WEDDING FASHION",
+        "slug": "wedding-fashion",
+        "parent_id": 108,
+        "link": "/category/1334-wedding-fashion.html",
+        "children": []
+      },
+      {
+        "id": 1335,
+        "name": "WEDDING STORIES",
+        "slug": "wedding-stories",
+        "parent_id": 108,
+        "link": "/category/1335-wedding-stories.html",
+        "children": []
+      },
+      {
+        "id": 1336,
+        "name": "CELEBRITY",
+        "slug": "celebrity",
+        "parent_id": 108,
+        "link": "/category/1336-celebrity.html",
+        "children": []
+      },
+      {
+        "id": 113,
+        "name": "Parenting",
+        "slug": "parenting",
+        "parent_id": 108,
+        "link": "/category/113-parenting.html",
+        "children": []
+      },
+      {
+        "id": 1337,
+        "name": "GUIDE",
+        "slug": "guide",
+        "parent_id": 108,
+        "link": "/category/1337-guide.html",
+        "children": []
+      },
+      {
+        "id": 1338,
+        "name": "RELATIONSHIP",
+        "slug": "relationship",
+        "parent_id": 108,
+        "link": "/category/1338-relationship.html",
+        "children": []
+      },
+      {
+        "id": 111,
+        "name": "Beauty",
+        "slug": "beauty",
+        "parent_id": 108,
+        "link": "/category/111-beauty.html",
+        "children": []
+      },
+      {
+        "id": 114,
+        "name": "COLUMN",
+        "slug": "column",
+        "parent_id": 108,
+        "link": "/category/114-column.html",
+        "children": []
+      },
+      {
+        "id": 110,
+        "name": "Interview",
+        "slug": "interview",
+        "parent_id": 108,
+        "link": "/category/110-interview.html",
+        "children": []
+      },
+      {
+        "id": 109,
+        "name": "Personality",
+        "slug": "personality",
+        "parent_id": 108,
+        "link": "/category/109-personality.html",
+        "children": []
+      }
+    ]
+  },
+  "109": {
+    "id": 109,
+    "name": "Personality",
+    "slug": "personality",
+    "parent_id": 108,
+    "link": "/category/109-personality.html",
+    "children": []
+  },
+  "110": {
+    "id": 110,
+    "name": "Interview",
+    "slug": "interview",
+    "parent_id": 108,
+    "link": "/category/110-interview.html",
+    "children": []
+  },
+  "111": {
+    "id": 111,
+    "name": "Beauty",
+    "slug": "beauty",
+    "parent_id": 108,
+    "link": "/category/111-beauty.html",
+    "children": []
+  },
+  "113": {
+    "id": 113,
+    "name": "Parenting",
+    "slug": "parenting",
+    "parent_id": 108,
+    "link": "/category/113-parenting.html",
+    "children": []
+  },
+  "114": {
+    "id": 114,
+    "name": "COLUMN",
+    "slug": "column",
+    "parent_id": 108,
+    "link": "/category/114-column.html",
+    "children": []
+  },
+  "115": {
+    "id": 115,
+    "name": "HEALTH MATTER",
+    "slug": "health-matter",
+    "parent_id": 108,
+    "link": "/category/115-health-matter.html",
+    "children": []
+  },
+  "116": {
+    "id": 116,
+    "name": "COOKERY",
+    "slug": "cookery",
+    "parent_id": 108,
+    "link": "/category/116-cookery.html",
+    "children": []
+  },
+  "163": {
+    "id": 163,
+    "name": "Astrology",
+    "slug": "astrology",
+    "parent_id": null,
+    "link": "/category/163-astrology.html",
+    "children": [
+      {
+        "id": 164,
+        "name": "News",
+        "slug": "news",
+        "parent_id": 163,
+        "link": "/category/164-news.html",
+        "children": []
+      },
+      {
+        "id": 166,
+        "name": "Ask to Astrologer",
+        "slug": "ask-to-astrologer",
+        "parent_id": 163,
+        "link": "/category/166-ask-to-astrologer.html",
+        "children": []
+      },
+      {
+        "id": 168,
+        "name": "Gemology",
+        "slug": "gemology",
+        "parent_id": 163,
+        "link": "/category/168-gemology.html",
+        "children": []
+      },
+      {
+        "id": 169,
+        "name": "Prayers",
+        "slug": "prayers",
+        "parent_id": 163,
+        "link": "/category/169-prayers.html",
+        "children": []
+      },
+      {
+        "id": 165,
+        "name": "Predictions",
+        "slug": "predictions",
+        "parent_id": 163,
+        "link": "/category/165-predictions.html",
+        "children": []
+      },
+      {
+        "id": 167,
+        "name": "Vasthu",
+        "slug": "vasthu",
+        "parent_id": 163,
+        "link": "/category/167-vasthu.html",
+        "children": []
+      },
+      {
+        "id": 170,
+        "name": "Others",
+        "slug": "others",
+        "parent_id": 163,
+        "link": "/category/170-others.html",
+        "children": []
+      }
+    ]
+  },
+  "164": {
+    "id": 164,
+    "name": "News",
+    "slug": "news",
+    "parent_id": 163,
+    "link": "/category/164-news.html",
+    "children": []
+  },
+  "165": {
+    "id": 165,
+    "name": "Predictions",
+    "slug": "predictions",
+    "parent_id": 163,
+    "link": "/category/165-predictions.html",
+    "children": []
+  },
+  "166": {
+    "id": 166,
+    "name": "Ask to Astrologer",
+    "slug": "ask-to-astrologer",
+    "parent_id": 163,
+    "link": "/category/166-ask-to-astrologer.html",
+    "children": []
+  },
+  "167": {
+    "id": 167,
+    "name": "Vasthu",
+    "slug": "vasthu",
+    "parent_id": 163,
+    "link": "/category/167-vasthu.html",
+    "children": []
+  },
+  "168": {
+    "id": 168,
+    "name": "Gemology",
+    "slug": "gemology",
+    "parent_id": 163,
+    "link": "/category/168-gemology.html",
+    "children": []
+  },
+  "169": {
+    "id": 169,
+    "name": "Prayers",
+    "slug": "prayers",
+    "parent_id": 163,
+    "link": "/category/169-prayers.html",
+    "children": []
+  },
+  "170": {
+    "id": 170,
+    "name": "Others",
+    "slug": "others",
+    "parent_id": 163,
+    "link": "/category/170-others.html",
+    "children": []
+  },
+  "182": {
+    "id": 182,
+    "name": "WOMEN'S WORLD",
+    "slug": "womens-world",
+    "parent_id": 108,
+    "link": "/category/182-womens-world.html",
+    "children": []
+  },
+  "185": {
+    "id": 185,
+    "name": "University news",
+    "slug": "university-news",
+    "parent_id": 18,
+    "link": "/category/185-university-news.html",
+    "children": []
+  },
+  "186": {
+    "id": 186,
+    "name": "Health",
+    "slug": "health",
+    "parent_id": null,
+    "link": "/category/186-health.html",
+    "children": [
+      {
+        "id": 191,
+        "name": "Ayurveda",
+        "slug": "ayurveda",
+        "parent_id": 186,
+        "link": "/category/191-ayurveda.html",
+        "children": []
+      },
+      {
+        "id": 189,
+        "name": "Family Health",
+        "slug": "family-health",
+        "parent_id": 186,
+        "link": "/category/189-family-health.html",
+        "children": []
+      },
+      {
+        "id": 188,
+        "name": "Fitness/ Yoga",
+        "slug": "fitness-yoga",
+        "parent_id": 186,
+        "link": "/category/188-fitness-yoga.html",
+        "children": []
+      },
+      {
+        "id": 193,
+        "name": "Food Habits",
+        "slug": "food-habits",
+        "parent_id": 186,
+        "link": "/category/193-food-habits.html",
+        "children": []
+      },
+      {
+        "id": 187,
+        "name": "Health News",
+        "slug": "health-news",
+        "parent_id": 186,
+        "link": "/category/187-health-news.html",
+        "children": []
+      },
+      {
+        "id": 192,
+        "name": "Kids",
+        "slug": "kids",
+        "parent_id": 186,
+        "link": "/category/192-kids.html",
+        "children": []
+      },
+      {
+        "id": 443,
+        "name": "Ask to Doctor",
+        "slug": "ask-to-doctor",
+        "parent_id": 186,
+        "link": "/category/443-ask-to-doctor.html",
+        "children": []
+      },
+      {
+        "id": 190,
+        "name": "Sex",
+        "slug": "sex",
+        "parent_id": 186,
+        "link": "/category/190-sex.html",
+        "children": []
+      }
+    ]
+  },
+  "187": {
+    "id": 187,
+    "name": "Health News",
+    "slug": "health-news",
+    "parent_id": 186,
+    "link": "/category/187-health-news.html",
+    "children": []
+  },
+  "188": {
+    "id": 188,
+    "name": "Fitness/ Yoga",
+    "slug": "fitness-yoga",
+    "parent_id": 186,
+    "link": "/category/188-fitness-yoga.html",
+    "children": []
+  },
+  "189": {
+    "id": 189,
+    "name": "Family Health",
+    "slug": "family-health",
+    "parent_id": 186,
+    "link": "/category/189-family-health.html",
+    "children": []
+  },
+  "190": {
+    "id": 190,
+    "name": "Sex",
+    "slug": "sex",
+    "parent_id": 186,
+    "link": "/category/190-sex.html",
+    "children": []
+  },
+  "191": {
+    "id": 191,
+    "name": "Ayurveda",
+    "slug": "ayurveda",
+    "parent_id": 186,
+    "link": "/category/191-ayurveda.html",
+    "children": []
+  },
+  "192": {
+    "id": 192,
+    "name": "Kids",
+    "slug": "kids",
+    "parent_id": 186,
+    "link": "/category/192-kids.html",
+    "children": []
+  },
+  "193": {
+    "id": 193,
+    "name": "Food Habits",
+    "slug": "food-habits",
+    "parent_id": 186,
+    "link": "/category/193-food-habits.html",
+    "children": []
+  },
+  "198": {
+    "id": 198,
+    "name": "Religion",
+    "slug": "religion",
+    "parent_id": null,
+    "link": "/category/198-religion.html",
+    "children": []
+  },
+  "199": {
+    "id": 199,
+    "name": "Education",
+    "slug": "education",
+    "parent_id": null,
+    "link": "/category/199-education.html",
+    "children": [
+      {
+        "id": 494,
+        "name": "Educational News",
+        "slug": "educational-news",
+        "parent_id": 199,
+        "link": "/category/494-educational-news.html",
+        "children": []
+      },
+      {
+        "id": 495,
+        "name": "Career Planner",
+        "slug": "career-planner",
+        "parent_id": 199,
+        "link": "/category/495-career-planner.html",
+        "children": []
+      },
+      {
+        "id": 496,
+        "name": "Announcements",
+        "slug": "announcements",
+        "parent_id": 199,
+        "link": "/category/496-announcements.html",
+        "children": []
+      },
+      {
+        "id": 497,
+        "name": "Jobs",
+        "slug": "jobs",
+        "parent_id": 199,
+        "link": "/category/497-jobs.html",
+        "children": []
+      },
+      {
+        "id": 498,
+        "name": "Campus News",
+        "slug": "campus-news",
+        "parent_id": 199,
+        "link": "/category/498-campus-news.html",
+        "children": []
+      }
+    ]
+  },
+  "200": {
+    "id": 200,
+    "name": "Tech",
+    "slug": "tech",
+    "parent_id": null,
+    "link": "/category/200-tech.html",
+    "children": [
+      {
+        "id": 226,
+        "name": "Gadgets",
+        "slug": "gadgets",
+        "parent_id": 200,
+        "link": "/category/226-gadgets.html",
+        "children": []
+      },
+      {
+        "id": 227,
+        "name": "Mobile",
+        "slug": "mobile",
+        "parent_id": 200,
+        "link": "/category/227-mobile.html",
+        "children": []
+      },
+      {
+        "id": 229,
+        "name": "Review",
+        "slug": "review",
+        "parent_id": 200,
+        "link": "/category/229-review.html",
+        "children": []
+      },
+      {
+        "id": 228,
+        "name": "Tech News",
+        "slug": "tech-news",
+        "parent_id": 200,
+        "link": "/category/228-tech-news.html",
+        "children": []
+      },
+      {
+        "id": 225,
+        "name": "Web",
+        "slug": "web",
+        "parent_id": 200,
+        "link": "/category/225-web.html",
+        "children": []
+      }
+    ]
+  },
+  "201": {
+    "id": 201,
+    "name": "Life Style",
+    "slug": "life-style",
+    "parent_id": null,
+    "link": "/category/201-life-style.html",
+    "children": [
+      {
+        "id": 337,
+        "name": "Life & Style",
+        "slug": "life-style",
+        "parent_id": 201,
+        "link": "/category/337-life-style.html",
+        "children": []
+      },
+      {
+        "id": 8030,
+        "name": "Special recipes",
+        "slug": "special-recipes",
+        "parent_id": 201,
+        "link": "/category/8030-special-recipes.html",
+        "children": []
+      },
+      {
+        "id": 339,
+        "name": "Success",
+        "slug": "success",
+        "parent_id": 201,
+        "link": "/category/339-success.html",
+        "children": []
+      },
+      {
+        "id": 333,
+        "name": "Beauty spot",
+        "slug": "beauty-spot",
+        "parent_id": 201,
+        "link": "/category/333-beauty-spot.html",
+        "children": []
+      },
+      {
+        "id": 335,
+        "name": "Trends",
+        "slug": "trends",
+        "parent_id": 201,
+        "link": "/category/335-trends.html",
+        "children": []
+      },
+      {
+        "id": 334,
+        "name": "Environment",
+        "slug": "environment",
+        "parent_id": 201,
+        "link": "/category/334-environment.html",
+        "children": []
+      },
+      {
+        "id": 338,
+        "name": "Fashion",
+        "slug": "fashion",
+        "parent_id": 201,
+        "link": "/category/338-fashion.html",
+        "children": []
+      },
+      {
+        "id": 336,
+        "name": "Nostalgia",
+        "slug": "nostalgia",
+        "parent_id": 201,
+        "link": "/category/336-nostalgia.html",
+        "children": []
+      },
+      {
+        "id": 340,
+        "name": "Travel",
+        "slug": "travel",
+        "parent_id": 201,
+        "link": "/category/340-travel.html",
+        "children": []
+      }
+    ]
+  },
+  "202": {
+    "id": 202,
+    "name": "Agriculture",
+    "slug": "agriculture",
+    "parent_id": 18,
+    "link": "/category/202-agriculture.html",
+    "children": []
+  },
+  "218": {
+    "id": 218,
+    "name": "BOOKS",
+    "slug": "books",
+    "parent_id": null,
+    "link": "/category/218-books.html",
+    "children": []
+  },
+  "225": {
+    "id": 225,
+    "name": "Web",
+    "slug": "web",
+    "parent_id": 200,
+    "link": "/category/225-web.html",
+    "children": []
+  },
+  "226": {
+    "id": 226,
+    "name": "Gadgets",
+    "slug": "gadgets",
+    "parent_id": 200,
+    "link": "/category/226-gadgets.html",
+    "children": []
+  },
+  "227": {
+    "id": 227,
+    "name": "Mobile",
+    "slug": "mobile",
+    "parent_id": 200,
+    "link": "/category/227-mobile.html",
+    "children": []
+  },
+  "228": {
+    "id": 228,
+    "name": "Tech News",
+    "slug": "tech-news",
+    "parent_id": 200,
+    "link": "/category/228-tech-news.html",
+    "children": []
+  },
+  "229": {
+    "id": 229,
+    "name": "Review",
+    "slug": "review",
+    "parent_id": 200,
+    "link": "/category/229-review.html",
+    "children": []
+  },
+  "263": {
+    "id": 263,
+    "name": "Todays Programs",
+    "slug": "todays-programs",
+    "parent_id": null,
+    "link": "/category/263-todays-programs.html",
+    "children": []
+  },
+  "264": {
+    "id": 264,
+    "name": "Local Features",
+    "slug": "local-features",
+    "parent_id": null,
+    "link": "/category/264-local-features.html",
+    "children": []
+  },
+  "265": {
+    "id": 265,
+    "name": "Important announcements",
+    "slug": "important-announcements",
+    "parent_id": null,
+    "link": "/category/265-important-announcements.html",
+    "children": []
+  },
+  "266": {
+    "id": 266,
+    "name": "Festivals in Kerala",
+    "slug": "festivals-in-kerala",
+    "parent_id": null,
+    "link": "/category/266-festivals-in-kerala.html",
+    "children": []
+  },
+  "267": {
+    "id": 267,
+    "name": "Citizen Report",
+    "slug": "citizen-report",
+    "parent_id": null,
+    "link": "/category/267-citizen-report.html",
+    "children": []
+  },
+  "333": {
+    "id": 333,
+    "name": "Beauty spot",
+    "slug": "beauty-spot",
+    "parent_id": 201,
+    "link": "/category/333-beauty-spot.html",
+    "children": []
+  },
+  "334": {
+    "id": 334,
+    "name": "Environment",
+    "slug": "environment",
+    "parent_id": 201,
+    "link": "/category/334-environment.html",
+    "children": []
+  },
+  "335": {
+    "id": 335,
+    "name": "Trends",
+    "slug": "trends",
+    "parent_id": 201,
+    "link": "/category/335-trends.html",
+    "children": []
+  },
+  "336": {
+    "id": 336,
+    "name": "Nostalgia",
+    "slug": "nostalgia",
+    "parent_id": 201,
+    "link": "/category/336-nostalgia.html",
+    "children": []
+  },
+  "337": {
+    "id": 337,
+    "name": "Life & Style",
+    "slug": "life-style",
+    "parent_id": 201,
+    "link": "/category/337-life-style.html",
+    "children": []
+  },
+  "338": {
+    "id": 338,
+    "name": "Fashion",
+    "slug": "fashion",
+    "parent_id": 201,
+    "link": "/category/338-fashion.html",
+    "children": []
+  },
+  "339": {
+    "id": 339,
+    "name": "Success",
+    "slug": "success",
+    "parent_id": 201,
+    "link": "/category/339-success.html",
+    "children": []
+  },
+  "340": {
+    "id": 340,
+    "name": "Travel",
+    "slug": "travel",
+    "parent_id": 201,
+    "link": "/category/340-travel.html",
+    "children": []
+  },
+  "365": {
+    "id": 365,
+    "name": "Mangalam Varika",
+    "slug": "mangalam-varika",
+    "parent_id": null,
+    "link": "/category/365-mangalam-varika.html",
+    "children": []
+  },
+  "411": {
+    "id": 411,
+    "name": "Pravasi Rachana",
+    "slug": "pravasi-rachana",
+    "parent_id": 17,
+    "link": "/category/411-pravasi-rachana.html",
+    "children": [
+      {
+        "id": 412,
+        "name": "NOVAL",
+        "slug": "noval",
+        "parent_id": 411,
+        "link": "/category/412-noval.html",
+        "children": []
+      }
+    ]
+  },
+  "412": {
+    "id": 412,
+    "name": "NOVAL",
+    "slug": "noval",
+    "parent_id": 411,
+    "link": "/category/412-noval.html",
+    "children": []
+  },
+  "443": {
+    "id": 443,
+    "name": "Ask to Doctor",
+    "slug": "ask-to-doctor",
+    "parent_id": 186,
+    "link": "/category/443-ask-to-doctor.html",
+    "children": []
+  },
+  "494": {
+    "id": 494,
+    "name": "Educational News",
+    "slug": "educational-news",
+    "parent_id": 199,
+    "link": "/category/494-educational-news.html",
+    "children": []
+  },
+  "495": {
+    "id": 495,
+    "name": "Career Planner",
+    "slug": "career-planner",
+    "parent_id": 199,
+    "link": "/category/495-career-planner.html",
+    "children": []
+  },
+  "496": {
+    "id": 496,
+    "name": "Announcements",
+    "slug": "announcements",
+    "parent_id": 199,
+    "link": "/category/496-announcements.html",
+    "children": []
+  },
+  "497": {
+    "id": 497,
+    "name": "Jobs",
+    "slug": "jobs",
+    "parent_id": 199,
+    "link": "/category/497-jobs.html",
+    "children": []
+  },
+  "498": {
+    "id": 498,
+    "name": "Campus News",
+    "slug": "campus-news",
+    "parent_id": 199,
+    "link": "/category/498-campus-news.html",
+    "children": []
+  },
+  "552": {
+    "id": 552,
+    "name": "Daily Prediction",
+    "slug": "daily-prediction",
+    "parent_id": 18,
+    "link": "/category/552-daily-prediction.html",
+    "children": []
+  },
+  "553": {
+    "id": 553,
+    "name": "Publications",
+    "slug": "publications",
+    "parent_id": null,
+    "link": "/category/553-publications.html",
+    "children": []
+  },
+  "583": {
+    "id": 583,
+    "name": "Opinion",
+    "slug": "opinion",
+    "parent_id": null,
+    "link": "/category/583-opinion.html",
+    "children": []
+  },
+  "584": {
+    "id": 584,
+    "name": "Editorial",
+    "slug": "editorial",
+    "parent_id": null,
+    "link": "/category/584-editorial.html",
+    "children": []
+  },
+  "585": {
+    "id": 585,
+    "name": "Letter to Editor",
+    "slug": "letter-to-editor",
+    "parent_id": null,
+    "link": "/category/585-letter-to-editor.html",
+    "children": []
+  },
+  "627": {
+    "id": 627,
+    "name": "Classifieds",
+    "slug": "classifieds",
+    "parent_id": 18,
+    "link": "/category/627-classifieds.html",
+    "children": []
+  },
+  "695": {
+    "id": 695,
+    "name": "Odd news",
+    "slug": "odd-news",
+    "parent_id": null,
+    "link": "/category/695-odd-news.html",
+    "children": []
+  },
+  "824": {
+    "id": 824,
+    "name": "Abhralokam",
+    "slug": "abhralokam",
+    "parent_id": 15,
+    "link": "/category/824-abhralokam.html",
+    "children": []
+  },
+  "825": {
+    "id": 825,
+    "name": "Erotic Classics",
+    "slug": "erotic-classics",
+    "parent_id": 15,
+    "link": "/category/825-erotic-classics.html",
+    "children": []
+  },
+  "826": {
+    "id": 826,
+    "name": "Backlight",
+    "slug": "backlight",
+    "parent_id": 15,
+    "link": "/category/826-backlight.html",
+    "children": []
+  },
+  "839": {
+    "id": 839,
+    "name": "Mini vision",
+    "slug": "mini-vision",
+    "parent_id": 15,
+    "link": "/category/839-mini-vision.html",
+    "children": []
+  },
+  "852": {
+    "id": 852,
+    "name": "NISASALABHANGAL",
+    "slug": "nisasalabhangal",
+    "parent_id": 15,
+    "link": "/category/852-nisasalabhangal.html",
+    "children": []
+  },
+  "936": {
+    "id": 936,
+    "name": "Onam Special",
+    "slug": "onam-special",
+    "parent_id": 18,
+    "link": "/category/936-onam-special.html",
+    "children": []
+  },
+  "937": {
+    "id": 937,
+    "name": "Mangalam Special",
+    "slug": "mangalam-special",
+    "parent_id": null,
+    "link": "/category/937-mangalam-special.html",
+    "children": []
+  },
+  "1266": {
+    "id": 1266,
+    "name": "Specials",
+    "slug": "specials",
+    "parent_id": null,
+    "link": "/category/1266-specials.html",
+    "children": [
+      {
+        "id": 1400,
+        "name": "Xmas special",
+        "slug": "xmas-special",
+        "parent_id": 1266,
+        "link": "/category/1400-xmas-special.html",
+        "children": [
+          {
+            "id": 1401,
+            "name": "Xmas film songs",
+            "slug": "xmas-film-songs",
+            "parent_id": 1400,
+            "link": "/category/1401-xmas-film-songs.html",
+            "children": []
+          },
+          {
+            "id": 1402,
+            "name": "Xmas news",
+            "slug": "xmas-news",
+            "parent_id": 1400,
+            "link": "/category/1402-xmas-news.html",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 6740,
+        "name": "chavara Euphrasia",
+        "slug": "chavara-euphrasia",
+        "parent_id": 1266,
+        "link": "/category/6740-chavara-euphrasia.html",
+        "children": []
+      },
+      {
+        "id": 6312,
+        "name": "Onam special",
+        "slug": "onam-special",
+        "parent_id": 1266,
+        "link": "/category/6312-onam-special.html",
+        "children": []
+      }
+    ]
+  },
+  "1322": {
+    "id": 1322,
+    "name": "FASHION NEWS",
+    "slug": "fashion-news",
+    "parent_id": 108,
+    "link": "/category/1322-fashion-news.html",
+    "children": []
+  },
+  "1323": {
+    "id": 1323,
+    "name": "CELEBRITY FASHION TIPS",
+    "slug": "celebrity-fashion-tips",
+    "parent_id": 108,
+    "link": "/category/1323-celebrity-fashion-tips.html",
+    "children": []
+  },
+  "1324": {
+    "id": 1324,
+    "name": "NEW TRENDS IN FASHION",
+    "slug": "new-trends-in-fashion",
+    "parent_id": 108,
+    "link": "/category/1324-new-trends-in-fashion.html",
+    "children": []
+  },
+  "1325": {
+    "id": 1325,
+    "name": "ACCESSORIES",
+    "slug": "accessories",
+    "parent_id": 108,
+    "link": "/category/1325-accessories.html",
+    "children": []
+  },
+  "1326": {
+    "id": 1326,
+    "name": "LIFESTYLE",
+    "slug": "lifestyle",
+    "parent_id": 108,
+    "link": "/category/1326-lifestyle.html",
+    "children": []
+  },
+  "1327": {
+    "id": 1327,
+    "name": "MAKEUP",
+    "slug": "makeup",
+    "parent_id": 108,
+    "link": "/category/1327-makeup.html",
+    "children": []
+  },
+  "1328": {
+    "id": 1328,
+    "name": "READER'S COOKERY",
+    "slug": "readers-cookery",
+    "parent_id": 108,
+    "link": "/category/1328-readers-cookery.html",
+    "children": []
+  },
+  "1329": {
+    "id": 1329,
+    "name": "COOKERY CONTEST",
+    "slug": "cookery-contest",
+    "parent_id": 108,
+    "link": "/category/1329-cookery-contest.html",
+    "children": []
+  },
+  "1330": {
+    "id": 1330,
+    "name": "DIET",
+    "slug": "diet",
+    "parent_id": 108,
+    "link": "/category/1330-diet.html",
+    "children": []
+  },
+  "1331": {
+    "id": 1331,
+    "name": "HEALTH TIPS",
+    "slug": "health-tips",
+    "parent_id": 108,
+    "link": "/category/1331-health-tips.html",
+    "children": []
+  },
+  "1332": {
+    "id": 1332,
+    "name": "DOCTOR'S INTERVIEW",
+    "slug": "doctors-interview",
+    "parent_id": 108,
+    "link": "/category/1332-doctors-interview.html",
+    "children": []
+  },
+  "1333": {
+    "id": 1333,
+    "name": "NEW WEDDING TRENDS",
+    "slug": "new-wedding-trends",
+    "parent_id": 108,
+    "link": "/category/1333-new-wedding-trends.html",
+    "children": []
+  },
+  "1334": {
+    "id": 1334,
+    "name": "WEDDING FASHION",
+    "slug": "wedding-fashion",
+    "parent_id": 108,
+    "link": "/category/1334-wedding-fashion.html",
+    "children": []
+  },
+  "1335": {
+    "id": 1335,
+    "name": "WEDDING STORIES",
+    "slug": "wedding-stories",
+    "parent_id": 108,
+    "link": "/category/1335-wedding-stories.html",
+    "children": []
+  },
+  "1336": {
+    "id": 1336,
+    "name": "CELEBRITY",
+    "slug": "celebrity",
+    "parent_id": 108,
+    "link": "/category/1336-celebrity.html",
+    "children": []
+  },
+  "1337": {
+    "id": 1337,
+    "name": "GUIDE",
+    "slug": "guide",
+    "parent_id": 108,
+    "link": "/category/1337-guide.html",
+    "children": []
+  },
+  "1338": {
+    "id": 1338,
+    "name": "RELATIONSHIP",
+    "slug": "relationship",
+    "parent_id": 108,
+    "link": "/category/1338-relationship.html",
+    "children": []
+  },
+  "1400": {
+    "id": 1400,
+    "name": "Xmas special",
+    "slug": "xmas-special",
+    "parent_id": 1266,
+    "link": "/category/1400-xmas-special.html",
+    "children": [
+      {
+        "id": 1401,
+        "name": "Xmas film songs",
+        "slug": "xmas-film-songs",
+        "parent_id": 1400,
+        "link": "/category/1401-xmas-film-songs.html",
+        "children": []
+      },
+      {
+        "id": 1402,
+        "name": "Xmas news",
+        "slug": "xmas-news",
+        "parent_id": 1400,
+        "link": "/category/1402-xmas-news.html",
+        "children": []
+      }
+    ]
+  },
+  "1401": {
+    "id": 1401,
+    "name": "Xmas film songs",
+    "slug": "xmas-film-songs",
+    "parent_id": 1400,
+    "link": "/category/1401-xmas-film-songs.html",
+    "children": []
+  },
+  "1402": {
+    "id": 1402,
+    "name": "Xmas news",
+    "slug": "xmas-news",
+    "parent_id": 1400,
+    "link": "/category/1402-xmas-news.html",
+    "children": []
+  },
+  "2457": {
+    "id": 2457,
+    "name": "ENGLISH",
+    "slug": "english",
+    "parent_id": null,
+    "link": "/category/2457-english.html",
+    "children": [
+      {
+        "id": 2458,
+        "name": "KERALA",
+        "slug": "kerala",
+        "parent_id": 2457,
+        "link": "/category/2458-kerala.html",
+        "children": []
+      },
+      {
+        "id": 2460,
+        "name": "INDIA",
+        "slug": "india",
+        "parent_id": 2457,
+        "link": "/category/2460-india.html",
+        "children": []
+      },
+      {
+        "id": 2461,
+        "name": "WORLD",
+        "slug": "world",
+        "parent_id": 2457,
+        "link": "/category/2461-world.html",
+        "children": []
+      },
+      {
+        "id": 2462,
+        "name": "ENTERTAINMENT",
+        "slug": "entertainment",
+        "parent_id": 2457,
+        "link": "/category/2462-entertainment.html",
+        "children": []
+      },
+      {
+        "id": 7697,
+        "name": "LIFE STYLE",
+        "slug": "life-style",
+        "parent_id": 2457,
+        "link": "/category/7697-life-style.html",
+        "children": []
+      },
+      {
+        "id": 2463,
+        "name": "SPORTS",
+        "slug": "sports",
+        "parent_id": 2457,
+        "link": "/category/2463-sports.html",
+        "children": []
+      },
+      {
+        "id": 2466,
+        "name": "BUSINESS",
+        "slug": "business",
+        "parent_id": 2457,
+        "link": "/category/2466-business.html",
+        "children": []
+      }
+    ]
+  },
+  "2458": {
+    "id": 2458,
+    "name": "KERALA",
+    "slug": "kerala",
+    "parent_id": 2457,
+    "link": "/category/2458-kerala.html",
+    "children": []
+  },
+  "2460": {
+    "id": 2460,
+    "name": "INDIA",
+    "slug": "india",
+    "parent_id": 2457,
+    "link": "/category/2460-india.html",
+    "children": []
+  },
+  "2461": {
+    "id": 2461,
+    "name": "WORLD",
+    "slug": "world",
+    "parent_id": 2457,
+    "link": "/category/2461-world.html",
+    "children": []
+  },
+  "2462": {
+    "id": 2462,
+    "name": "ENTERTAINMENT",
+    "slug": "entertainment",
+    "parent_id": 2457,
+    "link": "/category/2462-entertainment.html",
+    "children": []
+  },
+  "2463": {
+    "id": 2463,
+    "name": "SPORTS",
+    "slug": "sports",
+    "parent_id": 2457,
+    "link": "/category/2463-sports.html",
+    "children": []
+  },
+  "2466": {
+    "id": 2466,
+    "name": "BUSINESS",
+    "slug": "business",
+    "parent_id": 2457,
+    "link": "/category/2466-business.html",
+    "children": []
+  },
+  "4173": {
+    "id": 4173,
+    "name": "GANADARPANAM",
+    "slug": "ganadarpanam",
+    "parent_id": 15,
+    "link": "/category/4173-ganadarpanam.html",
+    "children": []
+  },
+  "5503": {
+    "id": 5503,
+    "name": "LITERATURE",
+    "slug": "literature",
+    "parent_id": 108,
+    "link": "/category/5503-literature.html",
+    "children": []
+  },
+  "5504": {
+    "id": 5504,
+    "name": "literature",
+    "slug": "literature",
+    "parent_id": 108,
+    "link": "/category/5504-literature.html",
+    "children": []
+  },
+  "6312": {
+    "id": 6312,
+    "name": "Onam special",
+    "slug": "onam-special",
+    "parent_id": 1266,
+    "link": "/category/6312-onam-special.html",
+    "children": []
+  },
+  "6740": {
+    "id": 6740,
+    "name": "chavara Euphrasia",
+    "slug": "chavara-euphrasia",
+    "parent_id": 1266,
+    "link": "/category/6740-chavara-euphrasia.html",
+    "children": []
+  },
+  "6882": {
+    "id": 6882,
+    "name": "straight cut",
+    "slug": "straight-cut",
+    "parent_id": 18,
+    "link": "/category/6882-straight-cut.html",
+    "children": []
+  },
+  "7500": {
+    "id": 7500,
+    "name": "Malayalam Classics",
+    "slug": "malayalam-classics",
+    "parent_id": 15,
+    "link": "/category/7500-malayalam-classics.html",
+    "children": []
+  },
+  "7697": {
+    "id": 7697,
+    "name": "LIFE STYLE",
+    "slug": "life-style",
+    "parent_id": 2457,
+    "link": "/category/7697-life-style.html",
+    "children": []
+  },
+  "8030": {
+    "id": 8030,
+    "name": "Special recipes",
+    "slug": "special-recipes",
+    "parent_id": 201,
+    "link": "/category/8030-special-recipes.html",
+    "children": []
+  },
+  "8059": {
+    "id": 8059,
+    "name": "KERALA ASSEMBLY ELECTION",
+    "slug": "kerala-assembly-election",
+    "parent_id": null,
+    "link": "/category/8059-kerala-assembly-election.html",
+    "children": [
+      {
+        "id": 8060,
+        "name": "ELECTION NEWS",
+        "slug": "election-news",
+        "parent_id": 8059,
+        "link": "/category/8060-election-news.html",
+        "children": []
+      }
+    ]
+  },
+  "8060": {
+    "id": 8060,
+    "name": "ELECTION NEWS",
+    "slug": "election-news",
+    "parent_id": 8059,
+    "link": "/category/8060-election-news.html",
+    "children": []
+  },
+  "8061": {
+    "id": 8061,
+    "name": "SPECIAL COVERAGE",
+    "slug": "special-coverage",
+    "parent_id": null,
+    "link": "/category/8061-special-coverage.html",
+    "children": [
+      {
+        "id": 8062,
+        "name": "INVESTIGATION",
+        "slug": "investigation",
+        "parent_id": 8061,
+        "link": "/category/8062-investigation.html",
+        "children": []
+      },
+      {
+        "id": 8063,
+        "name": "EXPERIENCE",
+        "slug": "experience",
+        "parent_id": 8061,
+        "link": "/category/8063-experience.html",
+        "children": []
+      },
+      {
+        "id": 8064,
+        "name": "VOICES",
+        "slug": "voices",
+        "parent_id": 8061,
+        "link": "/category/8064-voices.html",
+        "children": []
+      },
+      {
+        "id": 8065,
+        "name": "SURPRISE",
+        "slug": "surprise",
+        "parent_id": 8061,
+        "link": "/category/8065-surprise.html",
+        "children": []
+      },
+      {
+        "id": 8066,
+        "name": "ENVIRONMENT",
+        "slug": "environment",
+        "parent_id": 8061,
+        "link": "/category/8066-environment.html",
+        "children": []
+      }
+    ]
+  },
+  "8062": {
+    "id": 8062,
+    "name": "INVESTIGATION",
+    "slug": "investigation",
+    "parent_id": 8061,
+    "link": "/category/8062-investigation.html",
+    "children": []
+  },
+  "8063": {
+    "id": 8063,
+    "name": "EXPERIENCE",
+    "slug": "experience",
+    "parent_id": 8061,
+    "link": "/category/8063-experience.html",
+    "children": []
+  },
+  "8064": {
+    "id": 8064,
+    "name": "VOICES",
+    "slug": "voices",
+    "parent_id": 8061,
+    "link": "/category/8064-voices.html",
+    "children": []
+  },
+  "8065": {
+    "id": 8065,
+    "name": "SURPRISE",
+    "slug": "surprise",
+    "parent_id": 8061,
+    "link": "/category/8065-surprise.html",
+    "children": []
+  },
+  "8066": {
+    "id": 8066,
+    "name": "ENVIRONMENT",
+    "slug": "environment",
+    "parent_id": 8061,
+    "link": "/category/8066-environment.html",
+    "children": []
+  }
+}

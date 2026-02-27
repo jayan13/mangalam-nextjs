@@ -3,7 +3,7 @@ import HomeList from './components/HomeList';
 import InfiniteScroll from './components/InfiniteScroll';
 import { unstable_cache } from "next/cache";
 
-const getCachedInitialPosts = unstable_cache(async () => getInitialPosts(), ['my-app-home-posts'], { revalidate: 360 });
+const getCachedInitialPosts = unstable_cache(async () => getInitialPosts(), ['my-app-home-posts'], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') });
 import { Suspense } from 'react';
 import HomeListSkeleton from './components/skeletons/NewsListSkeleton';
 
@@ -29,7 +29,7 @@ export default async function HomePage() {
 async function getInitialPosts() {
   let homenewslist = [];
   try {
-    
+
     let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,node_queue.template,node_queue.title as heading,node_queue.id as nodeqid FROM news left join news_image on news_image.news_id=news.id inner join sub_queue on sub_queue.news_id=news.id inner join node_queue on node_queue.id=sub_queue.node_queue_id where news.published=1 and node_queue.id in(2,4) order by node_queue.id,sub_queue.position ');
 
     if (!data || data.length === 0) {
@@ -47,7 +47,7 @@ async function getInitialPosts() {
           data[nws]['url'] = data[nws]['id'] + '-news-details' + '.html';
         }
         data[nws]['template'] = 'top';
-        
+
         data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'], 160);
       }
 

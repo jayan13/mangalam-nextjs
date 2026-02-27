@@ -48,7 +48,7 @@ async function getCategoryNews(category_id) {
 const getCachedCategoryNews = unstable_cache(
     async (id) => getCategoryNews(id),
     (id) => [`en-home-cat-${id}`],
-    { revalidate: 360 }
+    { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') }
 );
 
 function CategorySection({ posts, category }) {

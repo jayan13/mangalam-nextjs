@@ -144,7 +144,7 @@ export default function Tagnews({ initialPosts, tag_id }) {
     try {
       //const distid=posts[0][0].district_id;
       const distid = tag_id;
-      const res = await fetch(`/api/tags?page=${page}&limit=8&tag=${distid}`, { next: { revalidate: 360 } });  // Fetch next page
+      const res = await fetch(`/api/tags?page=${page}&limit=8&tag=${distid}`, { next: { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') } });  // Fetch next page
       const data = await res.json();
 
       // Append new posts to the existing list

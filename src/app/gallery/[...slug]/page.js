@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import SwiperCore from 'swiper';
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { use } from 'react';
-
+export const revalidate = 3600;
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 export default function GalleryPage({ params }) {
