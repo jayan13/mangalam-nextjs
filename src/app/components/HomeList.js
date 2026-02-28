@@ -461,7 +461,7 @@ export default function HomeList({ initialPosts }) {
           fetchMorePosts();
         }
       },
-      { root: null, rootMargin: '20px', threshold: 1.0 }
+      { root: null, rootMargin: '800px', threshold: 0.1 }
     );
 
     if (target) observer.current.observe(target);

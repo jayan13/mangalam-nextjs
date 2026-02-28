@@ -129,7 +129,7 @@ export default function InfiniteScroll() {
           loadMore();
         }
       },
-      { root: null, rootMargin: '100px', threshold: 0.1 }
+      { root: null, rootMargin: '800px', threshold: 0.1 }
     );
 
     const target = document.querySelector('#end-of-list-right');
