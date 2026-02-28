@@ -60,7 +60,7 @@ export default function FeedbackAndComplaints() {
 
     return (
         <div className="feedback-page" style={{ padding: '40px 20px', maxWidth: '800px', margin: '0 auto', fontFamily: 'var(--font-noto-sans-malayalam), sans-serif' }}>
-            <h1 style={{ borderBottom: '2px solid #ed1c24', paddingBottom: '10px', marginBottom: '30px', color: '#333', textAlign: 'center' }}>Feedback and Complaints</h1>
+            <h1 style={{ borderBottom: '2px solid black', paddingBottom: '10px', marginBottom: '30px', color: 'black', textAlign: 'center' }}>Feedback and Complaints</h1>
 
             <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>
                 We value your feedback. Please use the form below to reach out to us with your comments, suggestions, or complaints.
@@ -143,7 +143,7 @@ export default function FeedbackAndComplaints() {
                         style={{
                             width: '100%',
                             padding: '14px',
-                            backgroundColor: status.submitting ? '#ccc' : '#ed1c24',
+                            backgroundColor: status.submitting ? '#ccc' : 'black',
                             color: '#fff',
                             border: 'none',
                             borderRadius: '8px',
@@ -171,7 +171,7 @@ export default function FeedbackAndComplaints() {
             </div>
 
             <div style={{ marginTop: '40px', textAlign: 'center' }}>
-                <Link href="/" style={{ color: '#ed1c24', fontWeight: 'bold', textDecoration: 'none' }}>
+                <Link href="/" style={{ color: 'black', fontWeight: 'bold', textDecoration: 'none' }}>
                     ← Back to Home
                 </Link>
             </div>

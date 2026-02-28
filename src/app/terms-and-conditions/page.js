@@ -3,10 +3,10 @@ import Link from 'next/link';
 export default function TermsAndConditions() {
     return (
         <div className="terms-conditions-page" style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto', fontFamily: 'Arial, Helvetica, sans-serif' }}>
-            <h1 style={{ borderBottom: '2px solid #ed1c24', paddingBottom: '10px', marginBottom: '30px', color: '#333' }}>Terms and Conditions</h1>
+            <h1 style={{ borderBottom: '2px solid black', paddingBottom: '10px', marginBottom: '30px', color: 'black' }}>Terms and Conditions</h1>
 
             <section className="agreement-header" style={{ marginBottom: '40px', background: '#f9f9f9', padding: '20px', borderRadius: '8px' }}>
-                <h2 style={{ fontSize: '1.5rem', color: '#333', marginBottom: '15px' }}>User Agreement</h2>
+                <h2 style={{ fontSize: '1.5rem', color: 'black', marginBottom: '15px' }}>User Agreement</h2>
                 <div style={{ lineHeight: '1.6', color: '#444' }}>
                     <p style={{ marginBottom: '15px' }}>
                         WHEREAS <a href="https://www.mangalam.com" style={{ color: '#0070f3' }}>www.mangalam.com</a> is a website owned and maintained by Mangalam Publications India Private Limited, a company registered in India under the Companies Act, 1956 (Act 1 of 1956) having its registered office at S.H. Mount P.O. Kottayam 686006, Kerala State, India;
@@ -24,7 +24,7 @@ export default function TermsAndConditions() {
             </section>
 
             <section className="terms-content">
-                <h2 style={{ fontSize: '1.5rem', color: '#ed1c24', marginBottom: '20px', borderBottom: '1px solid #eee' }}>TERMS AND CONDITIONS</h2>
+                <h2 style={{ fontSize: '1.5rem', color: 'black', marginBottom: '20px', borderBottom: '1px solid #eee' }}>TERMS AND CONDITIONS</h2>
 
                 <ol style={{ paddingLeft: '20px', color: '#222' }}>
                     <li style={{ marginBottom: '30px' }}>
@@ -73,7 +73,7 @@ export default function TermsAndConditions() {
             </section>
 
             <div style={{ marginTop: '40px', padding: '20px', background: '#f9f9f9', borderRadius: '8px', textAlign: 'center' }}>
-                <Link href="/" style={{ color: '#ed1c24', fontWeight: 'bold', textDecoration: 'none' }}>← Back to Home</Link>
+                <Link href="/" style={{ color: 'black', fontWeight: 'bold', textDecoration: 'none' }}>← Back to Home</Link>
             </div>
         </div>
     );
