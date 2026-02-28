@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+export const revalidate = false;
+
 export default function ContactUs() {
     return (
         <div className="contact-us-page" style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto', fontFamily: 'Arial, Helvetica, sans-serif' }}>

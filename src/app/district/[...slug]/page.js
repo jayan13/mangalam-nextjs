@@ -1,4 +1,6 @@
 import db from '../../../lib/db';
+
+export const revalidate = 360;
 import InfiniteScroll from '../../components/InfiniteScroll';
 import Distnews from '../../components/Distnews';
 import Link from 'next/link';

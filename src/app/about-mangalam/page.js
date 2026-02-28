@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+export const revalidate = false;
+
 export default function AboutMangalam() {
     return (
         <div className="about-mangalam-page" style={{ padding: '40px 20px', maxWidth: '1200px', margin: '0 auto', fontFamily: 'Arial, Helvetica, sans-serif' }}>

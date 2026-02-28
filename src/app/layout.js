@@ -28,7 +28,6 @@ export const metadata = {
   keywords: "Mangalam-Latest Kerala News, Malayalam News,  Politics, Malayalam Cinema, Sports",
 };
 
-export const revalidate = parseInt(process.env.PAGE_REVALIDATE || '360');
 
 export default function RootLayout({ children }) {
 

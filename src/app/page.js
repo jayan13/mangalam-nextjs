@@ -3,6 +3,8 @@ import HomeList from './components/HomeList';
 import InfiniteScroll from './components/InfiniteScroll';
 import { unstable_cache } from "next/cache";
 
+export const revalidate = 360;
+
 const getCachedInitialPosts = unstable_cache(async () => getInitialPosts(), ['my-app-home-posts'], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') });
 import { Suspense } from 'react';
 import HomeListSkeleton from './components/skeletons/NewsListSkeleton';

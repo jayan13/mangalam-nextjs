@@ -1,4 +1,6 @@
 import db from '../../lib/db';
+
+export const revalidate = 360;
 import Link from 'next/link';
 import Newimg from '../components/Newimg';
 import { unstable_cache } from "next/cache";
