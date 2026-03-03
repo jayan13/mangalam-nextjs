@@ -12,9 +12,12 @@ const getNews = unstable_cache(
           CONVERT(news.news_details USING utf8) as news_details, 
           news_image.file_name, 
           IF(news_image.title, news_image.title, news.title) as alt, 
-          "" as url 
+          "" as url,
+          news_category.category_id,
+          news.district_id
         FROM news 
         LEFT JOIN news_image ON news_image.news_id = news.id 
+        LEFT JOIN news_category ON news_category.news_id = news.id
         WHERE news.published = 1 
           AND NOW() BETWEEN news.effective_date AND news.expiry_date 
         GROUP BY news.id 

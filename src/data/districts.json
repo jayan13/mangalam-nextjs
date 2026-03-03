@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "name": "Alappuzha",
+        "slug": "Alappuzha-India"
+    },
+    {
+        "id": 2,
+        "name": "Ernakulam",
+        "slug": "Ernakulam-India"
+    },
+    {
+        "id": 3,
+        "name": "Idukki",
+        "slug": "Idukki-India"
+    },
+    {
+        "id": 4,
+        "name": "Kannur",
+        "slug": "Kannur-India"
+    },
+    {
+        "id": 5,
+        "name": "Kasaragod",
+        "slug": "Kasaragod-India"
+    },
+    {
+        "id": 6,
+        "name": "Kollam",
+        "slug": "Kollam-India"
+    },
+    {
+        "id": 7,
+        "name": "Kottayam",
+        "slug": "Kottayam-India"
+    },
+    {
+        "id": 8,
+        "name": "Kozhikode",
+        "slug": "Kozhikode-India"
+    },
+    {
+        "id": 9,
+        "name": "Malappuram",
+        "slug": "Malappuram-India"
+    },
+    {
+        "id": 10,
+        "name": "Palakkad",
+        "slug": "Palakkad-India"
+    },
+    {
+        "id": 11,
+        "name": "Pathanamthitta",
+        "slug": "Pathanamthitta-India"
+    },
+    {
+        "id": 12,
+        "name": "Thiruvananthapuram",
+        "slug": "Thiruvananthapuram-India"
+    },
+    {
+        "id": 13,
+        "name": "Thrissur",
+        "slug": "Thrissur-India"
+    },
+    {
+        "id": 14,
+        "name": "Vayanad",
+        "slug": "Vayanad-India"
+    }
+]

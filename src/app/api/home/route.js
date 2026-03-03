@@ -1,5 +1,7 @@
 import db from '../../../lib/db';
 import { unstable_cache } from 'next/cache';
+import { getDistrictById } from '@/lib/districts';
+import { getCategoryById } from '@/lib/categories';
 
 const getHomeNews = unstable_cache(
   async (limit, offset) => {
@@ -14,7 +16,7 @@ const getHomeNews = unstable_cache(
       const qid = ques[0].id;
 
       const [posts] = await db.query(
-        'SELECT news.id, news.title, news.eng_title, news_image.file_name, CONVERT(news.news_details USING utf8) AS news_details, IF(news_image.title, news_image.title, news.title) AS alt, "" AS url, node_queue.template, node_queue.title AS heading, node_queue.id AS nodeqid, news.district_id, district.name AS district, "" AS links, "" AS link_title FROM news LEFT JOIN news_image ON news_image.news_id = news.id INNER JOIN sub_queue ON sub_queue.news_id = news.id INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id LEFT JOIN district ON district.id = news.district_id WHERE news.published = 1 AND node_queue.id = ? ORDER BY sub_queue.position',
+        'SELECT news.id, news.title, news.eng_title, news_image.file_name, CONVERT(news.news_details USING utf8) AS news_details, IF(news_image.title, news_image.title, news.title) AS alt, "" AS url, node_queue.template, node_queue.title AS heading, node_queue.id AS nodeqid, news.district_id, news_category.category_id, "" AS links, "" AS link_title FROM news LEFT JOIN news_image ON news_image.news_id = news.id INNER JOIN sub_queue ON sub_queue.news_id = news.id INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id LEFT JOIN news_category ON news_category.news_id = news.id WHERE news.published = 1 AND node_queue.id = ? GROUP BY news.id ORDER BY sub_queue.position',
         [qid]
       );
 
@@ -40,8 +42,17 @@ const getHomeNews = unstable_cache(
         let links = post.links;
         let linkTitle = post.link_title;
         if (post.district_id) {
-          links = '/district/' + post.district_id + '-' + post.district + '.html';
-          linkTitle = post.district;
+          const district = getDistrictById(post.district_id);
+          if (district) {
+            links = `/district/${district.id}-${district.slug}.html`;
+            linkTitle = district.name;
+          }
+        } else if (post.category_id) {
+          const category = getCategoryById(post.category_id);
+          if (category) {
+            links = `/category/${category.id}-${category.slug}.html`;
+            linkTitle = category.name;
+          }
         }
 
         return { ...post, url, news_details: newsDetails, links, link_title: linkTitle };
