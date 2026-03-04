@@ -73,19 +73,19 @@ async function getInitialPosts(tag_id) {
 
     if (data.length) {
       for (let nws in Object.keys(data)) {
-        if (data[nws]['eng_title']) {
-          let newstit = JSON.stringify(data[nws]['eng_title']);
-          let slug = newstit.toString().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
-          data[nws]['url'] = data[nws]['id'] + '-' + slug + '.html';
-
-        } else {
-          data[nws]['url'] = data[nws]['id'] + '-news-details' + '.html';
+        let url = 'detail/' + data[nws].id + '-news-details.html';
+        if (data[nws].eng_title) {
+          const slug = data[nws].eng_title
+            .toString()
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/[\s_]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+          url = 'detail/' + data[nws].id + '-' + slug + '.html';
         }
-
-        data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'], 160);
-
+        data[nws]['url'] = url;
+        data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'] || '', 160);
       }
-
     }
     //const posts=data;
     //console.log(data);
