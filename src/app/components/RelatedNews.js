@@ -57,7 +57,7 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
             const slug = item.eng_title
                 ? item.eng_title.replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-').toLowerCase()
                 : 'news-details';
-            const pathPrefix = isEn ? '/en/news/' : '/news/';
+            const pathPrefix = isEn ? '/en/news/detail/' : '/news/detail/';
             return {
                 ...item,
                 url: `${pathPrefix}${item.id}-${slug}.html`

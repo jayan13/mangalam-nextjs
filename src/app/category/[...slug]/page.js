@@ -164,7 +164,7 @@ async function getInitialPosts(category_ids) {
     const [data] = await db.query(query, [validIds]);
 
     const processedData = data.map(post => {
-      let url = '/news/' + post.id + '-news-details.html';
+      let url = 'detail/' + post.id + '-news-details.html';
       if (post.eng_title) {
         const slug = post.eng_title
           .toString()
@@ -172,7 +172,7 @@ async function getInitialPosts(category_ids) {
           .replace(/[^\w\s-]/g, '')
           .replace(/[\s_]+/g, '-')
           .replace(/^-+|-+$/g, '');
-        url = '/news/' + post.id + '-' + slug + '.html';
+        url = 'detail/' + post.id + '-' + slug + '.html';
       }
 
       return {

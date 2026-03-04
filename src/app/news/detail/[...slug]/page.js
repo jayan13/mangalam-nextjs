@@ -1,15 +1,15 @@
 
-import db from '../../../lib/db';
+import db from '../../../../lib/db';
 import { Fragment } from 'react';
-import InfiniteScroll from '../../components/InfiniteScroll';
-import SocialSharePopup from "../../components/SocialSharePopup";
-import Printpage from "../../components/Printpage";
-import ListenToArticle from "../../components/ListenToArticle";
+import InfiniteScroll from '../../../components/InfiniteScroll';
+import SocialSharePopup from "../../../components/SocialSharePopup";
+import Printpage from "../../../components/Printpage";
+import ListenToArticle from "../../../components/ListenToArticle";
 import Image from "next/image";
 import Link from 'next/link';
 import Script from 'next/script';
 import { unstable_cache } from "next/cache";
-import UnibotsAd from "../../adds/UnibotPlay";
+import UnibotsAd from "../../../adds/UnibotPlay";
 
 export const revalidate = 3600;
 
@@ -17,7 +17,7 @@ const pageUrl = process.env.BASEURL + '/';
 
 export async function getDetails(news_id) {
   try {
-    let [rows] = await db.query('SELECT news.id,news.title,news.eng_title,news.eng_summary,DATE_FORMAT(news.effective_date, "%d %b %Y, %l:%i %p") as posting_date,news_details as row_news_details,CONVERT(news.news_details USING utf8) as news_details,concat("/news/",news.id,"-",REPLACE(LOWER(news.eng_title)," ","-"),".html") as url,news.meta_keywords,news.meta_description,news.author,news.author_photo,news.author_profile,columnist.name as columnist,columnist.photo as columnist_photo,columnist.profile as columnist_profile,district.name AS district,news.district_id,c.category_id as category_id FROM news left join columnist on columnist.id=news.columnist_id LEFT JOIN (SELECT category_id,news_id FROM news_category) c ON c.news_id = news.id LEFT JOIN district ON district.id = news.district_id where news.id=? group by news.id', news_id);
+    let [rows] = await db.query('SELECT news.id,news.title,news.eng_title,news.eng_summary,DATE_FORMAT(news.effective_date, "%d %b %Y, %l:%i %p") as posting_date,news_details as row_news_details,CONVERT(news.news_details USING utf8) as news_details,concat("/news/detail/",news.id,"-",REPLACE(LOWER(news.eng_title)," ","-"),".html") as url,news.meta_keywords,news.meta_description,news.author,news.author_photo,news.author_profile,columnist.name as columnist,columnist.photo as columnist_photo,columnist.profile as columnist_profile,district.name AS district,news.district_id,c.category_id as category_id FROM news left join columnist on columnist.id=news.columnist_id LEFT JOIN (SELECT category_id,news_id FROM news_category) c ON c.news_id = news.id LEFT JOIN district ON district.id = news.district_id where news.id=? group by news.id', news_id);
     return rows;
   } catch (error) {
     console.error('Database error in getDetails:', error);
@@ -187,9 +187,9 @@ export async function generateMetadata({ params }) {
 }
 
 import { Suspense } from 'react';
-import NewsDetailSkeleton from '../../components/skeletons/NewsDetailSkeleton';
+import NewsDetailSkeleton from '../../../components/skeletons/NewsDetailSkeleton';
 
-import RelatedNews from "../../components/RelatedNews";
+import RelatedNews from "../../../components/RelatedNews";
 
 async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
   const newstags = await getTags(news_id);

@@ -21,7 +21,7 @@ const getHomeNews = unstable_cache(
       );
 
       const processedPosts = posts.map(post => {
-        let url = post.id + '-news-details.html';
+        let url = 'detail/' + post.id + '-news-details.html';
         if (post.eng_title) {
           const slug = post.eng_title
             .toString()
@@ -29,7 +29,7 @@ const getHomeNews = unstable_cache(
             .replace(/[^\w\s-]/g, '')
             .replace(/[\s_]+/g, '-')
             .replace(/^-+|-+$/g, '');
-          url = post.id + '-' + slug + '.html';
+          url = 'detail/' + post.id + '-' + slug + '.html';
         }
 
         let newsDetails = post.news_details || '';

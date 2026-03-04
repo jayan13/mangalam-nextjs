@@ -27,7 +27,7 @@ const getTagNews = unstable_cache(
       const [posts] = await db.query(query, [tag, limit, offset]);
 
       const processedPosts = posts.map(post => {
-        let url = post.id + '-news-details.html';
+        let url = 'detail/' + post.id + '-news-details.html';
         if (post.eng_title) {
           const slug = post.eng_title
             .toString()
@@ -35,7 +35,7 @@ const getTagNews = unstable_cache(
             .replace(/[^\w\s-]/g, '')
             .replace(/[\s_]+/g, '-')
             .replace(/^-+|-+$/g, '');
-          url = post.id + '-' + slug + '.html';
+          url = 'detail/' + post.id + '-' + slug + '.html';
         }
         return { ...post, url };
       });

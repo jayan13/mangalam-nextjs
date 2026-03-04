@@ -29,7 +29,7 @@ export async function GET() {
             const slug = post.eng_title
                 ? post.eng_title.replace(/[^\w\s-]/g, '').toLowerCase().replace(/\s+/g, '-').replace(/-+/g, '-').trim()
                 : 'news-details';
-            const link = `${baseUrl}/news/${post.id}-${slug}.html`;
+            const link = `${baseUrl}/news/detail/${post.id}-${slug}.html`;
             const pubDate = new Date(post.effective_date).toUTCString().replace('GMT', '+0000');
             const imgPath = post.thumbnail ? `${imageUrl}/${post.thumbnail}` : '';
 

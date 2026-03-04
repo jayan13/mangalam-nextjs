@@ -26,7 +26,7 @@ const getCategoryNews = unstable_cache(
       const [posts] = await db.query(query, [category, limit, offset]);
 
       const processedPosts = posts.map(post => {
-        let url = post.id + '-news-details.html';
+        let url = 'detail/' + post.id + '-news-details.html';
         if (post.eng_title) {
           const slug = post.eng_title
             .toString()
@@ -34,7 +34,7 @@ const getCategoryNews = unstable_cache(
             .replace(/[^\w\s-]/g, '')
             .replace(/[\s_]+/g, '-')
             .replace(/^-+|-+$/g, '');
-          url = post.id + '-' + slug + '.html';
+          url = 'detail/' + post.id + '-' + slug + '.html';
         }
         return { ...post, url };
       });
@@ -45,7 +45,7 @@ const getCategoryNews = unstable_cache(
         INNER JOIN news ON news.id = news_category.news_id 
         WHERE news.published = 1 
           AND NOW() BETWEEN news.effective_date AND news.expiry_date 
-          AND news_category.category_id IN (?)`;
+          AND news_category.category_id IN (?) `;
 
       const [countResult] = await db.query(countQuery, [category]);
       const totalPosts = countResult[0].total;

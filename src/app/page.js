@@ -43,10 +43,10 @@ async function getInitialPosts() {
         if (data[nws]['eng_title']) {
           let newstit = JSON.stringify(data[nws]['eng_title']);
           let slug = newstit.toString().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
-          data[nws]['url'] = data[nws]['id'] + '-' + slug + '.html';
+          data[nws]['url'] = 'detail/' + data[nws]['id'] + '-' + slug + '.html';
 
         } else {
-          data[nws]['url'] = data[nws]['id'] + '-news-details' + '.html';
+          data[nws]['url'] = 'detail/' + data[nws]['id'] + '-news-details' + '.html';
         }
         data[nws]['template'] = 'top';
 

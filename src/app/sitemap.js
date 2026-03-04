@@ -29,7 +29,7 @@ export default async function sitemap() {
             'SELECT id, eng_title, effective_date FROM news WHERE published=1 AND NOW() BETWEEN effective_date AND expiry_date ORDER BY effective_date DESC LIMIT 1000'
         );
         newsLinks = news.map((post) => ({
-            url: `${baseUrl}/news/${post.id}-${slugify(post.eng_title)}.html`,
+            url: `${baseUrl}/news/detail/${post.id}-${slugify(post.eng_title)}.html`,
             lastModified: post.effective_date,
             changeFrequency: 'monthly',
             priority: 0.6,
