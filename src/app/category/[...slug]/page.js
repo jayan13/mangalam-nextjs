@@ -33,14 +33,15 @@ export async function generateMetadata({ params }) {
 }
 
 const getCachedInitialPosts = unstable_cache(
-  async (id) => getInitialPosts(id),
-  (id) => [`my-app-categorys-posts-${id}`],
+  async (ids) => getInitialPosts(ids),
+  (ids) => [`my-app-categorys-posts-${Array.isArray(ids) ? ids.join('-') : ids}`],
   { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') }
 );
 
-async function CatnewsWrapper({ category_id }) {
-  const initialPosts = await getCachedInitialPosts(category_id);
-  return <Catnews initialPosts={initialPosts} category_id={category_id} />;
+async function CatnewsWrapper({ category_ids }) {
+  //console.log("CatnewsWrapper received category_ids:", category_ids);
+  const initialPosts = await getCachedInitialPosts(category_ids);
+  return <Catnews initialPosts={initialPosts} allids={category_ids} />;
 }
 
 export default async function Home({ params }) {
@@ -65,6 +66,7 @@ export default async function Home({ params }) {
   }
 
   const subCategories = category.children || [];
+  const categoryIds = [category_id, ...subCategories.map(sub => sub.id)].filter(id => !isNaN(id));
   let catlink = '';
   let bred = '';
   let br1 = '';
@@ -124,7 +126,7 @@ export default async function Home({ params }) {
       </div>
       <div className='home-news-section' >
         <Suspense fallback={<NewsListSkeleton />}>
-          <CatnewsWrapper category_id={category_id} />
+          <CatnewsWrapper category_ids={categoryIds} />
         </Suspense>
         <InfiniteScroll />
       </div>
@@ -132,7 +134,7 @@ export default async function Home({ params }) {
   );
 }
 
-async function getInitialPosts(category_id) {
+async function getInitialPosts(category_ids) {
   try {
     const query = `
       SELECT
@@ -149,12 +151,17 @@ async function getInitialPosts(category_id) {
       LEFT JOIN news_image ON news_image.news_id = news.id
       WHERE news.published = 1
         AND NOW() BETWEEN news.effective_date AND news.expiry_date
-        AND news_category.category_id = ?
+        AND news_category.category_id IN (?)
       GROUP BY news.id
       ORDER BY news.effective_date DESC
       LIMIT 0, 8`;
 
-    const [data] = await db.query(query, [category_id]);
+    // Safety check for category_ids
+    const validIds = Array.isArray(category_ids) ? category_ids.filter(id => !isNaN(id)) : [category_ids].filter(id => !isNaN(id));
+
+    if (validIds.length === 0) return [[]];
+
+    const [data] = await db.query(query, [validIds]);
 
     const processedData = data.map(post => {
       let url = '/news/' + post.id + '-news-details.html';

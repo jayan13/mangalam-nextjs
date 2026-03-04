@@ -125,25 +125,28 @@ function Catgnews(props) {
   }
 
 }
-export default function Distnews({ initialPosts, category_id }) {
+export default function Distnews({ initialPosts, allids }) {
   const [posts, setPosts] = useState(initialPosts);  // Initial posts loaded via SSR
   const [page, setPage] = useState(2);               // Start from page 2
   const [hasMore, setHasMore] = useState(true);      // Determine if there's more data to load
   const [isFetching, setIsFetching] = useState(false); // Prevent multiple fetches at once
   const observer = useRef(null); // Ref for IntersectionObserver
-
+  //console.log("allids=" + allids);
   // Function to fetch more posts
   const fetchMorePosts = async () => {
 
-    if (isFetching) return;  // Prevent multiple calls
+    // Safety check: Don't fetch if allids is null, undefined, or 'undefined'
+    if (!allids || allids === 'undefined' || (Array.isArray(allids) && allids.length === 0)) {
+      console.warn('Catnews: No valid allids, skipping fetch');
+      setIsFetching(false);
+      return;
+    }
 
     setIsFetching(true);
 
-    //console.log('Fetching page:', district);  // Debugging to ensure correct page is passed
-
     try {
       //const distid=posts[0][0].district_id;
-      const distid = category_id;
+      const distid = Array.isArray(allids) ? allids.join(',') : allids;
       const res = await fetch(`/api/category?page=${page}&limit=8&category=${distid}`, { next: { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') } });  // Fetch next page
       const data = await res.json();
 

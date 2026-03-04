@@ -19,11 +19,10 @@ const getCategoryNews = unstable_cache(
         LEFT JOIN news_image ON news_image.news_id = news.id 
         WHERE news.published = 1 
           AND NOW() BETWEEN news.effective_date AND news.expiry_date 
-          AND news_category.category_id = ? 
+          AND news_category.category_id IN (?) 
         GROUP BY news.id 
         ORDER BY news.effective_date DESC 
         LIMIT ? OFFSET ?`;
-
       const [posts] = await db.query(query, [category, limit, offset]);
 
       const processedPosts = posts.map(post => {
@@ -46,7 +45,7 @@ const getCategoryNews = unstable_cache(
         INNER JOIN news ON news.id = news_category.news_id 
         WHERE news.published = 1 
           AND NOW() BETWEEN news.effective_date AND news.expiry_date 
-          AND news_category.category_id = ?`;
+          AND news_category.category_id IN (?)`;
 
       const [countResult] = await db.query(countQuery, [category]);
       const totalPosts = countResult[0].total;
@@ -65,11 +64,23 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get('page') || '1');
   const limit = parseInt(searchParams.get('limit') || '8');
-  const category = parseInt(searchParams.get('category') || '12');
+  const categoryParam = searchParams.get('category') || '12';
+
+  let category;
+  if (categoryParam === 'undefined' || !categoryParam) {
+    category = [12];
+  } else if (categoryParam.includes(',')) {
+    category = categoryParam.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
+  } else {
+    category = [parseInt(categoryParam)].filter(id => !isNaN(id));
+  }
+
+  // Ensure we have at least one valid category ID
+  const finalCategory = category.length > 0 ? category : [12];
   const offset = (page - 1) * limit;
 
   try {
-    const { posts, totalPosts } = await getCategoryNews(category, limit, offset);
+    const { posts, totalPosts } = await getCategoryNews(finalCategory, limit, offset);
     const hasMore = offset + limit < totalPosts;
     return new Response(JSON.stringify({ distnewslist: [posts], hasMore }), {
       status: 200,
