@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import SwiperCore from 'swiper';
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-
+import OtherAlbums from './OtherAlbums';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -66,7 +66,12 @@ export default function GalleryClient({ images, albums, galleryName, galleryId, 
                     </Swiper>
                 </div>
 
-
+                <OtherAlbums
+                    initialAlbums={albums}
+                    galleryId={galleryId}
+                    galleryName={galleryName}
+                    currentAlbumId={currentAlbumId || images[0]?.album_id}
+                />
             </div>
 
             <style jsx>{`
