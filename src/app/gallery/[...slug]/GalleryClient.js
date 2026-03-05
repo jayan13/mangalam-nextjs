@@ -74,6 +74,16 @@ export default function GalleryClient({ images, albums, galleryName, galleryId, 
                                 const slug = galleryName.toLowerCase().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
                                 return (
                                     <Link key={album.id} href={`/gallery/${galleryId}-${slug}?album=${album.id}`} className="album-card">
+                                        <div className="album-card-image">
+                                            {album.thumbnail ? (
+                                                <img
+                                                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${album.thumbnail}`}
+                                                    alt={album.ml_name || album.name}
+                                                />
+                                            ) : (
+                                                <div className="no-image">No Image</div>
+                                            )}
+                                        </div>
                                         <div className="album-card-name">{album.ml_name || album.name}</div>
                                     </Link>
                                 );
@@ -178,26 +188,49 @@ export default function GalleryClient({ images, albums, galleryName, galleryId, 
         }
         .album-card {
           background: #f9f9f9;
-          padding: 15px;
           border-radius: 8px;
           text-decoration: none;
           color: #333;
           transition: transform 0.2s, background 0.2s;
           border: 1px solid #eee;
+          overflow: hidden;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
+          flex-direction: column;
         }
         .album-card:hover {
           background: #f0f0f0;
           transform: translateY(-2px);
           border-color: #ddd;
         }
+        .album-card-image {
+          width: 100%;
+          aspect-ratio: 16/9;
+          background: #eee;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .album-card-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        .no-image {
+          font-size: 12px;
+          color: #999;
+        }
         .album-card-name {
-          font-size: 16px;
+          padding: 10px;
+          font-size: 14px;
           font-weight: 500;
           font-family: var(--malayalam);
+          text-align: center;
+          line-height: 1.4;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 50px;
         }
         :global(.gallery-slider) {
           width: 100%;

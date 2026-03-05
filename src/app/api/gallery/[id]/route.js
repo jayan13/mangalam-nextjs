@@ -36,7 +36,7 @@ const getGalleryDetails = unstable_cache(
             return [];
         }
     },
-    ['gallery-details'],
+    ['gallery-details', id, albumId || 'all'],
     { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360'), tags: ['gallery-details'] }
 );
 
@@ -44,7 +44,14 @@ const getGalleryAlbums = unstable_cache(
     async (galleryId) => {
         try {
             const query = `
-                SELECT id, name, ml_name, description
+                SELECT 
+                    photo_album.id, 
+                    photo_album.name, 
+                    photo_album.ml_name, 
+                    photo_album.description,
+                    (SELECT file_name FROM album_image 
+                     WHERE photo_album_id = photo_album.id 
+                     ORDER BY is_cover_image DESC, id ASC LIMIT 1) as thumbnail
                 FROM photo_album
                 WHERE photo_gallery_id = ?
                 ORDER BY created_date DESC
@@ -56,7 +63,7 @@ const getGalleryAlbums = unstable_cache(
             return [];
         }
     },
-    ['gallery-albums'],
+    ['gallery-albums', galleryId],
     { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360'), tags: ['gallery-albums'] }
 );
 
