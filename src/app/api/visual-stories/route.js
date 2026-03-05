@@ -5,26 +5,36 @@ const getVisualStories = unstable_cache(
     async () => {
         try {
             const query = `
-        SELECT 'photo' as typ, photo_album.description as description, parent.name as category, 
-               photo_gallery.ml_name, photo_gallery.name, photo_gallery.id as gallery_id, 
-               photo_album.id as album_id,
-               album_image.file_name as image, photo_album.modified_date as modified_date
-        FROM photo_gallery
-        LEFT JOIN photo_album ON photo_album.photo_gallery_id = photo_gallery.id
-        LEFT JOIN album_image ON album_image.photo_album_id = photo_album.id
-        LEFT JOIN photo_gallery as parent ON parent.id = photo_gallery.parent_id
-        WHERE photo_album.id IS NOT NULL
-        GROUP BY photo_gallery.id 
-        ORDER BY photo_gallery.modified_date DESC, album_image.is_cover_image DESC 
-        LIMIT 0, 12
-      `;
+                SELECT 
+                    photo_gallery.id as gallery_id,
+                    photo_gallery.name as gallery_name,
+                    photo_gallery.ml_name as gallery_ml_name,
+                    photo_album.id as album_id,
+                    photo_album.name as album_name,
+                    (SELECT file_name FROM album_image 
+                     WHERE photo_album_id = photo_album.id 
+                     ORDER BY is_cover_image DESC, id ASC LIMIT 1) as image
+                FROM photo_gallery
+                JOIN photo_album ON photo_album.photo_gallery_id = photo_gallery.id
+                WHERE photo_album.promote_to_front_page = 1
+                AND photo_album.id = (
+                    SELECT id FROM photo_album 
+                    WHERE photo_gallery_id = photo_gallery.id 
+                    AND promote_to_front_page = 1 
+                    ORDER BY id DESC LIMIT 1
+                )
+                ORDER BY photo_album.id DESC
+                LIMIT 0, 12
+            `;
             const [rows] = await db.query(query);
 
             const formattedRows = rows.map(row => {
-                const slug = row.name.toLowerCase().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
+                const slug = row.gallery_name.toLowerCase().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
                 return {
-                    ...row,
-                    url: `/gallery/${row.gallery_id}-${slug}.html`,
+                    gallery_id: row.gallery_id,
+                    name: row.gallery_ml_name || row.gallery_name,
+                    image: row.image,
+                    url: `/gallery/${row.gallery_id}-${slug}?album=${row.album_id}`,
                 };
             });
 

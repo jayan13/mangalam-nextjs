@@ -53,7 +53,7 @@ const VisualStories = () => {
                     className="reel-slides"
                 >
                     {stories.map((story) => (
-                        <SwiperSlide key={story.gallery_id}>
+                        <SwiperSlide key={story.album_id}>
                             <Link href={story.url} className="reel-link">
                                 <div className="reel-continer">
                                     <div className="reel-items story">
