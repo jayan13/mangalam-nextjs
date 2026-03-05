@@ -6,14 +6,58 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import SwiperCore from 'swiper';
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
-export default function GalleryClient({ images, albums, galleryName, galleryId, currentAlbumId }) {
+export default function GalleryClient({ images, albums: initialAlbums, galleryName, galleryId, currentAlbumId }) {
+    const [albums, setAlbums] = useState(initialAlbums || []);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(initialAlbums?.length >= 20);
+    const observer = useRef();
+
     if (!images || images.length === 0) return <div className="home-news-container">Gallery not found.</div>;
 
     const currentAlbum = albums?.find(a => a.id == currentAlbumId) || (images.length > 0 ? { name: images[0].album_name, description: images[0].album_description } : null);
-    const otherAlbums = albums?.filter(a => a.id != (currentAlbumId || images[0]?.album_id)) || [];
+    const displayAlbums = albums?.filter(a => a.id != (currentAlbumId || images[0]?.album_id)) || [];
+
+    const lastAlbumElementRef = useCallback(node => {
+        if (loading) return;
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasMore) {
+                setPage(prevPage => prevPage + 1);
+            }
+        });
+        if (node) observer.current.observe(node);
+    }, [loading, hasMore]);
+
+    useEffect(() => {
+        if (page === 1) return;
+
+        const fetchMoreAlbums = async () => {
+            setLoading(true);
+            try {
+                const res = await fetch(`/api/gallery/${galleryId}?type=albums&limit=20&offset=${page * 20}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.albums && data.albums.length > 0) {
+                        setAlbums(prev => [...prev, ...data.albums]);
+                        setHasMore(data.albums.length === 20);
+                    } else {
+                        setHasMore(false);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching more albums:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMoreAlbums();
+    }, [page, galleryId]);
 
     return (
         <div className="home-news-container">
@@ -66,14 +110,20 @@ export default function GalleryClient({ images, albums, galleryName, galleryId, 
                     </Swiper>
                 </div>
 
-                {otherAlbums.length > 0 && (
+                {displayAlbums.length > 0 && (
                     <div className="other-albums-section">
                         <h3 className="other-albums-title">Other Albums in this Gallery</h3>
                         <div className="albums-grid">
-                            {otherAlbums.map((album) => {
+                            {displayAlbums.map((album, index) => {
+                                const isLastElement = displayAlbums.length === index + 1;
                                 const slug = galleryName.toLowerCase().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
                                 return (
-                                    <Link key={album.id} href={`/gallery/${galleryId}-${slug}?album=${album.id}`} className="album-card">
+                                    <Link
+                                        key={album.id}
+                                        href={`/gallery/${galleryId}-${slug}?album=${album.id}`}
+                                        className="album-card"
+                                        ref={isLastElement ? lastAlbumElementRef : null}
+                                    >
                                         <div className="album-card-image">
                                             {album.thumbnail ? (
                                                 <img
@@ -89,6 +139,8 @@ export default function GalleryClient({ images, albums, galleryName, galleryId, 
                                 );
                             })}
                         </div>
+                        {loading && <div className="loading-more">Loading more albums...</div>}
+                        {!hasMore && displayAlbums.length > 0 && <div className="no-more">No more albums to show.</div>}
                     </div>
                 )}
             </div>
@@ -231,6 +283,13 @@ export default function GalleryClient({ images, albums, galleryName, galleryId, 
           align-items: center;
           justify-content: center;
           min-height: 50px;
+        }
+        .loading-more, .no-more {
+          text-align: center;
+          padding: 20px;
+          font-size: 14px;
+          color: #666;
+          font-family: var(--malayalam);
         }
         :global(.gallery-slider) {
           width: 100%;

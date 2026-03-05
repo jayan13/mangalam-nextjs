@@ -41,7 +41,7 @@ const getGalleryDetails = unstable_cache(
 );
 
 const getGalleryAlbums = unstable_cache(
-    async (galleryId) => {
+    async (galleryId, limit = 20, offset = 0) => {
         try {
             const query = `
                 SELECT 
@@ -54,9 +54,11 @@ const getGalleryAlbums = unstable_cache(
                      ORDER BY is_cover_image DESC, id ASC LIMIT 1) as thumbnail
                 FROM photo_album
                 WHERE photo_gallery_id = ?
+                AND EXISTS (SELECT 1 FROM album_image WHERE photo_album_id = photo_album.id)
                 ORDER BY created_date DESC
+                LIMIT ? OFFSET ?
             `;
-            const [rows] = await db.query(query, [galleryId]);
+            const [rows] = await db.query(query, [galleryId, parseInt(limit.toString()), parseInt(offset.toString())]);
             return rows;
         } catch (error) {
             console.error('Database error in getGalleryAlbums:', error);
@@ -71,11 +73,25 @@ export async function GET(req, { params }) {
     const { id } = await params;
     const { searchParams } = new URL(req.url);
     const albumId = searchParams.get('album');
+    const type = searchParams.get('type');
+    const limit = parseInt(searchParams.get('limit') || '20');
+    const offset = parseInt(searchParams.get('offset') || '0');
 
     try {
+        if (type === 'albums') {
+            const albums = await getGalleryAlbums(id, limit, offset);
+            return new Response(JSON.stringify({ albums }), {
+                status: 200,
+                headers: {
+                    'Cache-Control': 'public, s-maxage=360, stale-while-revalidate=60',
+                    'Content-Type': 'application/json',
+                },
+            });
+        }
+
         const [images, albums] = await Promise.all([
             getGalleryDetails(id, albumId),
-            getGalleryAlbums(id)
+            getGalleryAlbums(id, limit, offset)
         ]);
 
         if (!images || images.length === 0) {

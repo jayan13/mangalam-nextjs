@@ -4,7 +4,7 @@ export const revalidate = 3600;
 
 async function getGalleryData(galleryId, albumId) {
   try {
-    const url = new URL(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/gallery/${galleryId}`);
+    const url = new URL(`${process.env.BASEURL || 'http://localhost:3000'}/api/gallery/${galleryId}`);
     if (albumId) url.searchParams.set('album', albumId);
 
     const res = await fetch(url.toString(), {
