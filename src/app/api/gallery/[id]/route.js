@@ -36,7 +36,7 @@ const getGalleryDetails = unstable_cache(
             return [];
         }
     },
-    ['gallery-details', id, albumId || 'all'],
+    ['gallery-details'],
     { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360'), tags: ['gallery-details'] }
 );
 
@@ -63,7 +63,7 @@ const getGalleryAlbums = unstable_cache(
             return [];
         }
     },
-    ['gallery-albums', galleryId],
+    ['gallery-albums'],
     { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360'), tags: ['gallery-albums'] }
 );
 
