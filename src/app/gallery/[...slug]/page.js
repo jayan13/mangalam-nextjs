@@ -22,7 +22,7 @@ export default async function GalleryPage({ params, searchParams }) {
   const { slug } = await params;
   const { album } = await searchParams;
 
-  if (!slug || slug.length === 0) return <div className="home-news-container">Gallery not found.</div>;
+  if (!slug || slug.length === 0) return <div className="home-news-container">Gallery not found...</div>;
 
   const galleryId = slug[0].split('-')[0];
   const { images, albums } = await getGalleryData(galleryId, album);
