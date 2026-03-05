@@ -1,6 +1,6 @@
 import GalleryClient from './GalleryClient';
 
-export const revalidate = 3600;
+export const revalidate = 360;
 
 async function getGalleryData(galleryId, albumId) {
   try {
