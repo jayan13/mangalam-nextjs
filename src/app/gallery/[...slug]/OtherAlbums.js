@@ -1,6 +1,24 @@
 'use client'
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect, useRef, useCallback } from 'react';
+
+function AlbumThumbnail({ filename, alt }) {
+    const src = filename ? `${process.env.NEXT_PUBLIC_IMAGE_URL}/${filename}` : "/uploads/noimg.svg";
+    const [imageSrc, setImageSrc] = useState(src);
+
+    return (
+        <Image
+            src={imageSrc}
+            alt={alt}
+            width={300}
+            height={200}
+            loading="lazy"
+            onError={() => setImageSrc("/uploads/noimg.svg")}
+            unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')}
+        />
+    );
+}
 
 export default function OtherAlbums({ initialAlbums, galleryId, galleryName, currentAlbumId }) {
     const [albums, setAlbums] = useState(initialAlbums || []);
@@ -23,76 +41,82 @@ export default function OtherAlbums({ initialAlbums, galleryId, galleryName, cur
     }, [loading, hasMore]);
 
     useEffect(() => {
-        const fetchAlbums = async () => {
-            console.log('fetchAlbums initiated', { galleryId, albumsLength: albums.length, hasMore });
-            if (!hasMore && albums.length > 0) return;
+        if (!galleryId) {
+            console.warn('OtherAlbums: No galleryId provided');
+            return;
+        }
 
+        const fetchAlbums = async () => {
+            console.log(`OtherAlbums: Fetching for gallery ${galleryId}, offset ${albums.length}`);
             setLoading(true);
             try {
                 const currentOffset = albums.length;
-                const url = `/api/gallery/${galleryId}?limit=20&offset=${currentOffset}`;
-                console.log('Fetching albums from:', url);
-                const res = await fetch(url);
+                const res = await fetch(`/api/gallery/${galleryId}?limit=20&offset=${currentOffset}`);
                 if (res.ok) {
                     const data = await res.json();
-                    console.log('Received albums data:', data);
+                    console.log(`OtherAlbums: Received ${data.albums?.length || 0} albums`);
                     if (data.albums && data.albums.length > 0) {
                         setAlbums(prev => {
-                            // Filter out duplicates just in case
-                            const newAlbums = data.albums.filter(newAlbum => !prev.some(oldAlbum => oldAlbum.id === newAlbum.id));
+                            const newAlbums = data.albums.filter(na => !prev.some(pa => pa.id === na.id));
                             return [...prev, ...newAlbums];
                         });
                         setHasMore(data.albums.length === 20);
                     } else {
                         setHasMore(false);
                     }
+                } else {
+                    console.error(`OtherAlbums: API error ${res.status}`);
+                    setHasMore(false);
                 }
             } catch (error) {
-                console.error('Error fetching albums:', error);
+                console.error('OtherAlbums: Fetch failed', error);
+                setHasMore(false);
             } finally {
                 setLoading(false);
             }
         };
 
-        if (page === 1 && albums.length === 0) {
+        if (page === 1 && albums.length === 0 && hasMore) {
             fetchAlbums();
-        } else if (page > 1) {
+        } else if (page > 1 && hasMore) {
             fetchAlbums();
         }
-    }, [page, galleryId]);
+    }, [page, galleryId, hasMore]); // Added hasMore to deps
 
-    if (displayAlbums.length === 0 && !loading) return null;
+    // Only hide if we are not loading AND have no albums and no more to fetch
+    if (!loading && displayAlbums.length === 0 && !hasMore) return null;
 
     return (
         <div className="other-albums-section">
             <h3 className="other-albums-title">Other Albums in this Gallery</h3>
-            <div className="albums-grid">
-                {displayAlbums.map((album, index) => {
-                    const isLastElement = displayAlbums.length === index + 1;
-                    const slug = galleryName.toLowerCase().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
-                    return (
-                        <Link
-                            key={album.id}
-                            href={`/gallery/${galleryId}-${slug}?album=${album.id}`}
-                            className="album-card"
-                            ref={isLastElement ? lastAlbumElementRef : null}
-                        >
-                            <div className="album-card-image">
-                                {album.thumbnail ? (
-                                    <img
-                                        src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${album.thumbnail}`}
+            {displayAlbums.length > 0 ? (
+                <div className="albums-grid">
+                    {displayAlbums.map((album, index) => {
+                        const isLastElement = displayAlbums.length === index + 1;
+                        const slug = galleryName.toLowerCase().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
+                        return (
+                            <Link
+                                key={album.id}
+                                href={`/gallery/${galleryId}-${slug}?album=${album.id}`}
+                                className="album-card"
+                                ref={isLastElement ? lastAlbumElementRef : null}
+                            >
+                                <div className="album-card-image">
+                                    <AlbumThumbnail
+                                        filename={album.thumbnail}
                                         alt={album.ml_name || album.name}
                                     />
-                                ) : (
-                                    <div className="no-image">No Image</div>
-                                )}
-                            </div>
-                            <div className="album-card-name">{album.ml_name || album.name}</div>
-                        </Link>
-                    );
-                })}
-            </div>
-            {loading && <div className="loading-more">Loading more albums...</div>}
+                                </div>
+                                <div className="album-card-name">{album.ml_name || album.name}</div>
+                            </Link>
+                        );
+                    })}
+                </div>
+            ) : !loading && (
+                <div className="no-albums">No other albums found in this gallery.</div>
+            )}
+
+            {loading && <div className="loading-more">Loading albums...</div>}
             {!hasMore && displayAlbums.length > 0 && <div className="no-more">No more albums to show.</div>}
 
             <style jsx>{`
