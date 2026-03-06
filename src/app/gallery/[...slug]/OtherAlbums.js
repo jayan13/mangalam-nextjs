@@ -6,7 +6,7 @@ export default function OtherAlbums({ initialAlbums, galleryId, galleryName, cur
     const [albums, setAlbums] = useState(initialAlbums || []);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(initialAlbums?.length >= 20);
+    const [hasMore, setHasMore] = useState(initialAlbums && initialAlbums.length > 0 ? initialAlbums.length >= 20 : true);
     const observer = useRef();
 
     const displayAlbums = albums?.filter(a => a.id != currentAlbumId) || [];
@@ -23,29 +23,42 @@ export default function OtherAlbums({ initialAlbums, galleryId, galleryName, cur
     }, [loading, hasMore]);
 
     useEffect(() => {
-        if (page === 1) return;
+        const fetchAlbums = async () => {
+            console.log('fetchAlbums initiated', { galleryId, albumsLength: albums.length, hasMore });
+            if (!hasMore && albums.length > 0) return;
 
-        const fetchMoreAlbums = async () => {
             setLoading(true);
             try {
-                const res = await fetch(`/api/gallery/${galleryId}?type=albums&limit=20&offset=${page * 20}`);
+                const currentOffset = albums.length;
+                const url = `/api/gallery/${galleryId}?limit=20&offset=${currentOffset}`;
+                console.log('Fetching albums from:', url);
+                const res = await fetch(url);
                 if (res.ok) {
                     const data = await res.json();
+                    console.log('Received albums data:', data);
                     if (data.albums && data.albums.length > 0) {
-                        setAlbums(prev => [...prev, ...data.albums]);
+                        setAlbums(prev => {
+                            // Filter out duplicates just in case
+                            const newAlbums = data.albums.filter(newAlbum => !prev.some(oldAlbum => oldAlbum.id === newAlbum.id));
+                            return [...prev, ...newAlbums];
+                        });
                         setHasMore(data.albums.length === 20);
                     } else {
                         setHasMore(false);
                     }
                 }
             } catch (error) {
-                console.error('Error fetching more albums:', error);
+                console.error('Error fetching albums:', error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchMoreAlbums();
+        if (page === 1 && albums.length === 0) {
+            fetchAlbums();
+        } else if (page > 1) {
+            fetchAlbums();
+        }
     }, [page, galleryId]);
 
     if (displayAlbums.length === 0 && !loading) return null;
