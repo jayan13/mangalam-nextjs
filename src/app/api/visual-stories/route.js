@@ -34,7 +34,7 @@ const getVisualStories = unstable_cache(
                     gallery_id: row.gallery_id,
                     name: row.gallery_ml_name || row.gallery_name,
                     image: row.image,
-                    url: `/gallery/${row.gallery_id}-${slug}?album=${row.album_id}`,
+                    url: `/visual-stories/${row.gallery_id}-${slug}?album=${row.album_id}`,
                 };
             });
 

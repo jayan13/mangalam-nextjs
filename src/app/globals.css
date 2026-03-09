@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   --black: #020202;
   --border-gray: #bababa;
@@ -1935,6 +1937,7 @@ article iframe {
   display: block;
   width: 100%;
 }
+
 .related-news-list {
   display: grid;
   grid-template-columns: 1fr;
@@ -1946,4 +1949,22 @@ article iframe {
   .related-news-list {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
 }

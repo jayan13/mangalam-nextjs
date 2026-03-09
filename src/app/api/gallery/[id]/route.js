@@ -35,8 +35,8 @@ export async function getGalleryAlbums(galleryId, limit = 20, offset = 0) {
 }
 
 export async function GET(req, { params }) {
-    console.log('API Request - Params:', params);
     const { id } = await params;
+    console.log('API Request - Params:', id);
     const { searchParams } = new URL(req.url);
     const limit = parseInt(searchParams.get('limit') || '20');
     const offset = parseInt(searchParams.get('offset') || '0');
