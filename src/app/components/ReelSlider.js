@@ -10,6 +10,28 @@ export default function ReelSlider({ items }) {
     const [isMuted, setIsMuted] = useState(true);
     const videoRefs = useRef([]);
 
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
+
+    // Min swipe distance in pixels
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+        if (isLeftSwipe) handleNext();
+        if (isRightSwipe) handlePrev();
+    };
+
     const handleNext = () => {
         setCurrentIndex((prev) => (prev === items.length - 1 ? 0 : prev + 1));
     };
@@ -25,6 +47,17 @@ export default function ReelSlider({ items }) {
     const toggleMute = () => {
         setIsMuted((prev) => !prev);
     };
+
+    // Auto-advance timer for images
+    useEffect(() => {
+        if (!isPlaying || items[currentIndex].type === 'video') return;
+
+        const timer = setTimeout(() => {
+            handleNext();
+        }, 5000);
+
+        return () => clearTimeout(timer);
+    }, [currentIndex, isPlaying, items]);
 
     // Handle play/pause state for current video
     useEffect(() => {
@@ -47,7 +80,7 @@ export default function ReelSlider({ items }) {
     // Handle video ending to auto-advance
     useEffect(() => {
         const currentVideo = videoRefs.current[currentIndex];
-        if (!currentVideo) return;
+        if (!currentVideo || items[currentIndex].type !== 'video') return;
 
         const handleEnded = () => {
             handleNext();
@@ -57,7 +90,7 @@ export default function ReelSlider({ items }) {
         return () => {
             currentVideo.removeEventListener('ended', handleEnded);
         };
-    }, [currentIndex]);
+    }, [currentIndex, items]);
 
     if (!items || items.length === 0) return null;
 
@@ -93,7 +126,12 @@ export default function ReelSlider({ items }) {
             </button>
 
             {/* Main Content Reel Area - Dynamic Width */}
-            <div className="relative z-10 h-full max-w-full bg-black rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
+            <div
+                className="relative z-10 h-full max-w-full bg-black rounded-xl overflow-hidden shadow-2xl flex items-center justify-center"
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+            >
 
                 {/* Media Content */}
                 <div className="flex items-center justify-center h-full w-fit">
