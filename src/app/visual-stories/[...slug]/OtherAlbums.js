@@ -88,7 +88,7 @@ export default function OtherAlbums({ initialAlbums, galleryId, galleryName, cur
 
     return (
         <div className="other-albums-section">
-            <h3 className="other-albums-title">Other Albums in this Gallery</h3>
+            <h3 className="other-albums-title text-xl md:text-4xl text-white p-4 mb-6">Other Albums in this Gallery</h3>
             {displayAlbums.length > 0 ? (
                 <div className="albums-grid">
                     {displayAlbums.map((album, index) => {
@@ -120,18 +120,26 @@ export default function OtherAlbums({ initialAlbums, galleryId, galleryName, cur
             {!hasMore && displayAlbums.length > 0 && <div className="no-more">No more albums to show.</div>}
 
             <style jsx>{`
-                .other-albums-section {
-                    margin-top: 10px;
-                    border-top: 1px solid #eee;
-                    padding-top: 10px;
+                .other-albums-section {                    
                     width: 100%;
+                    border-top: none !important;
+                    padding: 20px !important;
+                    margin-top: 0 !important;
                 }
                 .other-albums-title {
-                    font-size: 22px;
-                    margin-bottom: 20px;
+                    margin-bottom: 40px;
+                    margin-top: 20px;
                     font-family: var(--malayalam);
-                    color: #333;
+                    color: #fff;
                     text-align: center;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                }
+                @media (max-width: 768px) {
+                    .other-albums-title {
+                        margin-bottom: 20px;
+                    }
                 }
                 .albums-grid {
                     display: grid;
@@ -185,6 +193,7 @@ export default function OtherAlbums({ initialAlbums, galleryId, galleryName, cur
                     align-items: center;
                     justify-content: center;
                     min-height: 50px;
+                    color: #fff !important;
                 }
                 .loading-more, .no-more {
                     text-align: center;

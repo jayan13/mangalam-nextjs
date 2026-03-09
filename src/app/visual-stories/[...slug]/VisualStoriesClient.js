@@ -44,20 +44,6 @@ export default function VisualStoriesClient({ images, galleryName, galleryId, cu
             </div>
 
             <style jsx>{`
-                :global(.other-albums-section) {
-                    border-top: none !important;
-                    padding: 20px !important;
-                    margin-top: 0 !important;
-                }
-                :global(.other-albums-title) {
-                    font-size: 28px !important;
-                    margin-bottom: 30px !important;
-                    font-weight: bold !important;
-                    color: #fff !important;     
-                }
-                :global(.album-card-name) {
-                    color: #fff !important;
-                }
                 :global(body) {
                     background-color: #000 !important;
                 }
