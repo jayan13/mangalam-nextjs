@@ -28,7 +28,7 @@ export default function VisualStoriesClient({ images, galleryName, galleryId, cu
                     {galleryName}
                 </h1>
 
-                <div className="w-full bg-black min-h-screen py-10 ">
+                <div className="w-full bg-black min-h-auto py-10 ">
                     <ReelSlider items={sliderItems} />
                 </div>
 

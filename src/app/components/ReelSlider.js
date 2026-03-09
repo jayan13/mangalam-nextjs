@@ -164,16 +164,18 @@ export default function ReelSlider({ items }) {
                     })}
                 </div>
 
-                {/* Controls Overlay */}
-                <div className="absolute bottom-6 right-4 z-30 flex flex-col gap-4">
-                    <button
-                        onClick={toggleMute}
-                        className="p-3 rounded-full bg-black/40 text-white backdrop-blur-md hover:bg-black/60 transition-colors"
-                        aria-label={isMuted ? "Unmute" : "Mute"}
-                    >
-                        {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-                    </button>
-                </div>
+                {/* Controls Overlay - Only for video */}
+                {currentItem.type === 'video' && (
+                    <div className="absolute bottom-6 right-4 z-30 flex flex-col gap-4">
+                        <button
+                            onClick={toggleMute}
+                            className="p-3 rounded-full bg-black/40 text-white backdrop-blur-md hover:bg-black/60 transition-colors"
+                            aria-label={isMuted ? "Unmute" : "Mute"}
+                        >
+                            {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                        </button>
+                    </div>
+                )}
 
                 {/* Play Pause Indicator */}
                 {!isPlaying && (
