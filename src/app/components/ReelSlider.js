@@ -92,25 +92,11 @@ export default function ReelSlider({ items }) {
                 <ChevronRight className="w-8 h-8" />
             </button>
 
-            {/* Main Content Reel Area (9:16 aspect ratio) */}
-            <div className="relative z-10 w-full max-w-[400px] aspect-[9/16] bg-black rounded-xl overflow-hidden shadow-2xl">
-
-                {/* Progress Bars */}
-                <div className="absolute top-0 middle-0 right-0 z-30 flex gap-1 p-3">
-                    {items.map((_, idx) => (
-                        <div key={idx} className="h-1 flex-1 bg-white/30 rounded-full overflow-hidden">
-                            <div
-                                className={cn(
-                                    "h-full bg-white transition-all duration-300",
-                                    idx === currentIndex ? "w-full" : idx < currentIndex ? "w-full" : "w-0"
-                                )}
-                            />
-                        </div>
-                    ))}
-                </div>
+            {/* Main Content Reel Area - Dynamic Width */}
+            <div className="relative z-10 h-full max-w-full bg-black rounded-xl overflow-hidden shadow-2xl flex items-center justify-center">
 
                 {/* Media Content */}
-                <div className="relative w-full h-full">
+                <div className="flex items-center justify-center h-full w-fit">
                     {items.map((item, index) => {
                         const isActive = index === currentIndex;
 
@@ -118,8 +104,8 @@ export default function ReelSlider({ items }) {
                             <div
                                 key={item.id}
                                 className={cn(
-                                    "absolute inset-0 transition-opacity duration-300",
-                                    isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                                    "transition-opacity duration-300 h-full w-auto flex items-center justify-center",
+                                    isActive ? "opacity-100 relative" : "opacity-0 absolute inset-0 pointer-events-none"
                                 )}
                             >
                                 {item.type === 'video' ? (
@@ -128,35 +114,53 @@ export default function ReelSlider({ items }) {
                                             videoRefs.current[index] = el;
                                         }}
                                         src={item.src}
-                                        className="w-full h-full object-cover cursor-pointer"
+                                        className="h-full w-auto max-w-full object-contain cursor-pointer"
                                         muted={isMuted}
                                         playsInline
                                         onClick={togglePlay}
                                     />
                                 ) : (
-                                    <div className="relative w-full h-full cursor-pointer" onClick={togglePlay}>
+                                    <div className="relative h-full w-auto flex items-center justify-center cursor-pointer" onClick={togglePlay}>
                                         <img
                                             src={item.src}
                                             alt={item.title || "Reel content"}
-                                            className="w-full h-full object-cover"
+                                            className="h-full w-auto max-w-full object-contain"
                                         />
                                     </div>
                                 )}
 
+                                {/* Progress Bars - Now inside the active item to stay aligned with media width */}
+                                <div className="absolute top-0 left-0 right-0 z-30 flex gap-1 p-3">
+                                    {items.map((_, idx) => (
+                                        <div key={idx} className="h-1 flex-1 bg-white/30 rounded-full overflow-hidden">
+                                            <div
+                                                className={cn(
+                                                    "h-full bg-white transition-all duration-300",
+                                                    idx === currentIndex ? "w-full" : idx < currentIndex ? "w-full" : "w-0"
+                                                )}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+
                                 {/* Title Overlay */}
                                 <div className="absolute bottom-6 left-4 right-16 text-white z-20 pointer-events-none">
-                                    {item.title && (
-                                        <h3 className="text-xl font-bold drop-shadow-md mb-2">{item.title}</h3>
-                                    )}
-                                    {item.photographer && (
-                                        <p className="text-sm font-medium opacity-90 drop-shadow-sm mb-1">
-                                            Photo: <span className="font-bold">{item.photographer}</span>
-                                        </p>
-                                    )}
-                                    {item.description && (
-                                        <p className="text-sm leading-relaxed opacity-80 line-clamp-3 drop-shadow-sm bg-black/20 p-2 rounded backdrop-blur-[2px]">
-                                            {item.description}
-                                        </p>
+                                    {isActive && (
+                                        <>
+                                            {item.title && (
+                                                <h3 className="text-xl font-bold drop-shadow-md mb-2">{item.title}</h3>
+                                            )}
+                                            {item.photographer && (
+                                                <p className="text-sm font-medium opacity-90 drop-shadow-sm mb-1">
+                                                    Photo: <span className="font-bold">{item.photographer}</span>
+                                                </p>
+                                            )}
+                                            {item.description && (
+                                                <p className="text-sm leading-relaxed opacity-80 line-clamp-3 drop-shadow-sm bg-black/20 p-2 rounded backdrop-blur-[2px]">
+                                                    {item.description}
+                                                </p>
+                                            )}
+                                        </>
                                     )}
                                 </div>
                             </div>
