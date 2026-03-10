@@ -947,6 +947,10 @@ select {
     height: auto;
   }
 
+  .news-item h3 {
+    font-weight: var(--font-weight-sb);
+  }
+
 
 }
 
@@ -1121,6 +1125,10 @@ select {
     gap: 16px;
     max-width: 438px;
   }
+  .news-item h3 {
+    font-weight: var(--font-weight-sb);
+  }
+
 
 }
 
