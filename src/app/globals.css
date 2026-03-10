@@ -219,6 +219,8 @@ select {
   border: 1px solid #ccc;
   padding: 0.5rem;
   border-radius: 0;
+  font-family: var(--font-roboto-condensed), sans-serif !important;
+  font-size: var(--font-size-m)!important;
 }
 
 .screen {
@@ -778,7 +780,7 @@ select {
   font-family: var(--malayalam);
   font-size: var(--font-size-m);
   font-style: normal;
-  font-weight: var(--font-weight-sb);
+  /*font-weight: var(--font-weight-sb); */
   line-height: var(--font-line-height-l);
 }
 
