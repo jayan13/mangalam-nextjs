@@ -61,7 +61,7 @@ function Footer() {
             <li><a href="/category/229-Reviews.html">Reviews</a></li>
             <li><a href="/category/47-Interview.html">Interview</a></li>
             <li><a href="/category/1336-Celebrity.html">Celebrity</a></li>
-            <li><a href="/category/1-Music.html">Music</a></li>
+            <li><a href="/category/8123-Music.html">Music</a></li>
             <li><a href="/category/48-Miniscreen.html">Miniscreen</a></li>
             <li><a href="/category/1-ott.html">OTT</a></li>
             <li><a href="/category/264-Features.html">Features</a></li>
@@ -97,7 +97,7 @@ function Footer() {
             <li><a href="/category/193-Healthy-food-and-Nutrition.html">
               Healthy food and Nutrition</a></li>
             <li><a href="/category/443-Ask-Doctor.html">Ask Doctor</a></li>
-            <li><a href="/category/1-Intimacy.html">Intimacy</a></li>
+            <li><a href="/category/190-Intimacy.html">Intimacy</a></li>
           </ul>
           <ul>
             <li><a className="fhead-link" href="/category/17-PRAVASI.html">PRAVASI</a></li>
@@ -111,7 +111,7 @@ function Footer() {
           </ul>
           <ul>
             <li><a className="fhead-link" href="/category/163-ASTROLOGY.html">ASTROLOGY</a></li>
-            <li><a href="/category/1-Astrology-News.html">Astrology News</a></li>
+            <li><a href="/category/164-Astrology-News.html">Astrology News</a></li>
             <li><a href="/category/166-Predictions.html">Predictions</a></li>
             <li><a href="/category/552-Daily-Predictions.html">
               Daily Predictions</a></li>
@@ -129,10 +129,10 @@ function Footer() {
             <li> <a href="/category/8063-Experience.html">Experience</a></li>
             <li> <a href="/category/8064-Voice.html">Voice</a></li>
             <li> <a href="/category/8065-Surprise.html">Surprise</a></li>
-            <li> <a href="/category/1-Memoir.html">Memoir</a></li>
-            <li> <a href="/category/1-Rosy-news.html">Rosy news</a></li>
-            <li> <a href="/category/1-Art-and-Culture.html">Art and Culture</a></li>
-            <li> <a href="/category/1-Social-Media.html">Social Media</a></li>
+            <li> <a href="/category/8061-Memoir.html">Memoir</a></li>
+            <li> <a href="/category/8071-Rosy-news.html">Rosy news</a></li>
+            <li> <a href="/category/8127-Art-and-Culture.html">Art and Culture</a></li>
+            <li> <a href="/category/8158-Social-Media.html">Social Media</a></li>
             <li> <a href="/category/339-Success.html">Success</a></li>
             <li> <a href="/category/1-Off-Beat.html">Off Beat</a></li>
           </ul>
@@ -162,14 +162,14 @@ function Footer() {
           <ul>
             <li> <a className="fhead-link" href="/category/193-food.html">FOOD</a></li>
             <li> <a href="/category/1-Food-news.html">Food news</a></li>
-            <li> <a href="/category/8030-Special recipe.html">Special recipe</a></li>
+            <li> <a href="/category/8030-Special-recipe.html">Special recipe</a></li>
           </ul>
           <ul>
             <li> <a className="fhead-link" href="/category/89-BUSINESS.html">BUSINESS</a></li>
             <li> <a href="/category/2466-Business-New.html">Business New</a></li>
             <li> <a href="/category/90-Stock.html">Stock</a></li>
             <li> <a href="/category/94-Banking.html">Banking</a></li>
-            <li> <a href="/category/1-Focus.html">Focus</a></li>
+            <li> <a href="/category/8076-Focus.html">Focus</a></li>
             <li> <a href="/category/1-Money.html">Money</a></li>
           </ul>
           <ul>
@@ -189,7 +189,7 @@ function Footer() {
             <li> <a className="fhead-link" href="/category/100-CRIME.html">CRIME</a></li>
             <li> <a className="fhead-link" href="/category/583-OPINION.html">OPINION</a></li>
             <li> <a className="fhead-link" href="/category/1-OBITUARIES.html">OBITUARIES</a></li>
-            <li> <a className="fhead-link" href="/category/1-FACT-CHECK.html">FACT CHECK</a></li>
+            <li> <a className="fhead-link" href="/category/8145-FACT-CHECK.html">FACT CHECK</a></li>
             <li> <a className="fhead-link" href="/category/98-SUNDAY-MANGALAM.html">SUNDAY MANGALAM</a></li>
             <li> <a className="fhead-link" href="/category/365-MANGALAM-ORIGNALS.html"> MANGALAM ORIGNALS</a></li>
           </ul>
