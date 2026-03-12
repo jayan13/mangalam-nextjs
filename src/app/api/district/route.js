@@ -20,12 +20,12 @@ const getDistrictNews = unstable_cache(
         LEFT JOIN district ON district.id = news.district_id
         WHERE news.published = 1 
           AND NOW() BETWEEN news.effective_date AND news.expiry_date 
-          AND (? = 0 OR news.district_id = ?) 
+          AND ((? = 0 AND news.district_id != 0 AND news.district_id IS NOT NULL) OR (? != 0 AND news.district_id = ?)) 
         GROUP BY news.id 
         ORDER BY news.effective_date DESC 
         LIMIT ? OFFSET ?`;
 
-      const [posts] = await db.query(query, [district, district, limit, offset]);
+      const [posts] = await db.query(query, [district, district, district, limit, offset]);
 
       const processedPosts = posts.map(post => {
         let url = 'detail/' + post.id + '-news-details.html';
@@ -53,9 +53,9 @@ const getDistrictNews = unstable_cache(
         FROM news 
         WHERE news.published = 1 
           AND NOW() BETWEEN news.effective_date AND news.expiry_date 
-          AND (? = 0 OR district_id = ?)`;
+          AND ((? = 0 AND district_id != 0 AND district_id IS NOT NULL) OR (? != 0 AND district_id = ?))`;
 
-      const [countResult] = await db.query(countQuery, [district, district]);
+      const [countResult] = await db.query(countQuery, [district, district, district]);
       const totalPosts = countResult[0].total;
 
       return { posts: processedPosts, totalPosts };
