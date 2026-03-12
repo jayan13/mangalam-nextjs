@@ -1,4 +1,4 @@
-import db from '../../../lib/db';
+import db from '@/lib/db';
 
 export const revalidate = 360;
 import InfiniteScroll from '../../components/InfiniteScroll';
@@ -6,6 +6,7 @@ import Distnews from '../../components/Distnews';
 import Link from 'next/link';
 import Image from "next/image";
 import { unstable_cache } from "next/cache";
+import DistrictNav from '../../components/DistrictNav';
 
 export async function getDist(dis_id) {
   try {
@@ -41,7 +42,7 @@ async function DistnewsWrapper({ district_id }) {
 }
 export default async function Home({ params }) {
   const { slug } = await params;
-  const urlid = slug[0];
+  const urlid = slug; 
   const district_id = urlid.split('-')[0];
   const rows = await getCachedDistrict(district_id);
   const dists = await getCachedDistricts();
@@ -49,19 +50,8 @@ export default async function Home({ params }) {
   if (!rows || !rows.length) {
     return <div className="home-news-container"><h1>District not found or database error.</h1></div>;
   }
-  let catlink = '';
-  let bred = '';
-  if (dists.length) {
 
-    catlink = <div className="category-sublinks">
-      <ul>
-        {dists.map((cat, index) => (
-          <li key={index}><Link href={`/district/${cat.links}.html`}>{cat.name}</Link></li>
-        ))}
-      </ul>
-    </div>;
-  }
-  bred = <nav className="c-navigation-breadcrumbs" aria-label="Breadcrumb" vocab="https://schema.org/">
+  const bred = <nav className="c-navigation-breadcrumbs" aria-label="Breadcrumb" vocab="https://schema.org/">
     <ol className="c-navigation-breadcrumbs__directory">
       <li className="c-navigation-breadcrumbs__item" property="itemListElement">
         <Link className="c-navigation-breadcrumbs__link" href="/" property="item">
@@ -81,7 +71,7 @@ export default async function Home({ params }) {
     <div className='home-news-container'>
       {bred}
       <div className="category-header"><h1>{rows[0].name}</h1>
-        {catlink}
+        <DistrictNav />
       </div>
       <div className='home-news-section' >
         <Suspense fallback={<NewsListSkeleton />}>

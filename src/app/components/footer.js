@@ -34,7 +34,7 @@ function Footer() {
             <li><a className="fhead-link" href="/category/16-latest-news.html">LATEST NEWS</a></li>
             <li><a className="fhead-link" href="/category/62-india.html">INDIA</a></li>
             <li><a className="fhead-link" href="/category/63-international.html">INTERNATIONAL</a></li>
-            <li><a className="fhead-link" href="/category/local-news.html">LOCAL NEWS</a></li>
+            <li><a className="fhead-link" href="/district">LOCAL NEWS</a></li>
             <li><a href="/district/12-Thiruvananthapuram-India.html">Thiruvananthapuram</a></li>
 
             <li><a href="/district/1-Alappuzha-India.html">Alappuzha</a></li>
@@ -70,7 +70,7 @@ function Footer() {
           <ul>
             <li><a className="fhead-link" href="/category/2463-SPORTS.html">SPORTS</a></li>
             <li><a href="/category/2463-Sports-News.html">Sports News</a></li>
-            <li><a href="/category/1-Sports-Specials.html">Sports Specials</a></li>
+            <li><a href="/category/69-Sports-Specials.html">Sports Specials</a></li>
           </ul>
 
           <ul>

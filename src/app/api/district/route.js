@@ -13,17 +13,19 @@ const getDistrictNews = unstable_cache(
           CONVERT(news.news_details USING utf8) as news_details, 
           IF(news_image.title, news_image.title, news.title) as alt, 
           "" as url, 
-          news.district_id 
+          news.district_id,
+          district.name as district_name
         FROM news 
         LEFT JOIN news_image ON news_image.news_id = news.id 
+        LEFT JOIN district ON district.id = news.district_id
         WHERE news.published = 1 
           AND NOW() BETWEEN news.effective_date AND news.expiry_date 
-          AND news.district_id = ? 
+          AND (? = 0 OR news.district_id = ?) 
         GROUP BY news.id 
         ORDER BY news.effective_date DESC 
         LIMIT ? OFFSET ?`;
 
-      const [posts] = await db.query(query, [district, limit, offset]);
+      const [posts] = await db.query(query, [district, district, limit, offset]);
 
       const processedPosts = posts.map(post => {
         let url = 'detail/' + post.id + '-news-details.html';
@@ -36,7 +38,14 @@ const getDistrictNews = unstable_cache(
             .replace(/^-+|-+$/g, '');
           url = 'detail/' + post.id + '-' + slug + '.html';
         }
-        return { ...post, url };
+
+        let links = "";
+        if (post.district_id && post.district_name) {
+             const dist_slug = post.district_name.toLowerCase().replace(/ /g, '-');
+             links = `/district/${post.district_id}-${dist_slug}.html`;
+        }
+
+        return { ...post, url, links, link_title: post.district_name };
       });
 
       const countQuery = `
@@ -44,9 +53,9 @@ const getDistrictNews = unstable_cache(
         FROM news 
         WHERE news.published = 1 
           AND NOW() BETWEEN news.effective_date AND news.expiry_date 
-          AND district_id = ?`;
+          AND (? = 0 OR district_id = ?)`;
 
-      const [countResult] = await db.query(countQuery, [district]);
+      const [countResult] = await db.query(countQuery, [district, district]);
       const totalPosts = countResult[0].total;
 
       return { posts: processedPosts, totalPosts };

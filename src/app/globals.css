@@ -1368,6 +1368,7 @@ select {
 
 .category-sublinks {
   width: 100%;
+  overflow: hidden;
 }
 
 .category-header h1 {
@@ -1379,13 +1380,32 @@ select {
 .category-sublinks ul {
   display: flex;
   margin: 16px 0px 0px;
-  padding: 0px 0px;
+  padding: 0px 0px 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mangalamalto) transparent;
+}
+
+.category-sublinks ul::-webkit-scrollbar {
+  height: 4px;
+}
+
+.category-sublinks ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.category-sublinks ul::-webkit-scrollbar-thumb {
+  background-color: var(--mangalamalto);
+  border-radius: 20px;
 }
 
 .category-sublinks ul li {
-  margin-right: 16px;
+  margin-right: 20px;
   font-size: var(--font-size-l);
   font-family: var(--english);
+  flex-shrink: 0;
 }
 
 .category-sublinks ul li a {
@@ -1977,4 +1997,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.category-sublinks ul li.active button {
+    border-bottom: 2px solid var(--mangalamred) !important;
 }

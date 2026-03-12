@@ -11,18 +11,18 @@ import Image from 'next/image';
 
 SwiperCore.use([Navigation, Autoplay]);
 
-const VisualStories = () => {
+const WebStories = () => {
     const [stories, setStories] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchStories = async () => {
             try {
-                const res = await fetch('/api/visual-stories');
+                const res = await fetch('/api/web-stories');
                 const data = await res.json();
                 setStories(data);
             } catch (error) {
-                console.error('Error fetching visual stories:', error);
+                console.error('Error fetching web stories:', error);
             } finally {
                 setLoading(false);
             }
@@ -34,12 +34,13 @@ const VisualStories = () => {
 
     return (
         <div className="reel-news">
-            <div className="section-heading section-heading-blue">VISUAL STORIES</div>
+            <div className="section-heading section-heading-blue">WEB STORIES</div>
             <div className="reel-news-container">
                 <Swiper
                     spaceBetween={10}
                     slidesPerView={1}
                     navigation={true}
+                    grabCursor={true}
                     loop={true}
                     autoplay={{
                         delay: 3000,
@@ -54,7 +55,7 @@ const VisualStories = () => {
                 >
                     {stories.map((story) => (
                         <SwiperSlide key={story.album_id}>
-                            <Link href={story.url} className="reel-link">
+                            <Link href={story.url} className="reel-link" target="_blank">
                                 <div className="reel-continer">
                                     <div className="reel-items story">
                                         <Image
@@ -77,4 +78,4 @@ const VisualStories = () => {
     );
 };
 
-export default VisualStories;
+export default WebStories;
