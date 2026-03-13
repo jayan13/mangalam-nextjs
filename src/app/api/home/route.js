@@ -107,11 +107,29 @@ function SubstringWithoutBreakingWords(str, limit) {
   return substring;
 }
 
-function convertShortsToEmbed(url) {
-  if (url && url.includes('youtube.com/shorts/')) {
-    const videoId = url.split('shorts/')[1].split('?')[0];
-    return videoId;
-  } else {
-    return url;
+function convertShortsToEmbed(input) {
+  if (!input) return '';
+
+  // Case 1: Full iframe code
+  if (input.includes('<iframe')) {
+    const match = input.match(/embed\/([^"?\s/]+)/);
+    if (match && match[1]) {
+      return match[1];
+    }
   }
+
+  // Case 2: YouTube Shorts URL
+  if (input.includes('youtube.com/shorts/')) {
+    return input.split('shorts/')[1].split(/[?& /]/)[0];
+  }
+
+  // Case 3: Standard YouTube URL
+  if (input.includes('youtube.com/watch?v=')) {
+    return input.split('v=')[1].split(/[& ]/)[0];
+  }
+  if (input.includes('youtu.be/')) {
+    return input.split('be/')[1].split(/[?& ]/)[0];
+  }
+
+  return input;
 }

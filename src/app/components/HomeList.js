@@ -7,15 +7,12 @@ import Image from "next/image";
 import YouTubeSlider from "./YouTubeSlider";
 import WebStories from "./WebStories";
 import PhotoGallery from "./PhotoGallery";
-import LocalNews from "./LocalNews";
-import TodaysMangalam from "./TodaysMangalam";
 import AdSenseAdc from "../adds/AddsCenter"
 import DistrictNav from "./DistrictNav";
 
 const CATEGORIES = [
   { id: 19, name: 'Keralam', slug: 'keralam' },
   { id: 20, name: 'India', slug: 'india' },
-  { id: 695, name: 'Odd news', slug: 'odd-news' },
   { id: 21, name: 'International', slug: 'international' },
   { id: 100, name: 'Crime', slug: 'crime' },
   { id: 98, name: 'Sunday Mangalam', slug: 'sunday-mangalam' }
@@ -84,104 +81,101 @@ function Homenew(props) {
 
   if (template == 'top') {
     return (
-      <>
-        <div className='main-news'>
-          <div className='main-news-left'>
-            <div className="section-heading section-heading-red">
-              {post?.[0]?.heading}
-            </div>
-            <div className='main-one'>
-              {post[0] && (
-                <div className="news-item">
-                  <figure> <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} width='608' height='365' /></Link></figure>
-                  <Link href={`/news/${post[0].url}`}> <h1>  {post[0].title} </h1> </Link>
-                  <p>{post[0].news_details}</p>
-                </div>
-              )}
-            </div>
-            <div className='main-news-bottom'>
-              {post[1] && (
-                <div className="news-item">
-                  <figure> {post[1].url ? <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='292' height='174' /></Link> : <Newimg news={post[1]} width='292' height='174' />} </figure>
-                  <p className="category-tag"> {post[1].links ? <Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link> : post[1].link_title}</p>
-                  {post[1].url ? <Link href={`/news/${post[1].url}`}> <h3>  {post[1].title} </h3> </Link> : <h3> {post[1].title} </h3>}
-                </div>
-              )}
-              {post[2] && (
-                <div className="news-item">
-                  <figure> {post[2].url ? <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='292' height='174' /></Link> : <Newimg news={post[2]} width='292' height='174' />} </figure>
-                  <p className="category-tag"> {post[2].links ? <Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link> : post[2].link_title}</p>
-                  {post[2].url ? <Link href={`/news/${post[2].url}`}> <h3>  {post[2].title} </h3> </Link> : <h3> {post[2].title} </h3>}
-                </div>
-              )}
-            </div>
-
+      <div className='main-news'>
+        <div className='main-news-left'>
+          <div className="section-heading section-heading-red">
+            {post?.[0]?.heading}
           </div>
-          <div className='main-news-right'>
-            {post[3] && (<>
-              <div className="section-heading section-heading-blue" >
-                {post?.[3]?.heading}
-              </div>
+          <div className='main-one'>
+            {post[0] && (
               <div className="news-item">
-                <Link href={`/news/${post[3].url}`}> <h3>  {post[3].title} </h3> </Link>
-                <figure> <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='88' height='54' /></Link></figure>
-              </div>
-            </>
-            )}
-            {post[4] && (
-              <div className="news-item">
-                <Link href={`/news/${post[4].url}`}> <h3>  {post[4].title} </h3> </Link>
-                <figure> <Link href={`/news/${post[4].url}`}><Newimg news={post[4]} width='88' height='54' /></Link></figure>
+                <figure> <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} width='608' height='365' /></Link></figure>
+                <Link href={`/news/${post[0].url}`}> <h1>  {post[0].title} </h1> </Link>
+                <p>{post[0].news_details}</p>
               </div>
             )}
-            {post[5] && (
+          </div>
+          <div className='main-news-bottom'>
+            {post[1] && (
               <div className="news-item">
-                <Link href={`/news/${post[5].url}`}> <h3>  {post[5].title} </h3> </Link>
-                <figure> <Link href={`/news/${post[5].url}`}><Newimg news={post[5]} width='88' height='54' /></Link></figure>
+                <figure> {post[1].url ? <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='292' height='174' /></Link> : <Newimg news={post[1]} width='292' height='174' />} </figure>
+                <p className="category-tag"> {post[1].links ? <Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link> : post[1].link_title}</p>
+                {post[1].url ? <Link href={`/news/${post[1].url}`}> <h3>  {post[1].title} </h3> </Link> : <h3> {post[1].title} </h3>}
               </div>
             )}
-            {post[6] && (
+            {post[2] && (
               <div className="news-item">
-                <Link href={`/news/${post[6].url}`}> <h3>  {post[6].title} </h3> </Link>
-                <figure> <Link href={`/news/${post[6].url}`}><Newimg news={post[6]} width='88' height='54' /></Link></figure>
-              </div>
-            )}
-            {post[7] && (
-              <div className="news-item">
-                <Link href={`/news/${post[7].url}`}> <h3>  {post[7].title} </h3> </Link>
-                <figure> <Link href={`/news/${post[7].url}`}><Newimg news={post[7]} width='88' height='54' /></Link></figure>
-              </div>
-            )}
-            {post[8] && (
-              <div className="news-item">
-                <Link href={`/news/${post[8].url}`}> <h3>  {post[8].title} </h3> </Link>
-                <figure> <Link href={`/news/${post[8].url}`}><Newimg news={post[8]} width='88' height='54' /></Link></figure>
-              </div>
-            )}
-            {post[9] && (
-              <div className="news-item">
-                <Link href={`/news/${post[9].url}`}> <h3>  {post[9].title} </h3> </Link>
-                <figure> <Link href={`/news/${post[9].url}`}><Newimg news={post[9]} width='88' height='54' /></Link></figure>
-              </div>
-            )}
-            {post[10] && (
-              <div className="news-item">
-                <Link href={`/news/${post[10].url}`}> <h3>  {post[10].title} </h3> </Link>
-                <figure> <Link href={`/news/${post[10].url}`}><Newimg news={post[10]} width='88' height='54' /></Link></figure>
-              </div>
-            )}
-            {post[11] && (
-              <div className="news-item">
-                <Link href={`/news/${post[11].url}`}> <h3>  {post[11].title} </h3> </Link>
-                <figure> <Link href={`/news/${post[11].url}`}><Newimg news={post[11]} width='88' height='54' /></Link></figure>
+                <figure> {post[2].url ? <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='292' height='174' /></Link> : <Newimg news={post[2]} width='292' height='174' />} </figure>
+                <p className="category-tag"> {post[2].links ? <Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link> : post[2].link_title}</p>
+                {post[2].url ? <Link href={`/news/${post[2].url}`}> <h3>  {post[2].title} </h3> </Link> : <h3> {post[2].title} </h3>}
               </div>
             )}
           </div>
 
         </div>
-        <LocalNews />
-        <TodaysMangalam />
-      </>
+        <div className='main-news-right'>
+          {post[3] && (<>
+            <div className="section-heading section-heading-blue" >
+              {post?.[3]?.heading}
+            </div>
+            <div className="news-item">
+              <Link href={`/news/${post[3].url}`}> <h3>  {post[3].title} </h3> </Link>
+              <figure> <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='88' height='54' /></Link></figure>
+            </div>
+          </>
+          )}
+          {post[4] && (
+            <div className="news-item">
+              <Link href={`/news/${post[4].url}`}> <h3>  {post[4].title} </h3> </Link>
+              <figure> <Link href={`/news/${post[4].url}`}><Newimg news={post[4]} width='88' height='54' /></Link></figure>
+            </div>
+          )}
+          {post[5] && (
+            <div className="news-item">
+              <Link href={`/news/${post[5].url}`}> <h3>  {post[5].title} </h3> </Link>
+              <figure> <Link href={`/news/${post[5].url}`}><Newimg news={post[5]} width='88' height='54' /></Link></figure>
+            </div>
+          )}
+          {post[6] && (
+            <div className="news-item">
+              <Link href={`/news/${post[6].url}`}> <h3>  {post[6].title} </h3> </Link>
+              <figure> <Link href={`/news/${post[6].url}`}><Newimg news={post[6]} width='88' height='54' /></Link></figure>
+            </div>
+          )}
+          {post[7] && (
+            <div className="news-item">
+              <Link href={`/news/${post[7].url}`}> <h3>  {post[7].title} </h3> </Link>
+              <figure> <Link href={`/news/${post[7].url}`}><Newimg news={post[7]} width='88' height='54' /></Link></figure>
+            </div>
+          )}
+          {post[8] && (
+            <div className="news-item">
+              <Link href={`/news/${post[8].url}`}> <h3>  {post[8].title} </h3> </Link>
+              <figure> <Link href={`/news/${post[8].url}`}><Newimg news={post[8]} width='88' height='54' /></Link></figure>
+            </div>
+          )}
+          {post[9] && (
+            <div className="news-item">
+              <Link href={`/news/${post[9].url}`}> <h3>  {post[9].title} </h3> </Link>
+              <figure> <Link href={`/news/${post[9].url}`}><Newimg news={post[9]} width='88' height='54' /></Link></figure>
+            </div>
+          )}
+          {post[10] && (
+            <div className="news-item">
+              <Link href={`/news/${post[10].url}`}> <h3>  {post[10].title} </h3> </Link>
+              <figure> <Link href={`/news/${post[10].url}`}><Newimg news={post[10]} width='88' height='54' /></Link></figure>
+            </div>
+          )}
+          {post[11] && (
+            <div className="news-item">
+              <Link href={`/news/${post[11].url}`}> <h3>  {post[11].title} </h3> </Link>
+              <figure> <Link href={`/news/${post[11].url}`}><Newimg news={post[11]} width='88' height='54' /></Link></figure>
+            </div>
+          )}
+        </div>
+
+      </div>
+
 
     );
   }
