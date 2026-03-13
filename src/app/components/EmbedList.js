@@ -75,7 +75,7 @@ export default function EmbedList({ initialPosts, allids }) {
           <iframe 
             src={`https://www.youtube.com/embed/${videoId}`} 
             title="YouTube Shorts"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
             allowFullScreen
           ></iframe>
         </div>
@@ -95,7 +95,7 @@ export default function EmbedList({ initialPosts, allids }) {
           <iframe 
             src={`https://www.youtube.com/embed/${videoId}`} 
             title="YouTube Video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
             allowFullScreen
           ></iframe>
         </div>
@@ -111,8 +111,8 @@ export default function EmbedList({ initialPosts, allids }) {
       {posts.map((postPage, pageIndex) => (
         postPage.map((news, index) => (
           <div key={`${pageIndex}-${index}`} className="mid-block embed-news-item">
-            <h2 className="embed-news-title">{news.title}</h2>
             {renderContent(news.news_details)}
+            <h2 className="embed-news-title">{news.title}</h2>
             <div className="advertisement">
               <div className="advertisement-text">Advertisement</div>
               <div className="ad"><Image src="/img/ads/728x90.jpeg" alt='adds' width={728} height={90} loading="lazy" /></div>
@@ -137,6 +137,7 @@ export default function EmbedList({ initialPosts, allids }) {
         }
         .embed-news-title {
           font-size: 1.8rem;
+          margin-top: 15px;
           margin-bottom: 20px;
           color: #333;
           line-height: 1.3;
