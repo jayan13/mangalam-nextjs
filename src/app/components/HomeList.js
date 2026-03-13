@@ -10,6 +10,16 @@ import PhotoGallery from "./PhotoGallery";
 import LocalNews from "./LocalNews";
 import TodaysMangalam from "./TodaysMangalam";
 import AdSenseAdc from "../adds/AddsCenter"
+import DistrictNav from "./DistrictNav";
+
+const CATEGORIES = [
+  { id: 19, name: 'Keralam', slug: 'keralam' },
+  { id: 20, name: 'India', slug: 'india' },
+  { id: 695, name: 'Odd news', slug: 'odd-news' },
+  { id: 21, name: 'International', slug: 'international' },
+  { id: 100, name: 'Crime', slug: 'crime' },
+  { id: 98, name: 'Sunday Mangalam', slug: 'sunday-mangalam' }
+];
 
 function Newimg(props) {
   const newsimage = props.news;
@@ -20,6 +30,52 @@ function Newimg(props) {
   //console.log(src);
   const [imageSrc, setImageSrc] = useState(src);
   return ((newsimage.file_name != null) ? <Image src={imageSrc} alt={newsimage.alt} width={w} height={h} loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')} /> : <Image src="/uploads/noimg.svg" alt={newsimage.alt} width={w} height={h} loading="lazy" />);
+}
+
+function TodayMangalamNav() {
+  return (
+    <div className="category-sublinks">
+      <ul>
+        {CATEGORIES.map((cat) => (
+          <li key={cat.id}>
+            <Link href={`/category/${cat.id}-${cat.slug}.html`}>
+              {cat.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function LocalNewsHead() {
+  return (
+    <>
+      <div className="section-heading section-heading-red" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span>Local News</span>
+        <Link href="/district" style={{ fontSize: 'var(--font-size-s)', color: 'var(--mangalamcerulean)', textTransform: 'none', fontWeight: '400' }}>
+          View All &raquo;
+        </Link>
+      </div>
+
+      <DistrictNav />
+    </>
+  );
+}
+
+function TodayMangalamHead() {
+  return (
+    <>
+      <div className="section-heading section-heading-red" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span>Today's Mangalam</span>
+        <Link href="/category/86-print-edition.html" style={{ fontSize: 'var(--font-size-s)', color: 'var(--mangalamcerulean)', textTransform: 'none', fontWeight: '400' }}>
+          View All &raquo;
+        </Link>
+      </div>
+
+      <TodayMangalamNav />
+    </>
+  );
 }
 
 function Homenew(props) {
@@ -130,9 +186,15 @@ function Homenew(props) {
     );
   }
   if (template == 'home-top') {
+    const headingText = post?.[0]?.heading?.toLowerCase() || '';
+    const isLocalNews = headingText === 'local news';
+    const isTodayMangalam = headingText === "today's mangalam";
+
     return (
       <>
-        <div className="section-heading section-heading-red">{post?.[0]?.heading}</div>
+        {isLocalNews ? <LocalNewsHead /> : isTodayMangalam ? <TodayMangalamHead /> : (
+          <div className="section-heading section-heading-red">{post?.[0]?.heading}</div>
+        )}
         <div className='main-news'>
           <div className='main-news-left'>
             <div className='main-one'>
@@ -225,11 +287,17 @@ function Homenew(props) {
   }
   //==================================================================
   if (template == 'home-7') {
+    const headingText = post?.[0]?.heading?.toLowerCase() || '';
+    const isLocalNews = headingText === 'local news';
+    const isTodayMangalam = headingText === "today's mangalam";
+
     return (
       <div className='home-category'>
-        <div className="section-heading section-heading-red">
-          {post?.[0]?.heading}
-        </div>
+        {isLocalNews ? <LocalNewsHead /> : isTodayMangalam ? <TodayMangalamHead /> : (
+          <div className="section-heading section-heading-red">
+            {post?.[0]?.heading}
+          </div>
+        )}
         <div className="home-category-main">
           <div className='home-category-main-left'>
             <div className='main-one'>
@@ -315,11 +383,17 @@ function Homenew(props) {
   }
   //==================================================================
   if (template == 'home-6') {
+    const headingText = post?.[0]?.heading?.toLowerCase() || '';
+    const isLocalNews = headingText === 'local news';
+    const isTodayMangalam = headingText === "today's mangalam";
+
     return (
       <div className="home-category home-category-type2 ">
-        <div className="section-heading section-heading-blue">
-          {post?.[0]?.heading}
-        </div>
+        {isLocalNews ? <LocalNewsHead /> : isTodayMangalam ? <TodayMangalamHead /> : (
+          <div className="section-heading section-heading-blue">
+            {post?.[0]?.heading}
+          </div>
+        )}
         <div className='home-category-main'>
           <div className='home-category-main-left'>
             {post[0] && (
