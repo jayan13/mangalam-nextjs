@@ -44,10 +44,10 @@ export default function PhotoGalleryClient({ initialAlbums, galleryId = null, in
         const fetchAlbums = async () => {
             setLoading(true);
             try {
-                const url = galleryId 
+                const url = galleryId
                     ? `/api/photo-gallery?galleryId=${galleryId}&limit=20&offset=${page * 20}`
                     : `/api/photo-gallery?limit=20&offset=${page * 20}`;
-                    
+
                 const res = await fetch(url);
                 if (res.ok) {
                     const newAlbums = await res.json();
@@ -75,7 +75,7 @@ export default function PhotoGalleryClient({ initialAlbums, galleryId = null, in
         <div className="photo-gallery-client">
             <div className="album-grid">
                 {albums.map((album, index) => (
-                    <div 
+                    <div
                         key={`${album.album_id || album.id}-${index}`}
                         className="album-card"
                         onClick={() => handleAlbumClick(album)}
@@ -88,7 +88,7 @@ export default function PhotoGalleryClient({ initialAlbums, galleryId = null, in
                                 width={400}
                                 height={300}
                                 className="album-thumbnail"
-                                unoptimized={true}
+                                unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')}
                             />
                             {album.gallery_name && (
                                 <span className="gallery-badge">{album.gallery_name}</span>
@@ -102,7 +102,7 @@ export default function PhotoGalleryClient({ initialAlbums, galleryId = null, in
             </div>
 
             {loading && <div className="loading-text">Loading more albums...</div>}
-            
+
             {!hasMore && albums.length > 0 && (
                 <div className="end-text">You've reached the end.</div>
             )}
