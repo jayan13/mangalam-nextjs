@@ -88,6 +88,8 @@ export default function PhotoGalleryClient({ initialAlbums, galleryId = null, in
                                 width={400}
                                 height={300}
                                 className="album-thumbnail"
+                                loading="lazy"
+                                onError={() => setImageSrc("/uploads/noimg.svg")}
                                 unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')}
                             />
                             {album.gallery_name && (
