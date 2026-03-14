@@ -46,7 +46,7 @@ export default async function GalleryViewPage({ params, searchParams }) {
     const galleryName = albums[0]?.gallery_ml_name || albums[0]?.gallery_name || "Gallery";
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 photo-gallery-container">
             <h1 className="text-4xl font-bold mb-8 text-center text-red-600 uppercase">{galleryName}</h1>
             <PhotoGalleryClient initialAlbums={albums} galleryId={galleryId} initialAlbumId={album} />
         </div>
@@ -56,7 +56,7 @@ export default async function GalleryViewPage({ params, searchParams }) {
 export async function generateMetadata({ params }) {
     const { slug } = await params;
     const galleryId = slug[0].split('-')[0];
-    
+
     try {
         const [rows] = await db.query('SELECT name, ml_name FROM photo_gallery WHERE id = ?', [galleryId]);
         const name = rows[0]?.ml_name || rows[0]?.name || "Gallery";
