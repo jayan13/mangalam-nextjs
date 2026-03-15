@@ -4,7 +4,7 @@ import WebStoriesClient from './WebStoriesClient';
 
 export const revalidate = 360;
 
-const GALLEY_ID = 8; // Web Stories
+const GALLEY_ID = 5; // Web Stories
 
 async function getInitialAlbums() {
     return unstable_cache(

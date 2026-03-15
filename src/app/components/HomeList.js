@@ -487,6 +487,19 @@ export default function HomeList({ initialPosts }) {
 
   // Function to fetch more posts
   //console.log("initial="+initialPosts);
+  const scrollContainerRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
   const fetchMorePosts = async () => {
 
     if (isFetching) return;  // Prevent multiple calls
