@@ -46,17 +46,57 @@ function TodayMangalamNav() {
 }
 
 function LocalNewsHead() {
-  return (
-    <>
-      <div className="section-heading section-heading-red" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span>Local News</span>
-        <Link href="/district" style={{ fontSize: 'var(--font-size-s)', color: 'var(--mangalamcerulean)', textTransform: 'none', fontWeight: '400' }}>
-          View All &raquo;
-        </Link>
-      </div>
+  const scrollContainerRef = useRef(null);
 
-      <DistrictNav />
-    </>
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
+  return (
+    <div className='local-news-section'>
+      <div className="section-heading">
+        <span className="heading-title">Local News</span>
+
+        <Link href="/district" className="view-all-link">View All »</Link>
+      </div>
+      <div className="category-scroll-container">
+        <button className="scroll-arrow scroll-left" onClick={scrollLeft} aria-label="Scroll left">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+
+        <ul className="category-sublinks-list" ref={scrollContainerRef}>
+          <li><Link href="/district/1-Alappuzha-India.html">Alappuzha</Link></li>
+          <li><Link href="/district/2-Ernakulam-India.html">Ernakulam</Link></li>
+          <li><Link href="/district/3-Idukki-India.html">Idukki</Link></li>
+          <li><Link href="/district/4-Kannur-India.html">Kannur</Link></li>
+          <li><Link href="/district/5-Kasaragod-India.html">Kasaragod</Link></li>
+          <li><Link href="/district/6-Kollam-India.html">Kollam</Link></li>
+          <li><Link href="/district/7-Kottayam-India.html">Kottayam</Link></li>
+          <li><Link href="/district/8-Kozhikode-India.html">Kozhikode</Link></li>
+          <li><Link href="/district/9-Malappuram-India.html">Malappuram</Link></li>
+          <li><Link href="/district/10-Palakkad-India.html">Palakkad</Link></li>
+          <li><Link href="/district/11-Pathanamthitta-India.html">Pathanamthitta</Link></li>
+          <li><Link href="/district/12-Thiruvananthapuram-India.html">Thiruvananthapuram</Link></li>
+          <li><Link href="/district/13-Thrissur-India.html">Thrissur</Link></li>
+          <li><Link href="/district/14-Vayanad-India.html">Vayanad</Link></li>
+        </ul>
+
+        <button className="scroll-arrow scroll-right" onClick={scrollRight} aria-label="Scroll right">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -487,19 +527,7 @@ export default function HomeList({ initialPosts }) {
 
   // Function to fetch more posts
   //console.log("initial="+initialPosts);
-  const scrollContainerRef = useRef(null);
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
-    }
-  };
   const fetchMorePosts = async () => {
 
     if (isFetching) return;  // Prevent multiple calls
