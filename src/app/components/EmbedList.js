@@ -19,7 +19,7 @@ export default function EmbedList({ initialPosts, allids }) {
 
     try {
       const catid = Array.isArray(allids) ? allids.join(',') : allids;
-      const res = await fetch(`/api/category?page=${page}&limit=8&category=${catid}`, { next: { revalidate: 360 } });
+      const res = await fetch(`/api/embeds?page=${page}&limit=8&category=${catid}`, { next: { revalidate: 360 } });
       const data = await res.json();
 
       if (data.distnewslist) {
@@ -60,7 +60,7 @@ export default function EmbedList({ initialPosts, allids }) {
 
   // Helper to detect and wrap YouTube URLs if not already iframed
   const renderContent = (content) => {
-    if (!content) return null;
+    if (!content || typeof content !== 'string') return null;
     
     // If it's already an iframe, just return it
     if (content.includes('<iframe')) {
