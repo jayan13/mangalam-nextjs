@@ -2107,9 +2107,7 @@ body {
   margin: 0 auto;
 }
 
-.shorts-list-section {
-  max-width: 1000px; /* Constrain grid width so 4 portrait items are normal-sized */
-}
+
 
 @media (max-width: 1024px) {
 
