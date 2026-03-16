@@ -2,7 +2,6 @@ import db from '@/lib/db';
 import ShortsList from '../components/ShortsList';
 import Link from 'next/link';
 import Image from "next/image";
-import { unstable_cache } from "next/cache";
 import { Suspense } from 'react';
 import NewsListSkeleton from '../components/skeletons/NewsListSkeleton';
 
@@ -13,18 +12,9 @@ export const metadata = {
   description: 'Latest news shorts and quick updates from Mangalam.'
 };
 
-const getCachedInitialPosts = unstable_cache(
-  async () => getInitialPosts(CATEGORY_ID),
-  [`my-app-shorts-posts-${CATEGORY_ID}`],
-  { revalidate: 360 }
-);
-
-async function ShortsListWrapper() {
-  const initialPosts = await getCachedInitialPosts();
-  return <ShortsList initialPosts={initialPosts} allids={CATEGORY_ID} />;
-}
-
 export default async function ShortsPage() {
+  const initialPosts = await getInitialPosts(CATEGORY_ID);
+
   const bred = (
     <nav className="c-navigation-breadcrumbs" aria-label="Breadcrumb" vocab="https://schema.org/">
       <ol className="c-navigation-breadcrumbs__directory">
@@ -51,7 +41,7 @@ export default async function ShortsPage() {
       </div>
       <div className='home-news-section' >
         <Suspense fallback={<NewsListSkeleton />}>
-          <ShortsListWrapper />
+          <ShortsList initialPosts={initialPosts} allids={CATEGORY_ID} />
         </Suspense>
       </div>
     </div>
@@ -76,7 +66,6 @@ async function getInitialPosts(category_id) {
       LIMIT 0, 8`;
 
     const [data] = await db.query(query, [category_id]);
-
     return [data];
   } catch (error) {
     console.error('Database error in getInitialPosts (Shorts):', error);

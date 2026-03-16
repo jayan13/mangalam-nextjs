@@ -83,13 +83,13 @@ export default function VideoList({ initialPosts, allids }) {
       const isShort = content.includes('youtube.com/shorts/') || content.includes('/shorts/');
       // Use maxresdefault for standard 16:9 videos when possible, fallback to hqdefault
       return (
-        <div 
+        <div
           className={`embed-container thumbnail-container ${isShort ? 'shorts-embed' : 'video-embed'}`}
           onClick={() => setActiveVideoId({ id: videoId, isShort })}
         >
-           <img 
-            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`} 
-            alt={`Thumbnail for ${title}`} 
+          <img
+            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+            alt={`Thumbnail for ${title}`}
             loading="lazy"
             className="youtube-thumbnail"
             onError={(e) => { e.target.onerror = null; e.target.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; }}
@@ -123,10 +123,10 @@ export default function VideoList({ initialPosts, allids }) {
         <div className="video-modal-overlay" onClick={() => setActiveVideoId(null)}>
           <div className={`video-modal-content ${activeVideoId.isShort ? 'shorts-modal' : ''}`} onClick={(e) => e.stopPropagation()}>
             <button className="video-modal-close" onClick={() => setActiveVideoId(null)}>×</button>
-            <iframe 
-              src={`https://www.youtube.com/embed/${activeVideoId.id}?autoplay=1`} 
+            <iframe
+              src={`https://www.youtube.com/embed/${activeVideoId.id}?autoplay=1`}
               title="YouTube Video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
               allowFullScreen
             ></iframe>
           </div>

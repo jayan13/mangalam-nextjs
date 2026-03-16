@@ -2106,25 +2106,45 @@ body {
   gap: 20px;
   margin: 0 auto;
 }
+
+.shorts-list-section {
+  max-width: 1000px; /* Constrain grid width so 4 portrait items are normal-sized */
+}
+
 @media (max-width: 1024px) {
-  .shorts-list-section, .video-list-section { grid-template-columns: repeat(3, 1fr); }
+
+  .shorts-list-section,
+  .video-list-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
+
 @media (max-width: 768px) {
-  .shorts-list-section, .video-list-section { grid-template-columns: repeat(2, 1fr); }
+
+  .shorts-list-section,
+  .video-list-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
+
 @media (max-width: 480px) {
-  .shorts-list-section, .video-list-section { grid-template-columns: 1fr; }
+
+  .shorts-list-section,
+  .video-list-section {
+    grid-template-columns: 1fr;
+  }
 }
 
 .shorts-news-item,
 .video-news-item {
   background: #fff;
   margin-bottom: 20px;
-  padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  /* Ensure image corners respect rounded border */
 }
 
 .shorts-news-title,
@@ -2133,6 +2153,8 @@ body {
   font-size: 1.2rem;
   margin-top: 15px;
   margin-bottom: 10px;
+  padding: 0 15px;
+  /* Shift padding from card to text */
   color: #333;
   line-height: 1.3;
 }
@@ -2146,20 +2168,24 @@ body {
 }
 
 .shorts-embed {
-  padding-bottom: 177.77%; /* 9:16 Aspect Ratio for Shorts */
+  padding-bottom: 177.77%;
+  /* 9:16 Aspect Ratio for Shorts */
 }
 
 .video-embed {
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  padding-bottom: 56.25%;
+  /* 16:9 Aspect Ratio */
 }
 
 /* Thumbnail and Play Button Styles */
 .thumbnail-container {
   position: relative;
   width: 100%;
-  height: 100%;
-  padding-bottom: 0px !important; /* Reset ratio for image-driven container */
-  aspect-ratio: 9/16;             /* Enforce standard aspect ratio */
+  /*height: 100%;*/
+  padding-bottom: 0px !important;
+  /* Reset ratio for image-driven container */
+  aspect-ratio: 9/16;
+  /* Enforce standard aspect ratio */
   cursor: pointer;
   display: block;
 }
@@ -2181,7 +2207,7 @@ body {
 .thumbnail-container:hover .ytp-large-play-button-bg {
   fill: #f00;
   fill-opacity: 1;
-  transition: fill .1s cubic-bezier(0.0,0.0,0.2,1),fill-opacity .1s cubic-bezier(0.0,0.0,0.2,1);
+  transition: fill .1s cubic-bezier(0.0, 0.0, 0.2, 1), fill-opacity .1s cubic-bezier(0.0, 0.0, 0.2, 1);
 }
 
 .youtube-thumbnail {
@@ -2191,7 +2217,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center; 
+  object-position: center;
 }
 
 .play-button-overlay {
@@ -2205,7 +2231,7 @@ body {
 }
 
 .play-button-overlay svg {
-  filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
 }
 
 /* Modal Styles */
@@ -2226,32 +2252,34 @@ body {
 .video-modal-content {
   position: relative;
   width: 100%;
-  max-width: 1000px; /* Standard horizontal video width */
+  max-width: 1000px;
+  /* Standard horizontal video width */
   background: #000;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   aspect-ratio: 16/9;
 }
 
 .video-modal-content.shorts-modal {
-   aspect-ratio: 9/16;
-   height: 90vh;
-   width: calc(90vh * 9 / 16);
-   max-width: 400px;
-   max-height: calc(400px * 16 / 9);
+  aspect-ratio: 9/16;
+  height: 90vh;
+  width: calc(90vh * 9 / 16);
+  max-width: 400px;
+  max-height: calc(400px * 16 / 9);
 }
 
-@media (max-width: 450px), (max-height: 750px) {
-   .video-modal-content.shorts-modal {
-      max-width: 90vw;
-      max-height: calc(90vw * 16 / 9);
-   }
+@media (max-width: 450px),
+(max-height: 750px) {
+  .video-modal-content.shorts-modal {
+    max-width: 90vw;
+    max-height: calc(90vw * 16 / 9);
+  }
 }
 
 @media (max-aspect-ratio: 16/9) {
-   .video-modal-content:not(.shorts-modal) {
-     width: 100%;
-     height: auto;
-   }
+  .video-modal-content:not(.shorts-modal) {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .video-modal-content iframe {

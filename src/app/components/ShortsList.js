@@ -82,13 +82,13 @@ export default function ShortsList({ initialPosts, allids }) {
     if (videoId) {
       const isShort = true; // Everything in Shorts category should play as a short
       return (
-        <div 
+        <div
           className="embed-container thumbnail-container shorts-embed"
           onClick={() => setActiveVideoId({ id: videoId, isShort })}
         >
-          <img 
-            src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`} 
-            alt={`Thumbnail for ${title}`} 
+          <img
+            src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+            alt={`Thumbnail for ${title}`}
             loading="lazy"
             className="youtube-thumbnail"
           />
@@ -101,7 +101,7 @@ export default function ShortsList({ initialPosts, allids }) {
         </div>
       );
     }
-    return null; 
+    return null;
   };
 
   return (
@@ -121,10 +121,10 @@ export default function ShortsList({ initialPosts, allids }) {
         <div className="video-modal-overlay" onClick={() => setActiveVideoId(null)}>
           <div className={`video-modal-content ${activeVideoId.isShort ? 'shorts-modal' : ''}`} onClick={(e) => e.stopPropagation()}>
             <button className="video-modal-close" onClick={() => setActiveVideoId(null)}>×</button>
-            <iframe 
-              src={`https://www.youtube.com/embed/${activeVideoId.id}?autoplay=1`} 
+            <iframe
+              src={`https://www.youtube.com/embed/${activeVideoId.id}?autoplay=1`}
               title="YouTube Shorts"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
               allowFullScreen
             ></iframe>
           </div>
