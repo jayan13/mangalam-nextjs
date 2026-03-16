@@ -6,7 +6,7 @@ import { unstable_cache } from "next/cache";
 import { Suspense } from 'react';
 import NewsListSkeleton from '../components/skeletons/NewsListSkeleton';
 
-const CATEGORY_ID = 8067; // Shorts live 8162 test local 8067
+const CATEGORY_ID = 8162; // Shorts live 8162 test local 8067
 
 export const metadata = {
   title: 'Shorts - Mangalam',
