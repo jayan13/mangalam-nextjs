@@ -2233,21 +2233,22 @@ body {
 }
 
 .video-modal-content.shorts-modal {
-   max-width: 450px;
    aspect-ratio: 9/16;
    height: 90vh;
-   width: auto;
+   width: calc(90vh * 9 / 16);
+   max-width: 400px;
+   max-height: calc(400px * 16 / 9);
+}
+
+@media (max-width: 450px), (max-height: 750px) {
+   .video-modal-content.shorts-modal {
+      max-width: 90vw;
+      max-height: calc(90vw * 16 / 9);
+   }
 }
 
 @media (max-aspect-ratio: 16/9) {
    .video-modal-content:not(.shorts-modal) {
-     width: 100%;
-     height: auto;
-   }
-}
-
-@media (max-aspect-ratio: 9/16) {
-   .video-modal-content.shorts-modal {
      width: 100%;
      height: auto;
    }

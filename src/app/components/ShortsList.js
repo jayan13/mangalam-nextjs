@@ -80,10 +80,10 @@ export default function ShortsList({ initialPosts, allids }) {
   const renderContent = (content, title) => {
     const videoId = extractVideoId(content);
     if (videoId) {
-      const isShort = content.includes('youtube.com/shorts/') || content.includes('/shorts/');
+      const isShort = true; // Everything in Shorts category should play as a short
       return (
         <div 
-          className={`embed-container thumbnail-container ${isShort ? 'shorts-embed' : 'video-embed'}`}
+          className="embed-container thumbnail-container shorts-embed"
           onClick={() => setActiveVideoId({ id: videoId, isShort })}
         >
           <img 
