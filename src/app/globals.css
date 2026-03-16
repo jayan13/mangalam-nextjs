@@ -2188,6 +2188,18 @@ body {
   display: block;
 }
 
+.thumbnail-container-video {
+  position: relative;
+  width: 100%;
+  /*height: 100%;*/
+  padding-bottom: 0px !important;
+  /* Reset ratio for image-driven container */
+  aspect-ratio: 9/5;
+  /* Enforce standard aspect ratio */
+  cursor: pointer;
+  display: block;
+}
+
 .video-list-section .thumbnail-container {
   aspect-ratio: 16/9;
 }
@@ -2208,6 +2220,12 @@ body {
   transition: fill .1s cubic-bezier(0.0, 0.0, 0.2, 1), fill-opacity .1s cubic-bezier(0.0, 0.0, 0.2, 1);
 }
 
+.thumbnail-container-video:hover .ytp-large-play-button-bg {
+  fill: #f00;
+  fill-opacity: 1;
+  transition: fill .1s cubic-bezier(0.0, 0.0, 0.2, 1), fill-opacity .1s cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
 .youtube-thumbnail {
   position: absolute;
   top: 0;
@@ -2223,6 +2241,16 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 68px;
+  height: 48px;
+  z-index: 10;
+}
+
+.play-button-overlay-video {
+  position: absolute;
+  top: 25%;
+  left: 82%;
+  transform: translate(-14%, -90%);
   width: 68px;
   height: 48px;
   z-index: 10;
@@ -2312,7 +2340,7 @@ body {
   width: 100%;
 }
 
-.local-news-section .section-heading {
+ .section-heading {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2325,7 +2353,7 @@ body {
   /* Spacing between title, middle nav, and view all */
 }
 
-.local-news-section .section-heading .heading-title {
+ .section-heading .heading-title {
   font-size: 1.25rem;
   font-weight: 700;
   color: #cc0000;
@@ -2392,7 +2420,7 @@ body {
   text-decoration: underline;
 }
 
-.local-news-section .section-heading .view-all-link {
+ .section-heading .view-all-link {
   font-size: 0.9rem;
   color: #007bff;
   text-decoration: none;

@@ -4,11 +4,12 @@ import Link from 'next/link';
 import Image from "next/image";
 //import Slider from "./Slider";
 //import SlickSlider from "./Slickslider";
-import YouTubeSlider from "./YouTubeSlider";
+import YouTubeShotSlider from "./YouTubeShotSlider";
+import YouTubevideoSlider from "./YouTubevideoSlider";
 import WebStories from "./WebStories";
 import PhotoGallery from "./PhotoGallery";
 import AdSenseAdc from "../adds/AddsCenter"
-import DistrictNav from "./DistrictNav";
+//import DistrictNav from "./DistrictNav";
 
 const CATEGORIES = [
   { id: 19, name: 'Keralam', slug: 'keralam' },
@@ -103,9 +104,9 @@ function LocalNewsHead() {
 function TodayMangalamHead() {
   return (
     <>
-      <div className="section-heading section-heading-red" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span>Today's Mangalam</span>
-        <Link href="/category/86-print-edition.html" style={{ fontSize: 'var(--font-size-s)', color: 'var(--mangalamcerulean)', textTransform: 'none', fontWeight: '400' }}>
+      <div className="section-heading section-heading-red" >
+        <span className="heading-title">Today&apos;s Mangalam</span>
+        <Link href="/category/86-print-edition.html" className='view-all-link'>
           View All &raquo;
         </Link>
       </div>
@@ -502,11 +503,30 @@ function Homenew(props) {
     //const imgarrs=['/img/reel-1.webp','/img/reel-2.webp','/img/reel-3.webp','/img/reel-4.webp','/img/reel-5.webp']
     return (
       <div className='reel-news'>
-        <div className="section-heading section-heading-red">
-          {post?.[0]?.heading}
+        <div className="section-heading section-heading-red" >
+          <span className="heading-title">{post?.[0]?.heading}</span>
+          <Link href="/shots" className='view-all-link'>
+          View All &raquo;
+        </Link>
         </div>
 
-        <YouTubeSlider slidedata={post} />
+        <YouTubeShotSlider slidedata={post} />
+
+      </div>
+    );
+  }
+
+  if (template == 'youtubevideos') {
+    return (
+      <div className='reel-news'>
+        <div className="section-heading section-heading-red" >
+          <span className="heading-title">{post?.[0]?.heading}</span>
+          <Link href="/videos" className='view-all-link'>
+          View All &raquo;
+        </Link>
+        </div>
+
+        <YouTubevideoSlider slidedata={post} />
 
       </div>
     );

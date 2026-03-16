@@ -34,7 +34,9 @@ const PhotoGallery = () => {
 
     return (
         <div className="reel-news gallery-section">
-            <div className="section-heading section-heading-red">PHOTO GALLERY</div>
+            <div className="section-heading section-heading-red"> <span className="heading-title"> PHOTO GALLERY  </span> <Link href="/photo-gallery" className='view-all-link'>
+          View All &raquo;
+        </Link></div>
             <div className="reel-news-container">
                 <Swiper
                     spaceBetween={10}
