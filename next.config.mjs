@@ -1,5 +1,5 @@
 const nextConfig = {
-  allowedDevOrigins: ['dev.mangalam.com', 'mangalam.com', 'images.mangalam.com', 'mangalam.cms'],
+  allowedDevOrigins: ['dev.mangalam.com', 'mangalam.com', 'images.mangalam.com', 'mangalam.cms','img.youtube.com'],
   images: {
     remotePatterns: [
       {
@@ -9,6 +9,15 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'mangalam.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mangalam.com',
+      },
+      {
+        protocol: "https",
+        hostname: "img.youtube.com",
+        pathname: "/vi/**",
       },
       {
         protocol: 'http',

@@ -19,6 +19,42 @@ const CATEGORIES = [
   { id: 98, name: 'Sunday Mangalam', slug: 'sunday-mangalam' }
 ];
 
+const viewAllLink = ((heading) => {
+  switch(heading){
+    case 'MANGALAM SPECIAL':
+      return <Link href="/category/937-mangalam-special.html" className='view-all-link'> View All &raquo;</Link>;
+    case 'EDITOR’S PICK':
+      return <Link href="/category/96-editor-s-pick.html" className='view-all-link'> View All &raquo;</Link>;
+    case 'TRENDING NOW':
+      return <Link href="/category/16-trending-now.html" className='view-all-link'> View All &raquo;</Link>;  
+    case "TODAY'S MANGALAM":
+      return <Link href="/category/18-print-edition.html" className='view-all-link'> View All &raquo;</Link>;
+    case 'LOCAL NEWS':
+      return <Link href="/district" className='view-all-link'> View All &raquo;</Link>;
+    case 'ENTERTAINMENT':
+      return <Link href="/category/2462-entertainment.html" className='view-all-link'> View All &raquo;</Link>;
+    case 'SPORTS':
+      return <Link href="/category/23-sports.html" className='view-all-link'> View All &raquo;</Link>;
+    case 'PRAVASI':
+      return <Link href="/category/17-pravasi.html" className='view-all-link'> View All &raquo;</Link>;
+    case 'LIFESTYLE':
+      return <Link href="/category/201-lifestyle.html" className='view-all-link'> View All &raquo;</Link>;
+    case 'HEALTH':
+      return <Link href="/category/186-health.html" className='view-all-link'> View All &raquo;</Link>;
+    case 'SPECIAL COVERAGE':
+      return <Link href="/category/8061-specialcoverage.html" className='view-all-link'> View All &raquo;</Link>; 
+    case 'VIDEOS':
+      return <Link href="/video" className='view-all-link'> View All &raquo;</Link>;
+    case 'NEWS IN REELS':
+      return <Link href="/shorts" className='view-all-link'> View All &raquo;</Link>;
+    case 'PODCAST':
+      return <Link href="/podcast" className='view-all-link'> View All &raquo;</Link>;   
+
+    default:
+      return '';
+  }
+});
+
 function Newimg(props) {
   const newsimage = props.news;
   const w = props.width;
@@ -228,7 +264,7 @@ function Homenew(props) {
     return (
       <>
         {isLocalNews ? <LocalNewsHead /> : isTodayMangalam ? <TodayMangalamHead /> : (
-          <div className="section-heading section-heading-red">{post?.[0]?.heading}</div>
+          <div className="section-heading section-heading-red"><span className="heading-title"> {post?.[0]?.heading} </span> {viewAllLink(post?.[0]?.heading)}</div>
         )}
         <div className='main-news'>
           <div className='main-news-left'>
@@ -330,7 +366,7 @@ function Homenew(props) {
       <div className='home-category'>
         {isLocalNews ? <LocalNewsHead /> : isTodayMangalam ? <TodayMangalamHead /> : (
           <div className="section-heading section-heading-red">
-            {post?.[0]?.heading}
+            <span className="heading-title"> {post?.[0]?.heading} </span> {viewAllLink(post?.[0]?.heading)}
           </div>
         )}
         <div className="home-category-main">
@@ -426,7 +462,7 @@ function Homenew(props) {
       <div className="home-category home-category-type2 ">
         {isLocalNews ? <LocalNewsHead /> : isTodayMangalam ? <TodayMangalamHead /> : (
           <div className="section-heading section-heading-blue">
-            {post?.[0]?.heading}
+           <span className="heading-title"> {post?.[0]?.heading} </span> {viewAllLink(post?.[0]?.heading)}
           </div>
         )}
         <div className='home-category-main'>
@@ -624,8 +660,8 @@ export default function HomeList({ initialPosts }) {
       )}
 
 
-      <div id="end-of-list">
-        {hasMore ? "Loading more..." : ""}
+      <div id="end-of-list" className="loading-indicator">
+        {hasMore ? <Image src="/img/icons/loading-indicator.gif" alt="Loading..." width={30} height={30} unoptimized={true}/> : ""}
       </div>
 
       {!hasMore && (

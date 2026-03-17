@@ -1,18 +1,20 @@
 'use client'
 // components/YouTubevideoSlider.js
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import SwiperCore from 'swiper';
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import Image from "next/image";
 
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation, Autoplay]);
 
 const YouTubevideoSlider = ({ slidedata }) => {
   const [activeVideoId, setActiveVideoId] = useState(null);
+  const swiperRef = useRef(null);
 
   // Prevent background scrolling when modal is open
   useEffect(() => {
@@ -40,29 +42,63 @@ const YouTubevideoSlider = ({ slidedata }) => {
     return match ? match[1] : null;
   };
 
+  const slides = useMemo(() => {
+    if (!slidedata || slidedata.length === 0) return [];
+
+    return slidedata
+      .map((video, index) => {
+        const videoId = extractVideoId(video.news_details);
+        if (!videoId) return null;
+        return { video, videoId, key: index };
+      })
+      .filter(Boolean);
+  }, [slidedata]);
+
+  const renderSlides = useMemo(() => {
+    if (slides.length > 1 && slides.length <= 3) {
+      return [...slides, ...slides];
+    }
+    return slides;
+  }, [slides]);
+
+  const canLoop = slides.length > 1;
+
+  useEffect(() => {
+    if (!swiperRef.current) return;
+    if (!canLoop) return;
+
+    const swiper = swiperRef.current;
+    swiper.update();
+    if (swiper.params.loop) {
+      swiper.loopDestroy();
+      swiper.loopCreate();
+    }
+    swiper.autoplay?.start();
+  }, [canLoop, renderSlides.length]);
+
   return (
     <>
       <Swiper
         spaceBetween={4}
+        slidesPerView={1}
         pagination={{ clickable: true }}
-        //centeredSlides={true}
-       // onSwiper={(swiper) => {
-        //  swiperRef.current = swiper;
-        //  swiper.autoplay.stop(); // Initially stop autoplay
-        //}}
-        autoplay={{
-          delay: 2000,
-          disableOnInteraction: false,
-          //pauseOnMouseEnter:true
+        centeredSlides={false} 
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
         }}
-        loop={true}
+       
+        autoplay={canLoop ? {
+          delay: 3000,
+          disableOnInteraction: false,
+          stopOnLastSlide: false,
+          //pauseOnMouseEnter:true
+        } : false}
+        loop={canLoop}
         navigation
         touchStartPreventDefault={false}  // Ensures touch interactions are enabled
 
         allowTouchMove={true}  // This ensures swiping is allowed
-        //onSlideChange={() => console.log('slide changed')}
-        //onSlideChange={onSlideChange}
-        //onSwiper={(swiper) => console.log(swiper)}
+        
         style={{ paddingBottom: '20px' }} // Adjust this as needed
         breakpoints={{
           640: {
@@ -76,27 +112,29 @@ const YouTubevideoSlider = ({ slidedata }) => {
           },
         }}
       >
-        {slidedata.map((video, index) => (
-          <SwiperSlide key={index}>
+        {renderSlides.map((slide, idx) => (
+          <SwiperSlide key={`${slide.key}-${idx}`}>
             <div className="video-news-item" style={{ marginBottom: 0, padding: 0, border: 'none', background: 'transparent', boxShadow: 'none' }}>
               {(() => {
-                const videoId = extractVideoId(video.news_details);
-                if (!videoId) return null;
-                const isShort = video.news_details.includes('youtube.com/shorts/') || video.news_details.includes('/shorts/');
+                const videoId = slide.videoId;
+                const video = slide.video;
+                
 
                 return (
                   <div
                     className={`embed-container  video-embed thumbnail-container-video`}
-                    onClick={() => setActiveVideoId({ id: videoId, isShort })}
+                    onClick={() => setActiveVideoId({ id: videoId })}
                     style={{ position: 'relative' }}
                   >
-                    <img
-                      src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
-                      alt={`Thumbnail for ${video.title}`}
-                      loading="lazy"
-                      className="youtube-thumbnail"
-                      onError={(e) => { e.target.onerror = null; e.target.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; }}
-                    />
+                    <Image
+                                src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+                                alt={`Thumbnail for ${video.title}`}
+                                loading="lazy"
+                                width={480}
+                                height={360}
+                                className="youtube-thumbnail"
+                                onError={(e) => { e.target.onerror = null; e.target.src = `https://img.youtube.com/vi/${videoId}/default.jpg`; }}
+                              />
                     <div className="play-button-overlay-video">
                       <svg viewBox="0 0 68 48" width="100%" height="100%">
                         <path className="ytp-large-play-button-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#212121" fillOpacity="0.8"></path>
@@ -130,7 +168,7 @@ const YouTubevideoSlider = ({ slidedata }) => {
 
       {activeVideoId && (
         <div className="video-modal-overlay" onClick={() => setActiveVideoId(null)} style={{ zIndex: 99999 }}>
-          <div className={`video-modal-content ${activeVideoId.isShort ? 'shorts-modal' : ''}`} onClick={(e) => e.stopPropagation()}>
+          <div className={`video-modal-content `} onClick={(e) => e.stopPropagation()}>
             <button className="video-modal-close" onClick={() => setActiveVideoId(null)}>×</button>
             <iframe
               src={`https://www.youtube.com/embed/${activeVideoId.id}?autoplay=1`}

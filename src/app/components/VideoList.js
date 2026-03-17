@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
+import Image from "next/image";
 
 export default function VideoList({ initialPosts, allids }) {
   const [posts, setPosts] = useState(initialPosts);
@@ -87,12 +88,14 @@ export default function VideoList({ initialPosts, allids }) {
           className={`embed-container thumbnail-container ${isShort ? 'shorts-embed' : 'video-embed'}`}
           onClick={() => setActiveVideoId({ id: videoId, isShort })}
         >
-          <img
-            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+          <Image
+            src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
             alt={`Thumbnail for ${title}`}
             loading="lazy"
+            width={480}
+            height={360}
             className="youtube-thumbnail"
-            onError={(e) => { e.target.onerror = null; e.target.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`; }}
+            onError={(e) => { e.target.onerror = null; e.target.src = `https://img.youtube.com/vi/${videoId}/default.jpg`; }}
           />
           <div className="play-button-overlay">
             <svg viewBox="0 0 68 48" width="100%" height="100%">
@@ -117,7 +120,7 @@ export default function VideoList({ initialPosts, allids }) {
         ))
       ))}
 
-      <div id="end-of-list-video" className="loading-indicator">{hasMore ? 'Loading more...' : ''}</div>
+      <div id="end-of-list-video" className="loading-indicator">{hasMore ? <Image src="/img/icons/loading-indicator.gif" alt="Loading..." width={30} height={30} unoptimized={true}/> : ''}</div>
 
       {activeVideoId && (
         <div className="video-modal-overlay" onClick={() => setActiveVideoId(null)}>

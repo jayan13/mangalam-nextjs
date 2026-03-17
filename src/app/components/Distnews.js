@@ -203,7 +203,7 @@ export default function Distnews({ initialPosts, district_id }) {
         </div>
       ))}
 
-      <div id="end-of-list">{hasMore ? 'Loading more...' : ''}</div>
+      <div id="end-of-list" className="loading-indicator">{hasMore ? <Image src="/img/icons/loading-indicator.gif" alt="Loading..." width={30} height={30} unoptimized={true}/> : ''}</div>
     </div>
   );
 }
