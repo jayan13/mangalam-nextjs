@@ -32,7 +32,7 @@ const viewAllLink = ((heading) => {
     case 'LOCAL NEWS':
       return <Link href="/district" className='view-all-link'> View All &raquo;</Link>;
     case 'ENTERTAINMENT':
-      return <Link href="/category/2462-entertainment.html" className='view-all-link'> View All &raquo;</Link>;
+      return <Link href="/category/15-entertainment.html" className='view-all-link'> View All &raquo;</Link>;
     case 'SPORTS':
       return <Link href="/category/23-sports.html" className='view-all-link'> View All &raquo;</Link>;
     case 'PRAVASI':
