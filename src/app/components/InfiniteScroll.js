@@ -135,8 +135,8 @@ export default function InfiniteScroll() {
 
     setIsFetching(true);
     try {
-      const revalidateTime = process.env.QUERY_REVALIDATE || '360';
-      const res = await fetch(`/api/right?page=${page}&limit=5`, {
+      const revalidateTime = process.env.API_REVALIDATE || '360';
+      const res = await fetch(`/api/right?page=${page}&limit=1`, {
         next: { revalidate: parseInt(revalidateTime) }
       });
       const data = await res.json();

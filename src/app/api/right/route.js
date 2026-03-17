@@ -4,29 +4,19 @@ import { unstable_cache } from 'next/cache';
 const getRightNews = unstable_cache(
   async (limit, offset) => {
     try {
-      const query = `
-        SELECT 
-          news.id, 
-          news.title, 
-          news.eng_title, 
-          news_image.file_name, 
-          IF(news_image.title, news_image.title, news.title) as alt, 
-          "" as url, 
-          node_queue.template, 
-          node_queue.title as heading 
-        FROM news 
-        LEFT JOIN news_image ON news_image.news_id = news.id 
-        INNER JOIN sub_queue ON sub_queue.news_id = news.id 
-        INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id 
-        WHERE news.published = 1 
-          AND node_queue.template IS NOT NULL 
-          AND node_queue.template <> "" 
-          AND node_queue.template IN ("premium", "pic", "video", "general-right") 
-        GROUP BY CONCAT(node_queue.id, "-", sub_queue.news_id) 
-        ORDER BY node_queue.display_order, sub_queue.position 
-        LIMIT ? OFFSET ?`;
 
-      const [posts] = await db.query(query, [limit, offset]);
+      const [ques] = await db.query(
+        'SELECT id FROM node_queue WHERE template IS NOT NULL AND template <> "" AND template  IN ("premium", "pic", "video", "general-right") ORDER BY display_order LIMIT ? OFFSET ?',
+        [limit, offset]
+      );
+      if (!ques.length) return { posts: [], totalPosts: 0 };
+
+      const qid = ques[0].id;
+
+      const [posts] = await db.query(
+        'SELECT news.id, news.title, news.eng_title, news_image.file_name, CONVERT(news.news_details USING utf8) AS news_details, IF(news_image.title, news_image.title, news.title) AS alt, "" AS url, node_queue.template, node_queue.title AS heading, node_queue.id AS nodeqid, news.district_id, news_category.category_id, "" AS links, "" AS link_title FROM news LEFT JOIN news_image ON news_image.news_id = news.id INNER JOIN sub_queue ON sub_queue.news_id = news.id INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id LEFT JOIN news_category ON news_category.news_id = news.id WHERE news.published = 1 AND node_queue.id = ? GROUP BY news.id ORDER BY sub_queue.position',
+        [qid]
+      );
 
       const processedPosts = posts.map(post => {
         let url = 'detail/' + post.id + '-news-details.html';
@@ -42,18 +32,9 @@ const getRightNews = unstable_cache(
         return { ...post, url };
       });
 
-      const countQuery = `
-        SELECT COUNT(DISTINCT(CONCAT(node_queue.id, "-", sub_queue.news_id))) as total 
-        FROM news 
-        LEFT JOIN news_image ON news_image.news_id = news.id 
-        INNER JOIN sub_queue ON sub_queue.news_id = news.id 
-        INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id 
-        WHERE news.published = 1 
-          AND node_queue.template IS NOT NULL 
-          AND node_queue.template <> "" 
-          AND node_queue.template IN ("premium", "pic", "video", "general-right")`;
-
-      const [countResult] = await db.query(countQuery);
+      const [countResult] = await db.query(
+        'SELECT COUNT(*) as total FROM node_queue WHERE template IS NOT NULL AND template <> "" AND template  IN ("premium", "pic", "video", "general-right")'
+      );
       const totalPosts = countResult[0].total;
 
       return { posts: [processedPosts], totalPosts };
@@ -69,7 +50,7 @@ const getRightNews = unstable_cache(
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const page = parseInt(searchParams.get('page') || '1');
-  const limit = parseInt(searchParams.get('limit') || '5');
+  const limit = parseInt(searchParams.get('limit') || '1');
   const offset = (page - 1) * limit;
 
   try {
