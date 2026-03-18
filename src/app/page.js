@@ -6,12 +6,14 @@ import { unstable_cache } from "next/cache";
 export const revalidate = 360;
 
 const getCachedInitialPosts = unstable_cache(async () => getInitialPosts(), ['my-app-home-posts'], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') });
+const getCachedLeadPosts = unstable_cache(async () => getLeadFromNodeQueue(), ['my-app-live-updates-lead'], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') });
 import { Suspense } from 'react';
 import HomeListSkeleton from './components/skeletons/NewsListSkeleton';
 
 async function HomeListWrapper() {
   const initialPosts = await getCachedInitialPosts();
-  return <HomeList initialPosts={initialPosts} />;
+  const leadItems = await getCachedLeadPosts();
+  return <HomeList initialPosts={initialPosts} leadItems={leadItems} />;
 }
 
 export default async function HomePage() {
@@ -67,6 +69,45 @@ async function getInitialPosts() {
   return [];
 }
 
+async function getLeadFromNodeQueue() {
+  try {
+    const [queues] = await db.query(
+      'SELECT id FROM node_queue WHERE template = "live-updates" ORDER BY display_order LIMIT 1'
+    );
+    if (!queues.length) return [];
+
+    const qid = queues[0].id;
+    const [posts] = await db.query(
+      `SELECT 
+        news.id, 
+        news.title, 
+        news.eng_title, 
+        news_image.file_name, 
+        CONVERT(news.news_details USING utf8) AS news_details, 
+        IF(news_image.title, news_image.title, news.title) AS alt,
+        node_queue.title as heading
+      FROM news 
+      LEFT JOIN news_image ON news_image.news_id = news.id 
+      INNER JOIN sub_queue ON sub_queue.news_id = news.id 
+      INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id 
+      WHERE news.published = 1 
+        AND node_queue.id = ? 
+      GROUP BY news.id 
+      ORDER BY sub_queue.position`,
+      [qid]
+    );
+
+    return posts.map(post => ({
+      ...post,
+      url: buildUrl(post.id, post.eng_title),
+      news_details: SubstringWithoutBreakingWords(post.news_details || '', 240),
+    }));
+  } catch (error) {
+    console.error('Database error in getLeadFromNodeQueue:', error);
+    return [];
+  }
+}
+
 
 function SubstringWithoutBreakingWords(str, limit) {
   // Check if string length is within the limit
@@ -85,5 +126,16 @@ function SubstringWithoutBreakingWords(str, limit) {
   }
 
   return substring;
+}
+
+function buildUrl(id, engTitle) {
+  if (!engTitle) return `detail/${id}-news-details.html`;
+  const slug = engTitle
+    .toString()
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return `detail/${id}-${slug}.html`;
 }
 

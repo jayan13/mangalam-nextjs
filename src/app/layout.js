@@ -19,7 +19,6 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 
 import Addheader from "./adds/Addheader";
-import GoogleAdSense from "./adds/GoogleAdSense";
 import GaddTop from "./adds/GaddTop";
 import AddDoubleClick from "./adds/AddDoubleClick";
 export const metadata = {
@@ -35,12 +34,22 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${noto_sans_malayalam.variable} ${roboto_condensed.variable}`}>
       <head>
         <meta name="facebook-domain-verification" content="s1hoxh2eofwg6u6fy1z4k2evg27028" />
-        {process.env.NODE_ENV === 'production' && <Addheader />}
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <Addheader />
+            {process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID && (
+              <script
+                async
+                src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADS_CLIENT_ID}`}
+                crossOrigin="anonymous"
+              />
+            )}
+          </>
+        )}
       </head>
       <body >
         {process.env.NODE_ENV === 'production' && (
           <>
-            <GoogleAdSense />
             <AddDoubleClick divid='DWTag-DFPOld_RS00_Mangalam_Multi_1x1_03082020' slotid='/36888185/DWTag-DFPOld_RS00_Mangalam_Multi_1x1_03082020' w='300' h='250' />
           </>
         )}

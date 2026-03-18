@@ -7,7 +7,7 @@ const getHomeNews = unstable_cache(
   async (limit, offset) => {
     try {
       const [ques] = await db.query(
-        'SELECT id FROM node_queue WHERE template IS NOT NULL AND template <> "" AND template NOT IN ("premium", "pic", "video", "general-right") ORDER BY display_order LIMIT ? OFFSET ?',
+        'SELECT id FROM node_queue WHERE template IS NOT NULL AND template <> "" AND template NOT IN ("premium", "pic", "video", "general-right","live-updates") ORDER BY display_order LIMIT ? OFFSET ?',
         [limit, offset]
       );
 
@@ -59,7 +59,7 @@ const getHomeNews = unstable_cache(
       });
 
       const [countResult] = await db.query(
-        'SELECT COUNT(*) as total FROM node_queue WHERE template IS NOT NULL AND template <> "" AND template NOT IN ("premium", "pic", "video", "general-right")'
+        'SELECT COUNT(*) as total FROM node_queue WHERE template IS NOT NULL AND template <> "" AND template NOT IN ("premium", "pic", "video", "general-right","live-updates")'
       );
       const totalPosts = countResult[0].total;
 

@@ -6,6 +6,10 @@
 .pnp.js
 .yarn/install-state.gz
 
+# local data maps
+/src/data/categories-map.json
+/src/data/categories.json
+
 # testing
 /coverage
 

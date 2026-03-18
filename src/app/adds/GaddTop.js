@@ -1,25 +1,18 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { useRouter,usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 
 const GoogleAd = () => {
   const adLoaded = useRef(false); // ✅ Track if the ad has already been loaded
-  const router = useRouter();
-
   useEffect(() => {
-    const loadAd = () => {
-      if (typeof window !== "undefined" && window.adsbygoogle) {
-        window.adsbygoogle = window.adsbygoogle || [];
-        window.adsbygoogle.push({});
-        adLoaded.current = true;
-      }
-    };
-  
-    if (router.query && !adLoaded.current) {
-      setTimeout(loadAd, 0);
-    }
-  }, [router.query]);
+    if (adLoaded.current) return;
+    if (typeof window === "undefined") return;
+    if (!window.adsbygoogle) return;
+    window.adsbygoogle = window.adsbygoogle || [];
+    window.adsbygoogle.push({});
+    adLoaded.current = true;
+  }, []);
 
   const pathname = usePathname();
   if(pathname == '' || pathname == '/') //home page

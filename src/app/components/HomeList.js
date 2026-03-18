@@ -10,6 +10,7 @@ import WebStories from "./WebStories";
 import PhotoGallery from "./PhotoGallery";
 import AdSenseAdc from "../adds/AddsCenter"
 //import DistrictNav from "./DistrictNav";
+import LeadPage from "./liveupdates";
 
 const CATEGORIES = [
   { id: 19, name: 'Keralam', slug: 'keralam' },
@@ -154,10 +155,13 @@ function TodayMangalamHead() {
 
 function Homenew(props) {
   const post = props.newslist;
+  const leadItems = props.leadItems;
   const template = post[0].template;
 
   if (template == 'top') {
     return (
+      <>
+      {leadItems && leadItems.length > 0 && <LeadPage leadItems={leadItems} />}
       <div className='main-news'>
         <div className='main-news-left'>
           <div className="section-heading section-heading-red">
@@ -252,7 +256,7 @@ function Homenew(props) {
         </div>
 
       </div>
-
+      </>
 
     );
   }
@@ -574,7 +578,7 @@ function Homenew(props) {
     </div>
   );
 }
-export default function HomeList({ initialPosts }) {
+export default function HomeList({ initialPosts, leadItems }) {
   const [posts, setPosts] = useState(initialPosts);  // Initial posts loaded via SSR
   const [page, setPage] = useState(1);               // Start from page 2
   const [hasMore, setHasMore] = useState(true);      // Determine if there's more data to load
@@ -653,7 +657,7 @@ export default function HomeList({ initialPosts }) {
       ) : (
         posts.map((post, index) => (
           <div key={index} className="mid-block">
-            <Homenew newslist={post} />
+            <Homenew newslist={post} leadItems={leadItems} />
             <AdSenseAdc adId={index} />
           </div>
         ))
