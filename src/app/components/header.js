@@ -10,7 +10,7 @@ import { usePathname } from 'next/navigation';
 
 function Header() {
   const pathname = usePathname();
-  const isEn = pathname.startsWith('/en');
+  const isEn = pathname.startsWith('/en-news');
 
   return (
     <header className="main-header no-printme">
@@ -35,7 +35,7 @@ function Header() {
             {isEn ? (
               <Link href="/" className="icon-link"><span>Malayalam Edition</span></Link>
             ) : (
-              <Link href="/en" className="icon-link"><span>English Edition</span></Link>
+              <Link href="/en-news" className="icon-link"><span>English Edition</span></Link>
             )}
             <Link href="https://epaper.mangalam.com" className="icon-link"><Image src="/img/newspaper.svg" width={17} height={17} alt="E-Paper" /><span>E-Paper</span></Link>
           </div>

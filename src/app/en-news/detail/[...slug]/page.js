@@ -11,7 +11,7 @@ import Script from 'next/script';
 import { unstable_cache } from "next/cache";
 // import UnibotsAd from "../../../adds/UnibotPlay";
 export const revalidate = 3600;
-const pageUrl = process.env.BASEURL + '/en/';
+const pageUrl = process.env.BASEURL + '/en-news/';
 
 async function getDetails(news_id) {
     try {
@@ -35,7 +35,7 @@ async function getImages(news_id) {
 
 async function getTags(news_id) {
     try {
-        let [rows] = await db.query('SELECT news_tags.tags_id,tags.name,concat("/en/tags/",news_tags.tags_id,"-",REPLACE(LOWER(tags.name)," ","-"),".html") as url FROM `news_tags` left join `tags` on tags.id=news_tags.tags_id where news_tags.news_id=?', news_id);
+        let [rows] = await db.query('SELECT news_tags.tags_id,tags.name,concat("/en-news/tags/",news_tags.tags_id,"-",REPLACE(LOWER(tags.name)," ","-"),".html") as url FROM `news_tags` left join `tags` on tags.id=news_tags.tags_id where news_tags.news_id=?', news_id);
         return rows;
     } catch (error) {
         console.error('Database error in getTags:', error);
@@ -55,7 +55,7 @@ async function getCategory(cat_id) {
 
 const getCachedNewsDet = unstable_cache(async (id) => getDetails(id), (id) => [`en-news-${id}`], { revalidate: 3600 });
 const getCachedImages = unstable_cache(async (id) => getImages(id), (id) => [`en-images-${id}`], { revalidate: 3600 });
-const getCachedTags = unstable_cache(async (id) => getTags(id), (id) => [`en-tags-${id}`], { revalidate: 3600 });
+//const getCachedTags = unstable_cache(async (id) => getTags(id), (id) => [`en-tags-${id}`], { revalidate: 3600 });
 const getCachedCat = unstable_cache(async (id) => getCategory(id), (id) => [`en-bcats-${id}`], { revalidate: 3600 });
 
 function Newd(props) {
@@ -152,7 +152,7 @@ import NewsDetailSkeleton from '../../../components/skeletons/NewsDetailSkeleton
 import RelatedNews from "../../../components/RelatedNews";
 
 async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
-    const newstags = await getTags(news_id);
+    //const newstags = await getCachedTags(news_id);
     const detail = ((newses[0].news_details) ? newses[0].news_details.toString() : (newses[0].row_news_details ? newses[0].row_news_details.toString() : '')).replaceAll("[BREAK]", "").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
     const prows = await getCachedImages(news_id);
 
@@ -182,7 +182,7 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
                 {detarry.map((news, index) => <Newd det={news} key={index} />)}
             </div>
             <Summary engsum={newses[0].eng_summary} />
-            <Tags tgs={newstags} />
+            {/* <Tags tgs={newstags} /> */}
             <Author nws={newses[0]} />
 
             <RelatedNews
@@ -220,7 +220,7 @@ export default async function News({ params }) {
                 const catname = cats[0].name;
                 const catlink = catname.toLowerCase().replace(/\s+/g, "-");
                 br1 = <li className="c-navigation-breadcrumbs__item" property="itemListElement">
-                    <Link className="c-navigation-breadcrumbs__link" href={`/en/category/${newses[0].category_id}-${catlink}.html`} property="item">
+                    <Link className="c-navigation-breadcrumbs__link" href={`/en-news/category/${newses[0].category_id}-${catlink}.html`} property="item">
                         <span property="name">{catname}</span>
                     </Link>
                     <meta property="position" content="2" />
@@ -232,7 +232,7 @@ export default async function News({ params }) {
                         const catname2 = cats2[0].name;
                         const catlink2 = catname2.toLowerCase().replace(/\s+/g, "-");
                         br2 = <li className="c-navigation-breadcrumbs__item" property="itemListElement">
-                            <Link className="c-navigation-breadcrumbs__link" href={`/en/category/${cats[0].parent_id}-${catlink2}.html`} property="item">
+                            <Link className="c-navigation-breadcrumbs__link" href={`/en-news/category/${cats[0].parent_id}-${catlink2}.html`} property="item">
                                 <span property="name">{catname2}</span>
                             </Link>
                             <meta property="position" content="3" />
@@ -251,7 +251,7 @@ export default async function News({ params }) {
                         <nav className="c-navigation-breadcrumbs" aria-label="Breadcrumb" vocab="https://schema.org/">
                             <ol className="c-navigation-breadcrumbs__directory">
                                 <li className="c-navigation-breadcrumbs__item" property="itemListElement">
-                                    <Link className="c-navigation-breadcrumbs__link" href="/en" property="item">
+                                    <Link className="c-navigation-breadcrumbs__link" href="/en-news" property="item">
                                         <Image src="/img/icons/home.svg" width={20} height={20} alt="Home" />
                                         <span className="u-visually-hidden" property="name">Home</span>
                                     </Link>

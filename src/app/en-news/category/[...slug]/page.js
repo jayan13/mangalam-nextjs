@@ -73,7 +73,7 @@ export default async function EnCategoryPage({ params }) {
         if (parentCategory) {
             br1 = (
                 <li className="c-navigation-breadcrumbs__item" property="itemListElement">
-                    <Link className="c-navigation-breadcrumbs__link" href={`/en${parentCategory.link}`} property="item">
+                    <Link className="c-navigation-breadcrumbs__link" href={`/en-news${parentCategory.link}`} property="item">
                         <span property="name">{parentCategory.name}</span>
                     </Link>
                     <meta property="position" content="2" />
@@ -86,7 +86,7 @@ export default async function EnCategoryPage({ params }) {
         <nav className="c-navigation-breadcrumbs en-font" aria-label="Breadcrumb" vocab="https://schema.org/">
             <ol className="c-navigation-breadcrumbs__directory">
                 <li className="c-navigation-breadcrumbs__item" property="itemListElement">
-                    <Link className="c-navigation-breadcrumbs__link" href="/en" property="item">
+                    <Link className="c-navigation-breadcrumbs__link" href="/en-news" property="item">
                         <Image src="/img/icons/home.svg" width={20} height={20} alt="Home" />
                         <span className="u-visually-hidden" property="name">Home</span>
                     </Link>
@@ -107,7 +107,7 @@ export default async function EnCategoryPage({ params }) {
                 <ul>
                     {subCategories.map((sub, index) => (
                         <li key={index}>
-                            <Link href={`/en${sub.link}`}>{sub.name}</Link>
+                            <Link href={`/en-news${sub.link}`}>{sub.name}</Link>
                         </li>
                     ))}
                 </ul>
@@ -156,7 +156,7 @@ async function getInitialPosts(category_id) {
         const [data] = await db.query(query, [category_id]);
 
         const processedData = data.map(post => {
-            let url = `/en/news/${post.id}-news-details.html`;
+            let url = `/en-news/detail/${post.id}-news-details.html`;
             if (post.eng_title) {
                 const slug = post.eng_title
                     .toString()
@@ -164,7 +164,7 @@ async function getInitialPosts(category_id) {
                     .replace(/[^\w\s-]/g, '')
                     .replace(/[\s_]+/g, '-')
                     .replace(/^-+|-+$/g, '');
-                url = `/en/news/${post.id}-${slug}.html`;
+                url = `/en-news/detail/${post.id}-${slug}.html`;
             }
 
             return {

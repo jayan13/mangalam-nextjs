@@ -192,7 +192,7 @@ import NewsDetailSkeleton from '../../../components/skeletons/NewsDetailSkeleton
 import RelatedNews from "../../../components/RelatedNews";
 
 async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
-  const newstags = await getTags(news_id);
+  const newstags = await getCachedTags(news_id);
   const detail = ((newses[0].news_details) ? newses[0].news_details.toString() : (newses[0].row_news_details ? newses[0].row_news_details.toString() : '')).replaceAll("[BREAK]", "").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
   const prows = await getCachedImages(news_id);
 

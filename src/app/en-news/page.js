@@ -37,7 +37,7 @@ async function getCategoryNews(category_id) {
             return {
                 ...item,
                 url: `${item.id}-${slug}.html`,
-                links: `/en/category/${item.category_id}-${item.category_name?.toLowerCase().replace(/\s+/g, '-')}.html`,
+                links: `/en-news/category/${item.category_id}-${item.category_name?.toLowerCase().replace(/\s+/g, '-')}.html`,
                 link_title: item.category_name
             };
         });
@@ -71,18 +71,18 @@ function CategorySection({ posts, category }) {
                     {posts.map((post, index) => (
                         <div key={post.id} className="news-item">
                             <figure>
-                                <Link href={`/en/news/${post.url}`}>
+                                <Link href={`/en-news/detail/${post.url}`}>
                                     <Newimg news={post} width="211" height="127" />
                                 </Link>
                             </figure>
                             <div className="news-item-text">
                                 {/* <p className="category-tag">
-                                    <Link href={`/en/category/${catSlug}`} title={catName}>
+                                    <Link href={`/en-news/category/${catSlug}`} title={catName}>
                                         {catName}
                                     </Link>
                                 </p> */}
                                 <h3>
-                                    <Link href={`/en/news/${post.url}`}>
+                                    <Link href={`/en-news/detail/${post.url}`}>
                                         {post.title}
                                     </Link>
                                 </h3>
@@ -92,7 +92,7 @@ function CategorySection({ posts, category }) {
                 </div>
             </div>
             <div className="read-more-link">
-                <Link href={`/en/category/${catSlug}`}>Read More {catName}</Link>
+                <Link href={`/en-news/category/${catSlug}`}>Read More {catName}</Link>
             </div>
         </div>
     );
