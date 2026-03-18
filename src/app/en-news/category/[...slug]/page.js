@@ -1,6 +1,6 @@
 import db from '@/lib/db';
 import InfiniteScroll from '../../../components/InfiniteScroll';
-import Catnews from '../../../components/Catnews';
+import Catnews from '../../../components/Catnewsen';
 import Link from 'next/link';
 import Image from "next/image";
 import { unstable_cache } from "next/cache";
@@ -156,7 +156,7 @@ async function getInitialPosts(category_id) {
         const [data] = await db.query(query, [category_id]);
 
         const processedData = data.map(post => {
-            let url = `/en-news/detail/${post.id}-news-details.html`;
+            let url = `detail/${post.id}-news-details.html`;
             if (post.eng_title) {
                 const slug = post.eng_title
                     .toString()
@@ -164,7 +164,7 @@ async function getInitialPosts(category_id) {
                     .replace(/[^\w\s-]/g, '')
                     .replace(/[\s_]+/g, '-')
                     .replace(/^-+|-+$/g, '');
-                url = `/en-news/detail/${post.id}-${slug}.html`;
+                url = `detail/${post.id}-${slug}.html`;
             }
 
             return {
