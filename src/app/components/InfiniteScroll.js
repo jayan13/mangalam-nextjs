@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from "next/image";
 import GoogleAdPcItem from "../adds/Addsright";
+import RightTop from "../adds/RightTop";
 
 function NewsImage({ news, width, height, className = '' }) {
   const src = `${process.env.NEXT_PUBLIC_IMAGE_URL}/${news.file_name}`;
@@ -177,11 +178,11 @@ export default function InfiniteScroll() {
   }, [loadMore, isFetching, hasMore]);
 
   return (
-    <div className="home-news-section-right no-printme">
+    <div className="home-news-section-right no-printme">        
       {posts.map((postGroup, index) => (
         <div key={index} className='rght-block'>
-          <GoogleAdPcItem adId={index} />
-          <NewsSection posts={postGroup} />
+          <GoogleAdPcItem adId={index} />          
+          <NewsSection posts={postGroup} />          
         </div>
       ))}
       <div id="end-of-list-right" className="loading-indicator" >

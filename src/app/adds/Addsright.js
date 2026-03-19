@@ -1,9 +1,8 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import Image from "next/image";
 import AddDoubleClick from './AddDoubleClick';
 import GoogleAd from "./GoogleAd";
+import RightTop from "./RightTop";
 
 const GoogleAdPcItem = ({ adId }) => {
 
@@ -14,12 +13,10 @@ const GoogleAdPcItem = ({ adId }) => {
   {
     if (adId == 0) {
       return (
-        <div className="advertisement no-margin">
-          <div className="advertisement-text">Advertisement</div>
-          <div className="ad">
-            <Link href="https://ksfe.com/" target="_blank"><Image src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/uploads/ads/KSFE-Banner-300-x-250-news.jpg`} alt={'KSFE'} width={300} height={250} loading="lazy" unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')} /></Link>
+          <div className="desktop-only">
+            <RightTop type="desktop" />
           </div>
-        </div>);
+        );
     }
     else if (adId == 1) {
       return (

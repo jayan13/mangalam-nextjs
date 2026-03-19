@@ -107,10 +107,8 @@ export default function LeadPage({ leadItems: initialLeadItems = [] }) {
         <div className="main-lead-article">
            {leadItems[0] && (
               <div className="main-lead-article">
-                <figure> <Link href={`/news/${leadItems[0].url}`}><Newimg news={leadItems[0]} width='608' height='365' /></Link></figure>
-                
-                <h1 className="malayalam-text"> <Link href={`/news/${leadItems[0].url}`}>  {leadItems[0].title} </Link></h1> 
-                
+                <figure> <Link href={`/news/${leadItems[0].url}`}><Newimg news={leadItems[0]} width='608' height='365' /></Link></figure>                
+                <h1 className="malayalam-text"> <Link href={`/news/${leadItems[0].url}`}>  {leadItems[0].title} </Link></h1>                 
                 <p>{leadItems[0].news_details}</p>
               </div>
             )}

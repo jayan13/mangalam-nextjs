@@ -11,6 +11,7 @@ import PhotoGallery from "./PhotoGallery";
 import AdSenseAdc from "../adds/AddsCenter"
 //import DistrictNav from "./DistrictNav";
 import LeadPage from "./liveupdates";
+import RightTop from "../adds/RightTop";
 
 const CATEGORIES = [
   { id: 19, name: 'Keralam', slug: 'keralam' },
@@ -194,7 +195,8 @@ function Homenew(props) {
           </div>
 
         </div>
-        <div className='main-news-right'>
+        <div className='main-news-right'>         
+          
           {post[3] && (<>
             <div className="section-heading section-heading-blue" >
               {post?.[3]?.heading}
@@ -253,6 +255,10 @@ function Homenew(props) {
               <figure> <Link href={`/news/${post[11].url}`}><Newimg news={post[11]} width='88' height='54' /></Link></figure>
             </div>
           )}
+          
+          <div className="mobile-only">
+            <RightTop type="mobile" />
+          </div>
         </div>
 
       </div>

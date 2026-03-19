@@ -2656,3 +2656,25 @@ body {
     font-size: 1.1rem;
   }
 }
+
+/* Default: Mobile first */
+.mobile-only {
+  display: block;
+  width: 100%;
+}
+
+.desktop-only {
+  display: none;
+  width: 100%;
+}
+
+/* Desktop (≥768px) */
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+
+  .desktop-only {
+    display: block;
+  }
+}
