@@ -181,7 +181,7 @@ export default function LeadPage({ leadItems: initialLeadItems = [] }) {
               <div className="update-time-absolute">{formatAbsolute(item.modified_date)}</div>
 
               <div className="update-content">
-                <h3 className="malayalam-text">                  
+                <h3 className="news-item-text">                  
                     {item.title}                 
                 </h3>                
               </div>

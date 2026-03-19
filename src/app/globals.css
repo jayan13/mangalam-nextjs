@@ -2447,7 +2447,7 @@ body {
 }
 
 .malayalam-text {
-  font-family: var(--font-noto-malayalam), sans-serif;
+  font-family: var(--malayalam);
 }
 
 .section-title {
@@ -2461,12 +2461,14 @@ body {
   display: inline-block;
   border-top: 3px solid #cc0000;
   padding-top: 5px;
+  font-family: var(--malayalam);
 }
 
 .main-lead-article {
   margin-bottom: 25px;
   border-bottom: 1px solid #ccc;
   padding-bottom: 20px;
+  font-family: var(--malayalam);
 }
 
 .main-lead-article figure {
@@ -2481,7 +2483,7 @@ body {
 }
 
 .main-lead-article h1 a {
-  font-size: 2.1rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #0b1a3d;
   text-decoration: none;
@@ -2492,9 +2494,10 @@ body {
 
 .main-lead-article p {
   color: #333;
-  font-size: 1.15rem;
+  font-size: 1.0rem;
   line-height: 1.6;
   margin-bottom: 0;
+  font-family: var(--malayalam);
 }
 
 .sub-leads {
@@ -2520,14 +2523,15 @@ body {
 
 .sub-lead-item h3 {
   margin: 0;
-  font-size: 1.1rem;
   font-weight: 600;
   line-height: 1.4;
+  font-family: var(--malayalam);
 }
 
 .sub-lead-item h3 a {
   color: #0b1a3d;
   text-decoration: none;
+  font-family: var(--malayalam);
 }
 
 
@@ -2552,6 +2556,7 @@ body {
   align-self: flex-start;
   margin-bottom: 15px;
   border-radius: 2px;
+  font-family: var(--malayalam);
 }
 
 .live-updates-scroll-area {
@@ -2615,18 +2620,19 @@ body {
 }
 
 .update-content h3 {
-  font-size: 1.2rem;
   color: #111;
   margin: 0 0 10px 0;
   line-height: 1.4;
   font-weight: 600;
+  font-family: var(--malayalam);
 }
 
 .update-content p {
   font-size: 1.05rem;
   color: #444;
+  font-family: var(--malayalam);
   margin: 0 0 15px 0;
-  line-height: 1.5;
+  line-height: 1.5;  
 }
 
 .update-content .read-details {
