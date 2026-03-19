@@ -69,8 +69,7 @@ export default function LeadPage({ leadItems: initialLeadItems = [] }) {
     };
   }, []);
 
-  const stripHtml = (html) => (html || '').replace(/<[^>]*>/g, '').trim();
-
+  
   const formatAbsolute = (dateStr) => {
     if (!dateStr) return '';
     const d = new Date(dateStr);
@@ -178,19 +177,13 @@ export default function LeadPage({ leadItems: initialLeadItems = [] }) {
 
           {liveUpdates.map((item) => (
             <div key={item.id} className="live-update-card">
-              <div className="update-time-relative">{formatRelative(item.effective_date)}</div>
-              <div className="update-time-absolute">{formatAbsolute(item.effective_date)}</div>
+              <div className="update-time-relative">{formatRelative(item.modified_date)}</div>
+              <div className="update-time-absolute">{formatAbsolute(item.modified_date)}</div>
 
               <div className="update-content">
-                <h3 className="malayalam-text">
-                  <Link href={`/news/${item.url}`}>
-                    {item.title}
-                  </Link>
-                </h3>
-                <p className="malayalam-text">
-                  {stripHtml(item.news_details)}
-                  <Link href={`/news/${item.url}`} className="read-details"> Read details.</Link>
-                </p>
+                <h3 className="malayalam-text">                  
+                    {item.title}                 
+                </h3>                
               </div>
 
               

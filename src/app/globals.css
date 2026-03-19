@@ -2556,12 +2556,12 @@ body {
 
 .live-updates-scroll-area {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding-right: 15px;
   /* space for dragging/scrollbar visually */
   cursor: grab;
   /* Hide scrollbar by default for a clean draggable look, but let it scroll natively */
-  scrollbar-width: none;
+  scrollbar-width: thin;
   min-height: 0;
 }
 
@@ -2608,9 +2608,10 @@ body {
 }
 
 .update-time-absolute {
-  color: #888;
+  color: #e12729;
   font-size: 0.75rem;
   margin-bottom: 15px;
+  font-weight: 700;
 }
 
 .update-content h3 {
