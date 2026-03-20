@@ -2,12 +2,12 @@ import db from '@/lib/db';
 import { unstable_cache } from 'next/cache';
 
 const getLiveUpdates = unstable_cache(
-  async () => {
+  async (display_from) => {
     try {
       
 
       const [posts] = await db.query(
-        `select id,title,modified_date from news_on_live order by modified_date desc limit 30`        
+        `select id,title,modified_date from news_on_live where id > ? order by modified_date desc limit 100`, [display_from]
       );
 
       if (!posts || posts.length === 0) return [];
@@ -18,17 +18,17 @@ const getLiveUpdates = unstable_cache(
     }
   },
   ['live-updates'],
-  { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360'), tags: ['live-updates'] }
+  { revalidate: parseInt('120'), tags: ['live-updates'] }
 );
 
 export async function GET(req) {
   try {
-    const updates = await getLiveUpdates();
-
+    const display_from = req.nextUrl.searchParams.get('displayfrom') || 0;
+    const updates = await getLiveUpdates(display_from);    
     return new Response(JSON.stringify({ updates }), {
       status: 200,
       headers: {
-        'Cache-Control': `public, s-maxage=${process.env.API_REVALIDATE || '360'}, stale-while-revalidate=60`,
+        'Cache-Control': `public, s-maxage=120, stale-while-revalidate=60`,
         'Content-Type': 'application/json',
       },
     });

@@ -2622,8 +2622,7 @@ body {
 .update-content h3 {
   color: #111;
   margin: 0 0 10px 0;
-  line-height: 1.4;
-  font-weight: 600;
+  line-height: 1.4;  
   font-family: var(--malayalam);
 }
 

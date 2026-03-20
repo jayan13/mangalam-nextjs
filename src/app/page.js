@@ -72,11 +72,12 @@ async function getInitialPosts() {
 async function getLeadFromNodeQueue() {
   try {
     const [queues] = await db.query(
-      'SELECT id FROM node_queue WHERE template = "live-updates" ORDER BY display_order LIMIT 1'
+      'SELECT id,display_order FROM node_queue WHERE template = "live-updates" ORDER BY display_order LIMIT 1'
     );
     if (!queues.length) return [];
 
     const qid = queues[0].id;
+    const display_from= queues[0].display_order || 0;
     const [posts] = await db.query(
       `SELECT 
         news.id, 
@@ -100,6 +101,7 @@ async function getLeadFromNodeQueue() {
     return posts.map(post => ({
       ...post,
       url: buildUrl(post.id, post.eng_title),
+      display_from: display_from,
       news_details: SubstringWithoutBreakingWords(post.news_details || '', 240),
     }));
   } catch (error) {

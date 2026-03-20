@@ -22,7 +22,7 @@ export default function LeadPage({ leadItems: initialLeadItems = [] }) {
   const [leadItems, setLeadItems] = useState(Array.isArray(initialLeadItems) ? initialLeadItems : []);
   const [liveUpdates, setLiveUpdates] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const display_from = leadItems[0]?.display_from || 0;
   const onMouseDown = (e) => {
     if (!scrollContainerRef.current) return;
     setIsDragging(true);
@@ -48,9 +48,10 @@ export default function LeadPage({ leadItems: initialLeadItems = [] }) {
 
   useEffect(() => {
     let isMounted = true;
+    let intervalId;
     const loadLiveUpdates = async () => {
       try {
-        const res = await fetch('/api/live-updates', { next: { revalidate: 60 } });
+        const res = await fetch(`/api/live-updates?displayfrom=${display_from}`, { next: { revalidate: 60 } });
         const data = await res.json();
         if (!isMounted) return;
         if (!leadItems.length && Array.isArray(data.lead)) {
@@ -64,10 +65,12 @@ export default function LeadPage({ leadItems: initialLeadItems = [] }) {
       }
     };
     loadLiveUpdates();
+    intervalId = setInterval(loadLiveUpdates, 120000);
     return () => {
       isMounted = false;
+      if (intervalId) clearInterval(intervalId);
     };
-  }, []);
+  }, [display_from]);
 
   
   const formatAbsolute = (dateStr) => {
