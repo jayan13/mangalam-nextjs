@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from "next/image";
-
+import AdSenseAdc from "../adds/AddsCenter"
 
 function Newimg(props) {
   const newsimage = props.news;
@@ -199,10 +199,7 @@ export default function Distnews({ initialPosts, allids }) {
       {posts.map((post, index) => (
         <div key={index} className='mid-block'>
           <Catgnews newslist={post} ind={index} />
-          <div className="advertisement">
-            <div className="advertisement-text">Advertisement</div>
-            <div className="ad"><Image src="/img/ads/728x90.jpeg" alt='adds' width={728} height={90} loading="lazy" /></div>
-          </div>
+          <AdSenseAdc adId={index} />
         </div>
       ))}
 

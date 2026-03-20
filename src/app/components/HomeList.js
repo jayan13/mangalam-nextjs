@@ -274,7 +274,7 @@ function Homenew(props) {
     return (
       <>
         {isLocalNews ? <LocalNewsHead /> : isTodayMangalam ? <TodayMangalamHead /> : (
-          <div className="section-heading section-heading-red"><span className="heading-title"> {post?.[0]?.heading} </span> {viewAllLink(post?.[0]?.heading)}</div>
+          <div className="section-heading section-heading-blue"><span className="heading-title"> {post?.[0]?.heading} </span> {viewAllLink(post?.[0]?.heading)}</div>
         )}
         <div className='main-news'>
           <div className='main-news-left'>
@@ -535,6 +535,60 @@ function Homenew(props) {
                 <div className='news-item-text'>
                   <p className="category-tag">{post[5].links ? <Link href={`${post[5].links}`} title="text">{post[5].link_title}</Link> : post[5].link_title}</p>
                   <h3> {post[5].url ? <Link href={`/news/${post[5].url}`}>   {post[5].title}  </Link> : post[5].title} </h3>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+      </div>
+    );
+  }
+  //==================================================================
+if (template == 'home-4') {
+    
+
+    return (
+      <div className="home-category home-category-type2 ">
+        <div className="section-heading section-heading-red">
+           <span className="heading-title"> {post?.[0]?.heading} </span> 
+        </div>
+        
+        <div className='category-bottom'>
+          <div className='category-bottom-left'>
+            {post[0] && (
+              <div className="news-item">
+                <figure> {post[0].url ? <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} width='211' height='127' /></Link> : <Newimg news={post[0]} width='211' height='127' />} </figure>
+                <div className='news-item-text'>
+                  <p className="category-tag">{post[0].links ? <Link href={`${post[0].links}`} title="text">{post[0].link_title}</Link> : post[0].link_title}</p>
+                  <h3> {post[0].url ? <Link href={`/news/${post[0].url}`}>   {post[0].title}  </Link> : post[0].title} </h3>
+                </div>
+              </div>
+            )}
+            {post[1] && (
+              <div className="news-item">
+                <figure> {post[1].url ? <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='211' height='127' /></Link> : <Newimg news={post[1]} width='211' height='127' />} </figure>
+                <div className='news-item-text'>
+                  <p className="category-tag">{post[1].links ? <Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link> : post[1].link_title}</p>
+                  <h3> {post[1].url ? <Link href={`/news/${post[1].url}`}>   {post[1].title}  </Link> : post[1].title} </h3>
+                </div>
+              </div>
+            )}
+            {post[2] && (
+              <div className="news-item">
+                <figure> {post[2].url ? <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='211' height='127' /></Link> : <Newimg news={post[2]} width='211' height='127' />} </figure>
+                <div className='news-item-text'>
+                  <p className="category-tag">{post[2].links ? <Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link> : post[2].link_title}</p>
+                  <h3> {post[2].url ? <Link href={`/news/${post[2].url}`}>   {post[2].title}  </Link> : post[2].title} </h3>
+                </div>
+              </div>
+            )}
+            {post[3] && (
+              <div className="news-item">
+                <figure> {post[3].url ? <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='211' height='127' /></Link> : <Newimg news={post[3]} width='211' height='127' />} </figure>
+                <div className='news-item-text'>
+                  <p className="category-tag">{post[3].links ? <Link href={`${post[3].links}`} title="text">{post[3].link_title}</Link> : post[3].link_title}</p>
+                  <h3> {post[3].url ? <Link href={`/news/${post[3].url}`}>   {post[3].title}  </Link> : post[3].title} </h3>
                 </div>
               </div>
             )}
