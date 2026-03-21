@@ -47,7 +47,7 @@ export default function RootLayout({ children }) {
           </>
         )}
       </head>
-      <body >
+      <body suppressHydrationWarning>
         {process.env.NODE_ENV === 'production' && (
           <>
             <AddDoubleClick divid='DWTag-DFPOld_RS00_Mangalam_Multi_1x1_03082020' slotid='/36888185/DWTag-DFPOld_RS00_Mangalam_Multi_1x1_03082020' w='300' h='250' />
