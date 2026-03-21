@@ -15,6 +15,11 @@ SwiperCore.use([Pagination, Navigation, Autoplay]);
 const YouTubevideoSlider = ({ slidedata }) => {
   const [activeVideoId, setActiveVideoId] = useState(null);
   const swiperRef = useRef(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Prevent background scrolling when modal is open
   useEffect(() => {
@@ -75,6 +80,8 @@ const YouTubevideoSlider = ({ slidedata }) => {
     }
     swiper.autoplay?.start();
   }, [canLoop, renderSlides.length]);
+
+  if (!mounted) return null;
 
   return (
     <>

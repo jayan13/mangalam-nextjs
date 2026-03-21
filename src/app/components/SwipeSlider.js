@@ -5,13 +5,18 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import SwiperCore from 'swiper';
 import { Pagination, Navigation } from  "swiper/modules";
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
 
 const SwipeSlider = ({ slidedata }) => {
     const swiperRef = useRef(null);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
         const touchstart = () => {
         console.log('touch start');
@@ -50,6 +55,8 @@ const SwipeSlider = ({ slidedata }) => {
           container.style.pointerEvents = 'auto';
         });
       };
+
+  if (!mounted) return null;
 
   return (
     <div className='reel-news-container'>

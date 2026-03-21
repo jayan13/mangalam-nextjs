@@ -15,6 +15,11 @@ const YouTubeSlider = ({ slidedata }) => {
   const youtubeRefs = useRef([]);
   const swiperRef = useRef(null);
   const [allVideosReady, setAllVideosReady] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const onSlideChange = (swiper) => {
     // Pause all videos except for the active slide
@@ -62,6 +67,8 @@ const YouTubeSlider = ({ slidedata }) => {
       }, 3000); // 10 seconds delay
     }
   }, [allVideosReady]);
+
+  if (!mounted) return null;
 
   return (
     <div className='reel-news-container'>

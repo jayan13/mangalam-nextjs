@@ -1,5 +1,5 @@
 // components/YouTubeShortsSlider.js
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -7,6 +7,14 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 
 const YouTubeShortsSlider = ({ slidedata }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <div className="reel-news-container">
     <Swiper
