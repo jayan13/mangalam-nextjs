@@ -21,15 +21,16 @@ import Footer from "./components/footer";
 import Addheader from "./adds/Addheader";
 import GaddTop from "./adds/GaddTop";
 import AddDoubleClick from "./adds/AddDoubleClick";
+
 export const metadata = {
   title: "Mangalam-Latest Kerala News",
   description: "Mangalam-Latest Kerala News in Malayalam",
   keywords: "Mangalam-Latest Kerala News, Malayalam News,  Politics, Malayalam Cinema, Sports",
 };
 
+export const revalidate = 600;
 
 export default function RootLayout({ children }) {
-
   return (
     <html lang="en" className={`${noto_sans_malayalam.variable} ${roboto_condensed.variable}`}>
       <head>
@@ -63,4 +64,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-

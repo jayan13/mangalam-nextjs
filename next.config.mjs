@@ -1,6 +1,7 @@
 const nextConfig = {
-  allowedDevOrigins: ['dev.mangalam.com', 'mangalam.com', 'images.mangalam.com', 'mangalam.cms','img.youtube.com'],
+  allowedDevOrigins: ['dev.mangalam.com', 'mangalam.com', 'images.mangalam.com', 'mangalam.cms', 'img.youtube.com'],
   images: {
+    minimumCacheTTL: 31536000, // Cache for 1 year to minimize hits to images.mangalam.com
     remotePatterns: [
       {
         protocol: 'https',
@@ -32,7 +33,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, s-maxage=360, stale-while-revalidate=60',
+            value: 'public, s-maxage=600, stale-while-revalidate=600',
           },
         ],
       },
