@@ -1,7 +1,7 @@
 import GoogleAdd from "./GoogleAdd";
 
 const AdSenseAdc = ({ adId }) => {
-  const slots = ['8131115980', '2210188022'];
+  const slots = ['2210188022', '8131115980'];
 
   const slot = slots[adId] || '2210188022';
 
