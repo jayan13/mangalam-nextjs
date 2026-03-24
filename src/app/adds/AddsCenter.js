@@ -1,22 +1,12 @@
 import GoogleAdd from "./GoogleAdd";
 
-const AdSenseAdc = (Id) => {
-  const adId=Id.adId;
-  let slot='8131115980';
-  const slots=['8131115980'];
-  if(Id==0)
-  {
-    slot=slots[Id];
-    return (
-      <GoogleAdd aid={adId} adSlot={slot} />
-    );
-  }else{
-    return (
-      <GoogleAdd aid={adId} adSlot="8131115980" />
-    );
-  }
-  
+const AdSenseAdc = ({ adId }) => {
+  const slots = ['8131115980', '2210188022'];
 
+  const slot = slots[adId] || '2210188022';
+
+  return <GoogleAdd aid={adId} adSlot={slot} />;
 };
+
 
 export default AdSenseAdc;

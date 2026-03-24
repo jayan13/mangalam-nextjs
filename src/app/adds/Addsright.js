@@ -13,14 +13,14 @@ const GoogleAdPcItem = ({ adId }) => {
   {
     if (adId == 0) {
       return (
-          <div className="desktop-only">
-            <RightTop type="desktop" />
-          </div>
-        );
+        <div className="desktop-only">
+          <RightTop type="desktop" />
+        </div>
+      );
     }
     else if (adId == 1) {
       return (
-        <GoogleAd ids={adId} slot="5038048789" />
+        <GoogleAd ids={adId} slot="1673339271" />
       );
     } else
       if (adId == 2) {
@@ -30,7 +30,7 @@ const GoogleAdPcItem = ({ adId }) => {
       }
       else if (adId == 3) {
         return (
-          <GoogleAd ids={adId} slot="3860677183" />
+          <GoogleAd ids={adId} slot="1701259437" />
         );
       }
       else if (adId == 4) {
@@ -46,7 +46,7 @@ const GoogleAdPcItem = ({ adId }) => {
 
     if (adId == 0) {
       return (
-        <GoogleAd ids={adId} slot="5038048789" />
+        <GoogleAd ids={adId} slot="1673339271" />
       );
     } else
       if (adId == 1) {
@@ -56,7 +56,7 @@ const GoogleAdPcItem = ({ adId }) => {
       }
       else if (adId == 2) {
         return (
-          <GoogleAd ids={adId} slot="3860677183" />
+          <GoogleAd ids={adId} slot="1701259437" />
         );
       }
       else if (adId == 3) {
