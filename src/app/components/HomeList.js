@@ -1,5 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
+//import { useInfiniteScrollCache } from '../hooks/useInfiniteScrollCache';
 import Link from 'next/link';
 import Image from "next/image";
 //import Slider from "./Slider";
@@ -22,7 +24,8 @@ const CATEGORIES = [
 ];
 
 const viewAllLink = ((heading) => {
-  switch(heading){
+  const normalizedHeading = (heading || '').toString().toUpperCase();
+  switch(normalizedHeading){
     case 'MANGALAM SPECIAL':
       return <Link href="/category/937-mangalam-special.html" className='view-all-link'> View All &raquo;</Link>;
     case 'EDITOR’S PICK':
@@ -101,7 +104,7 @@ function LocalNewsHead() {
   return (
     <div className='local-news-section'>
       <div className="section-heading">
-        <span className="heading-title">Local News</span>
+        <span className="heading-title">LOCAL NEWS</span>
 
         <Link href="/district" className="view-all-link">View All »</Link>
       </div>
@@ -143,8 +146,8 @@ function TodayMangalamHead() {
   return (
     <>
       <div className="section-heading section-heading-red" >
-        <span className="heading-title">Today&apos;s Mangalam</span>
-        <Link href="/category/86-print-edition.html" className='view-all-link'>
+        <span className="heading-title">TODAY&apos;S MANGALAM</span>
+        <Link href="/category/18-print-edition.html" className='view-all-link'>
           View All &raquo;
         </Link>
       </div>
@@ -639,6 +642,8 @@ if (template == 'home-4') {
   );
 }
 export default function HomeList({ initialPosts, leadItems }) {
+  //const pathname = usePathname();
+  //const { data: posts, setData: setPosts, page, setPage } = useInfiniteScrollCache(pathname ? pathname + '-left' : 'home-left', initialPosts, 1);
   const [posts, setPosts] = useState(initialPosts);  // Initial posts loaded via SSR
   const [page, setPage] = useState(1);               // Start from page 2
   const [hasMore, setHasMore] = useState(true);      // Determine if there's more data to load
