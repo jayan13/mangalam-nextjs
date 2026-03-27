@@ -1,3 +1,4 @@
+import React, { Suspense } from 'react';
 import { Noto_Sans_Malayalam, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 
@@ -17,7 +18,7 @@ const roboto_condensed = Roboto_Condensed({
 
 import Header from "./components/header";
 import Footer from "./components/footer";
-//import NavigationLoader from "./components/NavigationLoader";
+import NavigationLoader from "./components/NavigationLoader";
 
 import Addheader from "./adds/Addheader";
 import GaddTop from "./adds/GaddTop";
@@ -50,7 +51,9 @@ export default function RootLayout({ children }) {
         )}
       </head>
       <body suppressHydrationWarning>
-
+        <Suspense fallback={null}>
+          <NavigationLoader />
+        </Suspense>
         {process.env.NODE_ENV === 'production' && (
           <>
             <AddDoubleClick divid='DWTag-DFPOld_RS00_Mangalam_Multi_1x1_03082020' slotid='/36888185/DWTag-DFPOld_RS00_Mangalam_Multi_1x1_03082020' w='300' h='250' />
