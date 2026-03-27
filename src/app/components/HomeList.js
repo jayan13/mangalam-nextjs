@@ -1,7 +1,5 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
-import { usePathname } from 'next/navigation';
-import { useInfiniteScrollCache } from '../hooks/useInfiniteScrollCache';
 import Link from 'next/link';
 import Image from "next/image";
 //import Slider from "./Slider";
@@ -641,8 +639,8 @@ if (template == 'home-4') {
   );
 }
 export default function HomeList({ initialPosts, leadItems }) {
-  const pathname = usePathname();
-  const { data: posts, setData: setPosts, page, setPage } = useInfiniteScrollCache(pathname ? pathname + '-left' : 'home-left', initialPosts, 1);
+  const [posts, setPosts] = useState(initialPosts);  // Initial posts loaded via SSR
+  const [page, setPage] = useState(1);               // Start from page 2
   const [hasMore, setHasMore] = useState(true);      // Determine if there's more data to load
   const [isFetching, setIsFetching] = useState(false); // Prevent multiple fetches at once
   const observer = useRef(null);                     // Ref for IntersectionObserver

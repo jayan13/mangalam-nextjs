@@ -18,11 +18,11 @@ const roboto_condensed = Roboto_Condensed({
 
 import Header from "./components/header";
 import Footer from "./components/footer";
-import NavigationLoader from "./components/NavigationLoader";
 
 import Addheader from "./adds/Addheader";
 import GaddTop from "./adds/GaddTop";
 import AddDoubleClick from "./adds/AddDoubleClick";
+import NavigationLoader from "./components/NavigationLoader";
 
 export const metadata = {
   title: "Mangalam-Latest Kerala News",

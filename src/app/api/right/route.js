@@ -6,7 +6,7 @@ const getRightNews = unstable_cache(
     try {
 
       const [ques] = await db.query(
-        'SELECT id FROM node_queue WHERE template IS NOT NULL AND template <> "" AND template  IN ("premium", "pic", "video", "general-right") ORDER BY display_order LIMIT ? OFFSET ?',
+        'SELECT id FROM node_queue WHERE template IS NOT NULL AND template <> "" AND template  IN ("premium", "pic", "video", "general-right") ORDER BY display_order, id LIMIT ? OFFSET ?',
         [limit, offset]
       );
       if (!ques.length) return { posts: [], totalPosts: 0 };

@@ -7,18 +7,20 @@ const getHomeNews = unstable_cache(
   async (limit, offset) => {
     try {
       const [ques] = await db.query(
-        'SELECT id FROM node_queue WHERE template IS NOT NULL AND template <> "" AND template NOT IN ("premium", "pic", "video", "general-right","live-updates") ORDER BY display_order LIMIT ? OFFSET ?',
+        'SELECT id FROM node_queue WHERE template IS NOT NULL AND template <> "" AND template NOT IN ("premium", "pic", "video", "general-right","live-updates") ORDER BY display_order, id LIMIT ? OFFSET ?',
         [limit, offset]
       );
 
       if (!ques.length) return { homenewslist: [], totalPosts: 0 };
 
       const qid = ques[0].id;
+     // console.log('qid:', qid);
 
       const [posts] = await db.query(
         'SELECT news.id, news.title, news.eng_title, news_image.file_name, CONVERT(news.news_details USING utf8) AS news_details, IF(news_image.title, news_image.title, news.title) AS alt, "" AS url, node_queue.template, node_queue.title AS heading, node_queue.id AS nodeqid, news.district_id, news_category.category_id, "" AS links, "" AS link_title FROM news LEFT JOIN news_image ON news_image.news_id = news.id INNER JOIN sub_queue ON sub_queue.news_id = news.id INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id LEFT JOIN news_category ON news_category.news_id = news.id WHERE news.published = 1 AND node_queue.id = ? GROUP BY news.id ORDER BY sub_queue.position',
         [qid]
       );
+      //console.log('posts ids:', posts.map(p => p.id));
 
       const processedPosts = posts.map(post => {
         let url = 'detail/' + post.id + '-news-details.html';
@@ -81,6 +83,7 @@ export async function GET(req) {
 
   try {
     const { homenewslist, totalPosts } = await getHomeNews(limit, offset);
+    //console.log('homenewslist:', JSON.stringify(homenewslist));
     const hasMore = offset + limit < totalPosts;
     return new Response(JSON.stringify({ homenewslist, hasMore }), {
       status: 200,
