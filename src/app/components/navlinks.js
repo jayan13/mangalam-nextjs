@@ -12,7 +12,7 @@ export default function NavLinks() {
       <li><Link href="/category/19-keralam.html" className={`link ${pathname === '/category/19-keralam.html' ? 'active' : ''}`}>Keralam</Link></li>
       <li><Link href="/category/20-india.html" className={`link ${pathname === '/category/20-india.html' ? 'active' : ''}`}>India</Link></li>
       <li><Link href="/category/21-International.html" className={`link ${pathname === '/category/21-International.html' ? 'active' : ''}`}>INTERNATIONAL</Link></li>
-      <li><Link href="/category/2462-entertainment.html" className={`link ${pathname === '/category/2462-entertainment.html' ? 'active' : ''}`}>ENTERTAINMENT</Link></li>
+      <li><Link href="/category/15-entertainment.html" className={`link ${pathname === '/category/2462-entertainment.html' ? 'active' : ''}`}>ENTERTAINMENT</Link></li>
       <li><Link href="/category/23-sports.html" className={`link ${pathname === '/category/23-sports.html' ? 'active' : ''}`}>SPORTS</Link></li>
       <li><Link href="/category/201-life-style.html" className={`link ${pathname === '/category/201-life-style.html' ? 'active' : ''}`}>LIFE</Link></li>
       <li><Link href="/category/186-health.html" className={`link ${pathname === '/category/186-health.html' ? 'active' : ''}`}>HEALTH</Link></li>

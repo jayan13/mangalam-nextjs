@@ -1,10 +1,12 @@
 // components/InfiniteScroll.js
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
+import { useInfiniteScrollCache } from '../hooks/useInfiniteScrollCache';
 import Link from 'next/link';
 import Image from "next/image";
 import GoogleAdPcItem from "../adds/Addsright";
-//import RightTop from "../adds/RightTop";
+import RightTop from "../adds/RightTop";
 
 function NewsImage({ news, width, height, className = '' }) {
   const src = `${process.env.NEXT_PUBLIC_IMAGE_URL}/${news.file_name}`;
@@ -125,8 +127,8 @@ function NewsSection({ posts }) {
 }
 
 export default function InfiniteScroll() {
-  const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(1);
+  const pathname = usePathname();
+  const { data: posts, setData: setPosts, page, setPage } = useInfiniteScrollCache(pathname ? pathname + '-right' : 'right', [], 1);
   const [hasMore, setHasMore] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   const observer = useRef();

@@ -79,7 +79,7 @@ function Newd(props) {
 
   if (newsdetails.url) {
     return (<article key={'imgc' + newsdetails.id}>
-      <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/' + newsdetails.url} key={'img' + newsdetails.id} alt={newsdetails.title} width={924} height={555} unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')} />
+      <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/' + newsdetails.url} key={'img' + newsdetails.id} alt={newsdetails.title} width={924} height={555} unoptimized={true} />
       {text}
     </article>);
   } else {
@@ -168,13 +168,19 @@ export async function generateMetadata({ params }) {
   const urlid = slug[0];
   const news_id = urlid.split('-')[0];
   const rows = await getCachedNewsDet(news_id);
+  const images = await getCachedImages(news_id);
+  let imageurl='';
+  if(images.length)
+  {
+    imageurl=process.env.NEXT_PUBLIC_IMAGE_URL + '/'+images[0].file_name;
+  }
   if (!rows || !rows.length) {
     return {
       title: 'Mangalam-Latest Kerala News',
       description: 'Mangalam-Latest Kerala News, Malayalam News, Politics, Malayalam Cinema, Sports'
     }
   }
-  const tit = (rows[0]['eng_title'] != '') ? rows[0]['eng_title'] : 'Mangalam-Latest Kerala News';
+  const tit = (rows[0]['title'] != '') ? rows[0]['title'] : 'Mangalam-Latest Kerala News';
   const des = (rows[0]['meta_description'] != '') ? rows[0].meta_description : 'Mangalam-Latest Kerala News in malayalam';
   const keyword = (rows[0]['meta_keywords'] != '') ? rows[0].meta_keywords : 'Mangalam-Latest Kerala News, Malayalam News,  Politics, Malayalam Cinema, Sports';
 
@@ -183,6 +189,27 @@ export async function generateMetadata({ params }) {
     title: tit,
     description: des,
     keywords: keyword,
+    openGraph: {
+    title: tit,
+    description: des,
+    url: 'https://www.mangalam.com/',
+    siteName: 'Mangalam',
+    images: [
+      {
+        url: imageurl, // Must be an absolute URL
+        width: 924,
+        height: 555,
+        alt: 'tit', // Alt text for accessibility
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image', // Use "summary_large_image" for an image
+    title: tit,
+    description: des,
+    images: [imageurl],
+  },
   }
 }
 

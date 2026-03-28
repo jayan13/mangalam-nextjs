@@ -1,5 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
+import { useInfiniteScrollCache } from '../hooks/useInfiniteScrollCache';
 import Link from 'next/link';
 import Image from "next/image";
 import AdSenseAdc from "../adds/AddsCenter"
@@ -126,8 +128,8 @@ function Homenew(props) {
 
 }
 export default function Distnews({ initialPosts, district_id }) {
-  const [posts, setPosts] = useState(initialPosts);  // Initial posts loaded via SSR
-  const [page, setPage] = useState(2);               // Start from page 2
+  const pathname = usePathname();
+  const { data: posts, setData: setPosts, page, setPage } = useInfiniteScrollCache(pathname, initialPosts, 2);
   const [hasMore, setHasMore] = useState(true);      // Determine if there's more data to load
   const [isFetching, setIsFetching] = useState(false); // Prevent multiple fetches at once
   const observer = useRef(null); // Ref for IntersectionObserver
