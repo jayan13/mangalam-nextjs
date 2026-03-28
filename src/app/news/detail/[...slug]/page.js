@@ -190,17 +190,17 @@ export async function generateMetadata({ params }) {
     description: des,
     keywords: keyword,
     openGraph: {
-    title: tit,
-    description: des,
-    url: 'https://www.mangalam.com/',
-    siteName: 'Mangalam',
-    images: [
-      {
-        url: imageurl, // Must be an absolute URL
-        width: 924,
-        height: 555,
-        alt: 'tit', // Alt text for accessibility
-      },
+      title: 'Mangalam-Latest Kerala News',
+      description: des,
+      url: 'https://www.mangalam.com/',
+      siteName: 'Mangalam',
+      images: [
+        {
+          url: imageurl, // Must be an absolute URL
+          width: 924,
+          height: 555,
+          alt: tit, // Alt text for accessibility
+        },
     ],
     type: 'website',
   },
