@@ -192,7 +192,7 @@ export async function generateMetadata({ params }) {
     description: des,
     keywords: keyword,
     openGraph: {
-      title: 'Mangalam-Latest Kerala News',
+      title: tit,
       description: des,
       url:purl,
       siteName: 'Mangalam',
