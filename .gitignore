@@ -9,7 +9,7 @@
 # local data maps
 /src/data/categories-map.json
 /src/data/categories.json
-
+/scripts/sync-categories.js
 # testing
 /coverage
 
@@ -24,7 +24,7 @@
 .DS_Store
 *.pem
 /public/robots.txt
-
+/public/ads.txt
 # debug
 npm-debug.log*
 yarn-debug.log*
