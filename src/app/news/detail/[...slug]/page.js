@@ -13,7 +13,7 @@ import UnibotsAd from "../../../adds/UnibotPlay";
 
 export const revalidate = 3600;
 
-const pageUrl = process.env.BASEURL + '/';
+const pageUrl = process.env.BASEURL;
 
 export async function getDetails(news_id) {
   try {
@@ -170,6 +170,7 @@ export async function generateMetadata({ params }) {
   const rows = await getCachedNewsDet(news_id);
   const images = await getCachedImages(news_id);
   let imageurl='';
+  let purl = '';
   if(images.length)
   {
     imageurl=process.env.NEXT_PUBLIC_IMAGE_URL + '/'+images[0].file_name;
@@ -180,6 +181,7 @@ export async function generateMetadata({ params }) {
       description: 'Mangalam-Latest Kerala News, Malayalam News, Politics, Malayalam Cinema, Sports'
     }
   }
+  purl = pageUrl + rows[0].url;
   const tit = (rows[0]['title'] != '') ? rows[0]['title'] : 'Mangalam-Latest Kerala News';
   const des = (rows[0]['meta_description'] != '') ? rows[0].meta_description : 'Mangalam-Latest Kerala News in malayalam';
   const keyword = (rows[0]['meta_keywords'] != '') ? rows[0].meta_keywords : 'Mangalam-Latest Kerala News, Malayalam News,  Politics, Malayalam Cinema, Sports';
@@ -192,7 +194,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: 'Mangalam-Latest Kerala News',
       description: des,
-      url: 'https://www.mangalam.com/',
+      url:purl,
       siteName: 'Mangalam',
       images: [
         {
