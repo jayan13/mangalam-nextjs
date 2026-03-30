@@ -32,8 +32,8 @@ function Footer() {
         <div className="footer-link-list-frame">
           <ul>
             <li><a className="fhead-link" href="/category/16-latest-news.html">LATEST NEWS</a></li>
-            <li><a className="fhead-link" href="/category/62-india.html">INDIA</a></li>
-            <li><a className="fhead-link" href="/category/63-international.html">INTERNATIONAL</a></li>
+            <li><a className="fhead-link" href="/category/20-india.html">INDIA</a></li>
+            <li><a className="fhead-link" href="/category/21-international.html">INTERNATIONAL</a></li>
             <li><a className="fhead-link" href="/district">LOCAL NEWS</a></li>
             <li><a href="/district/12-Thiruvananthapuram-India.html">Thiruvananthapuram</a></li>
 
@@ -55,143 +55,143 @@ function Footer() {
 
         <div className="footer-link-list-frame">
           <ul>
-            <li><a className="fhead-link" href="/category/2462-ENTERTINMENT.html">ENTERTINMENT</a></li>
-            <li><a href="/category/15-Movie-news.html">Movie news</a></li>
-            <li><a href="/category/45-Chit-Chat.html">Chit Chat</a></li>
-            <li><a href="/category/229-Reviews.html">Reviews</a></li>
-            <li><a href="/category/47-Interview.html">Interview</a></li>
-            <li><a href="/category/1336-Celebrity.html">Celebrity</a></li>
-            <li><a href="/category/8123-Music.html">Music</a></li>
-            <li><a href="/category/48-Miniscreen.html">Miniscreen</a></li>
-            <li><a href="/category/1-ott.html">OTT</a></li>
-            <li><a href="/category/264-Features.html">Features</a></li>
+            <li><a className="fhead-link" href="/category/15-cinema.html">ENTERTINMENT</a></li>
+            <li><a href="/category/39-latest-news.html">Movie news</a></li>
+            <li><a href="/category/45-chit-chat.html">Chit Chat</a></li>
+            <li><a href="/category/40-movie-reviews.html">Reviews</a></li>
+            <li><a href="/category/47-interviews.html">Interview</a></li>
+            <li><a href="/category/1336-celebrity.html">Celebrity</a></li>
+            <li><a href="/category/8123-music.html">Music</a></li>
+            <li><a href="/category/48-mini-screen.html">Miniscreen</a></li>
+            <li><a href="/category/8167-ott.html">OTT</a></li>
+            <li><a href="/category/264-local-features.html">Features</a></li>
           </ul>
 
           <ul>
-            <li><a className="fhead-link" href="/category/2463-SPORTS.html">SPORTS</a></li>
-            <li><a href="/category/2463-Sports-News.html">Sports News</a></li>
-            <li><a href="/category/69-Sports-Specials.html">Sports Specials</a></li>
+            <li><a className="fhead-link" href="/category/23-sports.html">SPORTS</a></li>
+            <li><a href="/category/67-sports-news.html">Sports News</a></li>
+            <li><a href="/category/69-specials.html">Sports Specials</a></li>
           </ul>
 
           <ul>
-            <li><a className="fhead-link" href="/category/337-life.html">LIFE</a></li>
-            <li><a href="/category/1326-Life-Style.html">Life Style</a></li>
-            <li><a href="/category/108-Women.html">Women</a></li>
-            <li><a href="/category/338-Fashion.html">Fashion</a></li>
-            <li><a href="/category/113-Parenting.html">Parenting</a></li>
-            <li><a href="/category/111-Beauty.html">Beauty</a></li>
-            <li><a href="/category/1-Spirituality.html">Spirituality</a></li>
-            <li><a href="/category/1-Home-style.html">Home style</a></li>
-            <li><a href="/category/340-Travel.html">Travel</a></li>
-            <li><a href="/category/8066-Environment.html">Environment</a></li>
+            <li><a className="fhead-link" href="/category/201-life-style.html">LIFE</a></li>
+            <li><a href="/category/337-life-style.html">Life Style</a></li>
+            <li><a href="/category/108-women.html">Women</a></li>
+            <li><a href="/category/338-fashion.html">Fashion</a></li>
+            <li><a href="/category/113-parenting.html">Parenting</a></li>
+            <li><a href="/category/111-beauty.html">Beauty</a></li>
+            <li><a href="/category/8168-spirituality.html">Spirituality</a></li>
+            <li><a href="/category/8169-home-style.html">Home style</a></li>
+            <li><a href="/category/340-travel.html">Travel</a></li>
+            <li><a href="/category/8066-environment.html">Environment</a></li>
             <li><a href="/category/1338-Relations.html">Relations</a></li>
           </ul>
         </div>
 
         <div className="footer-link-list-frame">
           <ul>
-            <li><a className="fhead-link" href="/category/186-HEALTH.html"> HEALTH</a></li>
-            <li><a href="/category/187-Health-News.html">Health News</a></li>
-            <li><a href="/category/188-Fitness-Yoga.html">Fitness/ Yoga</a></li>
-            <li><a href="/category/191-Ayurveda.html">Ayurveda</a></li>
-            <li><a href="/category/193-Healthy-food-and-Nutrition.html">
+            <li><a className="fhead-link" href="/category/186-health.html"> HEALTH</a></li>
+            <li><a href="/category/187-health-news.html">Health News</a></li>
+            <li><a href="/category/188-fitness-yoga.html">Fitness/ Yoga</a></li>
+            <li><a href="/category/191-ayurveda.html">Ayurveda</a></li>
+            <li><a href="/category/193-food-habits.html">
               Healthy food and Nutrition</a></li>
-            <li><a href="/category/443-Ask-Doctor.html">Ask Doctor</a></li>
-            <li><a href="/category/190-Intimacy.html">Intimacy</a></li>
+            <li><a href="/category/443-ask-doctor.html">Ask Doctor</a></li>
+            <li><a href="/category/190-intimacy.html">Intimacy</a></li>
           </ul>
           <ul>
-            <li><a className="fhead-link" href="/category/17-PRAVASI.html">PRAVASI</a></li>
-            <li><a href="/category/101-Gulf.html">Gulf</a></li>
-            <li><a href="/category/102-Europe.html">Europe</a></li>
-            <li><a href="/category/103-America.html">America</a></li>
-            <li><a href="/category/104-Australia.html">Australia</a></li>
-            <li><a href="/category/105-Others.html">Others</a></li>
-            <li><a href="/category/106-Pravasi-Special.html">Pravasi Special</a></li>
-            <li><a href="/category/411-Pravasi-Rachana.html">Pravasi Rachana</a></li>
+            <li><a className="fhead-link" href="/category/17-pravasi.html">PRAVASI</a></li>
+            <li><a href="/category/101-gulf.html">Gulf</a></li>
+            <li><a href="/category/102-europe.html">Europe</a></li>
+            <li><a href="/category/103-america.html">America</a></li>
+            <li><a href="/category/104-australia.html">Australia</a></li>
+            <li><a href="/category/105-others.html">Others</a></li>
+            <li><a href="/category/106-pravasi-special.html">Pravasi Special</a></li>
+            <li><a href="/category/411-pravasi-rachana.html">Pravasi Rachana</a></li>
           </ul>
           <ul>
-            <li><a className="fhead-link" href="/category/163-ASTROLOGY.html">ASTROLOGY</a></li>
-            <li><a href="/category/164-Astrology-News.html">Astrology News</a></li>
-            <li><a href="/category/166-Predictions.html">Predictions</a></li>
-            <li><a href="/category/552-Daily-Predictions.html">
+            <li><a className="fhead-link" href="/category/163-astrology.html">ASTROLOGY</a></li>
+            <li><a href="/category/164-news.html">Astrology News</a></li>
+            <li><a href="/category/165-predictions.html">Predictions</a></li>
+            <li><a href="/category/552-daily-prediction.html">
               Daily Predictions</a></li>
-            <li><a href="/category/167-Vasthu.html">Vasthu</a></li>
-            <li><a href="/category/169-Prayers.html">Prayers</a></li>
-            <li><a href="/category/166-Ask-Astrologer.html">Ask Astrologer</a></li>
-            <li><a href="/category/168-Gemology.html">Gemology</a></li>
+            <li><a href="/category/167-vasthu.html">Vasthu</a></li>
+            <li><a href="/category/169-prayers.html">Prayers</a></li>
+            <li><a href="/category/166-ask-astrologer.html">Ask Astrologer</a></li>
+            <li><a href="/category/168-gemology.html">Gemology</a></li>
             <li><a href="/category/170-others.html">others</a></li>
           </ul>
         </div>
         <div className="footer-link-list-frame">
           <ul>
-            <li> <a className="fhead-link" href="/category/8061-SPECIAL-COVERAGE.html"> SPECIAL COVERAGE</a></li>
-            <li> <a href="/category/8062-Investigation.html">Investigation</a></li>
-            <li> <a href="/category/8063-Experience.html">Experience</a></li>
-            <li> <a href="/category/8064-Voice.html">Voice</a></li>
-            <li> <a href="/category/8065-Surprise.html">Surprise</a></li>
-            <li> <a href="/category/8061-Memoir.html">Memoir</a></li>
-            <li> <a href="/category/8071-Rosy-news.html">Rosy news</a></li>
-            <li> <a href="/category/8127-Art-and-Culture.html">Art and Culture</a></li>
-            <li> <a href="/category/8158-Social-Media.html">Social Media</a></li>
-            <li> <a href="/category/339-Success.html">Success</a></li>
-            <li> <a href="/category/1-Off-Beat.html">Off Beat</a></li>
+            <li> <a className="fhead-link" href="/category/8061-special-coverage.html"> SPECIAL COVERAGE</a></li>
+            <li> <a href="/category/8062-investigation.html">Investigation</a></li>
+            <li> <a href="/category/8063-experience.html">Experience</a></li>
+            <li> <a href="/category/8064-voices.html">Voice</a></li>
+            <li> <a href="/category/8065-surprise.html">Surprise</a></li>
+            <li> <a href="/category/8069-memoir.html">Memoir</a></li>
+            <li> <a href="/category/8071-rosy-news.html">Rosy news</a></li>
+            <li> <a href="/category/8127-art--culture.html">Art and Culture</a></li>
+            <li> <a href="/category/8158-social-media.html">Social Media</a></li>
+            <li> <a href="/category/339-success.html">Success</a></li>
+            <li> <a href="/category/8171-off-beat.html">Off Beat</a></li>
           </ul>
 
 
           <ul>
             <li> <a className="fhead-link" href="/category/200-tech.html">TECH</a></li>
-            <li> <a href="/category/226-Gadgets.html">Gadgets</a></li>
-            <li> <a href="/category/227-Mobile.html">Mobile</a></li>
-            <li> <a href="/category/228-Tech-News.html">Tech News</a></li>
-            <li> <a href="/category/229-Review.html">Review</a></li>
-            <li> <a href="/category/1-Science.html">Science</a></li>
+            <li> <a href="/category/226-gadgets.html">Gadgets</a></li>
+            <li> <a href="/category/227-mobile.html">Mobile</a></li>
+            <li> <a href="/category/228-tech-news.html">Tech News</a></li>
+            <li> <a href="/category/229-review.html">Review</a></li>
+            <li> <a href="/category/8170-science.html">Science</a></li>
           </ul>
 
 
           <ul>
-            <li> <a className="fhead-link" href="/category/199-EDUCATION.html">EDUCATION</a></li>
-            <li> <a href="/category/494-Educational-News.html"> Educational News</a></li>
-            <li> <a href="/category/495-Career.html">Career</a></li>
-            <li> <a href="/category/497-Jobs.html">Jobs</a></li>
-            <li> <a href="/category/496-Announcements.html">Announcements</a></li>
-            <li> <a href="/category/498-Campus-News.html">Campus News</a></li>
+            <li> <a className="fhead-link" href="/category/199-education.html">EDUCATION</a></li>
+            <li> <a href="/category/494-educational-news.html"> Educational News</a></li>
+            <li> <a href="/category/495-career-planner.html">Career</a></li>
+            <li> <a href="/category/497-jobs-and-career.html">Jobs</a></li>
+            <li> <a href="/category/496-announcements.html">Announcements</a></li>
+            <li> <a href="/category/498-campus-news.html">Campus News</a></li>
           </ul>
         </div>
 
         <div className="footer-link-list-frame">
           <ul>
-            <li> <a className="fhead-link" href="/category/193-food.html">FOOD</a></li>
-            <li> <a href="/category/1-Food-news.html">Food news</a></li>
-            <li> <a href="/category/8030-Special-recipe.html">Special recipe</a></li>
+            <li> <a className="fhead-link" href="/category/193-food-habits.html">FOOD</a></li>
+            <li> <a href="/category/193-food-habits.html">Food news</a></li>
+            <li> <a href="/category/8030-special-recipes.html">Special recipe</a></li>
           </ul>
           <ul>
-            <li> <a className="fhead-link" href="/category/89-BUSINESS.html">BUSINESS</a></li>
-            <li> <a href="/category/2466-Business-New.html">Business New</a></li>
-            <li> <a href="/category/90-Stock.html">Stock</a></li>
-            <li> <a href="/category/94-Banking.html">Banking</a></li>
-            <li> <a href="/category/8076-Focus.html">Focus</a></li>
-            <li> <a href="/category/1-Money.html">Money</a></li>
+            <li> <a className="fhead-link" href="/category/89-business.html">BUSINESS</a></li>
+            <li> <a href="/category/91-business-news.html">Business New</a></li>
+            <li> <a href="/category/90-stock.html">Stock</a></li>
+            <li> <a href="/category/94-banking.html">Banking</a></li>
+            <li> <a href="/category/8076-focus.html">Focus</a></li>
+            <li> <a href="/category/8172-money.html">Money</a></li>
           </ul>
           <ul>
             <li> <a className="fhead-link" href="/category/93-auto.html">AUTO</a></li>
-            <li> <a className="fhead-link" href="/category/202-AGRICULTURE.html">AGRICULTURE</a></li>
-            <li> <a className="fhead-link" href="/category/695-ODD-NEWS.html">ODD NEWS</a></li>
-            <li> <a className="fhead-link" href="/category/5503-LITERATURE.html">LITERATURE</a></li>
-            <li> <a className="fhead-link" href="/category/198-RELIGION.html">RELIGION</a></li>
-            <li> <a className="fhead-link" href="/category/1-MANGALAM-EXPLAINER.html">  MANGALAM EXPLAINER</a></li>
-            <li> <a className="fhead-link" href="/category/99-CHARITY.html">CHARITY</a></li>
-            <li> <a className="fhead-link" href="/category/627-CLASSIFIEDS.html">CLASSIFIEDS</a></li>
+            <li> <a className="fhead-link" href="/category/202-agriculture.html">AGRICULTURE</a></li>
+            <li> <a className="fhead-link" href="/category/695-odd-news.html">ODD NEWS</a></li>
+            <li> <a className="fhead-link" href="/category/8078-literature.html">LITERATURE</a></li>
+            <li> <a className="fhead-link" href="/category/198-religion.html">RELIGION</a></li>
+            <li> <a className="fhead-link" href="/category/8166-explainer.html">  MANGALAM EXPLAINER</a></li>
+            <li> <a className="fhead-link" href="/category/99-charity.html">CHARITY</a></li>
+            <li> <a className="fhead-link" href="/category/627-classifieds.html">CLASSIFIEDS</a></li>
           </ul>
         </div>
 
         <div className="footer-link-list-frame">
           <ul>
-            <li> <a className="fhead-link" href="/category/100-CRIME.html">CRIME</a></li>
-            <li> <a className="fhead-link" href="/category/583-OPINION.html">OPINION</a></li>
-            <li> <a className="fhead-link" href="/category/1-OBITUARIES.html">OBITUARIES</a></li>
-            <li> <a className="fhead-link" href="/category/8145-FACT-CHECK.html">FACT CHECK</a></li>
-            <li> <a className="fhead-link" href="/category/98-SUNDAY-MANGALAM.html">SUNDAY MANGALAM</a></li>
-            <li> <a className="fhead-link" href="/category/365-MANGALAM-ORIGNALS.html"> MANGALAM ORIGNALS</a></li>
+            <li> <a className="fhead-link" href="/category/100-crime.html">CRIME</a></li>
+            <li> <a className="fhead-link" href="/category/583-opinion.html">OPINION</a></li>
+            <li> <a className="fhead-link" href="/category/8165-obituaries.html">OBITUARIES</a></li>
+            <li> <a className="fhead-link" href="/category/8145-fact-check.html">FACT CHECK</a></li>
+            <li> <a className="fhead-link" href="/category/98-sunday-mangalam.html">SUNDAY MANGALAM</a></li>
+            <li> <a className="fhead-link" href="/category/365-mangalam-varika.html"> MANGALAM ORIGNALS</a></li>
           </ul>
         </div>
 
