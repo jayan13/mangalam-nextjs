@@ -39,11 +39,23 @@ export default async function sitemap() {
     }
 
     // Dynamic Content: Categories
+    const categoryLinkOverrides = {
+        2457: '/en-news',
+        2458: '/en-news/category/2458-kerala.html',
+        2460: '/en-news/category/2460-india.html',
+        2461: '/en-news/category/2461-world.html',
+        2462: '/en-news/category/2462-entertainment.html',
+        2463: '/en-news/category/2463-sports.html',
+        2466: '/en-news/category/2466-business.html',
+        7697: '/en-news/category/7697-life-style.html',
+    };
+
     const flattenCategories = (cats) => {
         let links = [];
         cats.forEach((cat) => {
+            const resolvedLink = categoryLinkOverrides[cat.id] || cat.link;
             links.push({
-                url: `${baseUrl}${cat.link}`,
+                url: `${baseUrl}${resolvedLink}`,
                 lastModified: new Date(),
                 changeFrequency: 'weekly',
                 priority: 0.5,
