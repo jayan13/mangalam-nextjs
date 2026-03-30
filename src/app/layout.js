@@ -18,11 +18,12 @@ const roboto_condensed = Roboto_Condensed({
 
 import Header from "./components/header";
 import Footer from "./components/footer";
-import NavigationLoader from "./components/NavigationLoader";
 
 import Addheader from "./adds/Addheader";
 import GaddTop from "./adds/GaddTop";
 import AddDoubleClick from "./adds/AddDoubleClick";
+import NavigationLoader from "./components/NavigationLoader";
+//import ScrollRestoration from "./components/ScrollRestoration";
 
 export const metadata = {
   title: "Mangalam-Latest Kerala News",
@@ -37,6 +38,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${noto_sans_malayalam.variable} ${roboto_condensed.variable}`}>
       <head>
         <meta name="facebook-domain-verification" content="s1hoxh2eofwg6u6fy1z4k2evg27028" />
+		<meta name="google-site-verification" content="t5cpffeXvOBTtmkEpIOoVTczjK9bP3kLOIqwslsGUBI" />
         {process.env.NODE_ENV === 'production' && (
           <>
             <Addheader />
@@ -54,7 +56,7 @@ export default function RootLayout({ children }) {
         <Suspense fallback={null}>
           <NavigationLoader />
         </Suspense>
-
+        
         {process.env.NODE_ENV === 'production' && (
           <>
             <AddDoubleClick divid='DWTag-DFPOld_RS00_Mangalam_Multi_1x1_03082020' slotid='/36888185/DWTag-DFPOld_RS00_Mangalam_Multi_1x1_03082020' w='300' h='250' />
