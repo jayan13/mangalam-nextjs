@@ -156,6 +156,9 @@ function TodayMangalamHead() {
 
 function Homenew(props) {
   const post = props.newslist;
+  if (!post[0] || post[0].length === 0) {
+    return ''; // or a placeholder
+  }
   const leadItems = props.leadItems;
   const template = post[0].template;
 
