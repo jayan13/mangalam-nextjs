@@ -109,16 +109,37 @@ function Summary(props) {
 
 function Author(props) {
     const nws = props.nws;
-    let author = nws.columnist || nws.author;
-    let author_photo = nws.columnist_photo || nws.author_photo;
-    let author_profile = nws.columnist_profile || nws.author_profile;
+     let author = '';
+  let author_photo = '';
+  let author_profile = '';
+  if (nws.columnist) {
+    author = nws.columnist;
+    if(nws.columnist_photo){
+        author_photo = process.env.NEXT_PUBLIC_IMAGE_URL + '/' + nws.columnist_photo ;
+    }
+    
+    author_profile = nws.columnist_profile;
+
+  } else {
+
+    author = nws.author || 'Web Desk';
+    if(nws.author_photo){
+        author_photo = process.env.NEXT_PUBLIC_IMAGE_URL + '/' + nws.author_photo ;
+    }else{
+        author_photo = '/img/web-desk.jpg';
+    }    
+    author_profile = nws.author_profile;
+
+  }
 
     if (author) {
         return (
             <div className="about-author no-printme">
                 <h3>About Author:</h3>
                 <div className="author-profile">
-                    <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/' + author_photo} width={80} height={80} alt="Author photo" unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL?.includes('mangalam.cms')} />
+                    {author_photo && (
+                        <Image src={author_photo} width={80} height={80} alt="Author photo" unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL?.includes('mangalam.cms')} />
+                    )}
                     <div className="author-details">
                         <h4>{author}</h4>
                         <p>{author_profile}</p>
@@ -169,7 +190,7 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
             <h1>{newses[0].title}</h1>
             <div className="news-single-meta">
                 <div className="single-meta">
-                    <p className="news-meta">Authored by <Link href="#" title="author">{(newses[0].author) ? newses[0].author : newses[0].columnist} </Link>| Last updated: {newses[0].posting_date} | {rdtime} min read</p>
+                    <p className="news-meta">Authored by <Link href="#" title="author">{(newses[0].columnist) ? newses[0].columnist : (newses[0].author || 'Web Desk')} </Link>| Last updated: {newses[0].posting_date} | {rdtime} min read</p>
                 </div>
                 <div className="printshare no-printme">
                     <Printpage />

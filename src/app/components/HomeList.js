@@ -103,9 +103,7 @@ function LocalNewsHead() {
   return (
     <div className='local-news-section'>
       <div className="section-heading">
-        <span className="heading-title">Local News</span>
-
-        <Link href="/district" className="view-all-link">View All »</Link>
+        <span className="heading-title">Local News</span>        
       </div>
       <div className="category-scroll-container">
         <button className="scroll-arrow scroll-left" onClick={scrollLeft} aria-label="Scroll left">

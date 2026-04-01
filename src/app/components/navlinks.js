@@ -8,6 +8,28 @@ export default function NavLinks() {
   return (
     <div className="blue-menu">
     <ul>
+      <li>
+        <Link
+          href="/"
+          className={`link ${pathname === '/' ? 'active' : ''}`}
+          aria-label="Home"
+          title="Home"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 10.5L12 3L21 10.5V21H14V14H10V21H3V10.5Z"
+              fill="#FFFFFF"
+            />
+          </svg>
+        </Link>
+      </li>
       <li><Link href="/category/16-latest-news.html" className={`link ${pathname === '/category/16-latest-news.html' ? 'active' : ''}`}>Latest News</Link></li>
       <li><Link href="/category/19-keralam.html" className={`link ${pathname === '/category/19-keralam.html' ? 'active' : ''}`}>Keralam</Link></li>
       <li><Link href="/category/20-india.html" className={`link ${pathname === '/category/20-india.html' ? 'active' : ''}`}>India</Link></li>

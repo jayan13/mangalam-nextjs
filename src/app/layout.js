@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import Script from 'next/script';
 import { Noto_Sans_Malayalam, Roboto_Condensed } from "next/font/google";
 import "./globals.css";
 
@@ -53,6 +54,9 @@ export default function RootLayout({ children }) {
         )}
       </head>
       <body suppressHydrationWarning>
+        <Script id="disable-context-menu" strategy="afterInteractive">
+          {`document.addEventListener('contextmenu', (e) => e.preventDefault());`}
+        </Script>
         <Suspense fallback={null}>
           <NavigationLoader />
         </Suspense>
