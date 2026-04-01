@@ -18,7 +18,7 @@ const getCategoryNews = unstable_cache(
         INNER JOIN news ON news.id = news_category.news_id 
         LEFT JOIN news_image ON news_image.news_id = news.id 
         WHERE news.published = 1 
-          AND NOW() BETWEEN news.effective_date AND news.expiry_date 
+          AND NOW() > news.effective_date 
           AND news_category.category_id IN (?) 
         GROUP BY news.id 
         ORDER BY news.effective_date DESC 
@@ -44,7 +44,7 @@ const getCategoryNews = unstable_cache(
         FROM news_category 
         INNER JOIN news ON news.id = news_category.news_id 
         WHERE news.published = 1 
-          AND NOW() BETWEEN news.effective_date AND news.expiry_date 
+          AND NOW() > news.effective_date 
           AND news_category.category_id IN (?) `;
 
       const [countResult] = await db.query(countQuery, [category]);

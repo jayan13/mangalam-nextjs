@@ -86,7 +86,7 @@ export default async function Home({ params }) {
 async function getInitialPosts(district_id) {
   try {
     let distnewslist = [];
-    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,news.district_id FROM news left join news_image on news_image.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date and news.district_id=?  group by news.id order by news.effective_date DESC limit 0,8', [district_id]);
+    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,news.district_id FROM news left join news_image on news_image.news_id=news.id where news.published=1 and NOW() > news.effective_date  and news.district_id=?  group by news.id order by news.effective_date DESC limit 0,8', [district_id]);
 
     if (data.length) {
       for (let nws in Object.keys(data)) {

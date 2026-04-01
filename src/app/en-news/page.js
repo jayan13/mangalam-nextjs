@@ -23,7 +23,7 @@ async function getCategoryNews(category_id) {
             LEFT JOIN news_image ON news_image.news_id = news.id 
             LEFT JOIN category ON category.id = news_category.category_id
             WHERE news.published = 1 
-            AND NOW() BETWEEN news.effective_date AND news.expiry_date 
+            AND NOW() > news.effective_date 
             AND news_category.category_id = ? 
             GROUP BY news.id 
             ORDER BY news.effective_date DESC 

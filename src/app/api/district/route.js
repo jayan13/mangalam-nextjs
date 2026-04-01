@@ -19,7 +19,7 @@ const getDistrictNews = unstable_cache(
         LEFT JOIN news_image ON news_image.news_id = news.id 
         LEFT JOIN district ON district.id = news.district_id
         WHERE news.published = 1 
-          AND NOW() BETWEEN news.effective_date AND news.expiry_date 
+          AND NOW() > news.effective_date 
           AND ((? = 0 AND news.district_id != 0 AND news.district_id IS NOT NULL) OR (? != 0 AND news.district_id = ?)) 
         GROUP BY news.id 
         ORDER BY news.effective_date DESC 
@@ -52,7 +52,7 @@ const getDistrictNews = unstable_cache(
         SELECT COUNT(*) as total 
         FROM news 
         WHERE news.published = 1 
-          AND NOW() BETWEEN news.effective_date AND news.expiry_date 
+          AND NOW() > news.effective_date  
           AND ((? = 0 AND district_id != 0 AND district_id IS NOT NULL) OR (? != 0 AND district_id = ?))`;
 
       const [countResult] = await db.query(countQuery, [district, district, district]);
