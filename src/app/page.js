@@ -2,7 +2,7 @@ import db from '../lib/db';
 import HomeList from './components/HomeList';
 import InfiniteScroll from './components/InfiniteScroll';
 import { unstable_cache } from "next/cache";
-
+import { getCategoryById } from '../lib/categories';
 export const revalidate = 360;
 
 const getCachedInitialPosts = unstable_cache(async () => getInitialPosts(), ['my-app-home-posts'], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') });
@@ -42,13 +42,15 @@ async function getInitialPosts() {
 
     if (data.length) {
       for (let nws in Object.keys(data)) {
+        let category = (data[nws]['category_id']) ? getCategoryById(data[nws]['category_id']).name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
+
         if (data[nws]['eng_title']) {
-          let newstit = JSON.stringify(data[nws]['eng_title']);
+          let newstit = JSON.stringify(data[nws]['eng_title']).trim();
           let slug = newstit.toString().replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-');
-          data[nws]['url'] = 'detail/' + data[nws]['id'] + '-' + slug + '.html';
+          data[nws]['url'] = 'detail/' + data[nws]['id'] + '-' + category + slug + '.html';
 
         } else {
-          data[nws]['url'] = 'detail/' + data[nws]['id'] + '-news-details' + '.html';
+          data[nws]['url'] = 'detail/' + data[nws]['id'] + '-' + category + 'news-details' + '.html';
         }
         data[nws]['template'] = 'top';
 
@@ -77,7 +79,7 @@ async function getLeadFromNodeQueue() {
     if (!queues.length) return [];
 
     const qid = queues[0].id;
-    const display_from= queues[0].display_order || 0;
+    const display_from = queues[0].display_order || 0;
     const [posts] = await db.query(
       `SELECT 
         news.id, 
@@ -86,11 +88,13 @@ async function getLeadFromNodeQueue() {
         news_image.file_name, 
         CONVERT(news.news_details USING utf8) AS news_details, 
         IF(news_image.title, news_image.title, news.title) AS alt,
-        node_queue.title as heading
+        node_queue.title as heading,
+        news_category.category_id
       FROM news 
       LEFT JOIN news_image ON news_image.news_id = news.id 
       INNER JOIN sub_queue ON sub_queue.news_id = news.id 
-      INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id 
+      INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id
+      LEFT JOIN news_category ON news_category.news_id = news.id 
       WHERE news.published = 1 and NOW() between news.effective_date and news.expiry_date
         AND node_queue.id = ? 
       GROUP BY news.id 
@@ -100,7 +104,7 @@ async function getLeadFromNodeQueue() {
 
     return posts.map(post => ({
       ...post,
-      url: buildUrl(post.id, post.eng_title),
+      url: buildUrl(post.id, post.eng_title, post.category_id),
       display_from: display_from,
       news_details: SubstringWithoutBreakingWords(post.news_details || '', 240),
     }));
@@ -130,14 +134,17 @@ function SubstringWithoutBreakingWords(str, limit) {
   return substring;
 }
 
-function buildUrl(id, engTitle) {
-  if (!engTitle) return `detail/${id}-news-details.html`;
-  const slug = engTitle
+function buildUrl(id, engTitle, category_id) {
+  let category = (category_id) ? getCategoryById(category_id).name.toString().toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
+  if (!engTitle) return `detail/${id}-${category}news-details.html`;
+
+  const slug = engTitle.trim()
     .toString()
     .toLowerCase()
     .replace(/[^\w\s-]/g, '')
     .replace(/[\s_]+/g, '-')
     .replace(/^-+|-+$/g, '');
-  return `detail/${id}-${slug}.html`;
+
+  return `detail/${id}-${category}${slug}.html`;
 }
 

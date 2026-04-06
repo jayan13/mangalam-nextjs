@@ -1,6 +1,6 @@
 import db from '@/lib/db';
 import { unstable_cache } from 'next/cache';
-
+import { getCategoryById } from '@/lib/categories';
 const getDistrictNews = unstable_cache(
   async (district, limit, offset) => {
     try {
@@ -14,10 +14,12 @@ const getDistrictNews = unstable_cache(
           IF(news_image.title, news_image.title, news.title) as alt, 
           "" as url, 
           news.district_id,
-          district.name as district_name
+          district.name as district_name,
+          news_category.category_id
         FROM news 
         LEFT JOIN news_image ON news_image.news_id = news.id 
         LEFT JOIN district ON district.id = news.district_id
+        LEFT JOIN news_category ON news_category.news_id = news.id
         WHERE news.published = 1 
           AND NOW() > news.effective_date 
           AND ((? = 0 AND news.district_id != 0 AND news.district_id IS NOT NULL) OR (? != 0 AND news.district_id = ?)) 
@@ -28,7 +30,8 @@ const getDistrictNews = unstable_cache(
       const [posts] = await db.query(query, [district, district, district, limit, offset]);
 
       const processedPosts = posts.map(post => {
-        let url = 'detail/' + post.id + '-news-details.html';
+        let category = (post.category_id) ? getCategoryById(post.category_id).name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
+        let url = 'detail/' + post.id + '-' + category + 'news-details.html';
         if (post.eng_title) {
           const slug = post.eng_title
             .toString()
@@ -36,13 +39,13 @@ const getDistrictNews = unstable_cache(
             .replace(/[^\w\s-]/g, '')
             .replace(/[\s_]+/g, '-')
             .replace(/^-+|-+$/g, '');
-          url = 'detail/' + post.id + '-' + slug + '.html';
+          url = 'detail/' + post.id + '-' + category + slug + '.html';
         }
 
         let links = "";
         if (post.district_id && post.district_name) {
-             const dist_slug = post.district_name.toLowerCase().replace(/ /g, '-');
-             links = `/district/${post.district_id}-${dist_slug}.html`;
+          const dist_slug = post.district_name.toLowerCase().replace(/ /g, '-');
+          links = `/district/${post.district_id}-${dist_slug}.html`;
         }
 
         return { ...post, url, links, link_title: post.district_name };

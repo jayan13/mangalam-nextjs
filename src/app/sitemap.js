@@ -26,14 +26,34 @@ export default async function sitemap() {
     let newsLinks = [];
     try {
         const [news] = await db.query(
-            'SELECT id, eng_title, effective_date FROM news WHERE published=1 AND NOW() BETWEEN effective_date AND expiry_date ORDER BY effective_date DESC LIMIT 1000'
+            'SELECT news.id, news.eng_title, news.effective_date, news_category.category_id FROM news LEFT JOIN news_category ON news_category.news_id = news.id WHERE news.published=1 AND NOW() > news.effective_date ORDER BY news.effective_date DESC LIMIT 1000'
         );
-        newsLinks = news.map((post) => ({
-            url: `${baseUrl}/news/detail/${post.id}-${slugify(post.eng_title)}.html`,
-            lastModified: post.effective_date,
-            changeFrequency: 'monthly',
-            priority: 0.6,
-        }));
+        const getCategoryById = (items, id) => {
+            for (const item of items) {
+                if (item.id === id) return item;
+                if (item.children && item.children.length > 0) {
+                    const found = getCategoryById(item.children, id);
+                    if (found) return found;
+                }
+            }
+            return null;
+        };
+
+        newsLinks = news.map((post) => {
+            let categoryStr = '';
+            if (post.category_id) {
+                const categoryObj = getCategoryById(categoriesData, post.category_id);
+                if (categoryObj && categoryObj.name) {
+                    categoryStr = slugify(categoryObj.name) + '-';
+                }
+            }
+            return {
+                url: `${baseUrl}/news/detail/${post.id}-${categoryStr}${slugify(post.eng_title)}.html`,
+                lastModified: post.effective_date,
+                changeFrequency: 'monthly',
+                priority: 0.6,
+            };
+        });
     } catch (error) {
         console.error('Sitemap Error (News):', error);
     }

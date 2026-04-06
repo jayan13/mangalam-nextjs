@@ -78,40 +78,40 @@ function NewsSection({ posts }) {
   const heading = firstPost?.heading || '';
 
   const viewAllLink = ((heading) => {
-  switch(heading){
-    case 'ASTROLOGY':
-      return <Link href="/category/163-astrology.html" className='view-all-link'> View All &raquo;</Link>;
-    case 'ODD NEWS':
-      return <Link href="/category/695-oddnews.html" className='view-all-link'> View All &raquo;</Link>;
-    case 'ENGLISH EDITION':
-      return <Link href="/en" className='view-all-link'> View All &raquo;</Link>;  
-    case 'OFF BEAT':
-      return <Link href="/category/8171-offbeat.html" className='view-all-link'> View All &raquo;</Link>;
-    case 'COLUMN':
-      return '';
-    case 'AGRICULTURE':
-      return <Link href="/category/202-agriculture.html" className='view-all-link'> View All &raquo;</Link>;
-    case 'EDUCATION':
-      return <Link href="/category/199-education.html" className='view-all-link'> View All &raquo;</Link>;  
-    case 'LITERATURE':
-      return <Link href="/category/8067-literature.html" className='view-all-link'> View All &raquo;</Link>;
-    case 'AUTO':
-      return <Link href="/category/93-auto.html" className='view-all-link'> View All &raquo;</Link>;
-    case 'CRIME':
-      return <Link href="/category/100-crime.html" className='view-all-link'> View All &raquo;</Link>;
-    case 'TECH':
-      return <Link href="/category/200-technology.html" className='view-all-link'> View All &raquo;</Link>;
-    case 'RELIGION':
-      return <Link href="/category/198-religion.html" className='view-all-link'> View All &raquo;</Link>;
-    case 'BUSINESS':
-      return <Link href="/category/89-business.html" className='view-all-link'> View All &raquo;</Link>;
-    case 'FACT CHECK':
-      return <Link href="/category/8145-factcheck.html" className='view-all-link'> View All &raquo;</Link>;  
+    switch (heading) {
+      case 'ASTROLOGY':
+        return <Link href="/category/163-astrology.html" className='view-all-link'> View All &raquo;</Link>;
+      case 'ODD NEWS':
+        return <Link href="/category/695-oddnews.html" className='view-all-link'> View All &raquo;</Link>;
+      case 'ENGLISH EDITION':
+        return <Link href="/en" className='view-all-link'> View All &raquo;</Link>;
+      case 'OFF BEAT':
+        return <Link href="/category/8171-offbeat.html" className='view-all-link'> View All &raquo;</Link>;
+      case 'COLUMN':
+        return '';
+      case 'AGRICULTURE':
+        return <Link href="/category/202-agriculture.html" className='view-all-link'> View All &raquo;</Link>;
+      case 'EDUCATION':
+        return <Link href="/category/199-education.html" className='view-all-link'> View All &raquo;</Link>;
+      case 'LITERATURE':
+        return <Link href="/category/8067-literature.html" className='view-all-link'> View All &raquo;</Link>;
+      case 'AUTO':
+        return <Link href="/category/93-auto.html" className='view-all-link'> View All &raquo;</Link>;
+      case 'CRIME':
+        return <Link href="/category/100-crime.html" className='view-all-link'> View All &raquo;</Link>;
+      case 'TECH':
+        return <Link href="/category/200-technology.html" className='view-all-link'> View All &raquo;</Link>;
+      case 'RELIGION':
+        return <Link href="/category/198-religion.html" className='view-all-link'> View All &raquo;</Link>;
+      case 'BUSINESS':
+        return <Link href="/category/89-business.html" className='view-all-link'> View All &raquo;</Link>;
+      case 'FACT CHECK':
+        return <Link href="/category/8145-factcheck.html" className='view-all-link'> View All &raquo;</Link>;
 
-    default:
-      return '';
-  }
-});
+      default:
+        return '';
+    }
+  });
 
   return (
     <div className={`right-news-section ${topClass}`}>
@@ -180,15 +180,15 @@ export default function InfiniteScroll() {
   }, [loadMore, isFetching, hasMore]);
 
   return (
-    <div className="home-news-section-right no-printme">        
+    <div className="home-news-section-right no-printme">
       {posts.map((postGroup, index) => (
         <div key={index} className='rght-block'>
-          <GoogleAdPcItem adId={index} />          
-          <NewsSection posts={postGroup} />          
+          <GoogleAdPcItem adId={index} />
+          <NewsSection posts={postGroup} />
         </div>
       ))}
       <div id="end-of-list-right" className="loading-indicator" >
-        {hasMore && <Image src="/img/icons/loading-indicator.gif" alt="Loading..." width={30} height={30} unoptimized={true}/>}
+        {hasMore && <Image src="/img/icons/loading-indicator.gif" alt="Loading..." width={30} height={30} unoptimized={true} />}
       </div>
     </div>
   );

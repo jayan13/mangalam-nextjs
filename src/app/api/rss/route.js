@@ -1,4 +1,5 @@
 import db from '../../../lib/db';
+import { getCategoryById } from '@/lib/categories';
 
 export const revalidate = 600; // Cache for 10 minutes
 
@@ -15,21 +16,24 @@ export async function GET() {
                 news.eng_summary, 
                 CONVERT(news.news_details USING utf8) as news_details,
                 news.effective_date,
-                news_image.file_name as thumbnail
+                news_image.file_name as thumbnail,
+                news_category.category_id
             FROM news 
             LEFT JOIN news_image ON news_image.news_id = news.id
+            LEFT JOIN news_category ON news_category.news_id = news.id
             WHERE news.published = 1 
-            AND NOW() BETWEEN news.effective_date AND news.expiry_date 
+            AND NOW() > news.effective_date 
             GROUP BY news.id 
             ORDER BY news.effective_date DESC 
             LIMIT 50
         `);
 
         const rssItems = rows.map(post => {
+            let category = (post.category_id) ? getCategoryById(post.category_id).name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
             const slug = post.eng_title
                 ? post.eng_title.replace(/[^\w\s-]/g, '').toLowerCase().replace(/\s+/g, '-').replace(/-+/g, '-').trim()
                 : 'news-details';
-            const link = `${baseUrl}/news/detail/${post.id}-${slug}.html`;
+            const link = `${baseUrl}/news/detail/${post.id}-${category}${slug}.html`;
             const pubDate = new Date(post.effective_date).toUTCString().replace('GMT', '+0000');
             const imgPath = post.thumbnail ? `${imageUrl}/${post.thumbnail}` : '';
 

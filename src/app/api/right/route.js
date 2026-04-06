@@ -1,5 +1,6 @@
 import db from '@/lib/db';
 import { unstable_cache } from 'next/cache';
+import { getCategoryById } from '@/lib/categories';
 
 const getRightNews = unstable_cache(
   async (limit, offset) => {
@@ -19,7 +20,8 @@ const getRightNews = unstable_cache(
       );
 
       const processedPosts = posts.map(post => {
-        let url = 'detail/' + post.id + '-news-details.html';
+        let category = (post.category_id) ? getCategoryById(post.category_id).name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
+        let url = 'detail/' + post.id + '-' + category + 'news-details.html';
         if (post.eng_title) {
           const slug = post.eng_title
             .toString()
@@ -27,7 +29,7 @@ const getRightNews = unstable_cache(
             .replace(/[^\w\s-]/g, '')
             .replace(/[\s_]+/g, '-')
             .replace(/^-+|-+$/g, '');
-          url = 'detail/' + post.id + '-' + slug + '.html';
+          url = 'detail/' + post.id + '-' + category + slug + '.html';
         }
         return { ...post, url };
       });

@@ -42,7 +42,7 @@ async function DistnewsWrapper({ district_id }) {
 }
 export default async function Home({ params }) {
   const { slug } = await params;
-  const urlid = slug; 
+  const urlid = slug;
   const district_id = urlid.split('-')[0];
   const rows = await getCachedDistrict(district_id);
   const dists = await getCachedDistricts();
@@ -86,19 +86,21 @@ export default async function Home({ params }) {
 async function getInitialPosts(district_id) {
   try {
     let distnewslist = [];
-    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,news.district_id FROM news left join news_image on news_image.news_id=news.id where news.published=1 and NOW() > news.effective_date  and news.district_id=?  group by news.id order by news.effective_date DESC limit 0,8', [district_id]);
+    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,news.district_id,news_category.category_id FROM news left join news_image on news_image.news_id=news.id  left join news_category on news_category.news_id=news.id where news.published=1 and NOW() > news.effective_date  and news.district_id=?  group by news.id order by news.effective_date DESC limit 0,8', [district_id]);
 
     if (data.length) {
       for (let nws in Object.keys(data)) {
-        let url = 'detail/' + data[nws].id + '-news-details.html';
+        let category = (data[nws]['category_id']) ? getCategoryById(data[nws]['category_id']).name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
+        let url = 'detail/' + data[nws].id + '-' + category + 'news-details.html';
+
         if (data[nws].eng_title) {
           const slug = data[nws].eng_title
             .toString()
             .toLowerCase()
             .replace(/[^\w\s-]/g, '')
             .replace(/[\s_]+/g, '-')
-            .replace(/^-+|-+$/g, '');
-          url = 'detail/' + data[nws].id + '-' + slug + '.html';
+            .replace(/^-+|-+$/g, ''); s
+          url = 'detail/' + data[nws].id + '-' + category + slug + '.html';
         }
         data[nws]['url'] = url;
         data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'] || '', 160);

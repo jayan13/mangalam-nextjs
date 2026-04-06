@@ -15,12 +15,13 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
                     CONVERT(news.title USING utf8) as title, 
                     news.eng_title, 
                     news_image.file_name,
-                    IF(news_image.title, news_image.title, news.title) as alt
+                    IF(news_image.title, news_image.title, news.title) as alt,news_category.category_id
                 FROM news_category 
                 INNER JOIN news ON news.id = news_category.news_id 
-                LEFT JOIN news_image ON news_image.news_id = news.id 
+                LEFT JOIN news_image ON news_image.news_id = news.id
+                left join news_category on news_category.news_id=news.id 
                 WHERE news.published = 1 
-                AND NOW() BETWEEN news.effective_date AND news.expiry_date 
+                AND NOW() > news.effective_date 
                 AND news_category.category_id = ? 
                 AND news.id != ?
                 GROUP BY news.id 
@@ -35,11 +36,12 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
                     CONVERT(news.title USING utf8) as title, 
                     news.eng_title, 
                     news_image.file_name,
-                    IF(news_image.title, news_image.title, news.title) as alt
+                    IF(news_image.title, news_image.title, news.title) as alt,news_category.category_id
                 FROM news 
                 LEFT JOIN news_image ON news_image.news_id = news.id 
+                left join news_category on news_category.news_id=news.id
                 WHERE news.published = 1 
-                AND NOW() BETWEEN news.effective_date AND news.expiry_date 
+                AND NOW() > news.effective_date 
                 AND news.district_id = ? 
                 AND news.id != ?
                 GROUP BY news.id 
@@ -54,13 +56,14 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
         const [rows] = await db.query(query, params);
 
         return rows.map(item => {
+            let category = (item.category_id) ? getCategoryById(item.category_id).name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
             const slug = item.eng_title
                 ? item.eng_title.replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-').toLowerCase()
                 : 'news-details';
-            const pathPrefix = isEn ? '/en/news/detail/' : '/news/detail/';
+            const pathPrefix = isEn ? '/en-news/detail/' : '/news/detail/';
             return {
                 ...item,
-                url: `${pathPrefix}${item.id}-${slug}.html`
+                url: `${pathPrefix}${item.id}-${category}${slug}.html`
             };
         });
     } catch (error) {

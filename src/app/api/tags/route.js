@@ -13,12 +13,13 @@ const getTagNews = unstable_cache(
           CONVERT(news.news_details USING utf8) as news_details, 
           IF(news_image.title, news_image.title, news.title) as alt, 
           "" as url, 
-          news_tags.tags_id 
+          news_tags.tags_id,news_category.category_id 
         FROM news_tags 
         INNER JOIN news ON news.id = news_tags.news_id 
         LEFT JOIN news_image ON news_image.news_id = news.id 
+        left join news_category on news_category.news_id=news.id
         WHERE news.published = 1 
-          AND NOW() BETWEEN news.effective_date AND news.expiry_date 
+          AND NOW() > news.effective_date 
           AND news_tags.tags_id = ? 
         GROUP BY news.id 
         ORDER BY news.effective_date DESC 
@@ -27,7 +28,8 @@ const getTagNews = unstable_cache(
       const [posts] = await db.query(query, [tag, limit, offset]);
 
       const processedPosts = posts.map(post => {
-        let url = 'detail/' + post.id + '-news-details.html';
+        let category = (post.category_id) ? getCategoryById(post.category_id).name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
+        let url = 'detail/' + post.id + '-' + category + 'news-details.html';
         if (post.eng_title) {
           const slug = post.eng_title
             .toString()
@@ -35,7 +37,7 @@ const getTagNews = unstable_cache(
             .replace(/[^\w\s-]/g, '')
             .replace(/[\s_]+/g, '-')
             .replace(/^-+|-+$/g, '');
-          url = 'detail/' + post.id + '-' + slug + '.html';
+          url = 'detail/' + post.id + '-' + category + slug + '.html';
         }
         return { ...post, url };
       });
@@ -45,7 +47,7 @@ const getTagNews = unstable_cache(
         FROM news_tags 
         INNER JOIN news ON news.id = news_tags.news_id 
         WHERE news.published = 1 
-          AND NOW() BETWEEN news.effective_date AND news.expiry_date 
+          AND NOW() > news.effective_date 
           AND news_tags.tags_id = ?`;
 
       const [countResult] = await db.query(countQuery, [tag]);

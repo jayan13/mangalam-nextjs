@@ -150,7 +150,7 @@ async function getInitialPosts(category_ids) {
       INNER JOIN news ON news.id = news_category.news_id
       LEFT JOIN news_image ON news_image.news_id = news.id
       WHERE news.published = 1
-        AND NOW() BETWEEN news.effective_date AND news.expiry_date
+        AND NOW() > news.effective_date
         AND news_category.category_id IN (?)
       GROUP BY news.id
       ORDER BY news.effective_date DESC
@@ -164,7 +164,9 @@ async function getInitialPosts(category_ids) {
     const [data] = await db.query(query, [validIds]);
 
     const processedData = data.map(post => {
-      let url = 'detail/' + post.id + '-news-details.html';
+
+      let category = (post.category_id) ? getCategoryById(post.category_id).name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
+      let url = 'detail/' + post.id + '-' + category + 'news-details.html';
       if (post.eng_title) {
         const slug = post.eng_title
           .toString()
@@ -172,7 +174,7 @@ async function getInitialPosts(category_ids) {
           .replace(/[^\w\s-]/g, '')
           .replace(/[\s_]+/g, '-')
           .replace(/^-+|-+$/g, '');
-        url = 'detail/' + post.id + '-' + slug + '.html';
+        url = 'detail/' + post.id + '-' + category + slug + '.html';
       }
 
       return {

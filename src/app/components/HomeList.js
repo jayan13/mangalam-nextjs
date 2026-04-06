@@ -24,13 +24,13 @@ const CATEGORIES = [
 ];
 
 const viewAllLink = ((heading) => {
-  switch(heading){
+  switch (heading) {
     case 'MANGALAM SPECIAL':
       return <Link href="/category/937-mangalam-special.html" className='view-all-link'> View All &raquo;</Link>;
     case 'EDITOR’S PICK':
       return <Link href="/category/96-editor-s-pick.html" className='view-all-link'> View All &raquo;</Link>;
     case 'TRENDING NOW':
-      return <Link href="/category/16-trending-now.html" className='view-all-link'> View All &raquo;</Link>;  
+      return <Link href="/category/16-trending-now.html" className='view-all-link'> View All &raquo;</Link>;
     case "TODAY'S MANGALAM":
       return <Link href="/category/18-print-edition.html" className='view-all-link'> View All &raquo;</Link>;
     case 'LOCAL NEWS':
@@ -46,13 +46,13 @@ const viewAllLink = ((heading) => {
     case 'HEALTH':
       return <Link href="/category/186-health.html" className='view-all-link'> View All &raquo;</Link>;
     case 'SPECIAL COVERAGE':
-      return <Link href="/category/8061-specialcoverage.html" className='view-all-link'> View All &raquo;</Link>; 
+      return <Link href="/category/8061-specialcoverage.html" className='view-all-link'> View All &raquo;</Link>;
     case 'VIDEOS':
       return <Link href="/video" className='view-all-link'> View All &raquo;</Link>;
     case 'NEWS IN REELS':
       return <Link href="/shorts" className='view-all-link'> View All &raquo;</Link>;
     case 'PODCAST':
-      return <Link href="/podcast" className='view-all-link'> View All &raquo;</Link>;   
+      return <Link href="/podcast" className='view-all-link'> View All &raquo;</Link>;
 
     default:
       return '';
@@ -103,7 +103,7 @@ function LocalNewsHead() {
   return (
     <div className='local-news-section'>
       <div className="section-heading">
-        <span className="heading-title">Local News</span>        
+        <span className="heading-title">Local News</span>
       </div>
       <div className="category-scroll-container">
         <button className="scroll-arrow scroll-left" onClick={scrollLeft} aria-label="Scroll left">
@@ -165,106 +165,106 @@ function Homenew(props) {
   if (template == 'top') {
     return (
       <>
-      {leadItems && leadItems.length > 0 && <LeadPage leadItems={leadItems} />}
-      <div className='main-news'>
-        <div className='main-news-left'>
-          <div className="section-heading section-heading-red">
-            {post?.[0]?.heading}
+        {leadItems && leadItems.length > 0 && <LeadPage leadItems={leadItems} />}
+        <div className='main-news'>
+          <div className='main-news-left'>
+            <div className="section-heading section-heading-red">
+              {post?.[0]?.heading}
+            </div>
+            <div className='main-one'>
+              {post[0] && (
+                <div className="news-item">
+                  <figure> <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} width='608' height='365' /></Link></figure>
+                  <Link href={`/news/${post[0].url}`}> <h1>  {post[0].title} </h1> </Link>
+                  <p>{post[0].news_details}</p>
+                </div>
+              )}
+            </div>
+            <div className='main-news-bottom'>
+              {post[1] && (
+                <div className="news-item">
+                  <figure> {post[1].url ? <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='292' height='174' /></Link> : <Newimg news={post[1]} width='292' height='174' />} </figure>
+                  <p className="category-tag"> {post[1].links ? <Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link> : post[1].link_title}</p>
+                  {post[1].url ? <Link href={`/news/${post[1].url}`}> <h3>  {post[1].title} </h3> </Link> : <h3> {post[1].title} </h3>}
+                </div>
+              )}
+              {post[2] && (
+                <div className="news-item">
+                  <figure> {post[2].url ? <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='292' height='174' /></Link> : <Newimg news={post[2]} width='292' height='174' />} </figure>
+                  <p className="category-tag"> {post[2].links ? <Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link> : post[2].link_title}</p>
+                  {post[2].url ? <Link href={`/news/${post[2].url}`}> <h3>  {post[2].title} </h3> </Link> : <h3> {post[2].title} </h3>}
+                </div>
+              )}
+            </div>
+
           </div>
-          <div className='main-one'>
-            {post[0] && (
+          <div className='main-news-right'>
+
+            {post[3] && (<>
+              <div className="section-heading section-heading-blue" >
+                {post?.[3]?.heading}
+              </div>
               <div className="news-item">
-                <figure> <Link href={`/news/${post[0].url}`}><Newimg news={post[0]} width='608' height='365' /></Link></figure>
-                <Link href={`/news/${post[0].url}`}> <h1>  {post[0].title} </h1> </Link>
-                <p>{post[0].news_details}</p>
+                <Link href={`/news/${post[3].url}`}> <h3>  {post[3].title} </h3> </Link>
+                <figure> <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='88' height='54' /></Link></figure>
+              </div>
+            </>
+            )}
+            {post[4] && (
+              <div className="news-item">
+                <Link href={`/news/${post[4].url}`}> <h3>  {post[4].title} </h3> </Link>
+                <figure> <Link href={`/news/${post[4].url}`}><Newimg news={post[4]} width='88' height='54' /></Link></figure>
               </div>
             )}
-          </div>
-          <div className='main-news-bottom'>
-            {post[1] && (
+            {post[5] && (
               <div className="news-item">
-                <figure> {post[1].url ? <Link href={`/news/${post[1].url}`}><Newimg news={post[1]} width='292' height='174' /></Link> : <Newimg news={post[1]} width='292' height='174' />} </figure>
-                <p className="category-tag"> {post[1].links ? <Link href={`${post[1].links}`} title="text">{post[1].link_title}</Link> : post[1].link_title}</p>
-                {post[1].url ? <Link href={`/news/${post[1].url}`}> <h3>  {post[1].title} </h3> </Link> : <h3> {post[1].title} </h3>}
+                <Link href={`/news/${post[5].url}`}> <h3>  {post[5].title} </h3> </Link>
+                <figure> <Link href={`/news/${post[5].url}`}><Newimg news={post[5]} width='88' height='54' /></Link></figure>
               </div>
             )}
-            {post[2] && (
+            {post[6] && (
               <div className="news-item">
-                <figure> {post[2].url ? <Link href={`/news/${post[2].url}`}><Newimg news={post[2]} width='292' height='174' /></Link> : <Newimg news={post[2]} width='292' height='174' />} </figure>
-                <p className="category-tag"> {post[2].links ? <Link href={`${post[2].links}`} title="text">{post[2].link_title}</Link> : post[2].link_title}</p>
-                {post[2].url ? <Link href={`/news/${post[2].url}`}> <h3>  {post[2].title} </h3> </Link> : <h3> {post[2].title} </h3>}
+                <Link href={`/news/${post[6].url}`}> <h3>  {post[6].title} </h3> </Link>
+                <figure> <Link href={`/news/${post[6].url}`}><Newimg news={post[6]} width='88' height='54' /></Link></figure>
               </div>
             )}
+            {post[7] && (
+              <div className="news-item">
+                <Link href={`/news/${post[7].url}`}> <h3>  {post[7].title} </h3> </Link>
+                <figure> <Link href={`/news/${post[7].url}`}><Newimg news={post[7]} width='88' height='54' /></Link></figure>
+              </div>
+            )}
+            {post[8] && (
+              <div className="news-item">
+                <Link href={`/news/${post[8].url}`}> <h3>  {post[8].title} </h3> </Link>
+                <figure> <Link href={`/news/${post[8].url}`}><Newimg news={post[8]} width='88' height='54' /></Link></figure>
+              </div>
+            )}
+            {post[9] && (
+              <div className="news-item">
+                <Link href={`/news/${post[9].url}`}> <h3>  {post[9].title} </h3> </Link>
+                <figure> <Link href={`/news/${post[9].url}`}><Newimg news={post[9]} width='88' height='54' /></Link></figure>
+              </div>
+            )}
+            {post[10] && (
+              <div className="news-item">
+                <Link href={`/news/${post[10].url}`}> <h3>  {post[10].title} </h3> </Link>
+                <figure> <Link href={`/news/${post[10].url}`}><Newimg news={post[10]} width='88' height='54' /></Link></figure>
+              </div>
+            )}
+            {post[11] && (
+              <div className="news-item">
+                <Link href={`/news/${post[11].url}`}> <h3>  {post[11].title} </h3> </Link>
+                <figure> <Link href={`/news/${post[11].url}`}><Newimg news={post[11]} width='88' height='54' /></Link></figure>
+              </div>
+            )}
+
+            <div className="mobile-only">
+              <RightTop type="mobile" />
+            </div>
           </div>
 
         </div>
-        <div className='main-news-right'>         
-          
-          {post[3] && (<>
-            <div className="section-heading section-heading-blue" >
-              {post?.[3]?.heading}
-            </div>
-            <div className="news-item">
-              <Link href={`/news/${post[3].url}`}> <h3>  {post[3].title} </h3> </Link>
-              <figure> <Link href={`/news/${post[3].url}`}><Newimg news={post[3]} width='88' height='54' /></Link></figure>
-            </div>
-          </>
-          )}
-          {post[4] && (
-            <div className="news-item">
-              <Link href={`/news/${post[4].url}`}> <h3>  {post[4].title} </h3> </Link>
-              <figure> <Link href={`/news/${post[4].url}`}><Newimg news={post[4]} width='88' height='54' /></Link></figure>
-            </div>
-          )}
-          {post[5] && (
-            <div className="news-item">
-              <Link href={`/news/${post[5].url}`}> <h3>  {post[5].title} </h3> </Link>
-              <figure> <Link href={`/news/${post[5].url}`}><Newimg news={post[5]} width='88' height='54' /></Link></figure>
-            </div>
-          )}
-          {post[6] && (
-            <div className="news-item">
-              <Link href={`/news/${post[6].url}`}> <h3>  {post[6].title} </h3> </Link>
-              <figure> <Link href={`/news/${post[6].url}`}><Newimg news={post[6]} width='88' height='54' /></Link></figure>
-            </div>
-          )}
-          {post[7] && (
-            <div className="news-item">
-              <Link href={`/news/${post[7].url}`}> <h3>  {post[7].title} </h3> </Link>
-              <figure> <Link href={`/news/${post[7].url}`}><Newimg news={post[7]} width='88' height='54' /></Link></figure>
-            </div>
-          )}
-          {post[8] && (
-            <div className="news-item">
-              <Link href={`/news/${post[8].url}`}> <h3>  {post[8].title} </h3> </Link>
-              <figure> <Link href={`/news/${post[8].url}`}><Newimg news={post[8]} width='88' height='54' /></Link></figure>
-            </div>
-          )}
-          {post[9] && (
-            <div className="news-item">
-              <Link href={`/news/${post[9].url}`}> <h3>  {post[9].title} </h3> </Link>
-              <figure> <Link href={`/news/${post[9].url}`}><Newimg news={post[9]} width='88' height='54' /></Link></figure>
-            </div>
-          )}
-          {post[10] && (
-            <div className="news-item">
-              <Link href={`/news/${post[10].url}`}> <h3>  {post[10].title} </h3> </Link>
-              <figure> <Link href={`/news/${post[10].url}`}><Newimg news={post[10]} width='88' height='54' /></Link></figure>
-            </div>
-          )}
-          {post[11] && (
-            <div className="news-item">
-              <Link href={`/news/${post[11].url}`}> <h3>  {post[11].title} </h3> </Link>
-              <figure> <Link href={`/news/${post[11].url}`}><Newimg news={post[11]} width='88' height='54' /></Link></figure>
-            </div>
-          )}
-          
-          <div className="mobile-only">
-            <RightTop type="mobile" />
-          </div>
-        </div>
-
-      </div>
       </>
 
     );
@@ -475,7 +475,7 @@ function Homenew(props) {
       <div className="home-category home-category-type2 ">
         {isLocalNews ? <LocalNewsHead /> : isTodayMangalam ? <TodayMangalamHead /> : (
           <div className="section-heading section-heading-blue">
-           <span className="heading-title"> {post?.[0]?.heading} </span> {viewAllLink(post?.[0]?.heading)}
+            <span className="heading-title"> {post?.[0]?.heading} </span> {viewAllLink(post?.[0]?.heading)}
           </div>
         )}
         <div className='home-category-main'>
@@ -548,15 +548,15 @@ function Homenew(props) {
     );
   }
   //==================================================================
-if (template == 'home-4') {
-    
+  if (template == 'home-4') {
+
 
     return (
       <div className="home-category home-category-type2 ">
         <div className="section-heading section-heading-red">
-           <span className="heading-title"> {post?.[0]?.heading} </span> 
+          <span className="heading-title"> {post?.[0]?.heading} </span>
         </div>
-        
+
         <div className='category-bottom'>
           <div className='category-bottom-left'>
             {post[0] && (
@@ -609,8 +609,8 @@ if (template == 'home-4') {
         <div className="section-heading section-heading-red" >
           <span className="heading-title">{post?.[0]?.heading}</span>
           <Link href="/shots" className='view-all-link'>
-          View All &raquo;
-        </Link>
+            View All &raquo;
+          </Link>
         </div>
 
         <YouTubeShotSlider slidedata={post} />
@@ -625,8 +625,8 @@ if (template == 'home-4') {
         <div className="section-heading section-heading-red" >
           <span className="heading-title">{post?.[0]?.heading}</span>
           <Link href="/videos" className='view-all-link'>
-          View All &raquo;
-        </Link>
+            View All &raquo;
+          </Link>
         </div>
 
         <YouTubevideoSlider slidedata={post} />
@@ -728,7 +728,7 @@ export default function HomeList({ initialPosts, leadItems }) {
 
 
       <div id="end-of-list" className="loading-indicator">
-        {hasMore ? <Image src="/img/icons/loading-indicator.gif" alt="Loading..." width={30} height={30} unoptimized={true}/> : ""}
+        {hasMore ? <Image src="/img/icons/loading-indicator.gif" alt="Loading..." width={30} height={30} unoptimized={true} /> : ""}
       </div>
 
       {!hasMore && (
