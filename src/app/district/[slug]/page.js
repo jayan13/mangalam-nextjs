@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from "next/image";
 import { unstable_cache } from "next/cache";
 import DistrictNav from '../../components/DistrictNav';
+import { getCategoryById } from '@/lib/categories';
 
 export async function getDist(dis_id) {
   try {
@@ -99,7 +100,7 @@ async function getInitialPosts(district_id) {
             .toLowerCase()
             .replace(/[^\w\s-]/g, '')
             .replace(/[\s_]+/g, '-')
-            .replace(/^-+|-+$/g, ''); s
+            .replace(/^-+|-+$/g, '');
           url = 'detail/' + data[nws].id + '-' + category + slug + '.html';
         }
         data[nws]['url'] = url;
