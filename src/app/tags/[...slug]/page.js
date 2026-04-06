@@ -6,6 +6,7 @@ import InfiniteScroll from '../../components/InfiniteScroll';
 import Tagnews from '../../components/Tagnews';
 import Link from 'next/link';
 import Image from "next/image";
+import { getCategoryById } from '@/lib/categories';
 //import SubcatLink from '../../components/SubcatLink';
 import { unstable_cache } from "next/cache";
 
@@ -82,7 +83,7 @@ async function getInitialPosts(tag_id) {
             .replace(/[^\w\s-]/g, '')
             .replace(/[\s_]+/g, '-')
             .replace(/^-+|-+$/g, '');
-          url = 'detail/' + data[nws].id + '-' + slug + '.html';
+          url = 'detail/' + data[nws].id + '-' + category + slug + '.html';
         }
         data[nws]['url'] = url;
         data[nws]['news_details'] = SubstringWithoutBreakingWords(data[nws]['news_details'] || '', 160);

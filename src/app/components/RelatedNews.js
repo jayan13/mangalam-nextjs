@@ -2,6 +2,7 @@ import db from '../../lib/db';
 import Link from 'next/link';
 import Newimg from './Newimg';
 import { unstable_cache } from "next/cache";
+import { getCategoryById } from '@/lib/categories';
 
 async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
     try {
@@ -18,8 +19,7 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
                     IF(news_image.title, news_image.title, news.title) as alt,news_category.category_id
                 FROM news_category 
                 INNER JOIN news ON news.id = news_category.news_id 
-                LEFT JOIN news_image ON news_image.news_id = news.id
-                left join news_category on news_category.news_id=news.id 
+                LEFT JOIN news_image ON news_image.news_id = news.id                
                 WHERE news.published = 1 
                 AND NOW() > news.effective_date 
                 AND news_category.category_id = ? 
