@@ -4,7 +4,7 @@ import Image from "next/image";
 import { unstable_cache } from "next/cache";
 
 const fetchData = unstable_cache(async () => {
-    const [rows] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name, CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url FROM news left join news_image on news_image.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date group by news.id order by news.effective_date DESC limit 0,10');
+    const [rows] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name, news.news_details,if(news_image.title,news_image.title,news.title) as alt,"" as url FROM news left join news_image on news_image.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date group by news.id order by news.effective_date DESC limit 0,10');
     return rows;
 }, ['news-list'], { revalidate: 60 }); // Cache data for 60 seconds
 

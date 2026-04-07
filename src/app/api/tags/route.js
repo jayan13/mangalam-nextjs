@@ -10,7 +10,7 @@ const getTagNews = unstable_cache(
           news.title, 
           news.eng_title, 
           news_image.file_name, 
-          CONVERT(news.news_details USING utf8) as news_details, 
+           
           IF(news_image.title, news_image.title, news.title) as alt, 
           "" as url, 
           news_tags.tags_id,news_category.category_id 

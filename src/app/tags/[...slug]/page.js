@@ -70,7 +70,7 @@ export default async function Home({ params }) {
 async function getInitialPosts(tag_id) {
   try {
     let distnewslist = [];
-    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,news_tags.tags_id,news_category.category_id FROM news_tags inner join news on news.id=news_tags.news_id left join news_image on news_image.news_id=news.id left join news_category on news_category.news_id=news.id  where news.published=1 and NOW() > news.effective_date and  news_tags.tags_id=?  group by news.id order by news.effective_date DESC limit 0,8', [tag_id]);
+    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,if(news_image.title,news_image.title,news.title) as alt,"" as url,news_tags.tags_id,news_category.category_id FROM news_tags inner join news on news.id=news_tags.news_id left join news_image on news_image.news_id=news.id left join news_category on news_category.news_id=news.id  where news.published=1 and NOW() > news.effective_date and  news_tags.tags_id=?  group by news.id order by news.effective_date DESC limit 0,8', [tag_id]);
 
     if (data.length) {
       for (let nws in Object.keys(data)) {
@@ -100,6 +100,8 @@ async function getInitialPosts(tag_id) {
 }
 
 function SubstringWithoutBreakingWords(str, limit) {
+  if (Buffer.isBuffer(str)) str = str.toString("utf8");
+  if (typeof str !== "string") str = String(str || "");
   // Check if string length is within the limit
   if (str.length <= limit) {
     return str;

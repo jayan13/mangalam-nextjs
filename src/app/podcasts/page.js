@@ -68,7 +68,7 @@ async function getInitialPosts(category_id) {
         news.title,
         news.eng_title,
         news_image.file_name,
-        CONVERT(news.news_details USING utf8) as news_details,
+        news.news_details,
         IF(news_image.title, news_image.title, news.title) as alt,
         "" as url,
         news_category.category_id

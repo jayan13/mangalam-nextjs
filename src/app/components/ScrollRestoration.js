@@ -151,11 +151,11 @@ export default function ScrollRestoration() {
     // Clean up rogue ad injection classes and residual nodes that hide content during soft-nav
     document.body.classList.remove('mg-additional-page', 'mg-started-page');
     document.documentElement.classList.remove('mg-additional-page', 'mg-started-page');
-    
+
     try {
       const mgStyle = document.getElementById('mgAdditionalStyles');
       if (mgStyle) mgStyle.remove();
-      
+
       const rogueContainers = document.querySelectorAll('.mg-additional-container, [class*="ScriptRootC"][class*="-additional"]');
       rogueContainers.forEach(el => el.remove());
     } catch (e) {

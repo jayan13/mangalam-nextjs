@@ -34,7 +34,7 @@ async function getInitialPosts() {
   let homenewslist = [];
   try {
 
-    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,CONVERT(news.news_details USING utf8) as "news_details",if(news_image.title,news_image.title,news.title) as alt,"" as url,node_queue.template,node_queue.title as heading,node_queue.id as nodeqid,news_category.category_id,news.district_id FROM news left join news_image on news_image.news_id=news.id inner join sub_queue on sub_queue.news_id=news.id inner join node_queue on node_queue.id=sub_queue.node_queue_id left join news_category on news_category.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date and node_queue.id in(2,4) GROUP BY news.id order by node_queue.id,sub_queue.position ');
+    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,news.news_details,if(news_image.title,news_image.title,news.title) as alt,"" as url,node_queue.template,node_queue.title as heading,node_queue.id as nodeqid,news_category.category_id,news.district_id FROM news left join news_image on news_image.news_id=news.id inner join sub_queue on sub_queue.news_id=news.id inner join node_queue on node_queue.id=sub_queue.node_queue_id left join news_category on news_category.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date and node_queue.id in(2,4) GROUP BY news.id order by node_queue.id,sub_queue.position ');
 
     if (!data || data.length === 0) {
       return [];
@@ -86,7 +86,7 @@ async function getLeadFromNodeQueue() {
         news.title, 
         news.eng_title, 
         news_image.file_name, 
-        CONVERT(news.news_details USING utf8) AS news_details, 
+        news.news_details, 
         IF(news_image.title, news_image.title, news.title) AS alt,
         node_queue.title as heading,
         news_category.category_id
@@ -116,6 +116,8 @@ async function getLeadFromNodeQueue() {
 
 
 function SubstringWithoutBreakingWords(str, limit) {
+  if (Buffer.isBuffer(str)) str = str.toString("utf8");
+  if (typeof str !== "string") str = String(str || "");
   // Check if string length is within the limit
   if (!str) return "";
   if (str.length <= limit) {

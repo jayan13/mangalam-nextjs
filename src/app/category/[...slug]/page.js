@@ -142,7 +142,7 @@ async function getInitialPosts(category_ids) {
         news.title,
         news.eng_title,
         news_image.file_name,
-        CONVERT(news.news_details USING utf8) as news_details,
+        
         IF(news_image.title, news_image.title, news.title) as alt,
         "" as url,
         news_category.category_id
@@ -192,6 +192,8 @@ async function getInitialPosts(category_ids) {
 }
 
 function SubstringWithoutBreakingWords(str, limit) {
+  if (Buffer.isBuffer(str)) str = str.toString("utf8");
+  if (typeof str !== "string") str = String(str || "");
   // Check if string length is within the limit
   if (str.length <= limit) {
     return str;

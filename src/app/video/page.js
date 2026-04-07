@@ -64,7 +64,7 @@ async function getInitialPosts(category_id) {
       SELECT
         news.id,
         news.title,
-        CONVERT(news.news_details USING utf8) as news_details,
+        news.news_details,
         news_category.category_id
       FROM news_category
       INNER JOIN news ON news.id = news_category.news_id

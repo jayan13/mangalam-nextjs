@@ -16,7 +16,7 @@ const getHomeNews = unstable_cache(
       const qid = ques[0].id;
 
       const [posts] = await db.query(
-        'SELECT news.id, news.title, news.eng_title, news_image.file_name, CONVERT(news.news_details USING utf8) AS news_details, IF(news_image.title, news_image.title, news.title) AS alt, "" AS url, node_queue.template, node_queue.title AS heading, node_queue.id AS nodeqid, news.district_id, news_category.category_id, "" AS links, "" AS link_title FROM news LEFT JOIN news_image ON news_image.news_id = news.id INNER JOIN sub_queue ON sub_queue.news_id = news.id INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id LEFT JOIN news_category ON news_category.news_id = news.id WHERE news.published = 1 and NOW() > news.effective_date  AND node_queue.id = ? GROUP BY news.id ORDER BY sub_queue.position',
+        'SELECT news.id, news.title, news.eng_title, news_image.file_name, news.news_details, IF(news_image.title, news_image.title, news.title) AS alt, "" AS url, node_queue.template, node_queue.title AS heading, node_queue.id AS nodeqid, news.district_id, news_category.category_id, "" AS links, "" AS link_title FROM news LEFT JOIN news_image ON news_image.news_id = news.id INNER JOIN sub_queue ON sub_queue.news_id = news.id INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id LEFT JOIN news_category ON news_category.news_id = news.id WHERE news.published = 1 and NOW() > news.effective_date  AND node_queue.id = ? GROUP BY news.id ORDER BY sub_queue.position',
         [qid]
       );
 
@@ -97,6 +97,8 @@ export async function GET(req) {
 }
 
 function SubstringWithoutBreakingWords(str, limit) {
+  if (Buffer.isBuffer(str)) str = str.toString("utf8");
+  if (typeof str !== "string") str = String(str || "");
   if (!str) return '';
   if (str.length <= limit) {
     return str;
@@ -110,6 +112,8 @@ function SubstringWithoutBreakingWords(str, limit) {
 
 function convertShortsToEmbed(input) {
   if (!input) return '';
+  if (Buffer.isBuffer(input)) input = input.toString("utf8");
+  if (typeof input !== "string") input = String(input || "");
 
   // Case 1: Full iframe code
   if (input.includes('<iframe')) {

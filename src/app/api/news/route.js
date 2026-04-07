@@ -9,7 +9,7 @@ const getNews = unstable_cache(
           news.id, 
           news.title, 
           news.eng_title, 
-          CONVERT(news.news_details USING utf8) as news_details, 
+          news.news_details, 
           news_image.file_name, 
           IF(news_image.title, news_image.title, news.title) as alt, 
           "" as url,

@@ -20,7 +20,7 @@ async function getInitialPosts(district_id) {
                 news.title,
                 news.eng_title,
                 news_image.file_name,
-                CONVERT(news.news_details USING utf8) as news_details,
+                news.news_details,
                 if(news_image.title, news_image.title, news.title) as alt,
                 "" as url,
                 news.district_id 
@@ -60,6 +60,8 @@ async function getInitialPosts(district_id) {
 }
 
 function SubstringWithoutBreakingWords(str, limit) {
+  if (Buffer.isBuffer(str)) str = str.toString("utf8");
+  if (typeof str !== "string") str = String(str || "");
     if (str.length <= limit) return str;
     let substring = str.substring(0, limit);
     if (str[limit] !== ' ' && substring.lastIndexOf(' ') !== -1) {

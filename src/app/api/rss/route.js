@@ -14,7 +14,7 @@ export async function GET() {
                 CONVERT(news.title USING utf8) as title, 
                 news.eng_title, 
                 news.eng_summary, 
-                CONVERT(news.news_details USING utf8) as news_details,
+                news.news_details,
                 news.effective_date,
                 news_image.file_name as thumbnail,
                 news_category.category_id
@@ -38,7 +38,9 @@ export async function GET() {
             const imgPath = post.thumbnail ? `${imageUrl}/${post.thumbnail}` : '';
 
             // Format content with images and text
-            const content = post.news_details ? post.news_details.replace(/\[BREAK\]/g, '').replace(/\[IMG\]/g, '') : '';
+            let rawDetails = post.news_details || '';
+            if (Buffer.isBuffer(rawDetails)) rawDetails = rawDetails.toString('utf8');
+            const content = rawDetails ? rawDetails.replace(/\[BREAK\]/g, '').replace(/\[IMG\]/g, '') : '';
 
             return `
       <item>
