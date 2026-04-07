@@ -10,6 +10,15 @@ import Link from 'next/link';
 import Script from 'next/script';
 import { unstable_cache } from "next/cache";
 // import UnibotsAd from "../../../adds/UnibotPlay";
+
+function decodeBufferObj(val) {
+  if (!val) return '';
+  if (typeof val === 'string') return val;
+  if (Buffer.isBuffer(val)) return val.toString('utf8');
+  if (val.type === 'Buffer' && Array.isArray(val.data)) return Buffer.from(val.data).toString('utf8');
+  return String(val);
+}
+
 export const revalidate = 3600;
 const pageUrl = process.env.BASEURL + '/en-news/';
 
@@ -174,7 +183,7 @@ import RelatedNews from "../../../components/RelatedNews";
 
 async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
     //const newstags = await getCachedTags(news_id);
-    const detail = ((newses[0].news_details) ? newses[0].news_details.toString() : (newses[0].row_news_details ? newses[0].row_news_details.toString() : '')).replaceAll("[BREAK]", "").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
+    const detail = decodeBufferObj(newses[0].news_details || newses[0].row_news_details || "").replaceAll("[BREAK]", "").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
     const prows = await getCachedImages(news_id);
 
     let imgar = prows.map(p => p.file_name);
@@ -231,7 +240,7 @@ export default async function News({ params }) {
             return <div className="home-news-container en-font"><h1>News not found or database error.</h1></div>;
         }
         newses = rows;
-        let ndet = (newses[0].news_details) ? newses[0].news_details.toString() : (newses[0].row_news_details ? newses[0].row_news_details.toString() : '');
+        let ndet = decodeBufferObj(newses[0].news_details || newses[0].row_news_details || "");
         const words = ndet.trim().split(/\s+/).length;
         rdtime = Math.ceil(words / 225);
 
