@@ -1,8 +1,6 @@
 // components/InfiniteScroll.js
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { usePathname } from 'next/navigation';
-import { useInfiniteScrollCache } from '../hooks/useInfiniteScrollCache';
 import Link from 'next/link';
 import Image from "next/image";
 import GoogleAdPcItem from "../adds/Addsright";
@@ -127,8 +125,8 @@ function NewsSection({ posts }) {
 }
 
 export default function InfiniteScroll() {
-  const pathname = usePathname();
-  const { data: posts, setData: setPosts, page, setPage } = useInfiniteScrollCache(pathname ? pathname + '-right' : 'right', [], 1);
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   const observer = useRef();

@@ -74,6 +74,7 @@ function Newd(props) {
     }
     if (i == 1) {
       text.push(<Fragment key="mgid-ad"><div id="M830015ScriptRootC1358041"></div><Script async="async" src="https://jsc.mgid.com/m/a/mangalam.com.1358041.js"></Script></Fragment>);
+
     }
   }
 
@@ -126,47 +127,47 @@ function Summay(props) {
 
 function Auther(props) {
   const nws = props.nws;
-   let author = '';
-    let author_photo = '';
-    let author_profile = '';
-    if (nws.columnist) {
-      author = nws.columnist;
-      if(nws.columnist_photo){
-          author_photo = process.env.NEXT_PUBLIC_IMAGE_URL + '/' + nws.columnist_photo ;
-      }
-      
-      author_profile = nws.columnist_profile;
-  
-    } else {
-  
-      author = nws.author || 'Web Desk';
-      if(nws.author_photo){
-          author_photo = process.env.NEXT_PUBLIC_IMAGE_URL + '/' + nws.author_photo ;
-      }else{
-          author_photo = '/img/web-desk.jpg';
-      }     
-      author_profile = nws.author_profile;
-  
+  let author = '';
+  let author_photo = '';
+  let author_profile = '';
+  if (nws.columnist) {
+    author = nws.columnist;
+    if (nws.columnist_photo) {
+      author_photo = process.env.NEXT_PUBLIC_IMAGE_URL + '/' + nws.columnist_photo;
     }
-  
-      if (author) {
-          return (
-              <div className="about-author no-printme">
-                  <h3>About Author:</h3>
-                  <div className="author-profile">
-                      {author_photo && (
-                          <Image src={author_photo} width={80} height={80} alt="Author photo" unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL?.includes('mangalam.cms')} />
-                      )}
-                      <div className="author-details">
-                          <h4>{author}</h4>
-                          <p>{author_profile}</p>
-                      </div>
-                  </div>
-              </div>
-          );
-      } 
-      return null;
-  
+
+    author_profile = nws.columnist_profile;
+
+  } else {
+
+    author = nws.author || 'Web Desk';
+    if (nws.author_photo) {
+      author_photo = process.env.NEXT_PUBLIC_IMAGE_URL + '/' + nws.author_photo;
+    } else {
+      author_photo = '/img/web-desk.jpg';
+    }
+    author_profile = nws.author_profile;
+
+  }
+
+  if (author) {
+    return (
+      <div className="about-author no-printme">
+        <h3>About Author:</h3>
+        <div className="author-profile">
+          {author_photo && (
+            <Image src={author_photo} width={80} height={80} alt="Author photo" unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL?.includes('mangalam.cms')} />
+          )}
+          <div className="author-details">
+            <h4>{author}</h4>
+            <p>{author_profile}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  return null;
+
 }
 
 
@@ -176,11 +177,10 @@ export async function generateMetadata({ params }) {
   const news_id = urlid.split('-')[0];
   const rows = await getCachedNewsDet(news_id);
   const images = await getCachedImages(news_id);
-  let imageurl='';
+  let imageurl = '';
   let purl = '';
-  if(images.length)
-  {
-    imageurl=process.env.NEXT_PUBLIC_IMAGE_URL + '/'+images[0].file_name;
+  if (images.length) {
+    imageurl = process.env.NEXT_PUBLIC_IMAGE_URL + '/' + images[0].file_name;
   }
   if (!rows || !rows.length) {
     return {
@@ -201,7 +201,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: tit,
       description: des,
-      url:purl,
+      url: purl,
       siteName: 'Mangalam',
       images: [
         {
@@ -210,15 +210,15 @@ export async function generateMetadata({ params }) {
           height: 555,
           alt: tit, // Alt text for accessibility
         },
-    ],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image', // Use "summary_large_image" for an image
-    title: tit,
-    description: des,
-    images: [imageurl],
-  },
+      ],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image', // Use "summary_large_image" for an image
+      title: tit,
+      description: des,
+      images: [imageurl],
+    },
   }
 }
 

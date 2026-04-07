@@ -644,6 +644,7 @@ function Homenew(props) {
 export default function HomeList({ initialPosts, leadItems }) {
   const pathname = usePathname();
   const { data: posts, setData: setPosts, page, setPage } = useInfiniteScrollCache(pathname ? pathname + '-left' : 'home-left', initialPosts, 1);
+  const { data: cachedLeadItems } = useInfiniteScrollCache(pathname ? pathname + '-lead' : 'home-lead', leadItems, 1);
   const [hasMore, setHasMore] = useState(true);      // Determine if there's more data to load
   const [isFetching, setIsFetching] = useState(false); // Prevent multiple fetches at once
   const observer = useRef(null);                     // Ref for IntersectionObserver
@@ -720,7 +721,7 @@ export default function HomeList({ initialPosts, leadItems }) {
       ) : (
         posts.map((post, index) => (
           <div key={index} className="mid-block">
-            <Homenew newslist={post} leadItems={leadItems} />
+            <Homenew newslist={post} leadItems={cachedLeadItems} />
             <AdSenseAdc adId={index} />
           </div>
         ))

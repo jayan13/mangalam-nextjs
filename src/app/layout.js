@@ -24,7 +24,7 @@ import Addheader from "./adds/Addheader";
 import GaddTop from "./adds/GaddTop";
 import AddDoubleClick from "./adds/AddDoubleClick";
 import NavigationLoader from "./components/NavigationLoader";
-//import ScrollRestoration from "./components/ScrollRestoration";
+import ScrollRestoration from "./components/ScrollRestoration";
 
 export const metadata = {
   title: "Mangalam-Latest Kerala News",
@@ -59,6 +59,9 @@ export default function RootLayout({ children }) {
         </Script>
         <Suspense fallback={null}>
           <NavigationLoader />
+        </Suspense>
+        <Suspense fallback={null}>
+          <ScrollRestoration />
         </Suspense>
         
         {process.env.NODE_ENV === 'production' && (

@@ -102,6 +102,9 @@ export default function ScrollRestoration() {
       } else {
         pendingRestoreRef.current = null;
       }
+      try {
+        sessionStorage.removeItem('list-ready');
+      } catch { }
     };
 
     const onPageShow = (e) => {
@@ -125,6 +128,9 @@ export default function ScrollRestoration() {
         } else {
           pendingRestoreRef.current = null;
         }
+        try {
+          sessionStorage.removeItem('list-ready');
+        } catch { }
       } catch {
         // ignore
       }
@@ -140,6 +146,21 @@ export default function ScrollRestoration() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    restoredKeyRef.current = null;
+
+    // Clean up rogue ad injection classes and residual nodes that hide content during soft-nav
+    document.body.classList.remove('mg-additional-page', 'mg-started-page');
+    document.documentElement.classList.remove('mg-additional-page', 'mg-started-page');
+    
+    try {
+      const mgStyle = document.getElementById('mgAdditionalStyles');
+      if (mgStyle) mgStyle.remove();
+      
+      const rogueContainers = document.querySelectorAll('.mg-additional-container, [class*="ScriptRootC"][class*="-additional"]');
+      rogueContainers.forEach(el => el.remove());
+    } catch (e) {
+      // Ignore cleanup failures
+    }
 
     const canSave = (keyToSave) => {
       if (restoreLockRef.current && Date.now() < restoreLockRef.current) return false;
@@ -152,7 +173,11 @@ export default function ScrollRestoration() {
 
     const saveScroll = () => {
       try {
-        const currentKey = buildKeyFromLocation();
+        const isListing = /^\/($|district\b|category\b)/.test(pathname);
+        if (!isListing) return;
+
+        const search = window.location.search || '';
+        const currentKey = `${pathname}${search}`;
         if (!canSave(currentKey)) return;
         const currentY = getScrollY();
         if (currentY <= 0) {
@@ -181,7 +206,7 @@ export default function ScrollRestoration() {
     };
 
     const onPageHide = () => {
-      saveScroll();
+      // Intentionally bypassed to prevent saving volatile positions during unload
     };
 
     const onLinkClick = (e) => {
@@ -196,10 +221,9 @@ export default function ScrollRestoration() {
       } catch {
         return;
       }
-      saveScroll();
     };
 
-    const onHomeListReady = () => {
+    const onListReady = () => {
       if (restoreUnlockModeRef.current === 'home-ready') {
         unlockRestoreLock();
       }
@@ -210,7 +234,7 @@ export default function ScrollRestoration() {
         debug = false;
       }
       if (debug) {
-        console.log('[home:list-ready] received');
+        console.log('[list-ready] received');
       }
       const currentKey = buildKeyFromLocation();
       if (restoredKeyRef.current === currentKey) return;
@@ -261,37 +285,19 @@ export default function ScrollRestoration() {
     window.addEventListener('pagehide', onPageHide);
     document.addEventListener('click', onLinkClick, true);
 
-    if (pathname === '/') {
-      window.addEventListener('home:list-ready', onHomeListReady);
-    }
+    window.addEventListener('list-ready', onListReady);
 
     const pending = pendingRestoreRef.current;
     const currentKey = buildKeyFromLocation();
 
     if (pending && pending.key === currentKey) {
-      if (pathname !== '/') {
-        restoreTokenRef.current += 1;
-        restoreWithLimitedAttempts(pending.targetY, restoreTokenRef, restoringRef);
+      const isListing = /^\/($|district\b|category\b)/.test(pathname);
+      if (!isListing) {
         restoredKeyRef.current = currentKey;
         pendingRestoreRef.current = null;
         unlockRestoreLock();
-      } else {
-        try {
-          const rawReady = sessionStorage.getItem('home:list-ready');
-          if (rawReady) {
-            const parsedReady = JSON.parse(rawReady);
-            if (parsedReady && Date.now() - parsedReady.ts < 15000) {
-              restoreTokenRef.current += 1;
-              restoreWithLimitedAttempts(pending.targetY, restoreTokenRef, restoringRef);
-              restoredKeyRef.current = currentKey;
-              pendingRestoreRef.current = null;
-              unlockRestoreLock();
-            }
-          }
-        } catch {
-          // ignore parse/storage errors
-        }
       }
+      // For listing pages, strictly wait for the newly emitted list-ready event
     }
 
     // Avoid overwriting a pending back/restore value with 0 on first paint
@@ -301,14 +307,11 @@ export default function ScrollRestoration() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('pagehide', onPageHide);
       document.removeEventListener('click', onLinkClick, true);
-      if (pathname === '/') {
-        window.removeEventListener('home:list-ready', onHomeListReady);
-      }
+      window.removeEventListener('list-ready', onListReady);
       if (saveTimerRef.current) {
         window.clearTimeout(saveTimerRef.current);
         saveTimerRef.current = null;
       }
-      saveScroll();
     };
   }, [pathname]);
 
