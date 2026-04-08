@@ -1,16 +1,27 @@
 import db from '../lib/db';
 import HomeList from './components/HomeList';
 import InfiniteScroll from './components/InfiniteScroll';
-import { unstable_cache } from "next/cache";
 import { getCategoryById } from '../lib/categories';
+import { unstable_cache } from "next/cache";
+
+// This segment cache successfully caches the ENTIRE page (HTML + DB Queries) for 360s.
 export const revalidate = 360;
 
-const getCachedInitialPosts = unstable_cache(async () => getInitialPosts(), ['my-app-home-posts'], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') });
-const getCachedLeadPosts = unstable_cache(async () => getLeadFromNodeQueue(), ['my-app-live-updates-lead'], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') });
 import { Suspense } from 'react';
 import HomeListSkeleton from './components/skeletons/NewsListSkeleton';
 
+const getCachedInitialPosts = unstable_cache(async () => getInitialPosts(), ['my-app-home-posts'], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '350') });
+const getCachedLeadPosts = unstable_cache(async () => getLeadFromNodeQueue(), ['my-app-live-updates-lead'], { revalidate: parseInt(process.env.QUERY_REVALIDATE || '350') });
+
+/* 
+ * WARNING: Do NOT wrap these functions in Next.js `unstable_cache` if you are using `export const revalidate = 360;`.
+ * Using both causes a "stale-while-revalidate race condition". The 360s page cache will trigger a rebuild and ask the 
+ * 360s data cache for data. The data cache will return STALE data (since it also expired) and the page will wrongly cache 
+ * the old data for ANOTHER 6 minutes! Simply calling the DB directly here perfectly syncs with the page cache.
+ */
 async function HomeListWrapper() {
+  //const initialPosts = await getInitialPosts();
+  //const leadItems = await getLeadFromNodeQueue();
   const initialPosts = await getCachedInitialPosts();
   const leadItems = await getCachedLeadPosts();
   return <HomeList initialPosts={initialPosts} leadItems={leadItems} />;
@@ -33,7 +44,7 @@ export default async function HomePage() {
 async function getInitialPosts() {
   let homenewslist = [];
   try {
-
+    console.log("getInitialPosts");
     let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,news.news_details,if(news_image.title,news_image.title,news.title) as alt,"" as url,node_queue.template,node_queue.title as heading,node_queue.id as nodeqid,news_category.category_id,news.district_id FROM news left join news_image on news_image.news_id=news.id inner join sub_queue on sub_queue.news_id=news.id inner join node_queue on node_queue.id=sub_queue.node_queue_id left join news_category on news_category.news_id=news.id where news.published=1 and NOW() between news.effective_date and news.expiry_date and node_queue.id in(2,4) GROUP BY news.id order by node_queue.id,sub_queue.position ');
 
     if (!data || data.length === 0) {

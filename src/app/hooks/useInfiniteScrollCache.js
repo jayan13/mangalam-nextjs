@@ -3,16 +3,6 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 
 const CACHE_DURATION = 6 * 60 * 1000; // 6 minutes in milliseconds
 
-function getFirstId(arr) {
-  try {
-    if (!Array.isArray(arr) || arr.length === 0) return null;
-    let first = arr[0];
-    if (Array.isArray(first)) first = first[0];
-    return first && typeof first === 'object' && first.id ? first.id : null;
-  } catch (e) {
-    return null;
-  }
-}
 
 function isCacheValid(cachedData) {
   if (!cachedData || !cachedData.timestamp) return false;
@@ -69,70 +59,72 @@ export function useInfiniteScrollCache(cacheKey, initialData = [], initialPage =
 
     if (typeof window !== 'undefined') {
       const saved = sessionStorage.getItem(`infinite-scroll-${cacheKey}`);
+      let parsed = null;
       if (saved) {
         try {
-          const parsed = JSON.parse(saved);
-
-          // Check cache expiration before restoring
-          if (!isCacheValid(parsed)) {
-            sessionStorage.removeItem(`infinite-scroll-${cacheKey}`);
-            setRestored(true);
-            return;
-          }
-
-          // Restore data and page safely on the client after hydration
-          const cachedLength = Array.isArray(parsed?.data) ? parsed.data.length : 0;
-          const currentLength = Array.isArray(initialData) ? initialData.length : 0;
-
-          if (cachedLength > 0 && cachedLength >= currentLength) {
-            // Mark as restored BEFORE setting state to strictly prevent re-render loops
-            restoredKeyRef.current = cacheKey;
-
-            setData(parsed.data);
-            if (parsed.page) {
-              setPage(parsed.page);
-            }
-          } else {
-            // Even if we don't restore data, mark this key as checked to prevent loop
-            restoredKeyRef.current = cacheKey;
-          }
-
-          const backNavTsRaw = sessionStorage.getItem('nav-back-timestamp');
-          const backNavTs = backNavTsRaw ? Number.parseInt(backNavTsRaw, 10) : 0;
-          const isBackNavigation = Date.now() - backNavTs < 3000;
-
-          // Scroll restoration should only happen on back navigation
-          if (isBackNavigation) {
-            if (parsed.scrollY > 0 && sessionStorage.getItem('nav-forward-click') !== 'true') {
-              // Wait for React to apply the data we just set before scrolling
-              setTimeout(() => {
-                requestAnimationFrame(() => {
-                  window.scrollTo({ top: parsed.scrollY, behavior: 'instant' });
-                });
-              }, 15);
-            }
-            // Signal list is ready for ScrollRestoration.js
-            setTimeout(() => {
-              try {
-                sessionStorage.setItem('list-ready', JSON.stringify({ ts: Date.now() }));
-                window.dispatchEvent(new Event('list-ready'));
-              } catch (e) { }
-            }, 50);
-          } else {
-            // For forward navigations, we just use the cached data but don't jump scroll Y.
-            setTimeout(() => {
-              try {
-                window.dispatchEvent(new Event('list-ready'));
-              } catch (e) { }
-            }, 50);
-          }
+          parsed = JSON.parse(saved);
         } catch (e) {
           console.error('Failed to parse cached infinite scroll data', e);
-          restoredKeyRef.current = cacheKey; // Mark checked on fail
+        }
+      }
+
+      if (parsed) {
+        // Check cache expiration before restoring
+        if (!isCacheValid(parsed)) {
+          sessionStorage.removeItem(`infinite-scroll-${cacheKey}`);
+          setRestored(true);
+          return;
+        }
+
+        const isBackNavigation = sessionStorage.getItem('nav:back:flag') === '1';
+
+        const cachedLength = Array.isArray(parsed?.data) ? parsed.data.length : 0;
+        const currentLength = Array.isArray(initialData) ? initialData.length : 0;
+
+        // Restore cached data if we have it, keeping the user on their cached session until it hits the 6-min expiry
+        if (cachedLength > 0 && cachedLength >= currentLength) {
+          // Mark as restored BEFORE setting state to strictly prevent re-render loops
+          restoredKeyRef.current = cacheKey;
+
+          setData(parsed.data);
+          if (parsed.page) {
+            setPage(parsed.page);
+          }
+        } else {
+          // Even if we don't restore data, mark this key as checked to prevent loop
+          restoredKeyRef.current = cacheKey;
+        }
+
+        // Scroll restoration should only happen on back navigation
+        if (isBackNavigation) {
+          if (parsed.scrollY > 0 && sessionStorage.getItem('nav-forward-click') !== 'true') {
+            // Wait for React to apply the data we just set before scrolling
+            setTimeout(() => {
+              requestAnimationFrame(() => {
+                window.scrollTo({ top: parsed.scrollY, behavior: 'instant' });
+              });
+            }, 15);
+          }
+          // Signal list is ready for ScrollRestoration.js
+          setTimeout(() => {
+            try {
+              sessionStorage.setItem('list-ready', JSON.stringify({ ts: Date.now() }));
+              window.dispatchEvent(new Event('list-ready'));
+            } catch (e) { }
+          }, 50);
+        } else {
+          // For forward navigations, we just use the cached data but don't jump scroll Y.
+          setTimeout(() => {
+            try {
+              window.dispatchEvent(new Event('list-ready'));
+            } catch (e) { }
+          }, 50);
         }
       } else {
         // No cache found, mark checked
         restoredKeyRef.current = cacheKey;
+        // Also signal list ready if we are starting fresh
+        setTimeout(() => { window.dispatchEvent(new Event('list-ready')); }, 50);
       }
     }
     setRestored(true);
@@ -142,14 +134,25 @@ export function useInfiniteScrollCache(cacheKey, initialData = [], initialPage =
 
   // Safely sync server prop updates if cache didn't already override them
   useEffect(() => {
-    if (restored || typeof window === 'undefined' || !initialData || !Array.isArray(initialData)) return;
+    if (!restored || typeof window === 'undefined' || !initialData || !Array.isArray(initialData)) return;
 
-    // Only update if server provided new data that is larger than current data, 
-    // and we aren't currently holding a massive cached list
-    if (initialData.length > 0 && Array.isArray(data) && data.length < initialData.length) {
+    // React to fresh server payload updates (like Next.js background revalidations)
+    // If the new initialData differs from the matching segment of our current data, update it!
+    const currentDataSegment = Array.isArray(data) ? data.slice(0, initialData.length) : [];
+    const isDataStale = JSON.stringify(currentDataSegment) !== JSON.stringify(initialData);
+
+    if (isDataStale) {
+      // The server has definitively provided new core data (e.g. background invalidation hit after 6 min).
+      // Since the db records mathematically shifted, preserving any deeply scrolled pages would just result 
+      // in duplicated articles anyway. We MUST immediately drop the cache and respect the server's fresh Page 1!
+      setData(initialData);
+      setPage(initialPage);
+      sessionStorage.removeItem(`infinite-scroll-${cacheKey}`);
+    } else if (initialData.length > 0 && Array.isArray(data) && data.length < initialData.length) {
+      // General length expansion
       setData((prev) => (prev.length < initialData.length ? initialData : prev));
     }
-  }, [initialData, restored, data.length]);
+  }, [initialData, restored, data, initialPage, cacheKey]);
 
   // Save to cache with timestamp and debouncing
   useEffect(() => {
@@ -171,13 +174,23 @@ export function useInfiniteScrollCache(cacheKey, initialData = [], initialPage =
       try {
         const activeY = window.scrollY > 10 ? window.scrollY : lastScrollY.current;
 
+        // Preserve original timestamp so it strictly expires after 6 mins
+        let originalTs = now;
+        try {
+          const existing = sessionStorage.getItem(`infinite-scroll-${cacheKey}`);
+          if (existing) {
+            const parsed = JSON.parse(existing);
+            if (parsed.timestamp) originalTs = parsed.timestamp;
+          }
+        } catch (e) {}
+
         sessionStorage.setItem(
           `infinite-scroll-${cacheKey}`,
           JSON.stringify({
             data,
             page,
             scrollY: activeY,
-            timestamp: now // Add timestamp for expiration checking
+            timestamp: originalTs
           })
         );
       } catch (e) {

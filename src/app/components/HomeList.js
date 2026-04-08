@@ -63,11 +63,17 @@ function Newimg(props) {
   const newsimage = props.news;
   const w = props.width;
   const h = props.height;
-  //let src='/'+newsimage.file_name;
   let src = `${process.env.NEXT_PUBLIC_IMAGE_URL}/${newsimage.file_name}`;
-  //console.log(src);
-  const [imageSrc, setImageSrc] = useState(src);
-  return ((newsimage.file_name != null) ? <Image src={imageSrc} alt={newsimage.alt} width={w} height={h} loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')} /> : <Image src="/uploads/noimg.svg" alt={newsimage.alt} width={w} height={h} loading="lazy" />);
+
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setHasError(false);
+  }, [src]);
+
+  const displaySrc = hasError ? "/uploads/noimg.svg" : src;
+
+  return ((newsimage.file_name != null) ? <Image src={displaySrc} alt={newsimage.alt} width={w} height={h} loading="lazy" onError={() => setHasError(true)} unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL?.includes('mangalam.cms')} /> : <Image src="/uploads/noimg.svg" alt={newsimage.alt} width={w} height={h} loading="lazy" />);
 }
 
 function TodayMangalamNav() {
@@ -163,6 +169,7 @@ function Homenew(props) {
   const template = post[0].template;
 
   if (template == 'top') {
+    //console.log("post=" + JSON.stringify(post[3]));
     return (
       <>
         {leadItems && leadItems.length > 0 && <LeadPage leadItems={leadItems} />}
@@ -643,6 +650,7 @@ function Homenew(props) {
 }
 export default function HomeList({ initialPosts, leadItems }) {
   const pathname = usePathname();
+  //console.log("initialPosts=" + JSON.stringify(initialPosts));
   const { data: posts, setData: setPosts, page, setPage } = useInfiniteScrollCache(pathname ? pathname + '-left' : 'home-left', initialPosts, 1);
   const { data: cachedLeadItems } = useInfiniteScrollCache(pathname ? pathname + '-lead' : 'home-lead', leadItems, 1);
   const [hasMore, setHasMore] = useState(true);      // Determine if there's more data to load

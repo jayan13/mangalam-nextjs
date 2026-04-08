@@ -11,8 +11,16 @@ function Newimg(props) {
   const w = props.width;
   const h = props.height;
   let src = `${process.env.NEXT_PUBLIC_IMAGE_URL}/${newsimage.file_name}`;
-  const [imageSrc, setImageSrc] = useState(src);
-  return ((newsimage.file_name != null) ? <Image src={imageSrc} alt={newsimage.alt} width={w} height={h} loading="lazy" onError={() => setImageSrc("/uploads/noimg.svg")} unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL.includes('mangalam.cms')} /> : <div>No Image</div>);
+  
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setHasError(false);
+  }, [src]);
+
+  const displaySrc = hasError ? "/uploads/noimg.svg" : src;
+
+  return ((newsimage.file_name != null) ? <Image src={displaySrc} alt={newsimage.alt} width={w} height={h} loading="lazy" onError={() => setHasError(true)} unoptimized={process.env.NEXT_PUBLIC_IMAGE_URL?.includes('mangalam.cms')} /> : <div>No Image</div>);
 }
 
 function Blocks(props) {
