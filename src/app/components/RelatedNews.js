@@ -12,40 +12,56 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
         if (category_id) {
             query = `
                 SELECT 
-                    news.id, 
-                    CONVERT(news.title USING utf8) as title, 
-                    news.eng_title, 
-                    news_image.file_name,
-                    IF(news_image.title, news_image.title, news.title) as alt,news_category.category_id
-                FROM news_category 
-                INNER JOIN news ON news.id = news_category.news_id 
-                LEFT JOIN news_image ON news_image.news_id = news.id                
-                WHERE news.published = 1 
-                AND NOW() > news.effective_date 
-                AND news_category.category_id = ? 
-                AND news.id != ?
-                GROUP BY news.id 
-                ORDER BY news.effective_date DESC 
+                    n.id, 
+                    n.title, 
+                    n.eng_title, 
+                    ni.file_name,
+                    COALESCE(ni.title, n.title) AS alt
+                FROM (
+                    SELECT news_id 
+                    FROM news_category 
+                    WHERE category_id = ?
+                ) nc
+                JOIN news n 
+                    ON n.id = nc.news_id
+                LEFT JOIN news_image ni 
+                    ON ni.id = (
+                        SELECT MIN(id) 
+                        FROM news_image 
+                        WHERE news_id = n.id
+                    )
+                WHERE 
+                    n.published = 1
+                    AND n.effective_date < NOW()
+                    AND n.id != ?
+                ORDER BY n.effective_date DESC
                 LIMIT 6
             `;
             params = [category_id, news_id];
         } else if (district_id) {
             query = `
                 SELECT 
-                    news.id, 
-                    CONVERT(news.title USING utf8) as title, 
-                    news.eng_title, 
-                    news_image.file_name,
-                    IF(news_image.title, news_image.title, news.title) as alt,news_category.category_id
-                FROM news 
-                LEFT JOIN news_image ON news_image.news_id = news.id 
-                left join news_category on news_category.news_id=news.id
-                WHERE news.published = 1 
-                AND NOW() > news.effective_date 
-                AND news.district_id = ? 
-                AND news.id != ?
-                GROUP BY news.id 
-                ORDER BY news.effective_date DESC 
+                    n.id, 
+                    n.title, 
+                    n.eng_title, 
+                    ni.file_name,
+                    COALESCE(ni.title, n.title) AS alt,
+                    nc.category_id
+                FROM news n
+                LEFT JOIN news_category nc 
+                    ON nc.news_id = n.id
+                LEFT JOIN news_image ni 
+                    ON ni.id = (
+                        SELECT MIN(id) 
+                        FROM news_image 
+                        WHERE news_id = n.id
+                    )
+                WHERE 
+                    n.published = 1
+                    AND n.effective_date < NOW()
+                    AND n.district_id = ?
+                    AND n.id != ?
+                ORDER BY n.effective_date DESC
                 LIMIT 6
             `;
             params = [district_id, news_id];

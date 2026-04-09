@@ -7,23 +7,35 @@ const getCategoryNews = unstable_cache(
     try {
       const query = `
         SELECT 
-          news.id, 
-          news.title, 
-          news.eng_title, 
-          news_image.file_name, 
-           
-          IF(news_image.title, news_image.title, news.title) as alt, 
-          "" as url, 
-          news_category.category_id 
-        FROM news_category 
-        INNER JOIN news ON news.id = news_category.news_id 
-        LEFT JOIN news_image ON news_image.news_id = news.id 
-        WHERE news.published = 1 
-          AND NOW() > news.effective_date 
-          AND news_category.category_id IN (?) 
-        GROUP BY news.id 
-        ORDER BY news.effective_date DESC 
-        LIMIT ? OFFSET ?`;
+            n.id, 
+            n.title, 
+            n.eng_title, 
+            ni.file_name,
+            COALESCE(ni.title, n.title) AS alt, 
+            "" AS url, 
+            nc.category_id
+        FROM (
+            SELECT n.id, n.title, n.eng_title, n.effective_date
+            FROM news n
+            JOIN news_category nc 
+                ON nc.news_id = n.id
+            WHERE 
+                n.published = 1
+                AND n.effective_date < NOW()
+                AND nc.category_id IN ( ? )
+            ORDER BY n.effective_date DESC
+            LIMIT ? OFFSET ?
+        ) n
+        LEFT JOIN news_image ni 
+            ON ni.id = (
+                SELECT MIN(id) 
+                FROM news_image 
+                WHERE news_id = n.id
+            )
+        LEFT JOIN news_category nc 
+            ON nc.news_id = n.id
+        ORDER BY n.effective_date DESC`;
+        
       const [posts] = await db.query(query, [category, limit, offset]);
 
       const processedPosts = posts.map(post => {

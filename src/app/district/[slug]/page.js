@@ -87,7 +87,33 @@ export default async function Home({ params }) {
 async function getInitialPosts(district_id) {
   try {
     let distnewslist = [];
-    let [data] = await db.query('SELECT news.id,news.title,news.eng_title,news_image.file_name,if(news_image.title,news_image.title,news.title) as alt,"" as url,news.district_id,news_category.category_id FROM news left join news_image on news_image.news_id=news.id  left join news_category on news_category.news_id=news.id where news.published=1 and NOW() > news.effective_date  and news.district_id=?  group by news.id order by news.effective_date DESC limit 0,8', [district_id]);
+    let [data] = await db.query(`SELECT 
+          n.id,
+          n.title,
+          n.eng_title,
+          ni.file_name,
+          COALESCE(ni.title, n.title) AS alt,
+          n.district_id,
+          nc.category_id
+      FROM (
+          SELECT id, title, eng_title, effective_date, district_id
+          FROM news
+          WHERE 
+              published = 1
+              AND effective_date < NOW()
+              AND district_id = ?
+          ORDER BY effective_date DESC
+          LIMIT 8
+      ) n
+      LEFT JOIN news_image ni 
+          ON ni.id = (
+              SELECT MIN(id) FROM news_image WHERE news_id = n.id
+          )
+      LEFT JOIN news_category nc 
+          ON nc.id = (
+              SELECT MIN(id) FROM news_category WHERE news_id = n.id
+          )
+      ORDER BY n.effective_date DESC`, [district_id]);
 
     if (data.length) {
       for (let nws in Object.keys(data)) {

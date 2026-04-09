@@ -4,28 +4,35 @@ import { getCategoryById } from '@/lib/categories';
 const getDistrictNews = unstable_cache(
   async (district, limit, offset) => {
     try {
-      const query = `
-        SELECT 
-          news.id, 
-          news.title, 
-          news.eng_title, 
-          news_image.file_name, 
-           
-          IF(news_image.title, news_image.title, news.title) as alt, 
-          "" as url, 
-          news.district_id,
-          district.name as district_name,
-          news_category.category_id
-        FROM news 
-        LEFT JOIN news_image ON news_image.news_id = news.id 
-        LEFT JOIN district ON district.id = news.district_id
-        LEFT JOIN news_category ON news_category.news_id = news.id
-        WHERE news.published = 1 
-          AND NOW() > news.effective_date 
-          AND ((? = 0 AND news.district_id != 0 AND news.district_id IS NOT NULL) OR (? != 0 AND news.district_id = ?)) 
-        GROUP BY news.id 
-        ORDER BY news.effective_date DESC 
-        LIMIT ? OFFSET ?`;
+      const query = `SELECT 
+            n.id, 
+            n.title, 
+            n.eng_title, 
+            ni.file_name, 
+            COALESCE(ni.title, n.title) AS alt, 
+            n.district_id,
+            d.name AS district_name,
+            nc.category_id
+        FROM (
+            SELECT id, title, eng_title, district_id, effective_date
+            FROM news
+            WHERE 
+                published = 1
+                AND effective_date < NOW()
+                AND district_id = ?   -- or other condition
+            ORDER BY effective_date DESC
+            LIMIT ? OFFSET ?
+        ) n
+        LEFT JOIN district d ON d.id = n.district_id
+        LEFT JOIN news_image ni 
+            ON ni.id = (
+                SELECT MIN(id) FROM news_image WHERE news_id = n.id
+            )
+        LEFT JOIN news_category nc 
+            ON nc.id = (
+                SELECT MIN(id) FROM news_category WHERE news_id = n.id
+            )
+        ORDER BY n.effective_date DESC`;
 
       const [posts] = await db.query(query, [district, district, district, limit, offset]);
 

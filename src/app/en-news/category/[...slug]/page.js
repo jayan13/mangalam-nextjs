@@ -134,24 +134,36 @@ export default async function EnCategoryPage({ params }) {
 async function getInitialPosts(category_id) {
     try {
         const query = `
-      SELECT 
-        news.id, 
-        news.title, 
-        news.eng_title, 
-        news_image.file_name, 
-        news.news_details, 
-        IF(news_image.title, news_image.title, news.title) as alt, 
-        "" as url, 
-        news_category.category_id 
-      FROM news_category 
-      INNER JOIN news ON news.id = news_category.news_id 
-      LEFT JOIN news_image ON news_image.news_id = news.id 
-      WHERE news.published = 1 
-        AND NOW() BETWEEN news.effective_date AND news.expiry_date 
-        AND news_category.category_id = ? 
-      GROUP BY news.id 
-      ORDER BY news.effective_date DESC 
-      LIMIT 0, 8`;
+            SELECT 
+                n.id, 
+                n.title, 
+                n.eng_title, 
+                ni.file_name, 
+                n.news_details, 
+                COALESCE(ni.title, n.title) AS alt, 
+                "" AS url, 
+                nc.category_id
+            FROM (
+                SELECT n.id, n.title, n.eng_title, n.news_details, n.effective_date
+                FROM news n
+                JOIN news_category nc 
+                    ON nc.news_id = n.id
+                WHERE 
+                    nc.category_id = ?
+                    AND n.published = 1
+                    AND n.effective_date <= NOW()
+                ORDER BY n.effective_date DESC
+                LIMIT 8
+            ) n
+            LEFT JOIN news_image ni 
+                ON ni.id = (
+                    SELECT MIN(id) 
+                    FROM news_image 
+                    WHERE news_id = n.id
+                )
+            LEFT JOIN news_category nc 
+                ON nc.news_id = n.id
+            ORDER BY n.effective_date DESC`;
 
         const [data] = await db.query(query, [category_id]);
 

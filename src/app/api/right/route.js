@@ -15,8 +15,8 @@ const getRightNews = unstable_cache(
       const qid = ques[0].id;
 
       const [posts] = await db.query(
-        'SELECT news.id, news.title, news.eng_title, news_image.file_name, news.news_details, IF(news_image.title, news_image.title, news.title) AS alt, "" AS url, node_queue.template, node_queue.title AS heading, node_queue.id AS nodeqid, news.district_id, news_category.category_id, "" AS links, "" AS link_title FROM news LEFT JOIN news_image ON news_image.news_id = news.id INNER JOIN sub_queue ON sub_queue.news_id = news.id INNER JOIN node_queue ON node_queue.id = sub_queue.node_queue_id LEFT JOIN news_category ON news_category.news_id = news.id WHERE news.published = 1 and NOW() > news.effective_date  AND node_queue.id = ? GROUP BY news.id ORDER BY sub_queue.position',
-        [qid]
+        'SELECT n.id,n.title,n.eng_title, ni.file_name, n.news_details, COALESCE(ni.title, n.title) AS alt, "" AS url, nq.template, nq.title AS heading, nq.id AS nodeqid, n.district_id, nc.category_id FROM ( SELECT news_id, position FROM sub_queue WHERE node_queue_id = ?  ORDER BY position ) sq JOIN news n ON n.id = sq.news_id JOIN node_queue nq  ON nq.id = ? LEFT JOIN news_image ni  ON ni.id = (  SELECT MIN(id)        FROM news_image WHERE news_id = n.id ) LEFT JOIN news_category nc  ON nc.id = ( SELECT MIN(id)  FROM news_category  WHERE news_id = n.id   ) WHERE  n.published = 1  AND n.effective_date < NOW() ORDER BY sq.position',
+        [qid,qid]
       );
 
       const processedPosts = posts.map(post => {
