@@ -138,40 +138,35 @@ async function getInitialPosts(category_ids) {
   try {
     const query = `
       SELECT 
-    n.id, 
-    n.title, 
-    n.eng_title, 
-    ni.file_name, 
-    n.news_details, 
-    COALESCE(ni.title, n.title) AS alt, 
-    '' AS url, 
-    nc.category_id
-FROM (
-    SELECT 
-        n.id, 
-        n.title, 
-        n.eng_title, 
-        n.news_details, 
-        n.effective_date,
-        MIN(nc.category_id) as category_id  
-    FROM news n
-    INNER JOIN news_category nc ON nc.news_id = n.id
-    WHERE 
-        nc.category_id = ?
-        AND n.published = 1
-        AND n.effective_date <= NOW()
-    GROUP BY n.id, n.title, n.eng_title, n.news_details, n.effective_date
-    ORDER BY n.effective_date DESC
-    LIMIT 8
-) n
-LEFT JOIN LATERAL (
-    SELECT file_name, title
-    FROM news_image 
-    WHERE news_id = n.id 
-    ORDER BY id 
-    LIMIT 1
-) ni ON TRUE
-ORDER BY n.effective_date DESC`;
+                n.id, 
+                n.title, 
+                n.eng_title, 
+                ni.file_name, 
+                n.news_details, 
+                COALESCE(ni.title, n.title) AS alt, 
+                "" AS url, 
+                nc.category_id
+            FROM (
+                SELECT n.id, n.title, n.eng_title, n.news_details, n.effective_date
+                FROM news n
+                JOIN news_category nc 
+                    ON nc.news_id = n.id
+                WHERE 
+                    nc.category_id = ?
+                    AND n.published = 1
+                    AND n.effective_date <= NOW()
+                ORDER BY n.effective_date DESC
+                LIMIT 8
+            ) n
+            LEFT JOIN news_image ni 
+                ON ni.id = (
+                    SELECT MIN(id) 
+                    FROM news_image 
+                    WHERE news_id = n.id
+                )
+            LEFT JOIN news_category nc 
+                ON nc.news_id = n.id
+            ORDER BY n.effective_date DESC`;
 
     // Safety check for category_ids
     const validIds = Array.isArray(category_ids) ? category_ids.filter(id => !isNaN(id)) : [category_ids].filter(id => !isNaN(id));

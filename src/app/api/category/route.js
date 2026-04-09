@@ -7,33 +7,35 @@ const getCategoryNews = unstable_cache(
     try {
       const query = `
         SELECT 
-    n.id, 
-    n.title, 
-    n.eng_title, 
-    ni.file_name,
-    COALESCE(ni.title, n.title) AS alt, 
-    '' AS url, 
-    n.category_id
-FROM (
-    SELECT 
-        n.id, 
-        n.title, 
-        n.eng_title, 
-        n.effective_date,
-        MIN(nc.category_id) as category_id  -- Get one category
-    FROM news n
-    INNER JOIN news_category nc ON nc.news_id = n.id
-    WHERE 
-        n.published = 1
-        AND n.effective_date < NOW()
-        AND nc.category_id IN (?)  -- Multiple categories supported
-    GROUP BY n.id, n.title, n.eng_title, n.effective_date
-    ORDER BY n.effective_date DESC
-    LIMIT ? OFFSET ?
-) n
-LEFT JOIN news_image ni ON ni.news_id = n.id 
-    AND ni.id = (SELECT MIN(id) FROM news_image WHERE news_id = n.id)
-ORDER BY n.effective_date DESC`;
+            n.id, 
+            n.title, 
+            n.eng_title, 
+            ni.file_name,
+            COALESCE(ni.title, n.title) AS alt, 
+            "" AS url, 
+            nc.category_id
+        FROM (
+            SELECT n.id, n.title, n.eng_title, n.effective_date
+            FROM news n
+            JOIN news_category nc 
+                ON nc.news_id = n.id
+            WHERE 
+                n.published = 1
+                AND n.effective_date < NOW()
+                AND nc.category_id IN ( ? )
+                
+            ORDER BY n.effective_date DESC
+            LIMIT ? OFFSET ?
+        ) n
+        LEFT JOIN news_image ni 
+            ON ni.id = (
+                SELECT MIN(id) 
+                FROM news_image 
+                WHERE news_id = n.id
+            )
+        LEFT JOIN news_category nc 
+            ON nc.news_id = n.id
+        ORDER BY n.effective_date DESC`;
         
       const [posts] = await db.query(query, [category, limit, offset]);
 
