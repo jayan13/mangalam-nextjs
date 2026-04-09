@@ -145,9 +145,9 @@ async function getInitialPosts(category_ids) {
                 n.news_details, 
                 COALESCE(ni.title, n.title) AS alt, 
                 "" AS url, 
-                nc.category_id
+                n.category_id
             FROM (
-                SELECT n.id, n.title, n.eng_title, n.news_details, n.effective_date
+                SELECT n.id, n.title, n.eng_title, n.news_details, n.effective_date, nc.category_id
                 FROM news n
                 JOIN news_category nc 
                     ON nc.news_id = n.id
@@ -164,8 +164,6 @@ async function getInitialPosts(category_ids) {
                     FROM news_image 
                     WHERE news_id = n.id
                 )
-            LEFT JOIN news_category nc 
-                ON nc.news_id = n.id
             ORDER BY n.effective_date DESC`;
 
     // Safety check for category_ids
@@ -177,7 +175,7 @@ async function getInitialPosts(category_ids) {
 
     const processedData = data.map(post => {
 
-      let category = (post.category_id) ? getCategoryById(post.category_id).name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
+      let category = (post.category_id) ? getCategoryById(post.category_id).name.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-').replace(/^-+|-+$/g, '')+ '-' : '';
       let url = 'detail/' + post.id + '-' + category + 'news-details.html';
       if (post.eng_title) {
         const slug = post.eng_title

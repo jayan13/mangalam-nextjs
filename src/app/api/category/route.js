@@ -13,17 +13,16 @@ const getCategoryNews = unstable_cache(
             ni.file_name,
             COALESCE(ni.title, n.title) AS alt, 
             "" AS url, 
-            nc.category_id
+            n.category_id
         FROM (
-            SELECT n.id, n.title, n.eng_title, n.effective_date
+            SELECT n.id, n.title, n.eng_title, n.effective_date,nc.category_id
             FROM news n
             JOIN news_category nc 
                 ON nc.news_id = n.id
             WHERE 
                 n.published = 1
                 AND n.effective_date < NOW()
-                AND nc.category_id IN ( ? )
-                
+                AND nc.category_id IN ( ? )                
             ORDER BY n.effective_date DESC
             LIMIT ? OFFSET ?
         ) n
@@ -33,14 +32,12 @@ const getCategoryNews = unstable_cache(
                 FROM news_image 
                 WHERE news_id = n.id
             )
-        LEFT JOIN news_category nc 
-            ON nc.news_id = n.id
         ORDER BY n.effective_date DESC`;
         
       const [posts] = await db.query(query, [category, limit, offset]);
 
       const processedPosts = posts.map(post => {
-        let category = (post.category_id) ? getCategoryById(post.category_id).name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
+        let category = (post.category_id) ? getCategoryById(post.category_id).name.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-').replace(/^-+|-+$/g, '')+ '-' : '';
         let url = 'detail/' + post.id + '-' + category + 'news-details.html';
         if (post.eng_title) {
           const slug = post.eng_title

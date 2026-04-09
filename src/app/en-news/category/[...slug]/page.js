@@ -142,9 +142,9 @@ async function getInitialPosts(category_id) {
                 n.news_details, 
                 COALESCE(ni.title, n.title) AS alt, 
                 "" AS url, 
-                nc.category_id
+                n.category_id
             FROM (
-                SELECT n.id, n.title, n.eng_title, n.news_details, n.effective_date
+                SELECT n.id, n.title, n.eng_title, n.news_details, n.effective_date, nc.category_id
                 FROM news n
                 JOIN news_category nc 
                     ON nc.news_id = n.id
@@ -161,14 +161,13 @@ async function getInitialPosts(category_id) {
                     FROM news_image 
                     WHERE news_id = n.id
                 )
-            LEFT JOIN news_category nc 
-                ON nc.news_id = n.id
             ORDER BY n.effective_date DESC`;
 
         const [data] = await db.query(query, [category_id]);
 
         const processedData = data.map(post => {
-            let url = `detail/${post.id}-news-details.html`;
+            let category = (post.category_id) ? getCategoryById(post.category_id).name.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-').replace(/^-+|-+$/g, '')+ '-' : '';
+            let url = `detail/${post.id}-${category}news-details.html`;
             if (post.eng_title) {
                 const slug = post.eng_title
                     .toString()
@@ -176,7 +175,7 @@ async function getInitialPosts(category_id) {
                     .replace(/[^\w\s-]/g, '')
                     .replace(/[\s_]+/g, '-')
                     .replace(/^-+|-+$/g, '');
-                url = `detail/${post.id}-${slug}.html`;
+                url = `detail/${post.id}-${category}${slug}.html`;
             }
 
             return {
