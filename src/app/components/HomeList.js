@@ -651,7 +651,11 @@ function Homenew(props) {
 export default function HomeList({ initialPosts, leadItems }) {
   const pathname = usePathname();
   //console.log("initialPosts=" + JSON.stringify(initialPosts));
-  const { data: posts, setData: setPosts, page, setPage } = useInfiniteScrollCache(pathname ? pathname + '-left' : 'home-left', initialPosts, 1);
+  const { data: posts, setData: setPosts, page, setPage, isRestoringScroll } = useInfiniteScrollCache(
+    pathname ? pathname + '-left' : 'home-left', 
+    initialPosts, 
+    1
+  );
   const { data: cachedLeadItems } = useInfiniteScrollCache(pathname ? pathname + '-lead' : 'home-lead', leadItems, 1);
   const [hasMore, setHasMore] = useState(true);      // Determine if there's more data to load
   const [isFetching, setIsFetching] = useState(false); // Prevent multiple fetches at once
@@ -659,6 +663,17 @@ export default function HomeList({ initialPosts, leadItems }) {
 
   // Function to fetch more posts
   //console.log("initial="+initialPosts);
+
+   useEffect(() => {
+    if (!isRestoringScroll && posts.length > 0) {
+      // Small delay to ensure DOM is updated
+      const timer = setTimeout(() => {
+        window.dispatchEvent(new Event('list-ready'));
+      }, 100);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isRestoringScroll, posts.length]);
 
   const fetchMorePosts = async () => {
 
