@@ -7,18 +7,24 @@ import NavLinksg from "./navlinksg";
 import EnNavLinks from "./EnNavLinks";
 import Weather from "./weather";
 import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
+
 
 function Header() {
   const pathname = usePathname();
   const isEn = pathname.startsWith('/en-news');
+  const [currentDate, setCurrentDate] = useState('');
+
+  useEffect(() => {
+    setCurrentDate(new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }));
+  }, []);
 
   return (
     <header className="main-header no-printme">
       <div className="logo-header">
         <div className="logo-left">
           <div className="logo-left-top">
-            <Link href="#" className="icon-link"><Image src="/img/menu-burger-1.svg" width={17} height={17} alt="Explore" /><span>Explore</span></Link>
-            <Link href="#" className="icon-link"><Image src="/img/search.svg" width={17} height={17} alt="Search" /><span>Search</span></Link>
+
           </div>
           <div className="weather">
             <Weather />
@@ -28,6 +34,9 @@ function Header() {
           <Link href={`/`} alt='mangalam'>
             <Image src="/img/mangalam-logo.svg" width={427} height={59} alt="Mangalam" />
           </Link>
+          <div className="current-date" style={{ textAlign: 'center', fontSize: '13px', marginTop: '5px', fontWeight: '500' }}>
+            {currentDate}
+          </div>
         </div>
 
         <div className="logo-right">
