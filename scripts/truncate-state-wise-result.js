@@ -4,7 +4,7 @@ const path = require('path');
 
 // Basic .env.local loader (kept consistent with other scripts)
 function loadEnv() {
-  const envPath = path.join(__dirname, '..', '.env.local');
+  const envPath = path.join(__dirname, '..', '.env.production');
   if (!fs.existsSync(envPath)) return;
 
   const envConfig = fs.readFileSync(envPath, 'utf8');
