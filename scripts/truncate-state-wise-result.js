@@ -51,7 +51,7 @@ async function truncateStateWiseResult() {
 
     console.log(`Altering table ${database}.parties (aliance_group enum)...`);
     await db.query(
-      "ALTER TABLE `parties` CHANGE `aliance_group` `aliance_group` ENUM('NDA','UPA','BSP-SP','LDF','DMK','AIADMK','TMC','INC','LEFT+INC','MNM','URF','OTH') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;"
+      "ALTER TABLE `parties` CHANGE `aliance_group` `aliance_group` ENUM('NDA','UPA','UDF','BSP-SP','LDF','DMK','AIADMK','TVK','TMC','INC','LEFT+INC','MNM','URF','OTH') CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;"
     );
     console.log('Done.');
   } finally {
