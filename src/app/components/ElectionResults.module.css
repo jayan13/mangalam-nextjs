@@ -1,0 +1,335 @@
+/* Party Section - Inline Scroll Format */
+.partiesSection {
+  margin-top: 32px;
+}
+
+.partiesSection h2 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Scroll Container */
+.partiesScrollContainer {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 4px 0;
+}
+
+.partiesScrollContainer::-webkit-scrollbar {
+  height: 6px;
+}
+
+.partiesScrollContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.partiesScrollContainer::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.partiesScrollContainer::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Scroll Content */
+.partiesScrollContent {
+  display: inline-flex;
+  gap: 10px;
+  padding: 12px 16px;
+}
+
+.partyInlineItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  border-left: 3px solid #e74c3c;
+}
+
+.partyInlineItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  background: #fef5f5;
+}
+
+/* Party Name */
+.partyNameInline {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Results Wrapper */
+.partyResultsWrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #f8f9fa;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+/* Won Count - Bold Red */
+.partyWonCount {
+  font-size: 15px;
+  font-weight: bold;
+  color: #dc3545;
+  font-weight: 700;
+}
+
+/* Plus Sign */
+.partyPlusSign {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  margin: 0 2px;
+}
+
+/* Leading Count - Green */
+.partyLeadingCount {
+  font-size: 13px;
+  font-weight: 600;
+  color: #28a745;
+}
+
+/* Existing Alliance Card Styles */
+.allianceCard {
+  background: white;
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+  flex: 1;
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.allianceCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.allianceName {
+  margin: 0;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+
+.allianceStats {
+  display: flex;
+  gap: 20px;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.allianceStats .stat {
+  min-width: 55px;
+}
+
+.allianceStats .statLabel {
+  display: block;
+  font-size: 10px;
+  color: #999;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.allianceStats .statValue {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Top Row */
+.topRow {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 32px;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.totalSeatsCard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.totalSeatsCard h3 {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.totalSeatsNumber {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.alliancesSection {
+  display: flex;
+  gap: 15px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Header */
+.header {
+  background: white;
+  border-radius: 12px 12px 0 0;
+  margin-bottom: 20px;
+}
+
+.stateTabs {
+  display: flex;
+  gap: 5px;
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.stateTab {
+  padding: 14px 22px;
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+.stateTab:hover {
+  color: #e74c3c;
+  background: #fef5f5;
+}
+
+.stateTab.active {
+  color: #e74c3c;
+  border-bottom: 3px solid #e74c3c;
+}
+
+.seatCount {
+  font-size: 11px;
+  font-weight: normal;
+  margin-left: 5px;
+  color: #999;
+}
+
+/* Content */
+.content {
+  padding: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .topRow {
+    flex-direction: column;
+  }
+  
+  .totalSeatsCard {
+    min-width: auto;
+  }
+  
+  .alliancesSection {
+    flex-direction: column;
+  }
+  
+  .stateTab {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  
+  .partyInlineItem {
+    padding: 6px 14px;
+  }
+  
+  .partyNameInline {
+    font-size: 12px;
+  }
+  
+  .partyResultInline {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  
+  .allianceCard {
+    padding: 12px;
+  }
+  
+  .allianceName {
+    font-size: 15px;
+  }
+  
+  .allianceStats .statValue {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .partiesScrollContent {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  
+  .partyInlineItem {
+    gap: 8px;
+    padding: 5px 12px;
+  }
+  
+  .stateTab {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .totalSeatsNumber {
+    font-size: 28px;
+  }
+  
+  .allianceStats {
+    gap: 15px;
+  }
+}
