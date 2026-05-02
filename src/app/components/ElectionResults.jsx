@@ -144,18 +144,18 @@ const ElectionResults = () => {
 const AllianceCard = ({ alliance }) => {
   const getAllianceStyle = (name) => {
     const styles = {
-      'NDA': { color: '#ff9933', bg: '#fff5e6' },
-      'UPA': { color: '#19aaeb', bg: '#e8f4fe' },
-      'UDF': { color: '#19aaeb', bg: '#e8f4fe' },
-      'LDF': { color: '#ff3f5f', bg: '#f7e4e4' },
-      'DMK': { color: '#ff3f5f', bg: '#f7e4e4' },
-      'AIADMK': { color: '#028f09', bg: '#cdf7dd' },
-      'INC': { color: '#19aaeb', bg: '#e8f4fe' },
-      'TMC': { color: '#19aaeb', bg: '#e8f4fe' },
-      'LEFT+INC': { color: '#19aaeb', bg: '#e8f4fe' },
-      'BSP-SP': { color: '#0f7a3d', bg: '#e6f4ea' },
-      'TVK': { color: '#ff9933', bg: '#fff5e6' },
-      'OTH': { color: '#808080', bg: '#f0f0f0' }
+ 'NDA':     { color: '#cc7a00', bg: '#fff6e5' }, // Warm saffron
+  'UPA':     { color: '#1e88e5', bg: '#e5f0ff' }, // Light blue
+  'UDF':     { color: '#0d47a1', bg: '#e8eaf6' }, // Indigo tint
+  'LDF':     { color: '#c62828', bg: '#ffebee' }, // Light red
+  'DMK':     { color: '#ad1457', bg: '#fce4ec' }, // Pinkish red
+  'AIADMK':  { color: '#2e7d32', bg: '#e8f5e9' }, // Mint green
+  'INC':     { color: '#1976d2', bg: '#e3f2fd' }, // Classic blue
+  'TMC':     { color: '#388e3c', bg: '#f1f8e9' }, // Light green
+  'LEFT+INC':{ color: '#8e0000', bg: '#fde0e0' }, // Brick red
+  'BSP-SP':  { color: '#00796b', bg: '#e0f2f1' }, // Aqua teal
+  'TVK':     { color: '#f57c00', bg: '#fff3e0' }, // Orange
+  'OTH':     { color: '#616161', bg: '#f5f5f5' }  // Cool gray
     };
     return styles[name] || { color: '#666', bg: '#f5f5f5' };
   };
