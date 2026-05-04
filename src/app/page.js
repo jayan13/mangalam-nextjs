@@ -3,7 +3,6 @@ import HomeList from './components/HomeList';
 import InfiniteScroll from './components/InfiniteScroll';
 import { getCategoryById } from '../lib/categories';
 import { unstable_cache } from "next/cache";
-
 // This segment cache successfully caches the ENTIRE page (HTML + DB Queries) for 360s.
 export const revalidate = 360;
 
@@ -206,4 +205,3 @@ function buildUrl(id, engTitle, category_id) {
 
   return `detail/${id}-${category}${slug}.html`;
 }
-

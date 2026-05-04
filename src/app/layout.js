@@ -25,7 +25,7 @@ import GaddTop from "./adds/GaddTop";
 import AddDoubleClick from "./adds/AddDoubleClick";
 import NavigationLoader from "./components/NavigationLoader";
 import ScrollRestoration from "./components/ScrollRestoration";
-
+import BreakingNewsBlock from "./components/breakingnews";
 export const metadata = {
   title: "Mangalam-Latest Kerala News",
   description: "Mangalam-Latest Kerala News in Malayalam",
@@ -70,8 +70,9 @@ export default function RootLayout({ children }) {
           </>
         )}
         <div className="screen">
-          <Header />
+          <Header />          
           <GaddTop />
+          <BreakingNewsBlock />
           {children}
           <Footer />
         </div>
