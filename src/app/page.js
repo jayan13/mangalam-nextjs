@@ -4,6 +4,7 @@ import InfiniteScroll from './components/InfiniteScroll';
 import { getCategoryById } from '../lib/categories';
 import { unstable_cache } from "next/cache";
 // This segment cache successfully caches the ENTIRE page (HTML + DB Queries) for 360s.
+import BreakingNewsBlock from "./components/breakingnews";
 export const revalidate = 360;
 
 import { Suspense } from 'react';
@@ -28,6 +29,7 @@ async function HomeListWrapper() {
 
 export default async function HomePage() {
   return (
+    <><BreakingNewsBlock />
     <div className="home-news-container">
       <div className="home-news-section">
         <Suspense fallback={<HomeListSkeleton />}>
@@ -36,6 +38,7 @@ export default async function HomePage() {
         <InfiniteScroll />
       </div>
     </div>
+    </>
   );
 }
 
