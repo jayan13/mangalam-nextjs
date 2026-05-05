@@ -14,7 +14,7 @@ import AdSenseAdc from "../adds/AddsCenter"
 //import DistrictNav from "./DistrictNav";
 import LeadPage from "./liveupdates";
 import RightTop from "../adds/RightTop";
-import ElectionResults from './ElectionResults';
+
 
 const CATEGORIES = [
   { id: 19, name: 'Keralam', slug: 'keralam' },
@@ -172,8 +172,7 @@ function Homenew(props) {
   if (template == 'top') {
     //console.log("post=" + JSON.stringify(post[3]));
     return (
-      <>
-      <ElectionResults />
+      <>      
         {leadItems && leadItems.length > 0 && <LeadPage leadItems={leadItems} />}
         <div className='main-news'>
           <div className='main-news-left'>
