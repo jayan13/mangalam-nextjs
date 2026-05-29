@@ -36,7 +36,7 @@ export async function getDetails(news_id) {
 
 export async function getImages(news_id) {
   try {
-    let [rows] = await db.query('SELECT file_name FROM news_image where news_id=?', news_id);
+    let [rows] = await db.query('SELECT file_name,title FROM news_image where news_id=?', news_id);
     return rows;
   } catch (error) {
     console.error('Database error in getImages:', error);
@@ -188,8 +188,10 @@ export async function generateMetadata({ params }) {
   const images = await getCachedImages(news_id);
   let imageurl = '';
   let purl = '';
+  let imgtitle = '';
   if (images.length) {
     imageurl = process.env.NEXT_PUBLIC_IMAGE_URL + '/' + images[0].file_name;
+    imgtitle = images[0].title;
   }
   if (!rows || !rows.length) {
     return {
@@ -217,7 +219,7 @@ export async function generateMetadata({ params }) {
           url: imageurl, // Must be an absolute URL
           width: 924,
           height: 555,
-          alt: tit, // Alt text for accessibility
+          alt: imgtitle || tit, // Alt text for accessibility
         },
       ],
       type: 'website',
@@ -240,6 +242,8 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
   const newstags = await getCachedTags(news_id);
   const detail = decodeBufferObj(newses[0].news_details || newses[0].row_news_details || "").replaceAll("[BREAK]", "").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
   const prows = await getCachedImages(news_id);
+  const primaryImageTitle = (prows[0]?.title || '').trim();
+  const displayTitle = primaryImageTitle || newses[0].title;
 
   let imgar = [];
   for (let p of prows) {
@@ -252,19 +256,19 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
     if (imgar[i]) {
       imgurl = imgar[i];
     }
-    detarry.push({ id: news_id + i, value: val, url: imgurl, title: newses[0].eng_title });
+    detarry.push({ id: news_id + i, value: val, url: imgurl, title: (prows[i]?.title || '').trim() || displayTitle });
   }
 
   return (
     <>
-      <h1>{newses[0].title}</h1>
+      <h1>{displayTitle}</h1>
       <div className="news-single-meta">
         <div className="single-meta">
           <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].columnist) ? newses[0].columnist : (newses[0].author || 'Web Desk')} </Link>| Last updated: {newses[0].posting_date} | {rdtime} min read</p>
         </div>
         <div className="printshare no-printme">
           <Printpage />
-          <SocialSharePopup url={pageUrl + newses[0].url} title={newses[0].title} />
+          <SocialSharePopup url={pageUrl + newses[0].url} title={displayTitle} />
           <ListenToArticle text={newses[0].eng_summary} />
         </div>
       </div>
