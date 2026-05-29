@@ -1,5 +1,5 @@
 const nextConfig = {
-  allowedDevOrigins: ['dev.mangalam.com', 'mangalam.com', 'images.mangalam.com', 'mangalam.cms', 'img.youtube.com'],
+  allowedDevOrigins: ['dev.mangalam.com', 'www.mangalam.com', 'mangalam.com', 'images.mangalam.com', 'mangalam.cms', 'img.youtube.com'],  
   images: {
     minimumCacheTTL: 31536000, // Cache for 1 year to minimize hits to images.mangalam.com
 	dangerouslyAllowLocalIP: true,
