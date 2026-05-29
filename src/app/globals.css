@@ -1919,6 +1919,28 @@ select {
   }
 }
 
+.singlenews-left .news-image-block {
+  position: relative;
+  margin: 0 0 12px;
+}
+
+.singlenews-left .news-image-block img {
+  display: block;
+}
+
+.singlenews-left .news-image-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
 .swiper-slide {
   display: flex;
   justify-content: center;

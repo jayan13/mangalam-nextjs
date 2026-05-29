@@ -71,6 +71,7 @@ const getCachedCat = unstable_cache(async (id) => getCategory(id), (id) => [`my-
 
 function Newd(props) {
   const newsdetails = props.det;
+  const imageTitle = (newsdetails.title || '').trim();
 
   const val = newsdetails.value;
   const parag = val.split('<br>');
@@ -89,7 +90,10 @@ function Newd(props) {
 
   if (newsdetails.url) {
     return (<article key={'imgc' + newsdetails.id}>
-      <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/' + newsdetails.url} key={'img' + newsdetails.id} alt={newsdetails.title} width={924} height={555} unoptimized={true} />
+      <figure className="news-image-block">
+        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/' + newsdetails.url} key={'img' + newsdetails.id} alt={imageTitle || newsdetails.news_title || 'Mangalam News'} width={924} height={555} unoptimized={true} />
+        {imageTitle && <figcaption className="news-image-title">{imageTitle}</figcaption>}
+      </figure>
       {text}
     </article>);
   } else {
@@ -242,33 +246,34 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
   const newstags = await getCachedTags(news_id);
   const detail = decodeBufferObj(newses[0].news_details || newses[0].row_news_details || "").replaceAll("[BREAK]", "").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
   const prows = await getCachedImages(news_id);
-  const primaryImageTitle = (prows[0]?.title || '').trim();
-  const displayTitle = primaryImageTitle || newses[0].title;
+  const newsTitle = newses[0].title;
 
   let imgar = [];
   for (let p of prows) {
-    imgar.push(p.file_name);
+    imgar.push({ file_name: p.file_name, title: p.title });
   }
 
   let detarry = [];
   for (const [i, val] of detail.entries()) {
     let imgurl = '';
+    let imgtit = '';
     if (imgar[i]) {
-      imgurl = imgar[i];
+      imgurl = imgar[i].file_name;
+      imgtit = imgar[i].title;
     }
-    detarry.push({ id: news_id + i, value: val, url: imgurl, title: (prows[i]?.title || '').trim() || displayTitle });
+    detarry.push({ id: news_id + i, value: val, url: imgurl, title: imgtit,news_title: newsTitle });
   }
 
   return (
     <>
-      <h1>{displayTitle}</h1>
+      <h1>{newsTitle}</h1>
       <div className="news-single-meta">
         <div className="single-meta">
           <p className="news-meta">Authored by <Link href="#" title="title text">{(newses[0].columnist) ? newses[0].columnist : (newses[0].author || 'Web Desk')} </Link>| Last updated: {newses[0].posting_date} | {rdtime} min read</p>
         </div>
         <div className="printshare no-printme">
           <Printpage />
-          <SocialSharePopup url={pageUrl + newses[0].url} title={displayTitle} />
+          <SocialSharePopup url={pageUrl + newses[0].url} title={newsTitle} />
           <ListenToArticle text={newses[0].eng_summary} />
         </div>
       </div>
