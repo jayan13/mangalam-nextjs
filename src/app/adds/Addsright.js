@@ -12,14 +12,14 @@ const GoogleAdPcItem = ({ adId }) => {
   if (pathname == '' || pathname == '/') //homepage
   {
     if (adId == 0) {
+      //return (
+      //  <div className="desktop-only">
+//<RightTop type="desktop" />
+//</div>
+//);
       return (
-        <div className="desktop-only">
-          <RightTop type="desktop" />
-        </div>
-     );
-     // return (
-       //   <GoogleAd ids={adId} slot="1701259437" />
-       // );
+          <GoogleAd ids={adId} slot="1701259437" />
+        );
     }
     else if (adId == 1) {
       return (
