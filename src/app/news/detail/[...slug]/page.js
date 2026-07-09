@@ -26,7 +26,7 @@ const pageUrl = process.env.BASEURL;
 
 export async function getDetails(news_id) {
   try {
-    let [rows] = await db.query('SELECT news.id,news.title,news.eng_title,news.eng_summary,DATE_FORMAT(news.effective_date, "%d %b %Y, %l:%i %p") as posting_date,news_details as row_news_details,news.news_details,concat("/news/detail/",news.id,"-",REPLACE(LOWER(news.eng_title)," ","-"),".html") as url,news.meta_keywords,news.meta_description,news.author,news.author_photo,news.author_profile,columnist.name as columnist,columnist.photo as columnist_photo,columnist.profile as columnist_profile,district.name AS district,news.district_id,(SELECT category_id FROM news_category WHERE news_id = news.id LIMIT 1) as category_id FROM news left join columnist on columnist.id=news.columnist_id LEFT JOIN district ON district.id = news.district_id where news.id=? LIMIT 1', news_id);
+    let [rows] = await db.query('SELECT news.id,news.title,news.eng_title,news.summary,news.eng_summary,DATE_FORMAT(news.effective_date, "%d %b %Y, %l:%i %p") as posting_date,news_details as row_news_details,news.news_details,concat("/news/detail/",news.id,"-",REPLACE(LOWER(news.eng_title)," ","-"),".html") as url,news.meta_keywords,news.meta_description,news.author,news.author_photo,news.author_profile,columnist.name as columnist,columnist.photo as columnist_photo,columnist.profile as columnist_profile,district.name AS district,news.district_id,(SELECT category_id FROM news_category WHERE news_id = news.id LIMIT 1) as category_id FROM news left join columnist on columnist.id=news.columnist_id LEFT JOIN district ON district.id = news.district_id where news.id=? LIMIT 1', news_id);
     return rows;
   } catch (error) {
     console.error('Database error in getDetails:', error);
@@ -165,7 +165,7 @@ function Auther(props) {
 
   if (author) {
     return (
-      <div className="about-author no-printme">
+      <div className="about-author ">
         <h3>About Author:</h3>
         <div className="author-profile">
           {author_photo && (
@@ -247,7 +247,7 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
   const detail = decodeBufferObj(newses[0].news_details || newses[0].row_news_details || "").replaceAll("[BREAK]", "").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
   const prows = await getCachedImages(news_id);
   const newsTitle = newses[0].title;
-
+  
   let imgar = [];
   for (let p of prows) {
     imgar.push({ file_name: p.file_name, title: p.title });
@@ -277,7 +277,7 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
           <ListenToArticle text={newses[0].eng_summary} />
         </div>
       </div>
-
+      {newses[0].summary? <p className="excerpt">{newses[0].summary}</p> : ''}      
       <div key={newses[0].id}>
         {detarry.map((news, index) => <Newd det={news} key={index} />)}
       </div>

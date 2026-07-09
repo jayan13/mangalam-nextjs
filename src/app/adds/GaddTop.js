@@ -18,7 +18,7 @@ const GoogleAd = () => {
   if(pathname == '' || pathname == '/') //home page
   {
     return (
-      <div className="advertisement">
+      <div className="advertisement no-printme">
         <div className="advertisement-text">Advertisement</div>
         <div className="ad ad-container" style={{ width: "100%",  margin: "0 auto", textAlign: "center" }}>
           <ins
@@ -35,7 +35,7 @@ const GoogleAd = () => {
     
   }else{
     return (
-      <div className="advertisement">
+      <div className="advertisement no-printme">
         <div className="advertisement-text">Advertisement</div>
         <div className="ad ad-container" style={{ width: "100%", margin: "0 auto", textAlign: "center" }}>
           <ins

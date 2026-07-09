@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function NavLinksg() {
   const pathname = usePathname()
   return (
-    <div className="gray-menu">
+    <div className="gray-menu no-printme">
       <ul>
         <li><Link href="/category/8061-special-coverage.html" className={`link ${pathname === '/category/8061-special-coverage.html' ? 'active' : ''}`}>Special Coverage</Link></li>
         <li><Link href="/category/100-crime.html" className={`link ${pathname === '/category/100-crime.html' ? 'active' : ''}`}>Crime</Link></li>

@@ -20,13 +20,13 @@ function Header() {
   }, []);
 
   return (
-    <header className="main-header no-printme">
+    <header className="main-header ">
       <div className="logo-header">
         <div className="logo-left">
           <div className="logo-left-top">
 
           </div>
-          <div className="weather">
+          <div className="weather no-printme">
             <Weather />
           </div>
         </div>
@@ -39,8 +39,8 @@ function Header() {
           </div>
         </div>
 
-        <div className="logo-right">
-          <div className="logo-right-top-links">
+        <div className="logo-right ">
+          <div className="logo-right-top-links no-printme">
             {isEn ? (
               <Link href="/" className="icon-link"><span>Malayalam Edition</span></Link>
             ) : (

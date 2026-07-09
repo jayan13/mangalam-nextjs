@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function NavLinks() {
   const pathname = usePathname()
   return (
-    <div className="blue-menu">
+    <div className="blue-menu no-printme">
     <ul>
       <li>
         <Link

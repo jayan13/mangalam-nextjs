@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function EnNavLinks() {
     const pathname = usePathname()
     return (
-        <div className="blue-menu en-font">
+        <div className="blue-menu en-font no-printme">
             <ul>
                 <li><Link href="/en-news" className={`link ${pathname === '/en-news' ? 'active' : ''}`}>HOME</Link></li>
                 <li><Link href="/en-news/category/2458-kerala.html" className={`link ${pathname === '/en-news/category/2458-kerala.html' ? 'active' : ''}`}>KERALA</Link></li>

@@ -16,7 +16,7 @@ const District = () => {
   };
 
   return (
-    <div>
+    <div className="no-printme">
       <select value={selectedUrl} id="district" className="select" onChange={handleSelectChange}>
         <option value="">Choose a District</option>
         {districts.map((district) => (

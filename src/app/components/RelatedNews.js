@@ -100,7 +100,7 @@ export default async function RelatedNews({ news_id, category_id, district_id, i
     if (!relatedPosts || relatedPosts.length === 0) return null;
 
     return (
-        <div className={`related-news-section ${isEn ? 'en-font' : ''}`} style={{ marginTop: '30px', borderTop: '1px solid #eee', paddingTop: '20px' }}>
+        <div className={`related-news-section no-printme ${isEn ? 'en-font' : ''}`} style={{ marginTop: '30px', borderTop: '1px solid #eee', paddingTop: '20px' }}>
             <h3 style={{ marginBottom: '15px', fontSize: '20px', fontWeight: '700' }}>
                 {isEn ? 'Related News' : 'ബന്ധപ്പെട്ട വാർത്തകൾ'}
             </h3>
