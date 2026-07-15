@@ -10,6 +10,8 @@ import Link from 'next/link';
 import Script from 'next/script';
 import { unstable_cache } from "next/cache";
 import UnibotsAd from "../../../adds/UnibotPlay";
+//import EmbedContent from "../../../components/EmbedContent";
+import { parseNewsContent } from "../../../../lib/parseNewsContent";
 
 
 function decodeBufferObj(val) {
@@ -64,48 +66,12 @@ export async function getCategory(cat_id) {
   }
 }
 
-const getCachedNewsDet = unstable_cache(async (id) => getDetails(id), (id) => [`my-app-news-${id}`], { revalidate: 3600 });
+const getCachedNewsDet = unstable_cache(async (id) => getDetails(id), (id) => [`my-app-news-${id}`], { revalidate: 36 });
 const getCachedImages = unstable_cache(async (id) => getImages(id), (id) => [`my-app-images-${id}`], { revalidate: 3600 });
 const getCachedTags = unstable_cache(async (id) => getTags(id), (id) => [`my-app-tags-${id}`], { revalidate: 3600 });
 const getCachedCat = unstable_cache(async (id) => getCategory(id), (id) => [`my-app-bcats-${id}`], { revalidate: 3600 });
 
-function Newd(props) {
-  const newsdetails = props.det;
-  const imageTitle = (newsdetails.title || '').trim();
 
-  const val = newsdetails.value;
-  const parag = val.split('<br>');
-  const text = [];
-  for (let i = 0; i < parag.length; i++) {
-    text.push(<Fragment key={`p-${i}`}><div className='article' dangerouslySetInnerHTML={{ __html: parag[i] }} /> <br /></Fragment>);
-
-    if (i == 0) {
-      text.push(<UnibotsAd key="unibot-ad" />);
-    }
-    if (i == 1) {
-      //text.push(<Fragment key="mgid-ad"><div id="M830015ScriptRootC1358041"></div><Script async="async" src="https://jsc.mgid.com/m/a/mangalam.com.1358041.js"></Script></Fragment>);
-
-    }
-  }
-
-  if (newsdetails.url) {
-    return (<article key={'imgc' + newsdetails.id}>
-      <figure className="news-image-block">
-        <Image src={process.env.NEXT_PUBLIC_IMAGE_URL + '/' + newsdetails.url} key={'img' + newsdetails.id} alt={imageTitle || newsdetails.news_title || 'Mangalam News'} width={924} height={555} unoptimized={true} />
-        {imageTitle && <figcaption className="news-image-title">{imageTitle}</figcaption>}
-      </figure>
-      {text}
-    </article>);
-  } else {
-    return (<article key={'imgc' + newsdetails.id}>
-      {text}
-    </article>);
-  }
-
-
-
-  //return ( (newsdetails.url)? <article key={'imgc'+newsdetails.id}> <Image src={'/'+newsdetails.url} key={'img'+newsdetails.id} alt={newsdetails.title} width={924} height={555}/>  <p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article> : <article key={'imgc'+newsdetails.id}><p className='article' key={newsdetails.id} dangerouslySetInnerHTML={{ __html: newsdetails.value }} /></article>);
-}
 
 function Tags(props) {
   const tgs = props.tgs;
@@ -241,28 +207,29 @@ import { Suspense } from 'react';
 import NewsDetailSkeleton from '../../../components/skeletons/NewsDetailSkeleton';
 
 import RelatedNews from "../../../components/RelatedNews";
+import NewsHtml from "../../../components/newsdetails/NewsHtml";
+import NewsImage from "../../../components/newsdetails/NewsImage";
+import SocialEmbed from "../../../components/newsdetails/SocialEmbed";
+import YoutubeEmbed from "../../../components/newsdetails/YoutubeEmbed";
+//import InlineAd from "../../../components/newsdetails/InlineAd";
 
 async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
   const newstags = await getCachedTags(news_id);
-  const detail = decodeBufferObj(newses[0].news_details || newses[0].row_news_details || "").replaceAll("[BREAK]", "").replace(/(?:\r\n|\r|\n)/g, '<br>').split('[IMG]');
+  const news_details ='[IMG]' + decodeBufferObj(newses[0].news_details || newses[0].row_news_details || "").replace(/(?:\r\n|\r|\n)/g, '[BREAK]');
   const prows = await getCachedImages(news_id);
-  const newsTitle = newses[0].title;
+  const images = prows.map(i=>({
+        file_name:i.file_name,
+        title:i.title
+    }));
+  const detail = parseNewsContent(news_details,images); // Call the parseNewsContent function to process the news details
+  //console.log(detail);
   
-  let imgar = [];
-  for (let p of prows) {
-    imgar.push({ file_name: p.file_name, title: p.title });
-  }
+  const newsTitle = newses[0].title; 
+  
 
-  let detarry = [];
-  for (const [i, val] of detail.entries()) {
-    let imgurl = '';
-    let imgtit = '';
-    if (imgar[i]) {
-      imgurl = imgar[i].file_name;
-      imgtit = imgar[i].title;
-    }
-    detarry.push({ id: news_id + i, value: val, url: imgurl, title: imgtit,news_title: newsTitle });
-  }
+  let adIndex = 0;
+  
+  
 
   return (
     <>
@@ -278,9 +245,76 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
         </div>
       </div>
       {newses[0].summary? <p className="excerpt">{newses[0].summary}</p> : ''}      
-      <div key={newses[0].id}>
-        {detarry.map((news, index) => <Newd det={news} key={index} />)}
-      </div>
+      <article>
+      {detail.map((item,index)=>{
+
+          switch(item.type){
+
+          case "html":
+              const html = item.html.replace(/\[BREAK\]/g, "<br>");
+              adIndex++;
+
+              return (
+
+                  <Fragment key={index}>
+                      {adIndex === 1 && <UnibotsAd key="unibot-ad" />}
+                      <NewsHtml html={html}/>                      
+
+                  </Fragment>
+
+              );
+
+          case "image":
+
+              return (
+
+                  <NewsImage
+
+                      key={index}
+                      image={item.image}
+                      title={newsTitle}
+
+                  />
+
+              );
+
+          case "twitter":
+
+          case "instagram":
+
+              return (
+
+                  <SocialEmbed
+
+                      key={index}
+                      html={item.html}
+
+                  />
+
+              );
+
+          case "youtube":
+
+              return (
+
+                  <YoutubeEmbed
+
+                      key={index}
+                      html={item.html}
+
+                  />
+
+              );
+
+          default:
+
+              return null;
+
+          }
+
+          })}
+
+    </article>
       <Summay engsum={newses[0].eng_summary} />
       <Tags tgs={newstags} />
       <Auther nws={newses[0]} />

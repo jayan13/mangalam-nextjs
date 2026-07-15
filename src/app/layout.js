@@ -75,6 +75,15 @@ export default function RootLayout({ children }) {
           {children}
           <Footer />
         </div>
+        <Script
+    src="https://platform.x.com/widgets.js"
+    strategy="afterInteractive"
+  />
+
+  <Script
+    src="https://www.instagram.com/embed.js"
+    strategy="afterInteractive"
+  />
       </body>
     </html>
   );

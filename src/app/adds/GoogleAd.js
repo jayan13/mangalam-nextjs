@@ -14,7 +14,7 @@ const GoogleAd = ({ ids, slot }) => {
     }
   }, [adRef]); // Ensure it runs when the component mounts
   return (
-    <div className="advertisement">
+    <div className="advertisement no-printme">
       <div className="advertisement-text">Advertisement</div>
       <div ref={adRef} className="ad my-4 flex justify-center ad-container" style={{ width: "100%", maxWidth: "300px", margin: "0 auto", textAlign: "center" }}>
         <ins className="adsbygoogle"

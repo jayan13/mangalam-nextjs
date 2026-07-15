@@ -11,7 +11,7 @@ const UnibotsAd = () => {
     });
   }, []);
 
-  return <div id="div-ub-mangalam.com_1679478637377"></div>;
+  return <div id="div-ub-mangalam.com_1679478637377" className="no-printme"></div>;
 };
 
 export default UnibotsAd;
