@@ -2,7 +2,7 @@ export default function YoutubeEmbed({ html }) {
 
     return (
         <div
-            className="youtube"
+            className="youtube no-printme"
             dangerouslySetInnerHTML={{
                 __html: html
             }}

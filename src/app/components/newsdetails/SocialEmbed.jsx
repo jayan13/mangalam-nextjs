@@ -62,7 +62,7 @@ export default function SocialEmbed({ html }) {
       />
 
       {/* Empty during SSR. HTML inserted only on client. */}
-      <div ref={containerRef} className="social-embed" />
+      <div ref={containerRef} className="social-embed no-printme" />
     </>
   );
 }

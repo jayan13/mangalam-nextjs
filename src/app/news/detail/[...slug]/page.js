@@ -12,6 +12,7 @@ import { unstable_cache } from "next/cache";
 import UnibotsAd from "../../../adds/UnibotPlay";
 //import EmbedContent from "../../../components/EmbedContent";
 import { parseNewsContent } from "../../../../lib/parseNewsContent";
+import DisqusComments from "../../../components/DisqusComments";
 
 
 function decodeBufferObj(val) {
@@ -227,8 +228,8 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
   const newsTitle = newses[0].title; 
   
 
-  let adIndex = 0;
-  
+  let adIndex = 0; 
+      
   
 
   return (
@@ -323,6 +324,11 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
         news_id={news_id}
         category_id={newses[0].category_id}
         district_id={newses[0].district_id}
+      />
+      <DisqusComments
+          id={news_id}
+          title={newsTitle}
+          url={pageUrl + newses[0].url}
       />
     </>
   );
