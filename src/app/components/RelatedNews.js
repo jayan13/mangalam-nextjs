@@ -4,6 +4,15 @@ import Newimg from './Newimg';
 import { unstable_cache } from "next/cache";
 import { getCategoryById } from '@/lib/categories';
 
+function getCategorySlugPrefix(categoryId) {
+    if (!categoryId) return '';
+
+    const category = getCategoryById(categoryId);
+    if (!category?.name) return '';
+
+    return `${category.name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-')}-`;
+}
+
 async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
     try {
         let query = '';
@@ -72,7 +81,7 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
         const [rows] = await db.query(query, params);
 
         return rows.map(item => {
-            let category = (item.category_id) ? getCategoryById(item.category_id).name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-') + '-' : '';
+            const category = getCategorySlugPrefix(item.category_id);
             const slug = item.eng_title
                 ? item.eng_title.replace(/[^\w\s]/gi, '').replaceAll(' ', '-').replaceAll(/-+/gi, '-').toLowerCase()
                 : 'news-details';
