@@ -149,7 +149,7 @@ async function getInitialPosts(category_id) {
                 JOIN news_category nc 
                     ON nc.news_id = n.id
                 WHERE 
-                    nc.category_id = ?
+                    nc.category_id IN (?)
                     AND n.published = 1
                     AND n.effective_date <= NOW()
                 ORDER BY n.effective_date DESC
