@@ -13,7 +13,7 @@ function getCategorySlugPrefix(categoryId) {
     return `${category.name.toLowerCase().replaceAll(' ', '-').replaceAll(/-+/gi, '-')}-`;
 }
 
-async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
+async function fetchRelatedNews(category_id, district_id, isEn) {
     try {
         let query = '';
         let params = [];
@@ -42,11 +42,10 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
                 WHERE 
                     n.published = 1
                     AND n.effective_date < NOW()
-                    AND n.id != ?
                 ORDER BY n.effective_date DESC
-                LIMIT 6
+                LIMIT 7
             `;
-            params = [category_id, news_id];
+            params = [category_id];
         } else if (district_id) {
             query = `
                 SELECT 
@@ -69,15 +68,14 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
                     n.published = 1
                     AND n.effective_date < NOW()
                     AND n.district_id = ?
-                    AND n.id != ?
                 ORDER BY n.effective_date DESC
-                LIMIT 6
+                LIMIT 7
             `;
-            params = [district_id, news_id];
+            params = [district_id];
         } else {
             return [];
         }
-
+        // console.log('Executing query:', query, 'with params:', params);
         const [rows] = await db.query(query, params);
 
         return rows.map(item => {
@@ -98,14 +96,17 @@ async function fetchRelatedNews(news_id, category_id, district_id, isEn) {
 }
 
 const getCachedRelatedNews = unstable_cache(
-    async (news_id, category_id, district_id, isEn) => fetchRelatedNews(news_id, category_id, district_id, isEn),
-    (news_id, category_id, district_id, isEn) => [`related-news-${news_id}-${category_id}-${district_id}-${isEn}`],
-    { revalidate: parseInt(process.env.QUERY_REVALIDATE || '360') }
+    async (category_id, district_id, isEn) => fetchRelatedNews(category_id, district_id, isEn),
+    (category_id, district_id, isEn) => [`related-news-${category_id}-${district_id}-${isEn}`],
+    { revalidate: parseInt('3600') }
 );
 
 export default async function RelatedNews({ news_id, category_id, district_id, isEn = false }) {
-    const relatedPosts = await getCachedRelatedNews(news_id, category_id, district_id, isEn);
-
+    const currentNewsId = String(news_id);
+    const relatedPosts = (await getCachedRelatedNews(category_id, district_id, isEn))
+        .filter((post) => String(post.id) !== currentNewsId)
+        .slice(0, 6);
+    
     if (!relatedPosts || relatedPosts.length === 0) return null;
 
     return (
