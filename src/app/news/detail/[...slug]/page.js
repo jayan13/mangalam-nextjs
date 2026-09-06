@@ -7,12 +7,12 @@ import Printpage from "../../../components/Printpage";
 import ListenToArticle from "../../../components/ListenToArticle";
 import Image from "next/image";
 import Link from 'next/link';
-import Script from 'next/script';
 import { unstable_cache } from "next/cache";
 import UnibotsAd from "../../../adds/UnibotPlay";
 //import EmbedContent from "../../../components/EmbedContent";
 import { parseNewsContent } from "../../../../lib/parseNewsContent";
 import DisqusComments from "../../../components/DisqusComments";
+import MgidWidget from "../../../components/MgidWidget";
 
 
 function decodeBufferObj(val) {
@@ -325,6 +325,7 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
         category_id={newses[0].category_id}
         district_id={newses[0].district_id}
       />
+      <MgidWidget />
       <DisqusComments
           id={news_id}
           title={newsTitle}
