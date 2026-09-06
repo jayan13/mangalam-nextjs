@@ -11,7 +11,7 @@ import { unstable_cache } from "next/cache";
 import UnibotsAd from "../../../adds/UnibotPlay";
 //import EmbedContent from "../../../components/EmbedContent";
 import { parseNewsContent } from "../../../../lib/parseNewsContent";
-//import DisqusComments from "../../../components/DisqusComments";
+import DisqusComments from "../../../components/DisqusComments";
 import MgidWidget from "../../../components/MgidWidget";
 
 
@@ -325,7 +325,11 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
         district_id={newses[0].district_id}
       />
       <MgidWidget />
-      
+      <DisqusComments
+          id={news_id}
+          title={newsTitle}
+          url={pageUrl + newses[0].url}
+      /> 
     </>
   );
 }
