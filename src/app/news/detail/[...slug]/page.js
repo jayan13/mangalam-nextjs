@@ -259,8 +259,7 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
 
                   <Fragment key={index}>
                       {adIndex === 1 && <UnibotsAd key="unibot-ad" />}
-                      <NewsHtml html={html}/>                      
-                      <MgidWidget />
+                      <NewsHtml html={html}/>
                   </Fragment>
 
               );
