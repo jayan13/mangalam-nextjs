@@ -17,8 +17,6 @@ function Addheader() {
           `,
       }}
     />
-
-    <Script src="https://cdn.unibots.in/coronaWidget/coronaWidget38/script.js" strategy="lazyOnload" />
     <Script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" strategy="afterInteractive" crossOrigin="anonymous" />
     <Script src="https://cdn.unibotscdn.com/player/mvp/player.js" strategy="lazyOnload" />
   </>)
