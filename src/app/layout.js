@@ -52,6 +52,10 @@ export default function RootLayout({ children }) {
             )}
           </>
         )}
+        <Script id="mgid-site-script"
+          src="https://jsc.mgid.com/site/830015.js"
+          strategy="afterInteractive" async
+        />
       </head>
       <body suppressHydrationWarning>
         <Script id="disable-context-menu" strategy="afterInteractive">

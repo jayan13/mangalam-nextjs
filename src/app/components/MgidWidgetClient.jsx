@@ -1,10 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Script from "next/script";
-
-const MGID_SCRIPT_ID = "mgid-site-script";
-const MGID_SCRIPT_SRC = "https://jsc.mgid.com/site/830015.js";
 
 export default function MgidWidgetClient() {
   const loadedRef = useRef(false);
@@ -19,8 +15,7 @@ export default function MgidWidgetClient() {
   }, []);
 
   return (
-    <div className="mgid-widget no-printme" suppressHydrationWarning>
-      <Script id={MGID_SCRIPT_ID} src={MGID_SCRIPT_SRC} strategy="afterInteractive" async />
+    <div className="mgid-widget no-printme" suppressHydrationWarning>      
       <div
         data-type="_mgwidget"
         data-widget-id="1358040"

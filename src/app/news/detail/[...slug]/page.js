@@ -13,6 +13,7 @@ import UnibotsAd from "../../../adds/UnibotPlay";
 import { parseNewsContent } from "../../../../lib/parseNewsContent";
 import DisqusComments from "../../../components/DisqusComments";
 import MgidWidget from "../../../components/MgidWidget";
+import MgidInlineWidget from "../../../components/MgidInlineWidget";
 
 
 function decodeBufferObj(val) {
@@ -252,14 +253,25 @@ async function NewsContent({ news_id, newses, rdtime, pageUrl }) {
           switch(item.type){
 
           case "html":
-              const html = item.html.replace(/\[BREAK\]/g, "<br>");
-              adIndex++;
-
+              const paragraphs = item.html
+                .split(/\[BREAK\]+/)
+                .map((paragraph) => paragraph.trim())
+                .filter(Boolean);
+                adIndex++;
               return (
 
                   <Fragment key={index}>
-                      {adIndex === 1 && <UnibotsAd key="unibot-ad" />}
-                      <NewsHtml html={html}/>
+                      {paragraphs.map((paragraph, paragraphIndex) => {                        
+
+                        return (
+                          <Fragment key={`${index}-${paragraphIndex}`}>                            
+                            <NewsHtml html={paragraph}/>
+                            {adIndex === 1 && paragraphIndex===0 && <MgidInlineWidget />}
+                            {adIndex === 1 && paragraphIndex === 1 && <UnibotsAd />}
+                            <br/>
+                          </Fragment>
+                        );
+                      })}
                   </Fragment>
 
               );
